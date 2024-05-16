@@ -1,15 +1,18 @@
 import * as React from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
+import { HomeNavigationProperties } from '../types/navigation-properties'
 
-// TODO remove the { navigation: any }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function HomeScreen({ navigation }: { navigation: any }) {
+export default function HomeScreen({ navigation }: HomeNavigationProperties) {
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>
       <Button
         title="Go to Details"
         onPress={() => navigation.navigate('Details')}
+      />
+      <Button
+        title="Go to Abracadabra"
+        onPress={() => navigation.navigate('Abracadabra')}
       />
     </View>
   )

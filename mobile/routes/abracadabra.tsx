@@ -1,15 +1,12 @@
 import * as React from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
-import { DetailsNavigationProperties } from '../types/navigation-properties'
+import { AbracadabraNavigationProperties } from '../types/navigation-properties'
 
-export default function DetailsScreen({ navigation }: DetailsNavigationProperties) {
+export default function AbracadabraScreen({ navigation }: AbracadabraNavigationProperties) {
   return (
     <View style={styles.container}>
-      <Text>Details Screen</Text>
-      <Button
-        title="Go to Abracadabra"
-        onPress={() => navigation.navigate('Abracadabra')}
-      />
+      <Text>Abracadabra Screen</Text>
+      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   )
