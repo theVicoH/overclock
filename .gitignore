@@ -68,21 +68,12 @@ yarn-error.log
 /coverage
 
 # Yarn
-<<<<<<< HEAD
 .yarn/
 !/mobile/.yarn/patches
 !/mobile/.yarn/plugins
 !/mobile/.yarn/releases
 !/mobile/.yarn/sdks
 !/mobile/.yarn/versions
-=======
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
->>>>>>> 79f61f008caf7236eaf98cea0da30aa447deacee
 
 # Npm
 npm-lock.yaml
