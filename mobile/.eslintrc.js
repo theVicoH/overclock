@@ -1,12 +1,8 @@
 module.exports = {
   root: true,
-  extends: '@react-native',
-  parserOptions: {
-    parser: '@babel/eslint-parser',
-    requireConfigFile: false,
-    ecmaVersion: 2018,
-    sourceType: 'module'
-  },
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
+  extends: ['plugin:@typescript-eslint/recommended'],
   rules: {
     'no-unused-vars': ['error'],
     quotes: ['error', 'single'],
