@@ -7,4 +7,3 @@ Get started locally with these commands:<br>
 We used to keep mobile code clean with:
 - [Eslint](https://eslint.org/) `pnpm lint`
 - [Prettier](https://prettier.io/) `pnpm format`
-- `npx tsc --noEmit`
