@@ -29,9 +29,6 @@ dependencies:
   react-native-screens:
     specifier: ^3.31.1
     version: 3.31.1(react-native@0.74.1)(react@18.2.0)
-  typescript:
-    specifier: ^5.4.5
-    version: 5.4.5
 
 devDependencies:
   '@babel/core':
@@ -79,6 +76,9 @@ devDependencies:
   react-test-renderer:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
+  typescript:
+    specifier: ^5.4.5
+    version: 5.4.5
 
 packages:
 
@@ -6907,6 +6907,7 @@ packages:
     resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
     engines: {node: '>=14.17'}
     hasBin: true
+    dev: true
 
   /unbox-primitive@1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
