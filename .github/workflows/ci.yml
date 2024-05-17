@@ -15,7 +15,7 @@ jobs:
           node-version: 20
 
       -name: Install pnpm
-        run: npm install -g pnpm
+        run: npm install pnpm
         working-directory: ./mobile
 
       - name: Install dependencies
