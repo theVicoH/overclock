@@ -1,13 +1,16 @@
 package main
 
 import (
-	"Vroom/internal/handler"
-	"Vroom/internal/router"
-	"Vroom/internal/service"
+	"Overclock/internal/handler"
+	"Overclock/internal/repository"
+	"Overclock/internal/router"
+	"Overclock/internal/service"
 	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
+
+	_ "Overclock/internal/doc"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -29,7 +32,9 @@ func init() {
 	// 	Type:     os.Getenv("DB_TYPE"),
 	// })
 
-	controlService := service.NewControlService()
+	controlRepo := repository.NewControlRepository()
+
+	controlService := service.NewControlService(controlRepo)
 
 	controlHandler = handler.NewControlHandler(controlService)
 

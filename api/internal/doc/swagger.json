@@ -1,0 +1,51 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/v1/control/manual": {
+            "get": {
+                "description": "Receive manual control commands via WebSocket",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "control"
+                ],
+                "summary": "Control the vehicle manually",
+                "parameters": [
+                    {
+                        "description": "Wheel Speeds",
+                        "name": "speeds",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
