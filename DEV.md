@@ -1,95 +1,146 @@
-### Development Guide
-This document explains the various `make` commands used in the project for development purposes. These commands streamline common tasks such as running the API, starting the web and mobile applications, managing database migrations, and more.
+## Development Guide
+This file provides instructions for setting up and running the API, web, and mobile applications. It also includes information on managing database migrations, generating ORM and generating documentation.
 
+## Table of Contents
 
-#### Table of Contents
+- [Prerequisites](#prerequisites)
+- [Setup](#setup)
+- [Running the Applications](#running-the-applications)
+  - [Start the Database](#start-the-database)
+  - [Start the API](#start-the-api)
+  - [Start the Web Application](#start-the-web-application)
+  - [Start the Mobile Application](#start-the-aobile-application)
+- [Database Migrations](#database-migrations)
+  - [Apply Migrations](#apply-migrations)
+  - [Create a New Migration](#create-a-new-migration)
+  - [Rollback Migrations](#rollback-migrations)
+- [Generate ORM](#generate-orm)
+- [Generate API Documentation](#generate-api-documentation)
+- [Linting the Code](#linting-the-code)
+  - [Lint All Code](#lint-all-code)
+  - [Lint the API](#lint-the-api)
+  - [Lint the Web Application](#lint-the-web-application)
+  - [Lint the Mobile Application](#lint-the-mobile-application)
 
-- [Environment Variables](#environment-variables)
-- [Make Commands](#make-commands)
-  - [db](#db)
-  - [dev-api](#dev-api)
-  - [dev-web](#dev-web)
-  - [dev-mobile](#dev-mobile)
-  - [migrate](#migrate)
-  - [db-up](#db-up)
-  - [db-down](#db-down)
-  - [db-docker](#db-docker)
-  - [orm](#orm)
-  - [swag](#swag)
+## Prerequisites
 
----
+Make sure you have the following tools installed:
 
-### Environment Variables
+- [Go](https://go.dev)
+- [Docker](https://www.docker.com)
+- [Node.js](https://nodejs.org)
+- [pnpm](https://pnpm.io)
+- [sqlc](https://sqlc.dev)
+- [swag](https://github.com/swaggo/swag)
+- [golangci-lint](https://golangci-lint.run)
 
-Before using the `make` commands, ensure you have a `.env` file with the necessary environment variables. The `include .env` and `export` statements at the beginning of the Makefile ensure that these variables are loaded and available for use.
+## Setup
 
----
+1. Clone the repository:
+```sh
+git clone https://github.com/clementpnn/Overclock.git
+cd Overclock
 
-### Make Commands
+```
 
-#### db
-This command is a combination of `db-docker` and `db-up`. It sets up the database using Docker and then applies all the migrations.
+2. Install dependencies for the web application:
+```sh
+cd web
+pnpm install
+cd ..
+```
+
+3. Install dependencies for the mobile application:
+```sh
+cd mobile
+pnpm install
+cd ..
+```
+
+## Running the Applications
+
+### Start the Database
+
+To start the database, run the following command:
 ```sh
 make db
 ```
 
-#### dev-api
-This command navigates to the `api` directory and runs the main Go application.
+### Start the API
+
+To start the API, run the following command:
 ```sh
-make make dev-api
+make dev-api
 ```
 
-#### dev-web
-This command navigates to the web directory and starts the `web` development server using `pnpm`.
+### Start the Web Application
+
+To start the web application, run the following command:
 ```sh
-make make dev-web
+make dev-web
 ```
 
-#### dev-mobile
-This command navigates to the mobile directory and starts the `mobile` application using `pnpm`.
+### Start the Mobile Application
+
+To start the mobile application, run the following command:
 ```sh
-make make dev-mobile
+make dev-mobile
 ```
 
-#### migrate
-This command creates a new database migration. It prompts you to enter the name of the table to create, then uses the `migrate` tool to generate a new migration file.
+## Database Migrations
+
+### Apply Migrations
+To apply all database migrations and bring the database schema up to date, run the following command:
 ```sh
-make make migrate
+make db-up
 ```
 
-#### db-up
-This command applies all the database migrations to bring the database schema up to date.
+### Create a New Migration
+To create a new database migration, run the following command and follow the prompts:
 ```sh
-make make db-up
+make db-migrate
 ```
 
-#### db-down
-This command rolls back the last set of database migrations.
+### Rollback Migrations
+To rollback the last set of database migrations, run the following command:
 ```sh
-make make db-down
+make db-down
 ```
 
-#### db-docker
-This command starts the database using Docker Compose.
+## Generate ORM
+To generate the Sqlc ORM for the API, run the following command:
 ```sh
-make make db-docker
+make orm
 ```
 
-#### orm
-This command generates the ORM (Object-Relational Mapping) code using `sqlc`.
+## Generate API Documentation
+To generate the Swagger documentation for the API, run the following command:
 ```sh
-make make orm
+make swag
 ```
 
-#### swag
-This command generates the Swagger documentation for the API. It navigates to the `api` directory and uses `swag` to generate the documentation based on the Go code.
+## Linting the Code
+
+### Lint All Code
+To lint all code (API, web, and mobile), run the following command:
 ```sh
-make make swag
+make lint
 ```
 
----
+### Lint the API
+To lint the API code, run the following command:
+```sh
+make lint-api
+```
 
-### Notes
+### Lint the Web Application
+To lint the web application code, run the following command:
+```sh
+make lint-web
+```
 
-- Ensure that you have all the necessary tools installed (`docker-compose`, `migrate`, `sqlc`, `swag`, etc.) to use these commands effectively.
-- The color codes (`RED`, `GREEN`, `YELLOW`, `NC`) are used to enhance the readability of the output messages in the terminal.
+### Lint the Mobile Application
+To lint the mobile application code, run the following command:
+```sh
+make lint-mobile
+```
