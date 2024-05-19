@@ -31,6 +31,7 @@ Make sure you have the following tools installed:
 - [Node.js](https://nodejs.org)
 - [pnpm](https://pnpm.io)
 - [sqlc](https://sqlc.dev)
+- [migrate](https://github.com/golang-migrate/migrate)
 - [swag](https://github.com/swaggo/swag)
 - [golangci-lint](https://golangci-lint.run)
 
