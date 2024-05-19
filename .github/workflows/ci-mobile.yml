@@ -1,4 +1,4 @@
-name: CI
+name: CI-Mobile
 
 on: pull_request
 
@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
-      
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -17,7 +17,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
         with:
-            version: 8
+          version: 8
 
       - name: Install dependencies
         run: pnpm i

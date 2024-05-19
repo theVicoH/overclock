@@ -39,3 +39,14 @@ orm:
 
 swag:
 	cd api && swag init -g ${API_MAIN} -o internal/doc
+
+lint: lint-api lint-web lint-mobile
+
+lint-api:
+	cd api && golangci-lint run
+
+lint-web:
+	cd web && pnpm run lint
+
+lint-mobile:
+	cd mobile && pnpm run lint
