@@ -1,13 +1,17 @@
 package main
 
 import (
-	"Vroom/internal/handler"
-	"Vroom/internal/router"
-	"Vroom/internal/service"
+	"Overclock/internal/handler"
+	"Overclock/internal/repository"
+	"Overclock/internal/router"
+	"Overclock/internal/service"
 	"fmt"
+	"log"
 	"os"
 	"os/signal"
 	"syscall"
+
+	_ "Overclock/internal/doc"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -29,7 +33,9 @@ func init() {
 	// 	Type:     os.Getenv("DB_TYPE"),
 	// })
 
-	controlService := service.NewControlService()
+	controlRepo := repository.NewControlRepository()
+
+	controlService := service.NewControlService(controlRepo)
 
 	controlHandler = handler.NewControlHandler(controlService)
 
@@ -47,18 +53,26 @@ func main() {
 		return c.SendStatus(fiber.StatusNotFound)
 	})
 
-	app.Listen(":3000")
+	go func() {
+		if err := app.Listen(":3000"); err != nil {
+			log.Fatalf("Error starting server: %v", err)
+		}
+	}()
+
+	shutdown(app)
 }
 
 func shutdown(app *fiber.App) {
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 
-	_ = <-c
+	<-c
 	fmt.Println("Gracefully shutting down...")
-	_ = app.Shutdown()
+	if err := app.Shutdown(); err != nil {
+		log.Fatalf("Error shutting down server: %v", err)
+	}
 
 	fmt.Println("Running cleanup tasks...")
 	// db.Close()
-	fmt.Println("Fiber was successful shutdown.")
+	fmt.Println("Fiber was successfully shut down.")
 }

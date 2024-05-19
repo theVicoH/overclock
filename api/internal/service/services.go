@@ -1,8 +1,11 @@
 package service
 
+import "Overclock/internal/facade"
+
 type ControlService struct {
+	controlRepo facade.ControlRepository
 }
 
-func NewControlService() *ControlService {
-	return &ControlService{}
+func NewControlService(controlRepo facade.ControlRepository) *ControlService {
+	return &ControlService{controlRepo}
 }
