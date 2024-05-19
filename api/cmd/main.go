@@ -6,6 +6,7 @@ import (
 	"Overclock/internal/router"
 	"Overclock/internal/service"
 	"fmt"
+	"log"
 	"os"
 	"os/signal"
 	"syscall"
@@ -52,18 +53,26 @@ func main() {
 		return c.SendStatus(fiber.StatusNotFound)
 	})
 
-	app.Listen(":3000")
+	go func() {
+		if err := app.Listen(":3000"); err != nil {
+			log.Fatalf("Error starting server: %v", err)
+		}
+	}()
+
+	shutdown(app)
 }
 
 func shutdown(app *fiber.App) {
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 
-	_ = <-c
+	<-c
 	fmt.Println("Gracefully shutting down...")
-	_ = app.Shutdown()
+	if err := app.Shutdown(); err != nil {
+		log.Fatalf("Error shutting down server: %v", err)
+	}
 
 	fmt.Println("Running cleanup tasks...")
 	// db.Close()
-	fmt.Println("Fiber was successful shutdown.")
+	fmt.Println("Fiber was successfully shut down.")
 }

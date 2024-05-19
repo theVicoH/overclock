@@ -22,23 +22,31 @@ func (h *ControlHandler) ManualControl(c *websocket.Conn) {
 	for {
 		_, message, err := c.ReadMessage()
 		if err != nil {
-			c.WriteMessage(websocket.TextMessage, []byte("Error reading message"))
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error reading message")); writeErr != nil {
+				return
+			}
 			break
 		}
 
 		var speeds model.WheelSpeed
 		if err := json.Unmarshal(message, &speeds); err != nil {
-			c.WriteMessage(websocket.TextMessage, []byte("Error parsing message"))
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error parsing message")); writeErr != nil {
+				return
+			}
 			break
 		}
 
 		if !h.controlService.IsValidSpeed(speeds) {
-			c.WriteMessage(websocket.TextMessage, []byte("Invalid speed values"))
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Invalid speed values")); writeErr != nil {
+				return
+			}
 			break
 		}
 
 		if err := h.controlService.Direction(speeds); err != nil {
-			c.WriteMessage(websocket.TextMessage, []byte("Error processing control command"))
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing control command")); writeErr != nil {
+				return
+			}
 			break
 		}
 	}
