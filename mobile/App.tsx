@@ -6,6 +6,7 @@ import {
   QueryClient,
   QueryClientProvider
 } from '@tanstack/react-query'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import HomeScreen from './routes/home'
 import DetailsScreen from './routes/details'
 import AbracadabraScreen from './routes/abracadabra'
@@ -15,18 +16,20 @@ const queryClient = new QueryClient()
 
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ title: 'Overview' }}
-          />
-          <Stack.Screen name="Details" component={DetailsScreen} />
-          <Stack.Screen name="Abracadabra" component={AbracadabraScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </QueryClientProvider>
+    <GestureHandlerRootView>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{ title: 'Overview' }}
+            />
+            <Stack.Screen name="Details" component={DetailsScreen} />
+            <Stack.Screen name="Abracadabra" component={AbracadabraScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </QueryClientProvider>
+    </GestureHandlerRootView>
   )
 }
