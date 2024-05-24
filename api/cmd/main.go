@@ -21,6 +21,7 @@ import (
 
 var (
 	controlHandler *handler.ControlHandler
+	faceHandler    *handler.FaceHandler
 )
 
 func init() {
@@ -39,6 +40,9 @@ func init() {
 
 	controlHandler = handler.NewControlHandler(controlService)
 
+	faceService := service.NewFaceService(controlRepo)
+
+	faceHandler = handler.NewFaceHandler(faceService)
 }
 
 func main() {
@@ -48,6 +52,7 @@ func main() {
 
 	app.Get("/swagger/*", swagger.HandlerDefault)
 	router.ControlRoutes(app, controlHandler)
+	router.FaceRoutes(app, faceHandler)
 
 	app.Use(func(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusNotFound)
