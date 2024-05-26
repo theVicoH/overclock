@@ -17,6 +17,7 @@ func NewControlRepository() facade.ControlRepository {
 }
 
 func NewBuzzerRepository() facade.ControlRepository {
+	return &websocketRepository{}
 }
 
 func NewHeadAngleRepository() facade.HeadAngleRepository {
