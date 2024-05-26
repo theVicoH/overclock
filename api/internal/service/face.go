@@ -5,7 +5,7 @@ import (
 )
 
 func (s *FaceService) IsValidFace(face model.Face) bool {
-	return face < 7
+	return face > 0
 }
 
 func (s *FaceService) SetFace(face model.Face) error {
