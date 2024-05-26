@@ -21,6 +21,7 @@ import (
 
 var (
 	controlHandler *handler.ControlHandler
+	buzzerHandler  *handler.BuzzerHandler
 	faceHandler    *handler.FaceHandler
 	headAngleHandler *handler.HeadAngleHandler
 )
@@ -37,16 +38,17 @@ func init() {
 
 	controlRepo := repository.NewControlRepository()
 	headAngleRepo := repository.NewHeadAngleRepository()
+  buzzerRepo := repository.NewBuzzerRepository()
 
 	controlService := service.NewControlService(controlRepo)
 	headAngleService := service.NewHeadAngleService(headAngleRepo)
+  buzzerService := service.NewBuzzerService(buzzerRepo)
+  faceService := service.NewFaceService(controlRepo)
 
 	controlHandler = handler.NewControlHandler(controlService)
-
-	faceService := service.NewFaceService(controlRepo)
-
 	faceHandler = handler.NewFaceHandler(faceService)
 	headAngleHandler = handler.NewHeadAngleHandler(headAngleService)
+  buzzerHandler = handler.NewBuzzerHandler(buzzerService)
 }
 
 func main() {
@@ -56,6 +58,7 @@ func main() {
 
 	app.Get("/swagger/*", swagger.HandlerDefault)
 	router.ControlRoutes(app, controlHandler)
+	router.BuzzerRoutes(app, buzzerHandler)
 	router.FaceRoutes(app, faceHandler)
 	router.HeadAngleRoute(app, headAngleHandler)
 

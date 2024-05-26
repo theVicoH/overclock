@@ -13,8 +13,16 @@ type HeadAngleService struct {
 	headAngleRepo facade.HeadAngleRepository
 }
 
+type BuzzerService struct{
+	buzzeRepo facade.BuzzerRepository
+}
+
 func NewControlService(controlRepo facade.ControlRepository) *ControlService {
 	return &ControlService{controlRepo}
+}
+
+func NewBuzzerService(buzzeRepo facade.BuzzerRepository) *BuzzerService{
+	return &BuzzerService{buzzeRepo}
 }
 
 func NewFaceService(faceRepo facade.FaceRepository) *FaceService {
