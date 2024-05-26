@@ -29,6 +29,32 @@ paths:
       summary: Control the vehicle manually
       tags:
       - control
+/v1/face/set:
+    get:
+      consumes:
+      - application/json
+      description: Receive an ID via WebSocket
+      parameters:
+      - description: Face id
+        in: body
+        name: face
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Error
+          schema:
+            type: string
+      summary: Set the face of the vehicule
+      tags:
+      - control
   /v1/headAngle:
     get:
       consumes:
