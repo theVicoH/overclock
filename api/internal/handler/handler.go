@@ -9,3 +9,12 @@ type ControlHandler struct {
 func NewControlHandler(controlService facade.ControlService) *ControlHandler {
 	return &ControlHandler{controlService}
 }
+
+type BuzzerHandler struct {
+	buzzerService facade.BuzzerService
+}
+
+func NewBuzzerHandler(buzzerService facade.BuzzerService) *BuzzerHandler {
+	return &BuzzerHandler{buzzerService}
+}
+

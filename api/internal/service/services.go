@@ -9,3 +9,11 @@ type ControlService struct {
 func NewControlService(controlRepo facade.ControlRepository) *ControlService {
 	return &ControlService{controlRepo}
 }
+
+type BuzzerService struct{
+	buzzeRepo facade.BuzzerRepository
+}
+
+func NewBuzzerService(buzzeRepo facade.BuzzerRepository) *BuzzerService{
+	return &BuzzerService{buzzeRepo}
+}

@@ -15,3 +15,7 @@ type websocketRepository struct {
 func NewControlRepository() facade.ControlRepository {
 	return &websocketRepository{}
 }
+
+func NewBuzzerRepository() facade.ControlRepository {
+	return &websocketRepository{}
+}
