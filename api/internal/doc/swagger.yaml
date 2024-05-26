@@ -29,4 +29,32 @@ paths:
       summary: Control the vehicle manually
       tags:
       - control
+  /v1/headAngle:
+    get:
+      consumes:
+      - application/json
+      description: Receive two angles via WebSocket
+      parameters:
+      - description: Head angle
+        in: body
+        name: angle
+        required: true
+        schema:
+          items:
+            type: integer
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Error
+          schema:
+            type: string
+      summary: Rotate the head of the vehicle
+      tags:
+      - control
 swagger: "2.0"

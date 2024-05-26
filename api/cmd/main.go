@@ -20,7 +20,8 @@ import (
 )
 
 var (
-	controlHandler *handler.ControlHandler
+	controlHandler   *handler.ControlHandler
+	headAngleHandler *handler.HeadAngleHandler
 )
 
 func init() {
@@ -34,11 +35,13 @@ func init() {
 	// })
 
 	controlRepo := repository.NewControlRepository()
+	headAngleRepo := repository.NewHeadAngleRepository()
 
 	controlService := service.NewControlService(controlRepo)
+	headAngleService := service.NewHeadAngleService(headAngleRepo)
 
 	controlHandler = handler.NewControlHandler(controlService)
-
+	headAngleHandler = handler.NewHeadAngleHandler(headAngleService)
 }
 
 func main() {
@@ -48,6 +51,7 @@ func main() {
 
 	app.Get("/swagger/*", swagger.HandlerDefault)
 	router.ControlRoutes(app, controlHandler)
+	router.HeadAngleRoute(app, headAngleHandler)
 
 	app.Use(func(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusNotFound)

@@ -57,6 +57,49 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/v1/headAngle": {
+            "get": {
+                "description": "Receive two angles via WebSocket",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "control"
+                ],
+                "summary": "Rotate the head of the vehicle",
+                "parameters": [
+                    {
+                        "description": "Head angle",
+                        "name": "angle",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     }
 }`
