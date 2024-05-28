@@ -20,9 +20,9 @@ import (
 )
 
 var (
-	controlHandler *handler.ControlHandler
-	buzzerHandler  *handler.BuzzerHandler
-	faceHandler    *handler.FaceHandler
+	controlHandler   *handler.ControlHandler
+	buzzerHandler    *handler.BuzzerHandler
+	faceHandler      *handler.FaceHandler
 	headAngleHandler *handler.HeadAngleHandler
 )
 
@@ -38,17 +38,17 @@ func init() {
 
 	controlRepo := repository.NewControlRepository()
 	headAngleRepo := repository.NewHeadAngleRepository()
-  buzzerRepo := repository.NewBuzzerRepository()
+	buzzerRepo := repository.NewBuzzerRepository()
 
 	controlService := service.NewControlService(controlRepo)
 	headAngleService := service.NewHeadAngleService(headAngleRepo)
-  buzzerService := service.NewBuzzerService(buzzerRepo)
-  faceService := service.NewFaceService(controlRepo)
+	buzzerService := service.NewBuzzerService(buzzerRepo)
+	faceService := service.NewFaceService(controlRepo)
 
 	controlHandler = handler.NewControlHandler(controlService)
 	faceHandler = handler.NewFaceHandler(faceService)
 	headAngleHandler = handler.NewHeadAngleHandler(headAngleService)
-  buzzerHandler = handler.NewBuzzerHandler(buzzerService)
+	buzzerHandler = handler.NewBuzzerHandler(buzzerService)
 }
 
 func main() {
