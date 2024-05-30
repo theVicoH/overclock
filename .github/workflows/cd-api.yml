@@ -7,7 +7,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-push-deploy:
+  deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -63,6 +63,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            docker compose pull ${{ env.IMAGE_NAME }}
-            docker compose up -d
+            sudo echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            sudo docker compose pull ${{ env.IMAGE_NAME }}
+            sudo docker compose up -d
