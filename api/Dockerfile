@@ -9,7 +9,7 @@ RUN go mod download
 
 COPY ./api ./
 
-RUN CGO_ENABLED=0 go build -a --trimpath --installsuffix cgo --ldflags="-s" -o main
+RUN CGO_ENABLED=0 go build -a --trimpath --installsuffix cgo --ldflags="-s" -o main ./cmd/main.go
 
 FROM alpine:latest
 

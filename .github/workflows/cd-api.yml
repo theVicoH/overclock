@@ -4,10 +4,11 @@ on: pull_request
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: ${{ github.repository_owner }}/overclockapi
 
 jobs:
-  build-push-deploy:
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -31,8 +32,8 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_PAT }}
 
       - name: Prepare metadata
         id: meta
@@ -53,16 +54,19 @@ jobs:
           build-args: |
             APP_RELEASE=${{ github.sha }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ steps.meta.outputs.tags }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Deploy a new image
+        if: github.event_name != 'pull_request'
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            echo "${{ secrets.TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            docker compose pull ${{ env.IMAGE_NAME }}
-            docker compose up -d
+            echo "${{ secrets.GHCR_PAT }}" | sudo docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
+            sudo docker compose pull overclock-api
+            sudo docker compose up -d
