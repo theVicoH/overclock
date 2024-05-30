@@ -4,7 +4,7 @@ on: pull_request
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: ${{ github.repository }}api
 
 jobs:
   deploy:
@@ -64,6 +64,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            sudo echo "${{ secrets.TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            sudo docker compose pull ${{ env.IMAGE_NAME }}
+            sudo echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            sudo docker compose pull overclock-api
             sudo docker compose up -d
