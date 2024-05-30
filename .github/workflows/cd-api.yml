@@ -4,7 +4,7 @@ on: pull_request
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}api
+  IMAGE_NAME: ${{ github.repository_owner }}/overclockapi
 
 jobs:
   deploy:
@@ -33,7 +33,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ secrets.GHCR_USERNAME }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GHCR_PAT }}
 
       - name: Prepare metadata
         id: meta
@@ -54,16 +54,19 @@ jobs:
           build-args: |
             APP_RELEASE=${{ github.sha }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ steps.meta.outputs.tags }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Deploy a new image
+        if: github.event_name != 'pull_request'
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            sudo echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
+            echo "${{ secrets.GHCR_PAT }}" | sudo docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
             sudo docker compose pull overclock-api
             sudo docker compose up -d
