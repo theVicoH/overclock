@@ -15,6 +15,4 @@ FROM alpine:latest
 
 COPY --from=builder /app/main ./
 
-EXPOSE 80
-
 CMD [ "./main" ]
