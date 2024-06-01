@@ -37,17 +37,16 @@ func init() {
 	// })
 
 	controlRepo := repository.NewControlRepository()
-	headAngleRepo := repository.NewHeadAngleRepository()
 	buzzerRepo := repository.NewBuzzerRepository()
+	faceRepo := repository.NewFaceRepository()
 
 	controlService := service.NewControlService(controlRepo)
-	headAngleService := service.NewHeadAngleService(headAngleRepo)
 	buzzerService := service.NewBuzzerService(buzzerRepo)
-	faceService := service.NewFaceService(controlRepo)
+	faceService := service.NewFaceService(faceRepo)
 
 	controlHandler = handler.NewControlHandler(controlService)
 	faceHandler = handler.NewFaceHandler(faceService)
-	headAngleHandler = handler.NewHeadAngleHandler(headAngleService)
+	headAngleHandler = handler.NewHeadAngleHandler(faceService)
 	buzzerHandler = handler.NewBuzzerHandler(buzzerService)
 }
 
@@ -60,7 +59,6 @@ func main() {
 	router.ControlRoutes(app, controlHandler)
 	router.BuzzerRoutes(app, buzzerHandler)
 	router.FaceRoutes(app, faceHandler)
-	router.HeadAngleRoute(app, headAngleHandler)
 
 	app.Use(func(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusNotFound)
