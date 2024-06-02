@@ -20,10 +20,9 @@ import (
 )
 
 var (
-	controlHandler   *handler.ControlHandler
-	buzzerHandler    *handler.BuzzerHandler
-	faceHandler      *handler.FaceHandler
-	headAngleHandler *handler.HeadAngleHandler
+	controlHandler *handler.ControlHandler
+	buzzerHandler  *handler.BuzzerHandler
+	faceHandler    *handler.FaceHandler
 )
 
 func init() {
@@ -46,7 +45,6 @@ func init() {
 
 	controlHandler = handler.NewControlHandler(controlService)
 	faceHandler = handler.NewFaceHandler(faceService)
-	headAngleHandler = handler.NewHeadAngleHandler(faceService)
 	buzzerHandler = handler.NewBuzzerHandler(buzzerService)
 }
 
