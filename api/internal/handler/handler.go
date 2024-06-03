@@ -10,7 +10,7 @@ type FaceHandler struct {
 	faceService facade.FaceService
 }
 type HeadAngleHandler struct {
-	headAngleService facade.HeadAngleService
+	headAngleService facade.FaceService
 }
 
 type BuzzerHandler struct {
@@ -28,7 +28,7 @@ func NewBuzzerHandler(buzzerService facade.BuzzerService) *BuzzerHandler {
 func NewFaceHandler(faceHandler facade.FaceService) *FaceHandler {
 	return &FaceHandler{faceHandler}
 }
-func NewHeadAngleHandler(headAngleService facade.HeadAngleService) *HeadAngleHandler {
+func NewHeadAngleHandler(headAngleService facade.FaceService) *HeadAngleHandler {
 	return &HeadAngleHandler{headAngleService}
 
 }

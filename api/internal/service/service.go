@@ -1,6 +1,8 @@
 package service
 
-import "Overclock/internal/facade"
+import (
+	"Overclock/internal/facade"
+)
 
 type ControlService struct {
 	controlRepo facade.ControlRepository
@@ -9,6 +11,7 @@ type ControlService struct {
 type FaceService struct {
 	faceRepo facade.FaceRepository
 }
+
 type HeadAngleService struct {
 	headAngleRepo facade.HeadAngleRepository
 }
