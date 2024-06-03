@@ -2,107 +2,107 @@ import { StyleSheet } from 'react-native'
 
 const fontStyles = StyleSheet.create({
   // Heading
-  H1Mobile: {
+  h1: {
     fontFamily: 'NotoSans-Bold',
     fontSize: 50,
     lineHeight: 48,
     letterSpacing: -0.32
   },
-  H2Mobile: {
+  h2: {
     fontFamily: 'NotoSans-Bold',
     fontSize: 36,
     lineHeight: 43.2,
     letterSpacing: -0.32
   },
-  H3Mobile: {
+  h3: {
     fontFamily: 'NotoSans-Bold',
     fontSize: 32,
     lineHeight: 38.4,
     letterSpacing: -0.32
   },
-  H4Mobile: {
+  h4: {
     fontFamily: 'NotoSans-Bold',
     fontSize: 28,
     lineHeight: 33.6,
     letterSpacing: -0.32
   },
-  H5Mobile: {
+  h5: {
     fontFamily: 'NotoSans-Bold',
     fontSize: 24,
     lineHeight: 28.8,
     letterSpacing: -0.32
   },
-  H6Mobile: {
+  h6: {
     fontFamily: 'NotoSans-Bold',
     fontSize: 20,
     lineHeight: 24,
     letterSpacing: -0.32
   },
   // Button
-  ButtonL: {
+  buttonL: {
     fontFamily: 'NotoSans-SemiBold',
     fontSize: 20,
     lineHeight: 30,
     letterSpacing: -0.32
   },
-  ButtonM: {
+  buttonM: {
     fontFamily: 'NotoSans-SemiBold',
     fontSize: 16,
     lineHeight: 24,
     letterSpacing: -0.32
   },
-  ButtonS: {
+  buttonS: {
     fontFamily: 'NotoSans-SemiBold',
     fontSize: 12,
     lineHeight: 18,
     letterSpacing: -0.32
   },
   // Label
-  LabelL: {
+  labelL: {
     fontFamily: 'NotoSans-SemiBold',
     fontSize: 18,
     lineHeight: 27,
     letterSpacing: -0.32
   },
-  LabelM: {
+  labelM: {
     fontFamily: 'NotoSans-SemiBold',
     fontSize: 14,
     lineHeight: 21,
     letterSpacing: -0.32
   },
-  LabelS: {
+  labelS: {
     fontFamily: 'NotoSans-SemiBold',
     fontSize: 10,
     lineHeight: 15,
     letterSpacing: -0.32
   },
   // Body
-  BodyL: {
+  bodyL: {
     fontFamily: 'NotoSans-Regular',
     fontSize: 14,
     lineHeight: 21,
     letterSpacing: -0.32
   },
-  BodyM: {
+  bodyM: {
     fontFamily: 'NotoSans-Regular',
     fontSize: 12,
     lineHeight: 18,
     letterSpacing: -0.32
   },
-  BodyS: {
+  bodyS: {
     fontFamily: 'NotoSans-Regular',
     fontSize: 10,
     lineHeight: 15,
     letterSpacing: -0.32
   },
-  Caption: {
+  caption: {
     fontFamily: 'NotoSans-Regular',
     fontSize: 8,
     lineHeight: 12,
     letterSpacing: -0.32
   },
   // DS-DIGITAL
-  Digital: {
+  digital: {
     fontFamily: 'DS-Digital Bold',
     fontSize: 48,
     lineHeight: 40,
