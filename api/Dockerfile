@@ -2,8 +2,7 @@ FROM golang:1.22.1-alpine as builder
 
 WORKDIR /app
 
-COPY ./api/go.mod ./
-COPY ./api/go.sum ./
+COPY ./api/go.* ./
 
 RUN go mod download
 
@@ -11,10 +10,8 @@ COPY ./api ./
 
 RUN CGO_ENABLED=0 go build -a --trimpath --installsuffix cgo --ldflags="-s" -o main ./cmd/main.go
 
-FROM alpine:latest
+FROM gcr.io/distroless/static-debian12
 
 COPY --from=builder /app/main ./
-
-EXPOSE 80
 
 CMD [ "./main" ]
