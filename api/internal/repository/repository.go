@@ -16,7 +16,11 @@ func NewControlRepository() facade.ControlRepository {
 	return &websocketRepository{}
 }
 
-func NewBuzzerRepository() facade.ControlRepository {
+func NewBuzzerRepository() facade.BuzzerRepository {
+	return &websocketRepository{}
+}
+
+func NewVideoRepository() facade.VideoVariableRepository{
 	return &websocketRepository{}
 }
 

@@ -20,6 +20,10 @@ type BuzzerService struct {
 	buzzeRepo facade.BuzzerRepository
 }
 
+type VideoVariableService struct {
+	videoRepo facade.VideoVariableRepository
+}
+
 func NewControlService(controlRepo facade.ControlRepository) *ControlService {
 	return &ControlService{controlRepo}
 }
@@ -34,4 +38,8 @@ func NewFaceService(faceRepo facade.FaceRepository) *FaceService {
 
 func NewHeadAngleService(headAngleRepo facade.HeadAngleRepository) *HeadAngleService {
 	return &HeadAngleService{headAngleRepo}
+}
+
+func NewVideoService(videoRepo facade.VideoVariableRepository) *VideoVariableService{
+	return &VideoVariableService{videoRepo}
 }
