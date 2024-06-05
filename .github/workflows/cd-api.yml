@@ -67,6 +67,4 @@ jobs:
           script: |
             sudo docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin <<< "${{ secrets.GITHUB_TOKEN }}"
             sudo docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
-            sudo pct exec 100 -- bash -c "docker stop $(docker ps -q --filter ancestor=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main) || true"
-            sudo pct exec 100 -- bash -c "docker rm $(docker ps -aq --filter ancestor=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main) || true"
-            sudo pct exec 100 -- bash -c "docker run -d --restart always ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main"
+            sudo docker-compose up -d
