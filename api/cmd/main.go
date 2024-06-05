@@ -38,7 +38,7 @@ func init() {
 
 	conn, _, err := websocket.DefaultDialer.Dial("ws://192.186.1.30/overclock", nil)
 	if err != nil {
-		log.Fatal("Error establishing WebSocket connection:", err)
+		log.Println("Error establishing WebSocket connection:", err)
 	}
 	defer conn.Close()
 
