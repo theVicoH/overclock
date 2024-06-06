@@ -3,6 +3,7 @@ package repository
 import (
 	"Overclock/internal/facade"
 	"log"
+
 	// "database/sql"
 	"github.com/gorilla/websocket"
 )
@@ -15,23 +16,25 @@ type websocketRepository struct {
 // 	db *sql.DB
 // }
 
-func NewControlRepository(conn *websocket.Conn) facade.ControlRepository {
-	return &websocketRepository{conn}
-}
-
-func NewBuzzerRepository(conn *websocket.Conn) facade.ControlRepository {
-	return &websocketRepository{conn}
-
-func NewVideoRepository() facade.VideoVariableRepository{
+func NewControlRepository() facade.ControlRepository {
 	return &websocketRepository{}
 }
 
-func NewHeadAngleRepository(conn *websocket.Conn) facade.HeadAngleRepository {
-	return &websocketRepository{conn}
+func NewBuzzerRepository() facade.ControlRepository {
+	return &websocketRepository{}
+
 }
 
-func NewFaceRepository(conn *websocket.Conn) facade.FaceRepository {
-	return &websocketRepository{conn}
+func NewVideoRepository() facade.VideoVariableRepository {
+	return &websocketRepository{}
+}
+
+func NewHeadAngleRepository() facade.HeadAngleRepository {
+	return &websocketRepository{}
+}
+
+func NewFaceRepository() facade.FaceRepository {
+	return &websocketRepository{}
 }
 
 func (wr *websocketRepository) SendMessage(messageType int, message []byte) error {

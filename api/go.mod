@@ -9,6 +9,7 @@ require (
 	github.com/lib/pq v1.10.9
 	github.com/stretchr/testify v1.7.0
 	github.com/swaggo/swag v1.16.3
+	github.com/gorilla/websocket v1.5.1
 )
 
 require (
@@ -23,7 +24,6 @@ require (
 	github.com/go-openapi/spec v0.20.4 // indirect
 	github.com/go-openapi/swag v0.19.15 // indirect
 	github.com/google/uuid v1.5.0 // indirect
-	github.com/gorilla/websocket v1.5.1 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/klauspost/compress v1.17.0 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect

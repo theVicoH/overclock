@@ -15,6 +15,49 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/v1/buzzer/alarm": {
+            "get": {
+                "description": "Receive  buzzer frequency via WebSocket",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "control"
+                ],
+                "summary": "ON/OFF buzzer and frequency control",
+                "parameters": [
+                    {
+                        "description": "buzzerVariable",
+                        "name": "buzzerVariable",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/control/manual": {
             "get": {
                 "description": "Receive manual control commands via WebSocket",
@@ -58,7 +101,7 @@ const docTemplate = `{
                 }
             }
         },
-         "/v1/face/set": {
+        "/v1/face/set": {
             "get": {
                 "description": "Receive an ID via WebSocket",
                 "consumes": [
@@ -122,6 +165,46 @@ const docTemplate = `{
                             "items": {
                                 "type": "integer"
                             }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/video": {
+            "get": {
+                "description": "Receive video ON/OFF instruction via WebSocket",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "control"
+                ],
+                "summary": "ON/OFF Video",
+                "parameters": [
+                    {
+                        "description": "VideoVariable",
+                        "name": "VideoVariable",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
                         }
                     }
                 ],

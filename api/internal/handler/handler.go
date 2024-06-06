@@ -17,16 +17,16 @@ type BuzzerHandler struct {
 	buzzerService facade.BuzzerService
 }
 
+type VideoVariableHandler struct {
+	videoService facade.VideoVariableService
+}
+
 func NewControlHandler(controlService facade.ControlService) *ControlHandler {
 	return &ControlHandler{controlService}
 }
 
 func NewBuzzerHandler(buzzerService facade.BuzzerService) *BuzzerHandler {
 	return &BuzzerHandler{buzzerService}
-}
-
-type VideoVariableHandler struct {
-	videoService facade.VideoVariableService
 }
 
 func NewVideoHandler(videoService facade.VideoVariableService) *VideoVariableHandler {
