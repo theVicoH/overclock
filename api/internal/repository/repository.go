@@ -21,6 +21,9 @@ func NewControlRepository(conn *websocket.Conn) facade.ControlRepository {
 
 func NewBuzzerRepository(conn *websocket.Conn) facade.ControlRepository {
 	return &websocketRepository{conn}
+
+func NewVideoRepository() facade.VideoVariableRepository{
+	return &websocketRepository{}
 }
 
 func NewHeadAngleRepository(conn *websocket.Conn) facade.HeadAngleRepository {

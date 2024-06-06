@@ -23,6 +23,7 @@ import (
 var (
 	controlHandler *handler.ControlHandler
 	buzzerHandler  *handler.BuzzerHandler
+	videoHandler   *handler.VideoVariableHandler
 	faceHandler    *handler.FaceHandler
 )
 
@@ -45,14 +46,18 @@ func init() {
 	controlRepo := repository.NewControlRepository(conn)
 	buzzerRepo := repository.NewBuzzerRepository(conn)
 	faceRepo := repository.NewFaceRepository(conn)
+	videoRepo := repository.NewVideoRepository()
 
 	controlService := service.NewControlService(controlRepo)
 	buzzerService := service.NewBuzzerService(buzzerRepo)
 	faceService := service.NewFaceService(faceRepo)
+	videoService := service.NewVideoService(videoRepo)
 
 	controlHandler = handler.NewControlHandler(controlService)
 	faceHandler = handler.NewFaceHandler(faceService)
 	buzzerHandler = handler.NewBuzzerHandler(buzzerService)
+	videoHandler = handler.NewVideoHandler(videoService)
+
 }
 
 func main() {
@@ -63,6 +68,7 @@ func main() {
 	app.Get("/swagger/*", swagger.HandlerDefault)
 	router.ControlRoutes(app, controlHandler)
 	router.BuzzerRoutes(app, buzzerHandler)
+	router.VideoRoutes(app, videoHandler)
 	router.FaceRoutes(app, faceHandler)
 
 	app.Use(func(c *fiber.Ctx) error {

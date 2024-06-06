@@ -25,6 +25,14 @@ func NewBuzzerHandler(buzzerService facade.BuzzerService) *BuzzerHandler {
 	return &BuzzerHandler{buzzerService}
 }
 
+type VideoVariableHandler struct {
+	videoService facade.VideoVariableService
+}
+
+func NewVideoHandler(videoService facade.VideoVariableService) *VideoVariableHandler {
+	return &VideoVariableHandler{videoService}
+}
+
 func NewFaceHandler(faceHandler facade.FaceService) *FaceHandler {
 	return &FaceHandler{faceHandler}
 }
