@@ -13,7 +13,7 @@ import (
 // @Tags control
 // @Accept json
 // @Produce json
-// @Param buzzerVariable body model.buzzerVariable true "buzzerVariable"
+// @Param buzzerVariable body model.BuzzerVariable true "buzzerVariable"
 // @Success 200 {string} string "OK"
 // @Failure 400 {string} string "Error"
 // @Router /v1/buzzer/alarm [get]
