@@ -42,7 +42,7 @@ func init() {
 
 	conn, _, err := websocket.DefaultDialer.Dial(url, nil)
 	if err != nil {
-		log.Println("Error establishing WebSocket connection:", err)
+		log.Fatalln("Error establishing WebSocket connection:", err)
 	}
 	defer conn.Close()
 
