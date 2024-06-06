@@ -16,25 +16,25 @@ type websocketRepository struct {
 // 	db *sql.DB
 // }
 
-func NewControlRepository(conn *websocket.Conn) facade.ControlRepository {
-	return &websocketRepository{conn}
+func NewControlRepository() facade.ControlRepository {
+	return &websocketRepository{}
 }
 
-func NewBuzzerRepository(conn *websocket.Conn) facade.ControlRepository {
-	return &websocketRepository{conn}
+func NewBuzzerRepository() facade.ControlRepository {
+	return &websocketRepository{}
 
 }
 
-func NewVideoRepository(conn *websocket.Conn) facade.VideoVariableRepository {
-	return &websocketRepository{conn}
+func NewVideoRepository() facade.VideoVariableRepository {
+	return &websocketRepository{}
 }
 
-func NewHeadAngleRepository(conn *websocket.Conn) facade.HeadAngleRepository {
-	return &websocketRepository{conn}
+func NewHeadAngleRepository() facade.HeadAngleRepository {
+	return &websocketRepository{}
 }
 
-func NewFaceRepository(conn *websocket.Conn) facade.FaceRepository {
-	return &websocketRepository{conn}
+func NewFaceRepository() facade.FaceRepository {
+	return &websocketRepository{}
 }
 
 func (wr *websocketRepository) SendMessage(messageType int, message []byte) error {

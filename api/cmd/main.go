@@ -17,7 +17,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/swagger"
-	"github.com/gorilla/websocket"
+	// "github.com/gorilla/websocket"
 )
 
 var (
@@ -37,19 +37,20 @@ func init() {
 	// 	Type:     os.Getenv("DB_TYPE"),
 	// })
 
-	ip := os.Getenv("IP")
-	url := fmt.Sprintf("ws://%s/overclock", ip)
+	// conn, _, err := websocket.DefaultDialer.Dial("ws://192.168.1.40/overclock", nil)
+	// if err != nil {
+	// 	log.Fatalln("Error establishing WebSocket connection:", err)
+	// }
+	// defer conn.Close()
 
-	conn, _, err := websocket.DefaultDialer.Dial(url, nil)
-	if err != nil {
-		log.Fatalln("Error establishing WebSocket connection:", err)
-	}
-	defer conn.Close()
-
-	controlRepo := repository.NewControlRepository(conn)
-	buzzerRepo := repository.NewBuzzerRepository(conn)
-	faceRepo := repository.NewFaceRepository(conn)
-	videoRepo := repository.NewVideoRepository(conn)
+	controlRepo := repository.NewControlRepository()
+	buzzerRepo := repository.NewBuzzerRepository()
+	faceRepo := repository.NewFaceRepository()
+	videoRepo := repository.NewVideoRepository()
+	// controlRepo := repository.NewControlRepository(conn)
+	// buzzerRepo := repository.NewBuzzerRepository(conn)
+	// faceRepo := repository.NewFaceRepository(conn)
+	// videoRepo := repository.NewVideoRepository(conn)
 
 	controlService := service.NewControlService(controlRepo)
 	buzzerService := service.NewBuzzerService(buzzerRepo)
