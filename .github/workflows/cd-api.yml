@@ -65,6 +65,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            sudo echo "${{ secrets.GITHUB_TOKEN }}" | sudo docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
-            sudo docker compose pull overclockapi
+            sudo docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin <<< "${{ secrets.GITHUB_TOKEN }}"
+            sudo docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
             sudo docker compose up -d

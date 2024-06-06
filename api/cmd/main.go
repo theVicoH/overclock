@@ -17,6 +17,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/swagger"
+	"github.com/gorilla/websocket"
 )
 
 var (
@@ -36,9 +37,15 @@ func init() {
 	// 	Type:     os.Getenv("DB_TYPE"),
 	// })
 
-	controlRepo := repository.NewControlRepository()
-	buzzerRepo := repository.NewBuzzerRepository()
-	faceRepo := repository.NewFaceRepository()
+	conn, _, err := websocket.DefaultDialer.Dial("ws://192.186.1.30/overclock", nil)
+	if err != nil {
+		log.Println("Error establishing WebSocket connection:", err)
+	}
+	defer conn.Close()
+
+	controlRepo := repository.NewControlRepository(conn)
+	buzzerRepo := repository.NewBuzzerRepository(conn)
+	faceRepo := repository.NewFaceRepository(conn)
 	videoRepo := repository.NewVideoRepository()
 
 	controlService := service.NewControlService(controlRepo)

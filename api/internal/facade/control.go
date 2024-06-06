@@ -8,4 +8,5 @@ type ControlService interface {
 }
 
 type ControlRepository interface {
+	Direction(speeds model.WheelSpeed) error
 }
