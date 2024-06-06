@@ -40,6 +40,6 @@ func NewHeadAngleService(headAngleRepo facade.HeadAngleRepository) *HeadAngleSer
 	return &HeadAngleService{headAngleRepo}
 }
 
-func NewVideoService(videoRepo facade.VideoVariableRepository) *VideoVariableService{
+func NewVideoService(videoRepo facade.VideoVariableRepository) *VideoVariableService {
 	return &VideoVariableService{videoRepo}
 }

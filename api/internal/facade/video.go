@@ -7,5 +7,4 @@ type VideoVariableService interface {
 }
 
 type VideoVariableRepository interface {
-
 }
