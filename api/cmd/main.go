@@ -37,7 +37,10 @@ func init() {
 	// 	Type:     os.Getenv("DB_TYPE"),
 	// })
 
-	conn, _, err := websocket.DefaultDialer.Dial("ws://192.186.1.30/overclock", nil)
+	ip := os.Getenv("IP")
+	url := fmt.Sprintf("ws://%s/overclock", ip)
+
+	conn, _, err := websocket.DefaultDialer.Dial(url, nil)
 	if err != nil {
 		log.Println("Error establishing WebSocket connection:", err)
 	}
@@ -46,7 +49,7 @@ func init() {
 	controlRepo := repository.NewControlRepository(conn)
 	buzzerRepo := repository.NewBuzzerRepository(conn)
 	faceRepo := repository.NewFaceRepository(conn)
-	videoRepo := repository.NewVideoRepository()
+	videoRepo := repository.NewVideoRepository(conn)
 
 	controlService := service.NewControlService(controlRepo)
 	buzzerService := service.NewBuzzerService(buzzerRepo)

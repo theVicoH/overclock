@@ -3,6 +3,7 @@ package repository
 import (
 	"Overclock/internal/facade"
 	"log"
+
 	// "database/sql"
 	"github.com/gorilla/websocket"
 )
@@ -22,8 +23,10 @@ func NewControlRepository(conn *websocket.Conn) facade.ControlRepository {
 func NewBuzzerRepository(conn *websocket.Conn) facade.ControlRepository {
 	return &websocketRepository{conn}
 
-func NewVideoRepository() facade.VideoVariableRepository{
-	return &websocketRepository{}
+}
+
+func NewVideoRepository(conn *websocket.Conn) facade.VideoVariableRepository {
+	return &websocketRepository{conn}
 }
 
 func NewHeadAngleRepository(conn *websocket.Conn) facade.HeadAngleRepository {
