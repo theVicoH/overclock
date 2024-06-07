@@ -19,12 +19,11 @@ import (
 // @Router /v1/buzzer/alarm [get]
 func (h *BuzzerHandler) BuzzerVariableControl(c *websocket.Conn) {
 	defer c.Close()
-
 	for {
 		_, message, err := c.ReadMessage()
 		if err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error reading message")); writeErr != nil {
-				return
+				sendResponse(c, "Error", "Error reading message")
 			}
 			break
 		}
@@ -32,16 +31,16 @@ func (h *BuzzerHandler) BuzzerVariableControl(c *websocket.Conn) {
 		var buzzerVariable model.BuzzerVariable
 		if err := json.Unmarshal(message, &buzzerVariable); err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error parsing message")); writeErr != nil {
-				return
+				sendResponse(c, "Error", "Error parsing message")
 			}
 			break
 		}
 		if !h.buzzerService.IsValidBuzzerVariable(buzzerVariable) {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Invalid BuzzerVariable values")); writeErr != nil {
-				return
+				sendResponse(c, "Error", "Invalid BuzzerVariable values")
 			}
 			break
 		}
-
+		sendResponse(c, "OK", "BuzzerVariable command processed successfully")
 	}
 }

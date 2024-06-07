@@ -11,6 +11,3 @@ type FaceService interface {
 
 type FaceRepository interface {
 }
-
-type HeadAngleRepository interface {
-}

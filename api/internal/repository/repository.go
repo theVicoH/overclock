@@ -29,10 +29,6 @@ func NewVideoRepository() facade.VideoVariableRepository {
 	return &websocketRepository{}
 }
 
-func NewHeadAngleRepository() facade.HeadAngleRepository {
-	return &websocketRepository{}
-}
-
 func NewFaceRepository() facade.FaceRepository {
 	return &websocketRepository{}
 }

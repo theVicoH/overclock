@@ -24,23 +24,24 @@ func (h *VideoVariableHandler) VideoVariable(c *websocket.Conn) {
 		_, message, err := c.ReadMessage()
 		if err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error reading message")); writeErr != nil {
-				return
+				sendResponse(c, "Error", "Error reading message")
 			}
 			break
 		}
 		var videoControl model.VideoVariable
 		if err := json.Unmarshal(message, &videoControl); err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error parsing message")); writeErr != nil {
-				return
+				sendResponse(c, "Error", "Error parsing message")
 			}
 			break
 		}
 		if !h.videoService.IsValideVideoVariable(videoControl) {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("invalide videoVariable value")); writeErr != nil {
-				return
+				sendResponse(c, "Error", "invalide videoVariable value")
 			}
 			break
 		}
+		sendResponse(c, "OK", "videoVariable command processed successfully")
 	}
 
 }
