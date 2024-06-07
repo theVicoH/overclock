@@ -1,9 +1,6 @@
-name: CI API
+name: CI-API
 
-on:
-  pull_request:
-    paths:
-      - "apps/api/**"
+on: pull_request
 
 jobs:
   lint:
@@ -12,7 +9,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: apps/api
+        working-directory: api
 
     steps:
       - name: Check out code
@@ -36,7 +33,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: apps/api
+        working-directory: api
 
     steps:
       - name: Check out code
