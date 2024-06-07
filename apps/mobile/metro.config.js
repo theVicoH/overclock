@@ -8,12 +8,16 @@ const config = {
       {},
       {
         get: (_, name) => path.resolve(__dirname, `node_modules/${name}`)
+      },
+      {
+        common: path.resolve(__dirname, '../../packages/common')
       }
     )
   },
   watchFolders: [
     path.resolve(__dirname, '../../node_modules'),
-    path.resolve(__dirname, 'node_modules')
+    path.resolve(__dirname, 'node_modules'),
+    path.resolve(__dirname, '../../packages/common')
   ]
 }
 
