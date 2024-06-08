@@ -12,6 +12,7 @@
     "type": "tsc"
   },
   "dependencies": {
+    "@miblanchard/react-native-slider": "^2.6.0",
     "@react-native-community/cli-platform-android": "^13.6.9",
     "@react-native/gradle-plugin": "^0.74.84",
     "common": "workspace:^1.0.0",
