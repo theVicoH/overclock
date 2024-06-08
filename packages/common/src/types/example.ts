@@ -1,1 +1,1 @@
-export type test = 'apodza'
+export type test = "apodza"
