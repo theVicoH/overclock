@@ -12,7 +12,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: .
+        working-directory: apps/mobile
 
     steps:
       - name: Checkout code
@@ -27,10 +27,10 @@ jobs:
         run: npm install -g pnpm && pnpm install
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Lint
-        run: pnpm run lint:mobile
+        run: pnpm run lint
 
   typescript:
     name: TypeScript
@@ -38,7 +38,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: .
+        working-directory: apps/mobile
 
     steps:
       - name: Checkout code
@@ -53,10 +53,10 @@ jobs:
         run: npm install -g pnpm && pnpm install
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: TypeScript
-        run: pnpm run type:mobile
+        run: pnpm run type
 
   test:
     name: Test
@@ -64,7 +64,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: .
+        working-directory: apps/mobile
 
     steps:
       - name: Checkout code
@@ -79,7 +79,7 @@ jobs:
         run: npm install -g pnpm && pnpm install
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Test
-        run: pnpm run test:mobile
+        run: pnpm run test
