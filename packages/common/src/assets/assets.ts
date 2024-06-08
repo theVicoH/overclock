@@ -1,1 +1,1 @@
-export const assets = 'nothing'
+export const assets = "nothing"
