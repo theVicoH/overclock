@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useEffect, useState } from "react"
 import viteLogo from "/vite.svg"
 import "./App.css"
