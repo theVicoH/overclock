@@ -44,7 +44,7 @@ cd Overclock
 
 ```
 
-2. Install dependencies for the web et mobile application:
+2. Install dependencies for the monorepo:
 ```sh
 pnpm install
 ```
@@ -137,25 +137,25 @@ pnpm run lint
 ### Lint the API
 To lint the API code, run the following command:
 ```sh
-pnpm run lint-api
+pnpm run lint:api
 ```
 
 ### Lint the Web Application
 To lint the web application code, run the following command:
 ```sh
-pnpm run lint-web
+pnpm run lint:web
 ```
 
 ### Lint the Mobile Application
 To lint the mobile application code, run the following command:
 ```sh
-pnpm run lint-mobile
+pnpm run lint:mobile
 ```
 
 ### Lint the Common Application
 To lint the common application code, run the following command:
 ```sh
-pnpm run lint-common
+pnpm run lint:common
 ```
 
 ## Format the Client Code
@@ -163,25 +163,25 @@ pnpm run lint-common
 ### Format Client Code
 To format client code (web, mobile and common), run the following command:
 ```sh
-pnpm run prettier
+pnpm run format
 ```
 
 ### Format the Web Application
 To format the web application code, run the following command:
 ```sh
-pnpm run prettier-web
+pnpm run format:web
 ```
 
 ### Format the Mobile Application
 To format the mobile application code, run the following command:
 ```sh
-pnpm run prettier-mobile
+pnpm run format:mobile
 ```
 
 ### Format the Common Application
 To format the common application code, run the following command:
 ```sh
-pnpm run prettier-common
+pnpm run format:common
 ```
 
 ## Type check the Client Code
@@ -195,19 +195,19 @@ pnpm run type
 ### Type the Web Application
 To type the web application code, run the following command:
 ```sh
-pnpm run type-web
+pnpm run type:web
 ```
 
 ### Type the Mobile Application
 To type the mobile application code, run the following command:
 ```sh
-pnpm run type-mobile
+pnpm run type:mobile
 ```
 
 ### Type the Common Application
 To type the common application code, run the following command:
 ```sh
-pnpm run type-common
+pnpm run type:common
 ```
 
 ## Run Lint + Prettier + Type
@@ -227,19 +227,19 @@ pnpm run test
 ### Test the Web Application
 To test the web application code, run the following command:
 ```sh
-pnpm run test-web
+pnpm run test:web
 ```
 
 ### Tes the Mobile Application
 To test the mobile application code, run the following command:
 ```sh
-pnpm run test-mobile
+pnpm run test:mobile
 ```
 
 ### Test the Common Application
 To test the common application code, run the following command:
 ```sh
-pnpm run test-common
+pnpm run test:common
 ```
 
 ## Generate common
