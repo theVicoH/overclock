@@ -1,6 +1,17 @@
 package handler
 
-import "Overclock/internal/facade"
+import (
+	"Overclock/internal/facade"
+	"encoding/json"
+	"log"
+
+	"github.com/gofiber/websocket/v2"
+)
+
+type Response struct {
+	Status  string
+	Message string
+}
 
 type ControlHandler struct {
 	controlService facade.ControlService
@@ -39,4 +50,19 @@ func NewFaceHandler(faceHandler facade.FaceService) *FaceHandler {
 func NewHeadAngleHandler(headAngleService facade.FaceService) *HeadAngleHandler {
 	return &HeadAngleHandler{headAngleService}
 
+}
+
+func sendResponse(c *websocket.Conn, status string, message string) {
+	response := Response{
+		Status:  status,
+		Message: message,
+	}
+	responseJSON, err := json.Marshal(response)
+	if err != nil {
+		log.Printf("Error marshaling response: %v", err)
+		return
+	}
+	if err := c.WriteMessage(websocket.TextMessage, responseJSON); err != nil {
+		log.Printf("Error writing message: %v", err)
+	}
 }
