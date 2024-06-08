@@ -1,6 +1,9 @@
-name: CD-API
+name: CD API
 
-on: pull_request
+on:
+  pull_request:
+    paths:
+      - "apps/api/**"
 
 env:
   REGISTRY: ghcr.io
@@ -16,7 +19,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: api
+        working-directory: apps/api
 
     steps:
       - name: Checkout code
@@ -49,7 +52,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          file: ./api/Dockerfile
+          file: ./apps/api/Dockerfile
           build-args: |
             APP_RELEASE=${{ github.sha }}
           push: true
