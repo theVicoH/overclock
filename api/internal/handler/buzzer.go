@@ -42,6 +42,11 @@ func (h *BuzzerHandler) BuzzerVariableControl(c *websocket.Conn) {
 			}
 			break
 		}
-
+		if err := h.buzzerService.SetBuzzerVariable(buzzerVariable); err != nil {
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing face command")); writeErr != nil {
+				return
+			}
+			break
+		}
 	}
 }

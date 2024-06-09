@@ -40,6 +40,11 @@ func (h *VideoVariableHandler) VideoVariable(c *websocket.Conn){
 			}
 			break
 		}
-	}
-	
+		if err := h.videoService.SetVideoVariable(videoControl); err != nil {
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing face command")); writeErr != nil {
+				return
+			}
+			break
+		}
+	}	
 }

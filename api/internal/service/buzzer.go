@@ -13,3 +13,7 @@ func (s *BuzzerService) IsValidBuzzerVariable(buzzerVariable model.BuzzerVariabl
 	}
 	return true
 }
+
+func (s *BuzzerService) SetBuzzerVariable(buzzerVariable model.BuzzerVariable) error {
+	return nil
+}
