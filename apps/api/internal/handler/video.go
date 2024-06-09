@@ -41,6 +41,15 @@ func (h *VideoVariableHandler) VideoVariable(c *websocket.Conn) {
 			}
 			break
 		}
+		if err := h.videoService.SetVideo(videoControl); err != nil {
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing control command")); writeErr != nil {
+				sendResponse(c, "Error", "Error processing video command")
+				return
+			}
+			break
+		}
+		sendResponse(c, "OK", "VideoVariable command processed successfully")
+
 	}
 
 }

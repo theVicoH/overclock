@@ -23,6 +23,8 @@ func (h *ControlHandler) ManualControl(c *websocket.Conn) {
 		_, message, err := c.ReadMessage()
 		if err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error reading message")); writeErr != nil {
+				sendResponse(c, "Error", "Error reading message")
+
 				return
 			}
 			break
@@ -31,6 +33,8 @@ func (h *ControlHandler) ManualControl(c *websocket.Conn) {
 		var speeds model.WheelSpeed
 		if err := json.Unmarshal(message, &speeds); err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error parsing message")); writeErr != nil {
+				sendResponse(c, "Error", "Error parsing message")
+
 				return
 			}
 			break
@@ -38,6 +42,8 @@ func (h *ControlHandler) ManualControl(c *websocket.Conn) {
 
 		if !h.controlService.IsValidSpeed(speeds) {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Invalid speed values")); writeErr != nil {
+				sendResponse(c, "Error", "Invalid Wheel values")
+
 				return
 			}
 			break
@@ -45,9 +51,13 @@ func (h *ControlHandler) ManualControl(c *websocket.Conn) {
 
 		if err := h.controlService.Direction(speeds); err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing control command")); writeErr != nil {
+				sendResponse(c, "Error", "Error processing control command")
+
 				return
 			}
 			break
 		}
+		sendResponse(c, "OK", "ManualControl command processed successfully")
+
 	}
 }
