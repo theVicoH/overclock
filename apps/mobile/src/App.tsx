@@ -3,6 +3,7 @@ import type { PropsWithChildren } from "react"
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from "react-native"
 
 import { Colors, DebugInstructions, Header, LearnMoreLinks, ReloadInstructions } from "react-native/Libraries/NewAppScreen"
+import fontStyles from "./fontStyles";
 
 type SectionProps = PropsWithChildren<{
   title: string
@@ -22,6 +23,8 @@ function Section({ children, title }: SectionProps): React.JSX.Element {
       >
         {title}
       </Text>
+      <Text style={[fontStyles.notoSansBold]}>This is NotoSans Bold text.</Text>
+      <Text style={[fontStyles.dsDigital]}>This is DS-Digital text.</Text>
       <Text
         style={[
           styles.sectionDescription,
