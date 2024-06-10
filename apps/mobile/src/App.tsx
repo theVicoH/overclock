@@ -3,7 +3,7 @@ import type { PropsWithChildren } from "react"
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from "react-native"
 
 import { Colors, DebugInstructions, Header, LearnMoreLinks, ReloadInstructions } from "react-native/Libraries/NewAppScreen"
-import fontStyles from "./fontStyles";
+import fontStyles from "./fontStyles"
 
 type SectionProps = PropsWithChildren<{
   title: string

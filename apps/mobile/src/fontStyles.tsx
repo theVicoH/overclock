@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from "react-native"
 
 const fontStyles = StyleSheet.create({
   dsDigital: {
@@ -31,6 +31,6 @@ const fontStyles = StyleSheet.create({
   notoSansThin: {
     fontFamily: "NotoSans-Thin",
   },
-});
+})
 
-export default fontStyles;
+export default fontStyles
