@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import viteLogo from "/vite.svg"
-import "./App.css"
 import { fetchData } from "common"
 
 function App() {
@@ -25,14 +24,15 @@ function App() {
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
+      <h1 className="font-notoSans font-thin text-lg bg-red-200">This is NotoSans Bold text.</h1>
+      <h1 className="font-dsDigital text-lg">This is DS-Digital text.</h1>
+      <div>
         <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
+      <p>Click on the Vite and React logos to learn more</p>
     </>
   )
 }
