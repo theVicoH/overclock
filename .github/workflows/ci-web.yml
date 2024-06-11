@@ -1,9 +1,9 @@
-name: CI Mobile
+name: CI Web
 
 on:
   pull_request:
     paths:
-      - "apps/mobile/**"
+      - "apps/web/**"
 
 jobs:
   lint:
@@ -12,7 +12,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: apps/mobile
+        working-directory: apps/web
 
     steps:
       - name: Checkout code
@@ -38,7 +38,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: apps/mobile
+        working-directory: apps/web
 
     steps:
       - name: Checkout code
@@ -64,7 +64,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: apps/mobile
+        working-directory: apps/web
 
     steps:
       - name: Checkout code

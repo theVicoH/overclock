@@ -1,0 +1,19 @@
+{
+  "name": "common",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "vitest",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --ignore-path ../../.gitignore",
+    "format": "prettier --config ../config/.prettierrc --write .",
+    "common": "node generateImport.js",
+    "type": "tsc"
+  },
+  "devDependencies": {
+    "@types/mock-fs": "^4.13.4",
+    "mock-fs": "^5.2.0"
+  },
+  "eslintConfig": {
+    "extends": "../config/.eslintrc.json"
+  }
+}
