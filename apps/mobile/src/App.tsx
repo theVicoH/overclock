@@ -27,10 +27,8 @@ type SectionProps = PropsWithChildren<{
 function Section({ children, title }: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === "dark";
   useEffect(() => {
-    // Verrouiller l'orientation en mode portrait
     Orientation.lockToLandscape();
 
-    // Déverrouiller l'orientation à l'unmount du composant
     return () => {
       Orientation.unlockAllOrientations();
     };
