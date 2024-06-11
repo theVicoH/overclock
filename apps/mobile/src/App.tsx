@@ -1,16 +1,38 @@
-import React from "react"
-import type { PropsWithChildren } from "react"
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from "react-native"
+import React, { useEffect } from "react";
+import type { PropsWithChildren } from "react";
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from "react-native";
 
-import { Colors, DebugInstructions, Header, LearnMoreLinks, ReloadInstructions } from "react-native/Libraries/NewAppScreen"
-import fontStyles from "./fontStyles"
+import {
+  Colors,
+  DebugInstructions,
+  Header,
+  LearnMoreLinks,
+  ReloadInstructions,
+} from "react-native/Libraries/NewAppScreen";
+import Orientation from "react-native-orientation-locker";
+import fontStyles from "./fontStyles";
 
 type SectionProps = PropsWithChildren<{
-  title: string
-}>
+  title: string;
+}>;
 
 function Section({ children, title }: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === "dark"
+  const isDarkMode = useColorScheme() === "dark";
+  useEffect(() => {
+    Orientation.lockToLandscape();
+
+    return () => {
+      Orientation.unlockAllOrientations();
+    };
+  }, []);
   return (
     <View style={styles.sectionContainer}>
       <Text
@@ -36,20 +58,26 @@ function Section({ children, title }: SectionProps): React.JSX.Element {
         {children}
       </Text>
     </View>
-  )
+  );
 }
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === "dark"
+  const isDarkMode = useColorScheme() === "dark";
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  }
+  };
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} backgroundColor={backgroundStyle.backgroundColor} />
-      <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
+      <StatusBar
+        barStyle={isDarkMode ? "light-content" : "dark-content"}
+        backgroundColor={backgroundStyle.backgroundColor}
+      />
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        style={backgroundStyle}
+      >
         <Header />
         <View
           style={{
@@ -57,8 +85,10 @@ function App(): React.JSX.Element {
           }}
         >
           <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this screen and then come back eizqjdiqo odazp to see vitomir tg
-            your edits dzqlkndzqiodopjzqmdzq.
+            Edit{" "}
+            <Text style={[styles.highlight, styles.colorRed]}>App.tsx</Text> to
+            change this screen and then come back eizqjdiqo odazp to see vitomir
+            tg your edits dzqlkndzqiodopjzqmdzq.
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />
@@ -66,12 +96,14 @@ function App(): React.JSX.Element {
           <Section title="Debug">
             <DebugInstructions />
           </Section>
-          <Section title="Learn More">Read the docs to discover what to do next:</Section>
+          <Section title="Learn More">
+            Read the docs to discover what to do next:
+          </Section>
           <LearnMoreLinks />
         </View>
       </ScrollView>
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -91,6 +123,9 @@ const styles = StyleSheet.create({
   highlight: {
     fontWeight: "700",
   },
-})
+  colorRed: {
+    color: "red",
+  },
+});
 
-export default App
+export default App;
