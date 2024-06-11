@@ -6,6 +6,7 @@ import (
 
 	"github.com/gofiber/websocket/v2"
 )
+
 // VideoVariableControl
 // @Summary ON/OFF Video 
 // @Description Receive video ON/OFF instruction via WebSocket
