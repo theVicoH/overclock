@@ -19,6 +19,7 @@ import (
 // @Router /v1/buzzer/alarm [get]
 func (h *BuzzerHandler) BuzzerVariableControl(c *websocket.Conn) {
 	defer c.Close()
+
 	for {
 		_, message, err := c.ReadMessage()
 		if err != nil {
@@ -45,13 +46,12 @@ func (h *BuzzerHandler) BuzzerVariableControl(c *websocket.Conn) {
 			break
 		}
 		if err := h.buzzerService.SetBuzzerVariable(buzzerVariable); err != nil {
-			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing control command")); writeErr != nil {
-				sendResponse(c, "Error", "Error processing buzzer command")
-
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing Buzzer value")); writeErr != nil {
+				sendResponse(c, "Error", "Invalid BuzzerVariable values")
 				return
 			}
 			break
 		}
-		sendResponse(c, "OK", "BuzzerVariable command processed successfully")
+
 	}
 }
