@@ -23,6 +23,8 @@ func (h *FaceHandler) ChangeFace(c *websocket.Conn) {
 		_, message, err := c.ReadMessage()
 		if err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error reading message")); writeErr != nil {
+				sendResponse(c, "Error", "Error reading message")
+
 				return
 			}
 			break
@@ -31,6 +33,8 @@ func (h *FaceHandler) ChangeFace(c *websocket.Conn) {
 		var face model.Face
 		if err := json.Unmarshal(message, &face); err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error parsing message")); writeErr != nil {
+				sendResponse(c, "Error", "Error parsing message")
+
 				return
 			}
 			break
@@ -38,6 +42,8 @@ func (h *FaceHandler) ChangeFace(c *websocket.Conn) {
 
 		if !h.faceService.IsValidFace(face) {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Invalid face value")); writeErr != nil {
+				sendResponse(c, "Error", "Invalid face value")
+
 				return
 			}
 			break
@@ -49,6 +55,8 @@ func (h *FaceHandler) ChangeFace(c *websocket.Conn) {
 			}
 			break
 		}
+		sendResponse(c, "OK", "Face command processed successfully")
+
 	}
 }
 
@@ -68,6 +76,8 @@ func (h *FaceHandler) RotateHead(c *websocket.Conn) {
 		_, message, err := c.ReadMessage()
 		if err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error reading message")); writeErr != nil {
+				sendResponse(c, "Error", "Error reading message")
+
 				return
 			}
 			break
@@ -76,6 +86,8 @@ func (h *FaceHandler) RotateHead(c *websocket.Conn) {
 		var angle model.HeadAngle
 		if err := json.Unmarshal(message, &angle); err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error parsing message")); writeErr != nil {
+				sendResponse(c, "Error", "Error parsing message")
+
 				return
 			}
 			break
@@ -83,6 +95,8 @@ func (h *FaceHandler) RotateHead(c *websocket.Conn) {
 
 		if !h.faceService.IsValidAngle(angle) {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Invalid angle values")); writeErr != nil {
+				sendResponse(c, "Error", "Invalid angle values")
+
 				return
 			}
 			break
@@ -90,9 +104,13 @@ func (h *FaceHandler) RotateHead(c *websocket.Conn) {
 
 		if err := h.faceService.RotateHead(angle); err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing head rotation command")); writeErr != nil {
+				sendResponse(c, "Error", "Error processing head rotation command")
+
 				return
 			}
 			break
 		}
+		sendResponse(c, "OK", "Angle command processed successfully")
+
 	}
 }

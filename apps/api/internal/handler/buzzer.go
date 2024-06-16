@@ -24,6 +24,7 @@ func (h *BuzzerHandler) BuzzerVariableControl(c *websocket.Conn) {
 		_, message, err := c.ReadMessage()
 		if err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error reading message")); writeErr != nil {
+				sendResponse(c, "Error", "Error reading message")
 				return
 			}
 			break
@@ -32,12 +33,21 @@ func (h *BuzzerHandler) BuzzerVariableControl(c *websocket.Conn) {
 		var buzzerVariable model.BuzzerVariable
 		if err := json.Unmarshal(message, &buzzerVariable); err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error parsing message")); writeErr != nil {
+				sendResponse(c, "Error", "Error parsing message")
 				return
 			}
 			break
 		}
 		if !h.buzzerService.IsValidBuzzerVariable(buzzerVariable) {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Invalid BuzzerVariable values")); writeErr != nil {
+				sendResponse(c, "Error", "Invalid BuzzerVariable values")
+				return
+			}
+			break
+		}
+		if err := h.buzzerService.SetBuzzerVariable(buzzerVariable); err != nil {
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing Buzzer value")); writeErr != nil {
+				sendResponse(c, "Error", "Invalid BuzzerVariable values")
 				return
 			}
 			break

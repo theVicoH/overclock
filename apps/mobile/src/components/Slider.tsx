@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { Slider } from '@miblanchard/react-native-slider'
-import { colors } from 'common'
+import React, { useState } from "react"
+import { View, Text, StyleSheet } from "react-native"
+import { Slider as SliderComponent } from "@miblanchard/react-native-slider"
+import { colors } from "common"
 
-export function CustomSlider() {
+export function Slider() {
   const [volume, setVolume] = useState(5000)
-  const handleValueChange = (value) => {
+  const handleValueChange = (value: number[]) => {
     const newValue = Number(value)
     setVolume(newValue)
   }
   return (
     <View style={styles.container}>
       <Text>{Math.floor(volume)}</Text>
-      <Slider
+      <SliderComponent
         onValueChange={handleValueChange}
         value={volume}
         containerStyle={styles.containerStyle}
@@ -29,14 +29,14 @@ export function CustomSlider() {
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-    width: '100%'
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    width: "100%",
   },
   containerStyle: {
-    width: '100%',
-    height: 4
-  }
+    width: "100%",
+    height: 4,
+  },
 })

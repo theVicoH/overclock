@@ -2,11 +2,11 @@ FROM golang:1.22.1-alpine as builder
 
 WORKDIR /app
 
-COPY ./api/go.* ./
+COPY ./apps/api/go.* ./
 
 RUN go mod download
 
-COPY ./api ./
+COPY ./apps/api ./
 
 RUN CGO_ENABLED=0 go build -a --trimpath --installsuffix cgo --ldflags="-s" -o main ./cmd/main.go
 

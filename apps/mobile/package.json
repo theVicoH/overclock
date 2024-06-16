@@ -5,8 +5,8 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "lint": "eslint \"./**/*.{js,jsx,ts,tsx}\"",
-    "prettier": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css}\"",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --ignore-path ../../.gitignore",
+    "format": "prettier --config ../../packages/config/.prettierrc --write .",
     "dev": "react-native start",
     "test": "vitest",
     "type": "tsc"
@@ -17,7 +17,8 @@
     "@react-native/gradle-plugin": "^0.74.84",
     "common": "workspace:^1.0.0",
     "react": "18.2.0",
-    "react-native": "0.74.2"
+    "react-native": "0.74.2",
+    "react-native-orientation-locker": "^1.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -27,17 +28,13 @@
     "@react-native/eslint-config": "0.74.84",
     "@react-native/metro-config": "0.74.84",
     "@react-native/typescript-config": "0.74.84",
-    "@testing-library/jest-dom": "^6.4.5",
-    "@testing-library/react": "^16.0.0",
-    "@types/react": "^18.2.6",
     "@types/react-test-renderer": "^18.0.0",
-    "eslint": "^8.19.0",
-    "prettier": "2.8.8",
-    "react-test-renderer": "18.2.0",
-    "typescript": "5.0.4",
-    "vitest": "^1.6.0"
+    "react-test-renderer": "18.2.0"
   },
   "engines": {
     "node": ">=18"
+  },
+  "eslintConfig": {
+    "extends": "../../packages/config/.eslintrc.json"
   }
 }

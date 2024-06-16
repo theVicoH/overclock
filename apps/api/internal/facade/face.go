@@ -10,7 +10,6 @@ type FaceService interface {
 }
 
 type FaceRepository interface {
-}
-
-type HeadAngleRepository interface {
+	SetFace(face model.Face) error
+	RotateHead(angle model.HeadAngle) error
 }

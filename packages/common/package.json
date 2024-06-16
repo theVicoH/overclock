@@ -1,25 +1,19 @@
 {
   "name": "common",
   "version": "1.0.0",
-  "description": "",
   "main": "src/index.ts",
   "scripts": {
     "test": "vitest",
-    "lint": "eslint \"./**/*.{js,jsx,ts,tsx}\"",
-    "prettier": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css}\"",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --ignore-path ../../.gitignore",
+    "format": "prettier --config ../config/.prettierrc --write .",
     "common": "node generateImport.js",
     "type": "tsc"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.4.5",
-    "@testing-library/react": "^16.0.0",
     "@types/mock-fs": "^4.13.4",
-    "eslint": "^8.19.0",
-    "mock-fs": "^5.2.0",
-    "prettier": "2.8.8",
-    "vitest": "^1.6.0"
+    "mock-fs": "^5.2.0"
+  },
+  "eslintConfig": {
+    "extends": "../config/.eslintrc.json"
   }
 }

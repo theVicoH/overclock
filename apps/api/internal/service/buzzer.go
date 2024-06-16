@@ -1,6 +1,9 @@
 package service
 
-import "Overclock/internal/model"
+import (
+	"Overclock/internal/model"
+	"fmt"
+)
 
 func (s *BuzzerService) IsValidBuzzerVariable(buzzerVariable model.BuzzerVariable) bool {
 	// Vérifie le premier élément (ON/OFF)
@@ -12,4 +15,13 @@ func (s *BuzzerService) IsValidBuzzerVariable(buzzerVariable model.BuzzerVariabl
 		return false
 	}
 	return true
+}
+
+func (s *BuzzerService) SetBuzzerVariable(buzzerVariable model.BuzzerVariable) error {
+	err := s.buzzeRepo.SetBuzzerVariable(buzzerVariable)
+	if err != nil {
+		fmt.Println("Error : ", err)
+		return err
+	}
+	return nil
 }
