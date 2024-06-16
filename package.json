@@ -37,6 +37,9 @@
     "@typescript-eslint/parser": "^7.2.0"
   },
   "packageManager": "pnpm@9.2.0",
+  "engines": {
+    "node": "=18.0.0"
+  },
   "pnpm": {
     "auto-install-peers": true,
     "strict-peer-dependencies": false
