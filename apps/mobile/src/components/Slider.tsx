@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { View, Text, StyleSheet } from "react-native"
-import { Slider as SliderComponent } from "@miblanchard/react-native-slider"
+import { Slider as BaseSlider } from "@miblanchard/react-native-slider"
 import { colors } from "common"
 
 export function Slider() {
@@ -12,7 +12,7 @@ export function Slider() {
   return (
     <View style={styles.container}>
       <Text>{Math.floor(volume)}</Text>
-      <SliderComponent
+      <BaseSlider
         onValueChange={handleValueChange}
         value={volume}
         containerStyle={styles.containerStyle}
