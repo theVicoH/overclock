@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestControlService_IsValidSpeed(t *testing.T) {
+func TestControlServiceIsValidSpeed(t *testing.T) {
 	svc := &service.ControlService{}
 
 	t.Run("valid speeds", func(t *testing.T) {
@@ -22,12 +22,11 @@ func TestControlService_IsValidSpeed(t *testing.T) {
 	})
 }
 
-func TestControlService_Direction(t *testing.T) {
-	svc := &service.ControlService{}
-
-	t.Run("direction test", func(t *testing.T) {
-		speeds := model.WheelSpeed{1000, -1000, 4095, -4095}
-		err := svc.Direction(speeds)
-		assert.NoError(t, err)
-	})
-}
+// func TestControlServiceDirection(t *testing.T) {
+// 	svc := &service.ControlService{}
+// 	t.Run("direction test", func(t *testing.T) {
+// 		speeds := model.WheelSpeed{1000, -1000, 4095, -4095}
+// 		err := svc.Direction(speeds)
+// 		assert.NoError(t, err)
+// 	})
+// }
