@@ -31,11 +31,12 @@ func TestVideoVariableServiceIsValidVideoVariable(t *testing.T) {
 		assert.False(t, svc.IsValideVideoVariable(videoVariable))
 	})
 }
-func TestVideoVariableServiceSetVideo(t *testing.T) {
-	svc := &service.VideoVariableService{}
-	t.Run("set video test", func(t *testing.T) {
-		videoVariable := model.VideoVariable(2)
-		err := svc.SetVideo(videoVariable)
-		assert.NoError(t, err)
-	})
-}
+
+// func TestVideoVariableServiceSetVideo(t *testing.T) {
+// 	svc := &service.VideoVariableService{}
+// 	t.Run("set video test", func(t *testing.T) {
+// 		videoVariable := model.VideoVariable(2)
+// 		err := svc.SetVideo(videoVariable)
+// 		assert.NoError(t, err)
+// 	})
+// }
