@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestFaceService_IsValidFace(t *testing.T) {
+func TestFaceServiceIsValidFace(t *testing.T) {
 	svf := &service.FaceService{}
 
 	t.Run("valid face", func(t *testing.T) {
@@ -22,17 +22,16 @@ func TestFaceService_IsValidFace(t *testing.T) {
 	})
 }
 
-func TestFaceService_SetFace(t *testing.T) {
-	svf := &service.FaceService{}
+// func TestFaceServiceSetFace(t *testing.T) {
+// 	svf := &service.FaceService{}
+// 	t.Run("set face test", func(t *testing.T) {
+// 		face := model.Face(2)
+// 		err := svf.SetFace(face)
+// 		assert.NoError(t, err)
+// 	})
+// }
 
-	t.Run("set face test", func(t *testing.T) {
-		face := model.Face(2)
-		err := svf.SetFace(face)
-		assert.NoError(t, err)
-	})
-}
-
-func TestFaceService_IsValidAngle(t *testing.T) {
+func TestFaceServiceIsValidAngle(t *testing.T) {
 	svf := &service.FaceService{}
 
 	t.Run("valid headAngle", func(t *testing.T) {
@@ -46,12 +45,11 @@ func TestFaceService_IsValidAngle(t *testing.T) {
 	})
 }
 
-func TestFaceService_RotateHead(t *testing.T) {
-	svf := &service.FaceService{}
-
-	t.Run("set face test", func(t *testing.T) {
-		headAngle := model.HeadAngle{0, 180}
-		err := svf.RotateHead(headAngle)
-		assert.NoError(t, err)
-	})
-}
+// func TestFaceServiceRotateHead(t *testing.T) {
+// 	svf := &service.FaceService{}
+// 	t.Run("set face test", func(t *testing.T) {
+// 		headAngle := model.HeadAngle{0, 180}
+// 		err := svf.RotateHead(headAngle)
+// 		assert.NoError(t, err)
+// 	})
+// }

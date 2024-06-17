@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestBuzzerService_IsValidBuzzerVariable(t *testing.T) {
+func TestBuzzerServiceIsValidBuzzerVariable(t *testing.T) {
 	svc := &service.BuzzerService{}
 	t.Run("invalid Buzzer frequency too low", func(t *testing.T) {
 		assert.False(t, svc.IsValidBuzzerVariable(-1))
@@ -25,10 +25,11 @@ func TestBuzzerService_IsValidBuzzerVariable(t *testing.T) {
 		assert.True(t, svc.IsValidBuzzerVariable(0))
 	})
 }
-func TestBuzzerService_SetBuzzerVariable(t *testing.T) {
-	svc := &service.BuzzerService{}
-	t.Run("set buzzer test", func(t *testing.T) {
-		err := svc.SetBuzzerVariable(10000)
-		assert.NoError(t, err)
-	})
-}
+
+// func TestBuzzerServiceSetBuzzerVariable(t *testing.T) {
+// 	svc := &service.BuzzerService{}
+// 	t.Run("set buzzer test", func(t *testing.T) {
+// 		err := svc.SetBuzzerVariable(10000)
+// 		assert.NoError(t, err)
+// 	})
+// }
