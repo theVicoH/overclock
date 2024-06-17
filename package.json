@@ -16,6 +16,7 @@
     "type:web": "pnpm --filter web type",
     "type:mobile": "pnpm --filter mobile type",
     "type:common": "pnpm --filter common type",
+    "test:api": "pnpm --filter api test",
     "test:web": "pnpm --filter web test",
     "test:mobile": "pnpm --filter mobile test",
     "test:common": "pnpm --filter common test",

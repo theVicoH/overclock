@@ -39,15 +39,15 @@ func (h *BuzzerHandler) BuzzerVariableControl(c *websocket.Conn) {
 			break
 		}
 		if !h.buzzerService.IsValidBuzzerVariable(buzzerVariable) {
-			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Invalid BuzzerVariable values")); writeErr != nil {
-				sendResponse(c, "Error", "Invalid BuzzerVariable values")
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Invalid BuzzerVariable value")); writeErr != nil {
+				sendResponse(c, "Error", "Invalid BuzzerVariable value")
 				return
 			}
 			break
 		}
 		if err := h.buzzerService.SetBuzzerVariable(buzzerVariable); err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing Buzzer value")); writeErr != nil {
-				sendResponse(c, "Error", "Invalid BuzzerVariable values")
+				sendResponse(c, "Error", "Invalid BuzzerVariable value")
 				return
 			}
 			break

@@ -41,16 +41,12 @@ func init() {
 	if err != nil {
 		log.Fatalln("Error establishing WebSocket connection:", err)
 	}
-	// defer conn.Close()
+	defer conn.Close()
 
 	controlRepo := repository.NewControlRepository(conn)
 	buzzerRepo := repository.NewBuzzerRepository(conn)
 	faceRepo := repository.NewFaceRepository(conn)
 	videoRepo := repository.NewVideoRepository(conn)
-	// controlRepo := repository.NewControlRepository(conn)
-	// buzzerRepo := repository.NewBuzzerRepository(conn)
-	// faceRepo := repository.NewFaceRepository(conn)
-	// videoRepo := repository.NewVideoRepository(conn)
 
 	controlService := service.NewControlService(controlRepo)
 	buzzerService := service.NewBuzzerService(buzzerRepo)
