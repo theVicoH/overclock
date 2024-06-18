@@ -26,13 +26,6 @@ type SectionProps = PropsWithChildren<{
 
 function Section({ children, title }: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === "dark";
-  useEffect(() => {
-    Orientation.lockToLandscape();
-
-    return () => {
-      Orientation.unlockAllOrientations();
-    };
-  }, []);
   return (
     <View style={styles.sectionContainer}>
       <Text
@@ -67,6 +60,13 @@ function App(): React.JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  useEffect(() => {
+    Orientation.lockToLandscape();
+
+    return () => {
+      Orientation.unlockAllOrientations();
+    };
+  }, []);
 
   return (
     <SafeAreaView style={backgroundStyle}>
