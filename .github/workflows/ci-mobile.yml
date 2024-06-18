@@ -27,10 +27,10 @@ jobs:
         run: npm install -g pnpm
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm --filter mobile install --no-frozen-lockfile
 
       - name: Lint
-        run: pnpm run lint
+        run: pnpm --filter mobile lint
 
   typescript:
     name: TypeScript
@@ -53,10 +53,10 @@ jobs:
         run: npm install -g pnpm@9.4.0
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm --filter mobile install --no-frozen-lockfile
 
       - name: TypeScript
-        run: pnpm run type
+        run: pnpm --filter mobile type
 
   test:
     name: Test
@@ -79,7 +79,7 @@ jobs:
         run: npm install -g pnpm
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm --filter mobile install --no-frozen-lockfile
 
       - name: Test
-        run: pnpm run test
+        run: pnpm --filter mobile test
