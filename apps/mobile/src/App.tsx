@@ -92,6 +92,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Command" component={Commandpage} />
         <Stack.Screen name="Data" component={Datapage} />
       </Stack.Navigator>
+      <Section title=""></Section>
     </NavigationContainer>
   );
 }
