@@ -1,8 +1,8 @@
-import React from "react";
-import { Text } from "react-native";
+import React from "react"
+import { Text } from "react-native"
 
 const Commandpage = () => {
-  return <Text>Commandpage</Text>;
-};
+  return <Text>Commandpage</Text>
+}
 
-export default Commandpage;
+export default Commandpage
