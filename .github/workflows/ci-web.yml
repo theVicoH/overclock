@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - "apps/web/**"
+    types:
+      - opened
+      - reopened
 
 jobs:
   lint:
@@ -35,6 +38,7 @@ jobs:
   typescript:
     name: TypeScript
     runs-on: ubuntu-latest
+    needs: lint
     defaults:
       run:
         shell: bash
@@ -47,7 +51,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "20"
+          node-version: "18"
 
       - name: Install dependencies
         run: npm install -g pnpm
@@ -61,6 +65,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    needs: typescript
     defaults:
       run:
         shell: bash
@@ -73,7 +78,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "20"
+          node-version: "18"
 
       - name: Install dependencies
         run: npm install -g pnpm
@@ -83,3 +88,30 @@ jobs:
 
       - name: Test
         run: pnpm --filter web test
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: typescript
+    defaults:
+      run:
+        shell: bash
+        working-directory: apps/web
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm --filter web install --no-frozen-lockfile
+
+      - name: Build
+        run: pnpm --filter web build

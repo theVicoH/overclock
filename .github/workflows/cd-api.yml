@@ -1,9 +1,9 @@
 name: CD API
 
 on:
-  pull_request:
-    paths:
-      - "apps/api/**"
+  push:
+    branches:
+      - main
 
 env:
   REGISTRY: ghcr.io

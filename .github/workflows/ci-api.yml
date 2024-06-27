@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - "apps/api/**"
+    types:
+      - opened
+      - reopened
 
 jobs:
   lint:
@@ -33,6 +36,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    needs: lint
     defaults:
       run:
         shell: bash
