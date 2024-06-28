@@ -7,6 +7,7 @@ import (
 	"Overclock/internal/service"
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 	"os/signal"
 	"syscall"
@@ -37,9 +38,9 @@ func init() {
 	// 	Type:     os.Getenv("DB_TYPE"),
 	// })
 
-	// u := url.URL{Scheme: "ws", Host: os.Getenv("WS_IP"), Path: "/overclock"}
+	u := url.URL{Scheme: "ws", Host: os.Getenv("WS_IP"), Path: "/overclock"}
 
-	conn, _, err := websocket.DefaultDialer.Dial("ws://172.18.0.3/overclock", nil)
+	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
 		log.Fatalf("Error establishing WebSocket connection: %v", err)
 	}
