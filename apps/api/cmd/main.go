@@ -37,7 +37,7 @@ func init() {
 	// 	Type:     os.Getenv("DB_TYPE"),
 	// })
 
-	conn, _, err := websocket.DefaultDialer.Dial("ws://192.168.83.10/overclock", nil)
+	conn, _, err := websocket.DefaultDialer.Dial("ws://"+os.Getenv("WS_IP")+"/overclock", nil)
 	if err != nil {
 		log.Fatalln("Error establishing WebSocket connection:", err)
 	}
