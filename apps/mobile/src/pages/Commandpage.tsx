@@ -1,8 +1,9 @@
 import React from "react"
-import { Text } from "react-native"
+import { View } from "react-native"
+import Joystick from "../components/Joystick"
 
 const Commandpage = () => {
-  return <Text>Commandpage</Text>
+  return <View><Joystick /></View>
 }
 
 export default Commandpage

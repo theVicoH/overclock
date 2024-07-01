@@ -20,35 +20,35 @@ enableScreens()
 
 const Stack = createNativeStackNavigator()
 
-function Section({ children, title }: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === "dark"
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}
-      >
-        {title}
-      </Text>
-      <Text style={[fontStyles.notoSansBold]}>This is NotoSans Bold text.</Text>
-      <Text style={[fontStyles.dsDigital]}>This is DS-Digital text.</Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}
-      >
-        {children}
-      </Text>
-    </View>
-  )
-}
+// function Section({ children, title }: SectionProps): React.JSX.Element {
+//   const isDarkMode = useColorScheme() === "dark"
+//   return (
+//     <View style={styles.sectionContainer}>
+//       <Text
+//         style={[
+//           styles.sectionTitle,
+//           {
+//             color: isDarkMode ? Colors.white : Colors.black,
+//           },
+//         ]}
+//       >
+//         {title}
+//       </Text>
+//       <Text style={[fontStyles.notoSansBold]}>This is NotoSans Bold text.</Text>
+//       <Text style={[fontStyles.dsDigital]}>This is DS-Digital text.</Text>
+//       <Text
+//         style={[
+//           styles.sectionDescription,
+//           {
+//             color: isDarkMode ? Colors.light : Colors.dark,
+//           },
+//         ]}
+//       >
+//         {children}
+//       </Text>
+//     </View>
+//   )
+// }
 
 function App(): React.JSX.Element {
   useEffect(() => {
@@ -78,7 +78,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Command" component={Commandpage} />
         <Stack.Screen name="Data" component={Datapage} />
       </Stack.Navigator>
-      <Section title=""></Section>
+      {/* <Section title=""></Section> */}
     </NavigationContainer>
   )
 }
