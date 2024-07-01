@@ -7,6 +7,7 @@ import (
 	"Overclock/internal/service"
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 	"os/signal"
 	"syscall"
@@ -37,20 +38,18 @@ func init() {
 	// 	Type:     os.Getenv("DB_TYPE"),
 	// })
 
-	conn, _, err := websocket.DefaultDialer.Dial("ws://192.168.83.10/overclock", nil)
+	u := url.URL{Scheme: "ws", Host: os.Getenv("WS_IP"), Path: "/overclock"}
+
+	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
-		log.Fatalln("Error establishing WebSocket connection:", err)
+		log.Fatalf("Error establishing WebSocket connection: %v", err)
 	}
-	// defer conn.Close()
+	defer conn.Close()
 
 	controlRepo := repository.NewControlRepository(conn)
 	buzzerRepo := repository.NewBuzzerRepository(conn)
 	faceRepo := repository.NewFaceRepository(conn)
 	videoRepo := repository.NewVideoRepository(conn)
-	// controlRepo := repository.NewControlRepository(conn)
-	// buzzerRepo := repository.NewBuzzerRepository(conn)
-	// faceRepo := repository.NewFaceRepository(conn)
-	// videoRepo := repository.NewVideoRepository(conn)
 
 	controlService := service.NewControlService(controlRepo)
 	buzzerService := service.NewBuzzerService(buzzerRepo)

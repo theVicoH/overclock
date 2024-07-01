@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - "apps/web/**"
+    types:
+      - opened
+      - reopened
 
 jobs:
   lint:
@@ -21,20 +24,21 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "20"
+          node-version: "18"
 
       - name: Install dependencies
-        run: npm install -g pnpm
+        run: npm install -g pnpm@9.4.0
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm --filter web install --no-frozen-lockfile
 
       - name: Lint
-        run: pnpm run lint
+        run: pnpm --filter web lint
 
   typescript:
     name: TypeScript
     runs-on: ubuntu-latest
+    needs: lint
     defaults:
       run:
         shell: bash
@@ -47,20 +51,21 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "20"
+          node-version: "18"
 
       - name: Install dependencies
         run: npm install -g pnpm
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm --filter web install --no-frozen-lockfile
 
       - name: TypeScript
-        run: pnpm run type
+        run: pnpm --filter web type
 
   test:
     name: Test
     runs-on: ubuntu-latest
+    needs: typescript
     defaults:
       run:
         shell: bash
@@ -73,13 +78,40 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "20"
+          node-version: "18"
 
       - name: Install dependencies
         run: npm install -g pnpm
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm --filter web install --no-frozen-lockfile
 
       - name: Test
-        run: pnpm run test
+        run: pnpm --filter web test
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: typescript
+    defaults:
+      run:
+        shell: bash
+        working-directory: apps/web
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm --filter web install --no-frozen-lockfile
+
+      - name: Build
+        run: pnpm --filter web build

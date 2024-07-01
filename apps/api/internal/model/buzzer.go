@@ -1,6 +1,6 @@
 package model
 
-type BuzzerVariable [2]int
+type BuzzerVariable int
 
 type ConfBuzzer struct {
 	Cmd            `json:"cmd"`

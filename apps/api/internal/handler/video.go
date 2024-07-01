@@ -8,7 +8,7 @@ import (
 )
 
 // VideoVariableControl
-// @Summary ON/OFF Video 
+// @Summary ON/OFF Video
 // @Description Receive video ON/OFF instruction via WebSocket
 // @Tags control
 // @Accept json
@@ -17,12 +17,12 @@ import (
 // @Success 200 {string} string "OK"
 // @Failure 400 {string} string "Error"
 // @Router /v1/video [get]
-func (h *VideoVariableHandler) VideoVariable(c *websocket.Conn){
+func (h *VideoVariableHandler) VideoVariable(c *websocket.Conn) {
 	defer c.Close()
 
 	for {
-		_, message,err := c.ReadMessage()
-        if err != nil {
+		_, message, err := c.ReadMessage()
+		if err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error reading message")); writeErr != nil {
 				return
 			}
@@ -36,8 +36,8 @@ func (h *VideoVariableHandler) VideoVariable(c *websocket.Conn){
 			}
 			break
 		}
-		if !h.videoService.IsValideVideoVariable(videoControl){
-			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("invalide videoVariable value")); writeErr!= nil {
+		if !h.videoService.IsValideVideoVariable(videoControl) {
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("invalide videoVariable value")); writeErr != nil {
 				sendResponse(c, "Error", "invalide video command")
 				return
 			}
@@ -51,5 +51,5 @@ func (h *VideoVariableHandler) VideoVariable(c *websocket.Conn){
 			break
 		}
 	}
-	
+
 }

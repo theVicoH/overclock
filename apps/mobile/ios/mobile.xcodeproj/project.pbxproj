@@ -13,18 +13,18 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		413F54182427DC98F4E48377 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8C375DE7A4CE7479DA1E19B7 /* PrivacyInfo.xcprivacy */; };
+		4CB1D26FD45647F593FC9B72 /* NotoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 547B4FD450804F209003FCE0 /* NotoSans-SemiBold.ttf */; };
+		5679A6A2AB834AB58D81927C /* NotoSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 110C9A3EC33D497E8DAFEF57 /* NotoSans-Black.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-mobile-mobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-mobile-mobileTests.a */; };
+		7CB9CA191BEB41A3AB4FAB71 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6793C8CF009E4EBE929091A9 /* NotoSans-Bold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A29444BCC524487EB5E5BFFA /* DS-Digital Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3326725BF900464BA5902BBF /* DS-Digital Bold.ttf */; };
-		5679A6A2AB834AB58D81927C /* NotoSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 110C9A3EC33D497E8DAFEF57 /* NotoSans-Black.ttf */; };
-		7CB9CA191BEB41A3AB4FAB71 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6793C8CF009E4EBE929091A9 /* NotoSans-Bold.ttf */; };
-		F2D4EDD4E17E4A24BC6BEBA5 /* NotoSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 836B0831134E4248BA607BF5 /* NotoSans-ExtraBold.ttf */; };
+		B94A1D1E90CC41D486270CCD /* NotoSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D081492735A44C3FA81CCFB9 /* NotoSans-Thin.ttf */; };
+		C4B1597438C5405BA7EBB7A1 /* NotoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90A7ED765FCE40B8BB5D95A5 /* NotoSans-Regular.ttf */; };
 		CCAA1E2BDC624890963B34AB /* NotoSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4ABD83C1E39C476398F6CFA5 /* NotoSans-ExtraLight.ttf */; };
+		F2D4EDD4E17E4A24BC6BEBA5 /* NotoSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 836B0831134E4248BA607BF5 /* NotoSans-ExtraBold.ttf */; };
 		F9CD90547AEE426A9D1F9478 /* NotoSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FC0A9D9E21B4245A85D18CD /* NotoSans-Light.ttf */; };
 		FAEA5F64BAE24D6CB2C15D91 /* NotoSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 713B4230CDEA4361B49BB75F /* NotoSans-Medium.ttf */; };
-		C4B1597438C5405BA7EBB7A1 /* NotoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90A7ED765FCE40B8BB5D95A5 /* NotoSans-Regular.ttf */; };
-		4CB1D26FD45647F593FC9B72 /* NotoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 547B4FD450804F209003FCE0 /* NotoSans-SemiBold.ttf */; };
-		B94A1D1E90CC41D486270CCD /* NotoSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D081492735A44C3FA81CCFB9 /* NotoSans-Thin.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +41,7 @@
 		00E356EE1AD99517003FC87E /* mobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* mobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mobileTests.m; sourceTree = "<group>"; };
+		110C9A3EC33D497E8DAFEF57 /* NotoSans-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSans-Black.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-Black.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = mobile/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = mobile/AppDelegate.mm; sourceTree = "<group>"; };
@@ -49,24 +50,23 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = mobile/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = mobile/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-mobile-mobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mobile-mobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3326725BF900464BA5902BBF /* DS-Digital Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DS-Digital Bold.ttf"; path = "../../../packages/common/src/assets/fonts/DS-Digital Bold.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobile.debug.xcconfig"; path = "Target Support Files/Pods-mobile/Pods-mobile.debug.xcconfig"; sourceTree = "<group>"; };
+		4ABD83C1E39C476398F6CFA5 /* NotoSans-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSans-ExtraLight.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-ExtraLight.ttf"; sourceTree = "<group>"; };
+		547B4FD450804F209003FCE0 /* NotoSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSans-SemiBold.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobile.release.xcconfig"; path = "Target Support Files/Pods-mobile/Pods-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-mobile-mobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobile-mobileTests.debug.xcconfig"; path = "Target Support Files/Pods-mobile-mobileTests/Pods-mobile-mobileTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6793C8CF009E4EBE929091A9 /* NotoSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSans-Bold.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-Bold.ttf"; sourceTree = "<group>"; };
+		713B4230CDEA4361B49BB75F /* NotoSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSans-Medium.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-Medium.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = mobile/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		836B0831134E4248BA607BF5 /* NotoSans-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSans-ExtraBold.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-mobile-mobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobile-mobileTests.release.xcconfig"; path = "Target Support Files/Pods-mobile-mobileTests/Pods-mobile-mobileTests.release.xcconfig"; sourceTree = "<group>"; };
-		8C375DE7A4CE7479DA1E19B7 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = mobile/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		8C375DE7A4CE7479DA1E19B7 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = mobile/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		8FC0A9D9E21B4245A85D18CD /* NotoSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSans-Light.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-Light.ttf"; sourceTree = "<group>"; };
+		90A7ED765FCE40B8BB5D95A5 /* NotoSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSans-Regular.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-Regular.ttf"; sourceTree = "<group>"; };
+		D081492735A44C3FA81CCFB9 /* NotoSans-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSans-Thin.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-Thin.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		3326725BF900464BA5902BBF /* DS-Digital Bold.ttf */ = {isa = PBXFileReference; name = "DS-Digital Bold.ttf"; path = "../../../packages/common/src/assets/fonts/DS-Digital Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		110C9A3EC33D497E8DAFEF57 /* NotoSans-Black.ttf */ = {isa = PBXFileReference; name = "NotoSans-Black.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6793C8CF009E4EBE929091A9 /* NotoSans-Bold.ttf */ = {isa = PBXFileReference; name = "NotoSans-Bold.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		836B0831134E4248BA607BF5 /* NotoSans-ExtraBold.ttf */ = {isa = PBXFileReference; name = "NotoSans-ExtraBold.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		4ABD83C1E39C476398F6CFA5 /* NotoSans-ExtraLight.ttf */ = {isa = PBXFileReference; name = "NotoSans-ExtraLight.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		8FC0A9D9E21B4245A85D18CD /* NotoSans-Light.ttf */ = {isa = PBXFileReference; name = "NotoSans-Light.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		713B4230CDEA4361B49BB75F /* NotoSans-Medium.ttf */ = {isa = PBXFileReference; name = "NotoSans-Medium.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		90A7ED765FCE40B8BB5D95A5 /* NotoSans-Regular.ttf */ = {isa = PBXFileReference; name = "NotoSans-Regular.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		547B4FD450804F209003FCE0 /* NotoSans-SemiBold.ttf */ = {isa = PBXFileReference; name = "NotoSans-SemiBold.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D081492735A44C3FA81CCFB9 /* NotoSans-Thin.ttf */ = {isa = PBXFileReference; name = "NotoSans-Thin.ttf"; path = "../../../packages/common/src/assets/fonts/NotoSans-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +131,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		73BADF2FFFCB45518164AF63 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3326725BF900464BA5902BBF /* DS-Digital Bold.ttf */,
+				110C9A3EC33D497E8DAFEF57 /* NotoSans-Black.ttf */,
+				6793C8CF009E4EBE929091A9 /* NotoSans-Bold.ttf */,
+				836B0831134E4248BA607BF5 /* NotoSans-ExtraBold.ttf */,
+				4ABD83C1E39C476398F6CFA5 /* NotoSans-ExtraLight.ttf */,
+				8FC0A9D9E21B4245A85D18CD /* NotoSans-Light.ttf */,
+				713B4230CDEA4361B49BB75F /* NotoSans-Medium.ttf */,
+				90A7ED765FCE40B8BB5D95A5 /* NotoSans-Regular.ttf */,
+				547B4FD450804F209003FCE0 /* NotoSans-SemiBold.ttf */,
+				D081492735A44C3FA81CCFB9 /* NotoSans-Thin.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,24 +190,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		73BADF2FFFCB45518164AF63 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				3326725BF900464BA5902BBF /* DS-Digital Bold.ttf */,
-				110C9A3EC33D497E8DAFEF57 /* NotoSans-Black.ttf */,
-				6793C8CF009E4EBE929091A9 /* NotoSans-Bold.ttf */,
-				836B0831134E4248BA607BF5 /* NotoSans-ExtraBold.ttf */,
-				4ABD83C1E39C476398F6CFA5 /* NotoSans-ExtraLight.ttf */,
-				8FC0A9D9E21B4245A85D18CD /* NotoSans-Light.ttf */,
-				713B4230CDEA4361B49BB75F /* NotoSans-Medium.ttf */,
-				90A7ED765FCE40B8BB5D95A5 /* NotoSans-Regular.ttf */,
-				547B4FD450804F209003FCE0 /* NotoSans-SemiBold.ttf */,
-				D081492735A44C3FA81CCFB9 /* NotoSans-Thin.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -570,6 +569,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -597,6 +597,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CXX = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -616,6 +617,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD = "";
+				LDPLUSPLUS = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -635,10 +638,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -649,6 +649,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -676,6 +677,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				CXX = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -688,6 +690,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD = "";
+				LDPLUSPLUS = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -706,10 +710,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

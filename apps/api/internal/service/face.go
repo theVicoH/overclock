@@ -6,11 +6,10 @@ import (
 )
 
 func (s *FaceService) IsValidFace(face model.Face) bool {
-	return face > 0
+	return face > 0 && face < 7
 }
 
 func (s *FaceService) SetFace(face model.Face) error {
-
 	err := s.faceRepo.SetFace(face)
 	if err != nil {
 		fmt.Println("Error : ", err)

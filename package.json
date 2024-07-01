@@ -16,6 +16,7 @@
     "type:web": "pnpm --filter web type",
     "type:mobile": "pnpm --filter mobile type",
     "type:common": "pnpm --filter common type",
+    "test:api": "pnpm --filter api test",
     "test:web": "pnpm --filter web test",
     "test:mobile": "pnpm --filter mobile test",
     "test:common": "pnpm --filter common test",
@@ -23,7 +24,7 @@
     "mobile": "pnpm --filter mobile dev",
     "web": "pnpm --filter web dev",
     "dev": "pnpm -r dev",
-    "ci": "\"pnpm format\" \"pnpm lint\" \"pnpm type\" \"pnpm test\"",
+    "ci": "pnpm format && pnpm lint && pnpm type && pnpm test",
     "common": "pnpm --filter common common"
   },
   "devDependencies": {
@@ -36,9 +37,9 @@
     "@types/react": "^18.2.6",
     "@typescript-eslint/parser": "^7.2.0"
   },
-  "packageManager": "pnpm@9.2.0",
+  "packageManager": "pnpm@9.4.0",
   "engines": {
-    "node": "=18.0.0"
+    "node": ">=18.0.0"
   },
   "pnpm": {
     "auto-install-peers": true,
