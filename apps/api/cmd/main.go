@@ -65,7 +65,11 @@ func init() {
 
 func main() {
 	app := fiber.New()
-	app.Use(cors.New())
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "*",
+		AllowHeaders: "Origin, Content-Type, Accept",
+		AllowMethods: "GET, POST, PUT, DELETE",
+	}))
 	app.Use(recover.New())
 
 	app.Get("/swagger/*", swagger.HandlerDefault)

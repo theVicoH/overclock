@@ -15,12 +15,12 @@ const Joystick = () => {
 
   useEffect(() => {
     const joystickData = {
-      "x": x.toFixed(2),
-      "y": y.toFixed(2),
-      "force": force.toFixed(2)
+      "x": parseFloat(x.toFixed(2)),
+      "y": parseFloat(y.toFixed(2)),
+      "force": parseFloat(force.toFixed(2))
     }
     setJoystickDataJson(JSON.stringify(joystickData))
-    const socket = new WebSocket(WS_URL)
+    const socket = new WebSocket(`${WS_URL}`)
     socket.onopen = () => {
       console.log("WebSocket connection established.")
       socket.send(joystickDataJson)
