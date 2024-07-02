@@ -3,6 +3,7 @@ package handler
 import (
 	"Overclock/internal/model"
 	"encoding/json"
+	"fmt"
 
 	"github.com/gofiber/websocket/v2"
 )
@@ -30,33 +31,33 @@ func (h *ControlHandler) ManualControl(c *websocket.Conn) {
 			break
 		}
 
-		var speeds model.WheelSpeed
-		if err := json.Unmarshal(message, &speeds); err != nil {
+		var rowData model.WheelRawData
+		if err := json.Unmarshal(message, &rowData); err != nil {
 			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error parsing message")); writeErr != nil {
 				sendResponse(c, "Error", "Error parsing message")
-
+				fmt.Printf("x: %f\n, y: %f\n, force: %f\n", rowData.X, rowData.Y, rowData.Force)
 				return
 			}
 			break
 		}
 
-		if !h.controlService.IsValidSpeed(speeds) {
-			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Invalid speed values")); writeErr != nil {
-				sendResponse(c, "Error", "Invalid Wheel values")
+		// if !h.controlService.IsValidSpeed(speeds) {
+		// 	if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Invalid speed values")); writeErr != nil {
+		// 		sendResponse(c, "Error", "Invalid Wheel values")
 
-				return
-			}
-			break
-		}
+		// 		return
+		// 	}
+		// 	break
+		// }
 
-		if err := h.controlService.Direction(speeds); err != nil {
-			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing control command")); writeErr != nil {
-				sendResponse(c, "Error", "Error processing control command")
+		// if err := h.controlService.Direction(speeds); err != nil {
+		// 	if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing control command")); writeErr != nil {
+		// 		sendResponse(c, "Error", "Error processing control command")
 
-				return
-			}
-			break
-		}
+		// 		return
+		// 	}
+		// 	break
+		// }
 		sendResponse(c, "OK", "ManualControl command processed successfully")
 
 	}
