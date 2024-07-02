@@ -99,4 +99,4 @@ dist-ssr
 *.sln
 *.sw?
 
-/mobile/.env
+/apps/mobile/.env

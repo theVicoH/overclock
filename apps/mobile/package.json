@@ -33,6 +33,7 @@
     "@react-native/metro-config": "0.74.84",
     "@react-native/typescript-config": "0.74.84",
     "@types/react-test-renderer": "^18.0.0",
+    "react-native-dotenv": "^3.4.11",
     "react-test-renderer": "18.2.0"
   },
   "engines": {

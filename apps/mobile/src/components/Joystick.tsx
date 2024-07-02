@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import { View, StyleSheet, PanResponder, Animated, Text } from "react-native"
 import { useJoystickControls } from "../hooks/joystickCalculation"
+import { WS_URL } from "@env"
 import { colors } from "common"
 import ControlButton from "./ControlButton"
 
@@ -19,8 +20,7 @@ const Joystick = () => {
       "force": force.toFixed(2)
     }
     setJoystickDataJson(JSON.stringify(joystickData))
-    // TODO faire un .env
-    const socket = new WebSocket("URL")
+    const socket = new WebSocket(WS_URL)
     socket.onopen = () => {
       console.log("WebSocket connection established.")
       socket.send(joystickDataJson)
