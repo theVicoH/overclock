@@ -41,23 +41,17 @@ func (h *ControlHandler) ManualControl(c *websocket.Conn) {
 			break
 		}
 
-		// if !h.controlService.IsValidSpeed(speeds) {
-		// 	if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Invalid speed values")); writeErr != nil {
-		// 		sendResponse(c, "Error", "Invalid Wheel values")
+		var wheelSpeed model.WheelSpeed = h.controlService.TransformRawData(rowData)
 
-		// 		return
-		// 	}
-		// 	break
-		// }
+		if err := h.controlService.Direction(wheelSpeed); err != nil {
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing control command")); writeErr != nil {
+				sendResponse(c, "Error", "Error processing control command")
 
-		// if err := h.controlService.Direction(speeds); err != nil {
-		// 	if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing control command")); writeErr != nil {
-		// 		sendResponse(c, "Error", "Error processing control command")
+				return
+			}
+			break
+		}
 
-		// 		return
-		// 	}
-		// 	break
-		// }
 		sendResponse(c, "OK", "ManualControl command processed successfully")
 
 	}
