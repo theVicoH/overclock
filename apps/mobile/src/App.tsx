@@ -12,6 +12,7 @@ import Homepage from "./pages/Homepage"
 import Commandpage from "./pages/Commandpage"
 import Datapage from "./pages/Datapage"
 import { Slider } from "./components/Slider"
+import { Close, LogoOverclock } from "common/icons/mobile"
 
 type SectionProps = PropsWithChildren<{
   title: string
@@ -35,6 +36,8 @@ function Section({ children, title }: SectionProps): React.JSX.Element {
       >
         {title}
       </Text>
+      <Close />
+      <LogoOverclock />
       <Slider />
       <Text style={[fontStyles.notoSansBold]}>This is NotoSans Bold text.</Text>
       <Text style={[fontStyles.dsDigital]}>This is DS-Digital text.</Text>

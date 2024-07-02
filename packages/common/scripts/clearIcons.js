@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const iconsDir = path.join(__dirname, "src/icons");
+const iconsDir = path.join(__dirname, "../src/icons");
 
 function clearDirectory(directoryPath) {
   if (fs.existsSync(directoryPath)) {
@@ -17,4 +17,3 @@ function clearDirectory(directoryPath) {
 }
 
 clearDirectory(iconsDir);
-console.log(`Cleared directory: ${iconsDir}`);

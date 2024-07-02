@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import viteLogo from "/vite.svg"
 
 import { fetchData } from "common/services"
-import { Close } from "common/icons"
+import { Close } from "common/icons/web"
 
 function App() {
   const [count, setCount] = useState(0)
