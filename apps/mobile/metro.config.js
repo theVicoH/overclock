@@ -1,15 +1,19 @@
-const { getDefaultConfig, mergeConfig } = require("@react-native/metro-config")
-const path = require("path")
+const { getDefaultConfig, mergeConfig } = require("@react-native/metro-config");
+const path = require("path");
 
 const config = {
   resolver: {
     extraNodeModules: new Proxy(
-      {},
       {
-        get: (_, name) => path.resolve(__dirname, `node_modules/${name}`),
+        common: path.resolve(__dirname, "../../packages/common/src"),
       },
       {
-        common: path.resolve(__dirname, "../../packages/common"),
+        get: (target, name) => {
+          return (
+            target[name] ||
+            path.resolve(__dirname, `node_modules/${name}`)
+          );
+        },
       }
     ),
   },
@@ -18,6 +22,6 @@ const config = {
     path.resolve(__dirname, "node_modules"),
     path.resolve(__dirname, "../../packages/common"),
   ],
-}
+};
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config)
+module.exports = mergeConfig(getDefaultConfig(__dirname), config);

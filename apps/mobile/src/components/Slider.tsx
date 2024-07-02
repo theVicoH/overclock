@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { View, Text, StyleSheet } from "react-native"
 import { Slider as BaseSlider } from "@miblanchard/react-native-slider"
-import { colors } from "common"
+import { colors } from "common/styles"
 
 export function Slider() {
   const [volume, setVolume] = useState(5000)

@@ -34,8 +34,11 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    // Causes issues with package.json "exports"
-    "forceConsistentCasingInFileNames": false
+    "forceConsistentCasingInFileNames": false,
+    "baseUrl": ".",
+    "paths": {
+      "common/*": ["../../packages/common/src/*"]
+    }
   },
   "exclude": ["**/Pods/**"]
 }
