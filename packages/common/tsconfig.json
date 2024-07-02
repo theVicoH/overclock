@@ -10,9 +10,9 @@
     "paths": {
       "common/*": ["*"]
     },
-    "typeRoots": ["./node_modules/@types", "./custom_typings"],
+    "typeRoots": ["./node_modules/@types", "./custom_typings"]
   },
-  
+
   "include": ["src", "declaration.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

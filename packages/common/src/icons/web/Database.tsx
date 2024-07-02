@@ -1,13 +1,7 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import * as React from "react"
+import type { SVGProps } from "react"
 const SvgDatabase = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={16}
-    height={16}
-    fill="none"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="none" {...props}>
     <path
       stroke="#100F0F"
       strokeLinecap="round"
@@ -30,5 +24,5 @@ const SvgDatabase = (props: SVGProps<SVGSVGElement>) => (
       d="M2 8c0 .53.632 1.04 1.757 1.414C4.883 9.79 6.41 10 8 10s3.117-.21 4.243-.586C13.368 9.04 14 8.53 14 8"
     />
   </svg>
-);
-export default SvgDatabase;
+)
+export default SvgDatabase

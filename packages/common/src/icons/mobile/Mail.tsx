@@ -1,13 +1,8 @@
-import * as React from "react";
-import Svg, { Path } from "react-native-svg";
-import type { SvgProps } from "react-native-svg";
+import * as React from "react"
+import Svg, { Path } from "react-native-svg"
+import type { SvgProps } from "react-native-svg"
 const SvgMail = (props: SvgProps) => (
-  <Svg
-    width={16}
-    height={16}
-    fill="none"
-    {...props}
-  >
+  <Svg width={16} height={16} fill="none" {...props}>
     <Path
       stroke="#100F0F"
       strokeLinecap="round"
@@ -23,5 +18,5 @@ const SvgMail = (props: SvgProps) => (
       d="m14.666 4.667-5.98 3.8a1.29 1.29 0 0 1-1.373 0l-5.98-3.8"
     />
   </Svg>
-);
-export default SvgMail;
+)
+export default SvgMail
