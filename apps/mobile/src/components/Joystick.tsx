@@ -10,15 +10,33 @@ const Joystick = () => {
   const [x, setX] = useState(0)
   const [y, setY] = useState(0)
   const [force, setForce] = useState(0)
-  const [json, setJson] = useState("")
+  const [joystickDataJson, setJoystickDataJson] = useState("")
 
   useEffect(() => {
-    const data = {
+    const joystickData = {
       "x": x.toFixed(2),
       "y": y.toFixed(2),
       "force": force.toFixed(2)
     }
-    setJson(JSON.stringify(data))
+    setJoystickDataJson(JSON.stringify(joystickData))
+    // TODO faire un .env
+    const socket = new WebSocket("URL")
+    socket.onopen = () => {
+      console.log("WebSocket connection established.")
+      socket.send(joystickDataJson)
+    }
+    socket.onmessage = (data) => {
+      console.log("Message from server:", data)
+    }
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error)
+    }
+    socket.onclose = (event) => {
+      console.log("WebSocket connection closed:", event)
+    }
+    return () => {
+      socket.close()
+    }
   }, [x, y, force])
 
   useEffect(() => {
@@ -68,7 +86,7 @@ const Joystick = () => {
           <ControlButton size={"default"} />
         </Animated.View>
       </View>
-      <Text>{json}</Text>
+      <Text>{joystickDataJson}</Text>
     </View>
   )
 }
