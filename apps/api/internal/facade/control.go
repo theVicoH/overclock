@@ -3,7 +3,7 @@ package facade
 import "Overclock/internal/model"
 
 type ControlService interface {
-	IsValidSpeed(speeds model.WheelSpeed) bool
+	TransformRawData(wheelRawData model.WheelRawData) model.WheelSpeed
 	Direction(speeds model.WheelSpeed) error
 }
 
