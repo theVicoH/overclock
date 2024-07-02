@@ -34,12 +34,12 @@ func (s *ControlService) TransformRawData(wheelRawData model.WheelRawData) model
 
 		fmt.Println(wheel)
 	} else if wheelRawData.X > 25 {
-		wheel = model.WheelSpeed{4095 * wheelRawData.Force, 4095 * wheelRawData.Force, 0, 0}
+		wheel = model.WheelSpeed{4095 * wheelRawData.Force, 4095 * wheelRawData.Force, -4095 * wheelRawData.Force, -4095 * wheelRawData.Force}
 
 		fmt.Println(wheel)
 
 	} else if wheelRawData.X < 25 {
-		wheel = model.WheelSpeed{0, 0, 4095 * wheelRawData.Force, 4095 * wheelRawData.Force}
+		wheel = model.WheelSpeed{-4095 * wheelRawData.Force, -4095 * wheelRawData.Force, 4095 * wheelRawData.Force, 4095 * wheelRawData.Force}
 
 		fmt.Println(wheel)
 	} else if wheelRawData.X == 0 && wheelRawData.Y == 0 && wheelRawData.Force == 0 {
