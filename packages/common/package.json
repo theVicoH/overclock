@@ -1,19 +1,28 @@
 {
   "name": "common",
   "version": "1.0.0",
-  "main": "src/index.ts",
   "scripts": {
     "test": "vitest",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --ignore-path ../../.gitignore",
     "format": "prettier --config ../config/.prettierrc --write .",
-    "common": "node generateImport.js",
-    "type": "tsc"
+    "common": "pnpm run icons && node ./scripts/generateImport.js",
+    "type": "tsc",
+    "clear-icons": "node ./scripts/clearIcons.js",
+    "remove-xmlns": "node ./scripts/removeXmlns.js",
+    "icons:web": "node ./scripts/generateIconsWeb.js",
+    "icons:mobile": "node ./scripts/generateIconsMobile.js && pnpm run remove-xmlns",
+    "icons": "pnpm run clear-icons && pnpm run icons:web && pnpm run icons:mobile"
   },
   "devDependencies": {
+    "@svgr/cli": "^8.1.0",
+    "@svgr/core": "^8.1.0",
     "@types/mock-fs": "^4.13.4",
     "mock-fs": "^5.2.0"
   },
   "eslintConfig": {
     "extends": "../config/.eslintrc.json"
+  },
+  "dependencies": {
+    "react-native-svg": "^15.3.0"
   }
 }

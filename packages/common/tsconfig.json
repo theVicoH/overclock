@@ -1,11 +1,18 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "jsx": "react",
     "target": "ES6",
     "module": "commonjs",
     "declaration": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "paths": {
+      "common/*": ["*"]
+    },
+    "typeRoots": ["./node_modules/@types", "./custom_typings"]
   },
-  "include": ["src", "src/index.ts"],
+
+  "include": ["src", "declaration.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

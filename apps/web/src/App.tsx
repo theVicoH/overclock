@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import viteLogo from "/vite.svg"
-import { fetchData } from "common"
+
+import { fetchData } from "common/services"
+import { Close } from "common/icons/web"
 
 function App() {
   const [count, setCount] = useState(0)
@@ -20,6 +22,7 @@ function App() {
   return (
     <>
       <div>
+        <Close />
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
