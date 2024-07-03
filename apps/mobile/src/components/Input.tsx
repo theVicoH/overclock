@@ -1,23 +1,17 @@
 import React, { Dispatch, useState } from "react";
-import {
-  NativeSyntheticEvent,
-  StyleSheet,
-  Text,
-  TextInput,
-  TextInputChangeEventData,
-  View,
-} from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
+import { colors } from "common/styles";
 
 interface InputComponentProps {
   placeholder: string;
-  children?: React.ReactNode;
+  icon?: React.ReactElement;
   value?: string | number;
   setValue: Dispatch<React.SetStateAction<any>>;
 }
 
 const InputComponent: React.FC<InputComponentProps> = ({
   placeholder,
-  children,
+  icon,
   setValue,
 }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -30,13 +24,13 @@ const InputComponent: React.FC<InputComponentProps> = ({
     <View style={[styles.inputContainer, isFocused && styles.inputActive]}>
       <TextInput
         placeholder={placeholder}
-        placeholderTextColor="#BDBDBD"
+        placeholderTextColor={colors.neutral400}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         onChangeText={(text) => handleChange(text)}
         style={styles.input}
       />
-      {children && <View style={styles.children}>{children}</View>}
+      {icon && <View style={styles.icon}>{icon}</View>}
     </View>
   );
 };
@@ -47,9 +41,9 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-    backgroundColor: "#202020",
-    opacity: 0.4,
-    borderColor: "#757575",
+    backgroundColor: colors.neutral900,
+    opacity: 0.32,
+    borderColor: colors.neutral600,
     borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -59,13 +53,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   input: {
-    color: "#F6F5F5",
+    color: colors.neutral0,
     flex: 1,
   },
   inputActive: {
-    borderColor: "#F6F5F5",
+    borderColor: colors.neutral0,
   },
-  children: {
+  icon: {
     width: 16,
     height: 16,
   },
