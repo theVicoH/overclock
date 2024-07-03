@@ -8,10 +8,11 @@
     "common": "pnpm run icons && node ./scripts/generateImport.js",
     "type": "tsc",
     "clear-icons": "node ./scripts/clearIcons.js",
-    "remove-xmlns": "node ./scripts/removeXmlns.js",
+    "icons:remove-xmlns": "node ./scripts/removeXmlns.js",
     "icons:web": "node ./scripts/generateIconsWeb.js",
-    "icons:mobile": "node ./scripts/generateIconsMobile.js && pnpm run remove-xmlns",
-    "icons": "pnpm run clear-icons && pnpm run icons:web && pnpm run icons:mobile"
+    "icons:mobile": "node ./scripts/generateIconsMobile.js && pnpm run icons:remove-xmlns",
+    "icons:add-props": "node ./scripts/addSvgProps.js",
+    "icons": "pnpm run clear-icons && pnpm run icons:web && pnpm run icons:mobile && pnpm run icons:add-props"
   },
   "devDependencies": {
     "@svgr/cli": "^8.1.0",

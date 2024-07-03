@@ -1,18 +1,18 @@
 import * as React from "react";
 import type { SVGProps } from "react";
-const SvgChevronLeft = (props: SVGProps<SVGSVGElement>) => (
+const SvgChevronLeft = ({ width = 16, height = 16, fill = "none", stroke = "#100F0F", strokeWidth = 1.8, ...props }: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={16}
-    height={16}
-    fill="none"
+    width={width}
+    height={height}
+    fill={fill}
     {...props}
   >
     <path
-      stroke="#100F0F"
+      stroke={stroke}
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth={1.8}
+      strokeWidth={strokeWidth}
       d="M10 4 6 8l4 4"
     />
   </svg>

@@ -1,17 +1,17 @@
 import * as React from "react";
 import type { SVGProps } from "react";
-const SvgClose = (props: SVGProps<SVGSVGElement>) => (
+const SvgClose = ({ width = 16, height = 16, fill = "none", stroke = "#100F0F", strokeWidth = 1.6, ...props }: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={16}
-    height={16}
-    fill="none"
+    width={width}
+    height={height}
+    fill={fill}
     {...props}
   >
     <path
-      stroke="#100F0F"
+      stroke={stroke}
       strokeLinecap="round"
-      strokeWidth={1.6}
+      strokeWidth={strokeWidth}
       d="m3 3 10 10M3 13 13 3"
     />
   </svg>
