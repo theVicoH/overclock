@@ -1,18 +1,18 @@
 import * as React from "react";
 import Svg, { G, Path, Defs, ClipPath } from "react-native-svg";
 import type { SvgProps } from "react-native-svg";
-const SvgHome = (props: SvgProps) => (
+const SvgHome = ({ width = 16, height = 16, fill = "none", stroke = "#100F0F", strokeWidth = 1.6, ...props }: SvgProps) => (
   <Svg
-    width={16}
-    height={16}
-    fill="none"
+    width={width}
+    height={height}
+    fill={fill}
     {...props}
   >
     <G
-      stroke="#100F0F"
+      stroke={stroke}
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth={1.6}
+      strokeWidth={strokeWidth}
       clipPath="url(#home_svg__a)"
     >
       <Path d="M2.944 8H1.5L8 1.5 14.5 8h-1.444M2.945 8v5.056A1.444 1.444 0 0 0 4.389 14.5h7.222a1.444 1.444 0 0 0 1.445-1.444V8" />
@@ -20,7 +20,7 @@ const SvgHome = (props: SvgProps) => (
     </G>
     <Defs>
       <ClipPath id="home_svg__a">
-        <Path fill="#fff" d="M0 0h16v16H0z" />
+        <Path fill={fill} d="M0 0h16v16H0z" />
       </ClipPath>
     </Defs>
   </Svg>
