@@ -1,7 +1,13 @@
-import * as React from "react"
-import type { SVGProps } from "react"
+import * as React from "react";
+import type { SVGProps } from "react";
 const SvgMail = (props: SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="none" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={16}
+    height={16}
+    fill="none"
+    {...props}
+  >
     <path
       stroke="#100F0F"
       strokeLinecap="round"
@@ -17,5 +23,5 @@ const SvgMail = (props: SVGProps<SVGSVGElement>) => (
       d="m14.666 4.667-5.98 3.8a1.29 1.29 0 0 1-1.373 0l-5.98-3.8"
     />
   </svg>
-)
-export default SvgMail
+);
+export default SvgMail;

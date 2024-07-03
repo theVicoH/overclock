@@ -1,7 +1,13 @@
-import * as React from "react"
-import type { SVGProps } from "react"
+import * as React from "react";
+import type { SVGProps } from "react";
 const SvgSpeedometerOutline = (props: SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="none" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={16}
+    height={16}
+    fill="none"
+    {...props}
+  >
     <path
       fill="#100F0F"
       d="m10.19 7.247-1.484 2.36a1 1 0 0 1-.218.218.941.941 0 0 1-1.094-1.531l2.36-1.485a.32.32 0 0 1 .365 0 .314.314 0 0 1 .072.438"
@@ -21,5 +27,5 @@ const SvgSpeedometerOutline = (props: SVGProps<SVGSVGElement>) => (
       d="M8 4v1m5 4h-1M4 9H3m2.172-2.828-.708-.708m6.364.708.708-.708"
     />
   </svg>
-)
-export default SvgSpeedometerOutline
+);
+export default SvgSpeedometerOutline;
