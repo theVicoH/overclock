@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import ActionButton from "./ActionButton"
+import React from "react"
+import ActionButton from "../components/ActionButton"
 import { Megaphone } from "common/icons/mobile"
 
 const BuzzerButton = () => {
