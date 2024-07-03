@@ -1,9 +1,13 @@
 import React from "react"
 import { Pressable, View, StyleSheet } from "react-native"
 import { colors } from "common/styles"
-import { actionButtonProperties } from "../types/actionButtonProperties"
 
-const ActionButton: React.FC<actionButtonProperties> = ({ icon, method }) => {
+interface ActionButtonProperties {
+  icon: React.ReactElement
+  method: () => void
+}
+
+const ActionButton: React.FC<ActionButtonProperties> = ({ icon, method }) => {
   return (
     <Pressable style={styles.buttonContainer} onPress={method}>
       <View style={styles.buttonContent}>
