@@ -8,7 +8,7 @@
     "common": "pnpm run icons && ts-node ./scripts/generateImport.ts",
     "type": "tsc",
     "clear-icons": "ts-node ./scripts/clearIcons.ts",
-    "icons:remove-xmlns": "node ./scripts/removeXmlns.js",
+    "icons:remove-xmlns": "ts-node ./scripts/removeXmlns.ts",
     "icons:web": "node ./scripts/generateIconsWeb.js",
     "icons:mobile": "node ./scripts/generateIconsMobile.js && pnpm run icons:remove-xmlns",
     "icons:add-props": "ts-node ./scripts/addSvgProps.ts",
