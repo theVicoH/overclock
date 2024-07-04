@@ -1,4 +1,5 @@
 export * from "./addSvgProps"
+export * from "./clearDirectory"
 export * from "./clearIcons"
 export * from "./generateIconsMobile"
 export * from "./generateIconsWeb"
