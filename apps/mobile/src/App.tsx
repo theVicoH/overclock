@@ -1,8 +1,8 @@
 import React, { useEffect } from "react"
 import type { PropsWithChildren } from "react"
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from "react-native"
+import { StyleSheet, Text, useColorScheme, View } from "react-native"
 
-import { Colors, DebugInstructions, Header, LearnMoreLinks, ReloadInstructions } from "react-native/Libraries/NewAppScreen"
+import { Colors } from "react-native/Libraries/NewAppScreen"
 import Orientation from "react-native-orientation-locker"
 import fontStyles from "./fontStyles"
 import { enableScreens } from "react-native-screens"
@@ -11,6 +11,9 @@ import { NavigationContainer } from "@react-navigation/native"
 import Homepage from "./pages/Homepage"
 import Commandpage from "./pages/Commandpage"
 import Datapage from "./pages/Datapage"
+import { Slider } from "./components/Slider"
+import { Close, LogoOverclock } from "common/icons/mobile"
+import ButtonPage from "./pages/ButtonPage"
 
 type SectionProps = PropsWithChildren<{
   title: string
@@ -20,35 +23,38 @@ enableScreens()
 
 const Stack = createNativeStackNavigator()
 
-// function Section({ children, title }: SectionProps): React.JSX.Element {
-//   const isDarkMode = useColorScheme() === "dark"
-//   return (
-//     <View style={styles.sectionContainer}>
-//       <Text
-//         style={[
-//           styles.sectionTitle,
-//           {
-//             color: isDarkMode ? Colors.white : Colors.black,
-//           },
-//         ]}
-//       >
-//         {title}
-//       </Text>
-//       <Text style={[fontStyles.notoSansBold]}>This is NotoSans Bold text.</Text>
-//       <Text style={[fontStyles.dsDigital]}>This is DS-Digital text.</Text>
-//       <Text
-//         style={[
-//           styles.sectionDescription,
-//           {
-//             color: isDarkMode ? Colors.light : Colors.dark,
-//           },
-//         ]}
-//       >
-//         {children}
-//       </Text>
-//     </View>
-//   )
-// }
+function Section({ children, title }: SectionProps): React.JSX.Element {
+  const isDarkMode = useColorScheme() === "dark"
+  return (
+    <View style={styles.sectionContainer}>
+      <Text
+        style={[
+          styles.sectionTitle,
+          {
+            color: isDarkMode ? Colors.white : Colors.black,
+          },
+        ]}
+      >
+        {title}
+      </Text>
+      <Close />
+      <LogoOverclock />
+      <Slider />
+      <Text style={[fontStyles.notoSansBold]}>This is NotoSans Bold text.</Text>
+      <Text style={[fontStyles.dsDigital]}>This is DS-Digital text.</Text>
+      <Text
+        style={[
+          styles.sectionDescription,
+          {
+            color: isDarkMode ? Colors.light : Colors.dark,
+          },
+        ]}
+      >
+        {children}
+      </Text>
+    </View>
+  )
+}
 
 function App(): React.JSX.Element {
   useEffect(() => {
@@ -77,6 +83,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Home" component={Homepage} />
         <Stack.Screen name="Command" component={Commandpage} />
         <Stack.Screen name="Data" component={Datapage} />
+        <Stack.Screen name="Button" component={ButtonPage} />
       </Stack.Navigator>
       {/* <Section title=""></Section> */}
     </NavigationContainer>
