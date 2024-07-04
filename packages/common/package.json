@@ -10,7 +10,7 @@
     "clear-icons": "ts-node ./scripts/clearIcons.ts",
     "icons:remove-xmlns": "ts-node ./scripts/removeXmlns.ts",
     "icons:web": "node ./scripts/generateIconsWeb.js",
-    "icons:mobile": "node ./scripts/generateIconsMobile.js && pnpm run icons:remove-xmlns",
+    "icons:mobile": "ts-node ./scripts/generateIconsMobile.ts && pnpm run icons:remove-xmlns",
     "icons:add-props": "ts-node ./scripts/addSvgProps.ts",
     "icons": "pnpm run clear-icons && pnpm run icons:web && pnpm run icons:mobile && pnpm run icons:add-props"
   },
