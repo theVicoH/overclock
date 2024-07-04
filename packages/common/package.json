@@ -12,7 +12,7 @@
     "icons:web": "ts-node ./src/scripts/generateIconsWeb.ts",
     "icons:mobile": "ts-node ./src/scripts/generateIconsMobile.ts && pnpm run icons:remove-xmlns",
     "icons:add-props": "ts-node ./src/scripts/addSvgProps.ts",
-    "icons": "pnpm run clear-icons && pnpm run icons:web && pnpm run icons:mobile && pnpm run icons:add-props && pnpm run format ./src/icons"
+    "icons": "pnpm run clear-icons && pnpm run icons:web && pnpm run icons:mobile && pnpm run icons:add-props"
   },
   "devDependencies": {
     "@svgr/cli": "^8.1.0",
