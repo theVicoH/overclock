@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 
-const directory = path.join(__dirname, "../src/icons/mobile")
+const directory = path.join(__dirname, "../icons/mobile")
 
 fs.readdir(directory, (err, files) => {
   if (err) {

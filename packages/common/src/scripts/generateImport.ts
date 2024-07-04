@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 
-const directoryPath = path.join(__dirname, "../src")
+const directoryPath = path.join(__dirname, "../")
 
 function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): string[] {
   const files = fs.readdirSync(dirPath)

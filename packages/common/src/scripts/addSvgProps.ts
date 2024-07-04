@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 
-const baseDir = path.join(__dirname, "../src/icons")
+const baseDir = path.join(__dirname, "../icons")
 
 function addSvgProps(dir: string) {
   fs.readdir(dir, (err, files) => {
