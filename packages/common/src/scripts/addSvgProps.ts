@@ -3,7 +3,7 @@ import path from "path"
 
 const baseDir = path.join(__dirname, "../icons")
 
-function addSvgProps(dir: string) {
+export default function addSvgProps(dir: string) {
   fs.readdir(dir, (err, files) => {
     if (err) {
       console.error(`Error reading directory ${dir}:`, err)
