@@ -5,7 +5,7 @@
     "test": "vitest",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --ignore-path ../../.gitignore",
     "format": "prettier --config ../config/.prettierrc --write .",
-    "common": "pnpm run icons && node ./scripts/generateImport.js",
+    "common": "pnpm run icons && ts-node ./scripts/generateImport.ts",
     "type": "tsc",
     "clear-icons": "ts-node ./scripts/clearIcons.ts",
     "icons:remove-xmlns": "node ./scripts/removeXmlns.js",
