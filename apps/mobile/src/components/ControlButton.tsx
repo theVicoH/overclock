@@ -1,9 +1,12 @@
 
 import { View, StyleSheet, Text } from "react-native"
-import { ControlButtonProperties } from "../types/controlButtonProperties"
 import { colors } from "common"
 
-const ControlButton: React.FC<ControlButtonProperties> = ({ size }) => {
+export interface Props {
+  size: "default" | "small"
+}
+
+const ControlButton: React.FC<Props> = ({ size }) => {
   return (
     <View style={size === "default" ? styles.joysticControllerDefault : styles.joysticControllerSmall}>
       {/* <Feather name="move" size={size === "default" ? 40 : 28} color=colors.primary600 /> */}
