@@ -1,20 +1,9 @@
-import * as React from "react";
-import Svg, { G, Path, Defs, ClipPath } from "react-native-svg";
-import type { SvgProps } from "react-native-svg";
+import * as React from "react"
+import Svg, { G, Path, Defs, ClipPath } from "react-native-svg"
+import type { SvgProps } from "react-native-svg"
 const SvgCameraOff = ({ width = 16, height = 16, fill = "none", stroke = "#100F0F", strokeWidth = 1.6, ...props }: SvgProps) => (
-  <Svg
-    width={width}
-    height={height}
-    fill={fill}
-    {...props}
-  >
-    <G
-      stroke={stroke}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={strokeWidth}
-      clipPath="url(#camera-off_svg__a)"
-    >
+  <Svg width={width} height={height} fill={fill} {...props}>
+    <G stroke={stroke} strokeLinecap="round" strokeLinejoin="round" strokeWidth={strokeWidth} clipPath="url(#camera-off_svg__a)">
       <Path d="m1.333 1.333 13.333 13.333M4.666 4.667h-2A1.333 1.333 0 0 0 1.333 6v6a1.333 1.333 0 0 0 1.333 1.334h10.667M6.333 2.667h3.333l1.667 2h2A1.333 1.333 0 0 1 14.666 6v5" />
       <Path d="M9.414 10.08a2 2 0 1 1-2.827-2.827" />
     </G>
@@ -24,5 +13,5 @@ const SvgCameraOff = ({ width = 16, height = 16, fill = "none", stroke = "#100F0
       </ClipPath>
     </Defs>
   </Svg>
-);
-export default SvgCameraOff;
+)
+export default SvgCameraOff

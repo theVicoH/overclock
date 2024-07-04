@@ -1,13 +1,8 @@
-import * as React from "react";
-import Svg, { Path } from "react-native-svg";
-import type { SvgProps } from "react-native-svg";
+import * as React from "react"
+import Svg, { Path } from "react-native-svg"
+import type { SvgProps } from "react-native-svg"
 const SvgDatabase = ({ width = 16, height = 16, fill = "none", stroke = "#100F0F", strokeWidth = 1.6, ...props }: SvgProps) => (
-  <Svg
-    width={width}
-    height={height}
-    fill={fill}
-    {...props}
-  >
+  <Svg width={width} height={height} fill={fill} {...props}>
     <Path
       stroke={stroke}
       strokeLinecap="round"
@@ -30,5 +25,5 @@ const SvgDatabase = ({ width = 16, height = 16, fill = "none", stroke = "#100F0F
       d="M2 8c0 .53.632 1.04 1.757 1.414C4.883 9.79 6.41 10 8 10s3.117-.21 4.243-.586C13.368 9.04 14 8.53 14 8"
     />
   </Svg>
-);
-export default SvgDatabase;
+)
+export default SvgDatabase
