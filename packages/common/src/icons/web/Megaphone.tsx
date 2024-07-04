@@ -1,13 +1,14 @@
-import * as React from "react";
-import type { SVGProps } from "react";
-const SvgMegaphone = ({ width = 16, height = 16, fill = "none", stroke = "#000", strokeWidth = 1.6, ...props }: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    fill={fill}
-    {...props}
-  >
+import * as React from "react"
+import type { SVGProps } from "react"
+const SvgMegaphone = ({
+  width = 16,
+  height = 16,
+  fill = "none",
+  stroke = "#000",
+  strokeWidth = 1.6,
+  ...props
+}: SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} fill={fill} {...props}>
     <g clipPath="url(#megaphone_svg__a)">
       <path
         stroke={stroke}
@@ -23,5 +24,5 @@ const SvgMegaphone = ({ width = 16, height = 16, fill = "none", stroke = "#000",
       </clipPath>
     </defs>
   </svg>
-);
-export default SvgMegaphone;
+)
+export default SvgMegaphone

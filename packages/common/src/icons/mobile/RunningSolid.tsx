@@ -1,13 +1,8 @@
-import * as React from "react";
-import Svg, { Path } from "react-native-svg";
-import type { SvgProps } from "react-native-svg";
+import * as React from "react"
+import Svg, { Path } from "react-native-svg"
+import type { SvgProps } from "react-native-svg"
 const SvgRunningSolid = ({ width = 16, height = 16, fill = "none", stroke = "#100F0F", strokeWidth = 1.6, ...props }: SvgProps) => (
-  <Svg
-    width={width}
-    height={height}
-    fill={fill}
-    {...props}
-  >
+  <Svg width={width} height={height} fill={fill} {...props}>
     <Path
       fill={fill}
       fillRule="evenodd"
@@ -15,5 +10,5 @@ const SvgRunningSolid = ({ width = 16, height = 16, fill = "none", stroke = "#10
       clipRule="evenodd"
     />
   </Svg>
-);
-export default SvgRunningSolid;
+)
+export default SvgRunningSolid

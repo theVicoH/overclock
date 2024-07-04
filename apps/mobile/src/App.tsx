@@ -1,8 +1,8 @@
 import React, { useEffect } from "react"
 import type { PropsWithChildren } from "react"
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from "react-native"
+import { StyleSheet, Text, useColorScheme, View } from "react-native"
 
-import { Colors, DebugInstructions, Header, LearnMoreLinks, ReloadInstructions } from "react-native/Libraries/NewAppScreen"
+import { Colors } from "react-native/Libraries/NewAppScreen"
 import Orientation from "react-native-orientation-locker"
 import fontStyles from "./fontStyles"
 import { enableScreens } from "react-native-screens"
@@ -13,6 +13,7 @@ import Commandpage from "./pages/Commandpage"
 import Datapage from "./pages/Datapage"
 import { Slider } from "./components/Slider"
 import { Close, LogoOverclock } from "common/icons/mobile"
+import ButtonPage from "./pages/ButtonPage"
 
 type SectionProps = PropsWithChildren<{
   title: string
@@ -82,8 +83,9 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Home" component={Homepage} />
         <Stack.Screen name="Command" component={Commandpage} />
         <Stack.Screen name="Data" component={Datapage} />
+        <Stack.Screen name="Button" component={ButtonPage} />
       </Stack.Navigator>
-      <Section title=""></Section>
+      {/* <Section title=""></Section> */}
     </NavigationContainer>
   )
 }

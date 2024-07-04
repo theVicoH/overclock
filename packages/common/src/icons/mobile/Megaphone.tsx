@@ -1,13 +1,8 @@
-import * as React from "react";
-import Svg, { G, Path, Defs, ClipPath } from "react-native-svg";
-import type { SvgProps } from "react-native-svg";
+import * as React from "react"
+import Svg, { G, Path, Defs, ClipPath } from "react-native-svg"
+import type { SvgProps } from "react-native-svg"
 const SvgMegaphone = ({ width = 16, height = 16, fill = "none", stroke = "#000", strokeWidth = 1.6, ...props }: SvgProps) => (
-  <Svg
-    width={width}
-    height={height}
-    fill={fill}
-    {...props}
-  >
+  <Svg width={width} height={height} fill={fill} {...props}>
     <G clipPath="url(#megaphone_svg__a)">
       <Path
         stroke={stroke}
@@ -23,5 +18,5 @@ const SvgMegaphone = ({ width = 16, height = 16, fill = "none", stroke = "#000",
       </ClipPath>
     </Defs>
   </Svg>
-);
-export default SvgMegaphone;
+)
+export default SvgMegaphone

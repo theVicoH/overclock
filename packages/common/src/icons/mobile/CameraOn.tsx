@@ -1,13 +1,8 @@
-import * as React from "react";
-import Svg, { Path } from "react-native-svg";
-import type { SvgProps } from "react-native-svg";
+import * as React from "react"
+import Svg, { Path } from "react-native-svg"
+import type { SvgProps } from "react-native-svg"
 const SvgCameraOn = ({ width = 16, height = 16, fill = "none", stroke = "#100F0F", strokeWidth = 1.6, ...props }: SvgProps) => (
-  <Svg
-    width={width}
-    height={height}
-    fill={fill}
-    {...props}
-  >
+  <Svg width={width} height={height} fill={fill} {...props}>
     <Path
       stroke={stroke}
       strokeLinecap="round"
@@ -23,5 +18,5 @@ const SvgCameraOn = ({ width = 16, height = 16, fill = "none", stroke = "#100F0F
       d="M8 10.667a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
     />
   </Svg>
-);
-export default SvgCameraOn;
+)
+export default SvgCameraOn
