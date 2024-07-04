@@ -10,9 +10,7 @@ interface Props {
 const ActionButton: React.FC<Props> = ({ icon, method }) => {
   return (
     <Pressable style={styles.buttonContainer} onPress={method}>
-      <View style={styles.buttonContent}>
-        { icon }
-      </View>
+      <View style={styles.buttonContent}>{icon}</View>
     </Pressable>
   )
 }
@@ -23,7 +21,7 @@ const styles = StyleSheet.create({
     height: 48,
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   buttonContent: {
     height: 36,
@@ -34,8 +32,8 @@ const styles = StyleSheet.create({
     borderColor: colors.primary600,
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 })
 
 export default ActionButton
