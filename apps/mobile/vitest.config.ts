@@ -6,13 +6,13 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: "./vitest.setup.ts",
-    // server: {
-    //   deps: {
-    //     inline: [
-    //       "react-native"
-    //     ]
-    //   }
-    // }
+    server: {
+      deps: {
+        inline: [
+          "react-native"
+        ]
+      }
+    }
   },
   resolve: {
     alias: {
