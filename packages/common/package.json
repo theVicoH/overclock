@@ -7,7 +7,7 @@
     "format": "prettier --config ../config/.prettierrc --write .",
     "common": "pnpm run icons && node ./scripts/generateImport.js",
     "type": "tsc",
-    "clear-icons": "node ./scripts/clearIcons.js",
+    "clear-icons": "ts-node ./scripts/clearIcons.ts",
     "icons:remove-xmlns": "node ./scripts/removeXmlns.js",
     "icons:web": "node ./scripts/generateIconsWeb.js",
     "icons:mobile": "node ./scripts/generateIconsMobile.js && pnpm run icons:remove-xmlns",
