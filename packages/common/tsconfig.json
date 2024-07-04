@@ -1,5 +1,4 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react",
     "target": "ES6",
@@ -10,9 +9,10 @@
     "paths": {
       "common/*": ["*"]
     },
-    "typeRoots": ["./node_modules/@types", "./custom_typings"]
+    "typeRoots": ["./node_modules/@types", "./custom_typings"],
+    "esModuleInterop": true,
+    "moduleResolution": "node"
   },
-
-  "include": ["src", "declaration.d.ts"],
+  "include": ["src", "scripts", "declaration.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

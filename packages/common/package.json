@@ -11,7 +11,7 @@
     "icons:remove-xmlns": "node ./scripts/removeXmlns.js",
     "icons:web": "node ./scripts/generateIconsWeb.js",
     "icons:mobile": "node ./scripts/generateIconsMobile.js && pnpm run icons:remove-xmlns",
-    "icons:add-props": "node ./scripts/addSvgProps.js",
+    "icons:add-props": "ts-node ./scripts/addSvgProps.ts",
     "icons": "pnpm run clear-icons && pnpm run icons:web && pnpm run icons:mobile && pnpm run icons:add-props"
   },
   "devDependencies": {
@@ -19,7 +19,9 @@
     "@svgr/core": "^8.1.0",
     "@types/mock-fs": "^4.13.4",
     "cross-env": "^7.0.3",
-    "mock-fs": "^5.2.0"
+    "mock-fs": "^5.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.2.2"
   },
   "eslintConfig": {
     "extends": "../config/.eslintrc.json"
