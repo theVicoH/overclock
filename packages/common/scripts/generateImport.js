@@ -38,7 +38,7 @@ function generateImport() {
         filesInDir
           .map((file) => {
             const relativePath = path.relative(dir, file).replace(/\\/g, "/").replace(".ts", "")
-            return `export * from "./${relativePath}";`
+            return `export * from "./${relativePath}"`
           })
           .join("\n") + "\n"
 
