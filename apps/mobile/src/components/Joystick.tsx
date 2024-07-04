@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react"
 import { View, StyleSheet, PanResponder, Animated, Text } from "react-native"
 import { useJoystickControls } from "../hooks/joystickCalculation"
 import { WS_URL } from "@env"
-import { colors } from "common"
+import { colors } from "common/styles"
 import ControlButton from "./ControlButton"
 
 const Joystick = () => {

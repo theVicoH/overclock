@@ -1,6 +1,6 @@
 
 import { View, StyleSheet, Text } from "react-native"
-import { colors } from "common"
+import { colors } from "common/styles"
 
 export interface Props {
   size: "default" | "small"
