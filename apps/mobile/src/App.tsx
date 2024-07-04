@@ -13,6 +13,7 @@ import Commandpage from "./pages/Commandpage"
 import Datapage from "./pages/Datapage"
 import { Slider } from "./components/Slider"
 import { Close, LogoOverclock } from "common/icons/mobile"
+import ButtonPage from "./pages/ButtonPage"
 
 type SectionProps = PropsWithChildren<{
   title: string
@@ -82,6 +83,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Home" component={Homepage} />
         <Stack.Screen name="Command" component={Commandpage} />
         <Stack.Screen name="Data" component={Datapage} />
+        <Stack.Screen name="Button" component={ButtonPage} />
       </Stack.Navigator>
       {/* <Section title=""></Section> */}
     </NavigationContainer>
