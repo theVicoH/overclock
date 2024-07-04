@@ -5,6 +5,8 @@ import (
 	"fmt"
 )
 
+var wheel model.WheelSpeed
+
 func (s *ControlService) Direction(speeds model.WheelSpeed) error {
 
 	err := s.controlRepo.Direction(speeds)
@@ -20,33 +22,67 @@ func (s *ControlService) TransformRawData(wheelRawData model.WheelRawData) model
 	// X < 0 -> gauche
 	// Y > 0 -> bas
 	// Y < 0 -> haut
-	var wheel model.WheelSpeed
 	// on multiplie par la force et on envoie [4500 x force, 4500 x force, 4500 x force, 4500 x force]
 
 	if (wheelRawData.X >= -25 && wheelRawData.X <= 25) && wheelRawData.Y < 0 {
-		fmt.Println(wheelRawData.X)
-		wheel = model.WheelSpeed{4095 * wheelRawData.Force, 4095 * wheelRawData.Force, 4095 * wheelRawData.Force, 4095 * wheelRawData.Force}
+		wheel = s.GoForward(wheelRawData)
 
-		fmt.Println(wheel)
 	} else if (wheelRawData.X >= -25 && wheelRawData.X <= 25) && wheelRawData.Y > 0 {
-		fmt.Println(wheelRawData.X)
-		wheel = model.WheelSpeed{-4095 * wheelRawData.Force, -4095 * wheelRawData.Force, -4095 * wheelRawData.Force, -4095 * wheelRawData.Force}
+		wheel = s.GoBack(wheelRawData)
 
-		fmt.Println(wheel)
-	} else if wheelRawData.X > 25 && (wheelRawData.Y >= -25 && wheelRawData.Y <= 25) {
-		wheel = model.WheelSpeed{(4095 * wheelRawData.Force)/2, (4095 * wheelRawData.Force)/2, -(4095 * wheelRawData.Force)/2, -(4095 * wheelRawData.Force)/2}
+	} else if wheelRawData.X > 25 {
+		wheel = s.TurnLeft(wheelRawData)
 
-		fmt.Println(wheel)
+	} else if wheelRawData.X < 25 {
+		wheel = s.TurnRight(wheelRawData)
 
-	} else if wheelRawData.X < 25 && (wheelRawData.Y >= -25 && wheelRawData.Y <= 25) {
-		wheel = model.WheelSpeed{-(4095 * wheelRawData.Force)/2, -(4095 * wheelRawData.Force)/2, (4095 * wheelRawData.Force)/2, (4095 * wheelRawData.Force)/2}
-
-		fmt.Println(wheel)
 	} else if wheelRawData.X == 0 && wheelRawData.Y == 0 && wheelRawData.Force == 0 {
-		wheel = model.WheelSpeed{0, 0, 0, 0}
+		wheel = s.Stop(wheelRawData)
 
-		fmt.Println(wheel)
 	}
 
 	return wheel
+}
+
+func (s *ControlService) GoForward(wheelRawData model.WheelRawData) model.WheelSpeed {
+
+	wheel = model.WheelSpeed{4095 * wheelRawData.Force, 4095 * wheelRawData.Force, 4095 * wheelRawData.Force, 4095 * wheelRawData.Force}
+	fmt.Println("GO FORWARD", wheel)
+
+	return wheel
+}
+
+func (s *ControlService) GoBack(wheelRawData model.WheelRawData) model.WheelSpeed {
+
+	wheel = model.WheelSpeed{-4095 * wheelRawData.Force, -4095 * wheelRawData.Force, -4095 * wheelRawData.Force, -4095 * wheelRawData.Force}
+
+	fmt.Println("GO BACK", wheel)
+	return wheel
+
+}
+
+func (s *ControlService) TurnLeft(wheelRawData model.WheelRawData) model.WheelSpeed {
+
+	wheel = model.WheelSpeed{4095 * wheelRawData.Force, 4095 * wheelRawData.Force, -4095 * wheelRawData.Force, -4095 * wheelRawData.Force}
+
+	fmt.Println("TURN LEFT <-", wheel)
+	return wheel
+
+}
+
+func (s *ControlService) TurnRight(wheelRawData model.WheelRawData) model.WheelSpeed {
+
+	wheel = model.WheelSpeed{-4095 * wheelRawData.Force, -4095 * wheelRawData.Force, 4095 * wheelRawData.Force, 4095 * wheelRawData.Force}
+
+	fmt.Println("TURN RIGHT ->", wheel)
+	return wheel
+
+}
+func (s *ControlService) Stop(wheelRawData model.WheelRawData) model.WheelSpeed {
+
+	wheel = model.WheelSpeed{0, 0, 0, 0}
+
+	fmt.Println("STOP || ", wheel)
+	return wheel
+
 }
