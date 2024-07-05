@@ -3,7 +3,7 @@ import { View, StyleSheet, PanResponder, Animated, Text } from "react-native"
 import { useJoystickControls } from "../hooks/joystickCalculation"
 import { colors } from "common/styles"
 import ControlButton from "./ControlButton"
-import { SocketContext } from "../pages/Commandpage"
+import { SocketContext } from "../context/socket"
 
 const Joystick = () => {
   const pan = useRef(new Animated.ValueXY()).current
