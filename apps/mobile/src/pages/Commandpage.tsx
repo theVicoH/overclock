@@ -10,6 +10,9 @@ const Commandpage = () => {
   useEffect(() => {
     const newSocket = new WebSocket(`${WS_URL}`)
     setSocket(newSocket)
+    return () => {
+      newSocket.close()
+    }
   }, [])
 
   return (
