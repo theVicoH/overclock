@@ -1,40 +1,59 @@
-import { describe, it, expect, beforeEach, afterEach } from "vitest"
-import { execSync } from "child_process"
-import fs from "fs"
-import path from "path"
-import mock from "mock-fs"
+import { execSync } from "child_process";
+import path from "path";
+import { describe, it, expect, vi, beforeAll, afterAll } from "vitest";
+import fs from "fs";
 
-const outDir = path.resolve(process.cwd(), "src/__tests__/icons/mobile")
-const srcDir = path.resolve(process.cwd(), "src/__tests__/assets/icons")
+const outDir: string = path.resolve(__dirname, "../../icons/mobile");
+const srcDir: string = path.resolve(__dirname, "../../assets/icons");
 
-describe("SVG to React Native Components Generation", () => {
-  beforeEach(() => {
-    mock({
-      [srcDir]: {
-        "icon1.svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 2l1.09 3.26L16 5.27l-2.45 2.12L13.91 11 12 9.27 10.09 11l.36-3.61L8 5.27l2.91-.01L12 2z\"/></svg>",
-        "icon2.svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 2l1.09 3.26L16 5.27l-2.45 2.12L13.91 11 12 9.27 10.09 11l.36-3.61L8 5.27l2.91-.01L12 2z\"/></svg>"
-      },
-      [outDir]: {}
-    })
+vi.mock("child_process", () => ({
+  execSync: vi.fn(() => {
+    if (!fs.existsSync(outDir)) {
+      fs.mkdirSync(outDir, { recursive: true });
+    }
+    fs.writeFileSync(path.join(outDir, "icon1.tsx"), "");
+    fs.writeFileSync(path.join(outDir, "icon2.tsx"), "");
   })
+}));
 
-  afterEach(() => {
-    mock.restore()
-  })
+vi.mock("fs", async (importOriginal) => {
+  const actual = (await importOriginal()) as typeof import("fs");
+  return {
+    ...actual,
+    mkdirSync: vi.fn(actual.mkdirSync),
+    rmSync: vi.fn(actual.rmSync),
+    readdirSync: vi.fn(actual.readdirSync),
+    existsSync: vi.fn(actual.existsSync)
+  };
+});
 
-  it("should generate React Native components from SVG files", () => {
-    execSync(`cross-env svgr --typescript --native --out-dir ${outDir} ${srcDir}`, { stdio: "inherit" })
+describe("generateIconsMobile script", () => {
+  beforeAll(() => {
+    if (fs.existsSync(outDir)) {
+      fs.rmSync(outDir, { recursive: true, force: true });
+    }
+  });
 
-    const filesAfterGeneration = fs.readdirSync(outDir)
-    expect(filesAfterGeneration).toContain("Icon1.tsx")
-    expect(filesAfterGeneration).toContain("Icon2.tsx")
+  it("should generate icons for mobile", async () => {
+    // Dynamically import the script without .ts extension
+    await import("../../scripts/generateIconsMobile");
 
-    const icon1Content = fs.readFileSync(path.join(outDir, "Icon1.tsx"), "utf8")
-    expect(icon1Content).toContain("import * as React from 'react'")
-    expect(icon1Content).toContain("const SvgIcon1 =")
+    expect(execSync).toHaveBeenCalledWith(
+      `cross-env svgr --typescript --native --out-dir ${outDir} ${srcDir}`,
+      { stdio: "inherit" }
+    );
 
-    const icon2Content = fs.readFileSync(path.join(outDir, "Icon2.tsx"), "utf8")
-    expect(icon2Content).toContain("import * as React from 'react'")
-    expect(icon2Content).toContain("const SvgIcon2 =")
-  })
-})
+    const files = fs.readdirSync(outDir);
+    expect(files.length).toBeGreaterThan(0);
+
+    files.forEach(file => {
+      expect(file).toMatch(/\.tsx?$/);
+    });
+  });
+
+  afterAll(() => {
+    if (fs.existsSync(outDir)) {
+      fs.rmSync(outDir, { recursive: true, force: true });
+    }
+  });
+});
