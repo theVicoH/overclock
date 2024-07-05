@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useContext } from "react"
 import { View, StyleSheet, PanResponder, Animated, Text } from "react-native"
 import { useJoystickControls } from "../hooks/joystickCalculation"
-import { WS_URL } from "@env"
 import { colors } from "common/styles"
 import ControlButton from "./ControlButton"
+import { SocketContext } from "../pages/Commandpage"
 
 const Joystick = () => {
   const pan = useRef(new Animated.ValueXY()).current
@@ -12,6 +12,7 @@ const Joystick = () => {
   const [y, setY] = useState(0)
   const [force, setForce] = useState(0)
   const [joystickDataJson, setJoystickDataJson] = useState("")
+  const socket = useContext(SocketContext)
 
   useEffect(() => {
     const joystickData = {
@@ -20,22 +21,23 @@ const Joystick = () => {
       "force": parseFloat(force.toFixed(2))
     }
     setJoystickDataJson(JSON.stringify(joystickData))
-    const socket = new WebSocket(`${WS_URL}`)
-    socket.onopen = () => {
-      console.log("WebSocket connection established.")
-      socket.send(joystickDataJson)
-    }
-    socket.onmessage = (data) => {
-      console.log("Message from server:", data)
-    }
-    socket.onerror = (error) => {
-      console.error("WebSocket error:", error)
-    }
-    socket.onclose = (event) => {
-      console.log("WebSocket connection closed:", event)
-    }
-    return () => {
-      socket.close()
+    if (socket) {
+      socket.onopen = () => {
+        console.log("WebSocket connection established.")
+        socket.send(joystickDataJson)
+      }
+      socket.onmessage = (data) => {
+        console.log("Message from server:", data)
+      }
+      socket.onerror = (error) => {
+        console.error("WebSocket error:", error)
+      }
+      socket.onclose = (event) => {
+        console.log("WebSocket connection closed:", event)
+      }
+      return () => {
+        socket.close()
+      }
     }
   }, [x, y, force])
 
