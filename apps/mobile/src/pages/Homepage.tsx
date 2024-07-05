@@ -1,5 +1,5 @@
-import React from "react"
-import { Button, Text, View } from "react-native"
+import React from "react";
+import { Button, Text, View } from "react-native";
 
 const Homepage = ({ navigation }: any) => {
   return (
@@ -8,8 +8,12 @@ const Homepage = ({ navigation }: any) => {
       <Button title="Command" onPress={() => navigation.navigate("Command")} />
       <Button title="Data" onPress={() => navigation.navigate("Data")} />
       <Button title="Button" onPress={() => navigation.navigate("Button")} />
+      <Button
+        title="Components"
+        onPress={() => navigation.navigate("Components")}
+      />
     </View>
-  )
-}
+  );
+};
 
-export default Homepage
+export default Homepage;

@@ -22,4 +22,4 @@ const Commandpage = () => {
   )
 }
 
-export default Commandpage
+export default Commandpage;

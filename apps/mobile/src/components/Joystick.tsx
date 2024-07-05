@@ -85,7 +85,7 @@ const Joystick = () => {
             transform: [{ translateX: pan.x }, { translateY: pan.y }]
           }}
           {...panResponder.panHandlers}>
-          <ControlButton size={"default"} />
+          <ControlButton />
         </Animated.View>
       </View>
       <Text>{joystickDataJson}</Text>
