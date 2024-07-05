@@ -18,18 +18,17 @@ const BatteryComponent = ({ battery }: BatteryComponentProps) => {
   });
 
   const resize = (value: number) => {
-    return (value * 23) / 100;
+    const maxBatteryWidth = 23;
+    return (value * maxBatteryWidth) / 100;
   };
 
   useEffect(() => {
     let size = resize(battery);
     if (battery >= 50) {
       setCurrent({ color: colors.white, size });
-    }
-    if (battery > 20 && battery < 50) {
+    } else if (battery > 20 && battery < 50) {
       setCurrent({ color: colors.primary500, size });
-    }
-    if (battery <= 20) {
+    } else if (battery <= 20) {
       setCurrent({ color: colors.red500, size });
     }
   }, [battery]);
@@ -39,7 +38,10 @@ const BatteryComponent = ({ battery }: BatteryComponentProps) => {
       <View style={styles.batteryMain}>
         <View
           testID="battery-fill"
-          style={[{ width: current.size, backgroundColor: current.color }]}
+          style={[
+            styles.batteryFill,
+            { width: current.size, backgroundColor: current.color },
+          ]}
         ></View>
         <View style={styles.batteryUsed}></View>
       </View>
@@ -57,10 +59,13 @@ const styles = StyleSheet.create({
     width: 25,
     height: 13,
     borderWidth: 1.06,
-    borderColor: "#FFFFFF",
+    borderColor: colors.neutral0,
     borderRadius: 3,
     padding: 1,
     flexDirection: "row",
+  },
+  batteryFill: {
+    height: "100%",
   },
   batteryUsed: {
     backgroundColor: "transparent",
