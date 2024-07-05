@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import InputComponent from "../components/Input";
 import { Search } from "common/icons/mobile";
 import BatteryComponent from "../components/Battery";
+import SpeedComponent from "../components/Speed";
 
 const Commandpage = () => {
   const [input, setInput] = useState<string>("");
@@ -15,7 +16,8 @@ const Commandpage = () => {
         placeholder="placeholder"
         setValue={setInput}
       />
-      <BatteryComponent battery={40} />
+      <BatteryComponent battery={35} />
+      <SpeedComponent value={36} />
     </SafeAreaView>
   );
 };

@@ -38,10 +38,7 @@ const BatteryComponent = ({ battery }: BatteryComponentProps) => {
     <View style={styles.batteryContainer}>
       <View style={styles.batteryMain}>
         <View
-          style={[
-            styles.batteryCurrent,
-            { width: current.size, backgroundColor: current.color },
-          ]}
+          style={[{ width: current.size, backgroundColor: current.color }]}
         ></View>
         <View style={styles.batteryUsed}></View>
       </View>
@@ -63,9 +60,6 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     padding: 1,
     flexDirection: "row",
-  },
-  batteryCurrent: {
-    opacity: 1,
   },
   batteryUsed: {
     backgroundColor: "transparent",
