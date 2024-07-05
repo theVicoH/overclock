@@ -14,7 +14,7 @@ const ComponentPage = () => {
       <InputComponent
         placeholder="placeholder"
         setValue={setValue}
-        icon={<Search />}
+        icon={<Search stroke={colors.neutral0} />}
       />
       <BatteryComponent battery={45} />
       <SpeedComponent value={24} />
