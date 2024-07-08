@@ -20,7 +20,7 @@ function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): string[] {
   return arrayOfFiles
 }
 
-function generateImport(): void {
+export function generateImport(): void {
   const files = getAllFiles(directoryPath)
 
   const directories = new Set(files.map((file) => path.dirname(file)))
