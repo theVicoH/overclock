@@ -25,7 +25,7 @@ func (r *websocketRepository) Direction(speeds model.WheelSpeed) error {
 
 	err = r.SendMessage(websocket.TextMessage, message)
 	if err != nil {
-		log.Println("error sending wheel speeds:", err)
+		log.Println("error sending wheel speeds:", err, string(message))
 		return err
 	}
 
