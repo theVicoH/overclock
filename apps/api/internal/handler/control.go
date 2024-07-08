@@ -18,7 +18,9 @@ import (
 // @Success 200 {string} string "OK"
 // @Failure 400 {string} string "Error"
 // @Router /v1/control/manual [get]
+
 func (h *ControlHandler) ManualControl(c *websocket.Conn) {
+
 	defer c.Close()
 	for {
 		_, message, err := c.ReadMessage()
@@ -41,18 +43,26 @@ func (h *ControlHandler) ManualControl(c *websocket.Conn) {
 			break
 		}
 
-		var wheelSpeed model.WheelSpeed = h.controlService.TransformRawData(rowData)
+		var wheelSpeed model.WheelSpeed
 
-		if err := h.controlService.Direction(wheelSpeed); err != nil {
-			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing control command")); writeErr != nil {
-				sendResponse(c, "Error", "Error processing control command")
+		wheelSpeed, ok := h.controlService.TransformRawData(rowData)
 
-				return
+		if !ok {
+			fmt.Println("!ok", ok)
+			sendResponse(c, "Value repeated", "ManualControl command not processed")
+
+		} else {
+			if err := h.controlService.Direction(wheelSpeed); err != nil {
+				if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing control command")); writeErr != nil {
+					sendResponse(c, "Error", "Error processing control command")
+
+					return
+				}
+				break
 			}
-			break
-		}
 
-		sendResponse(c, "OK", "ManualControl command processed successfully")
+			sendResponse(c, "OK", "ManualControl command processed successfully")
+		}
 
 	}
 }
