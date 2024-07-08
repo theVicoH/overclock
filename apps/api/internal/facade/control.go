@@ -3,7 +3,7 @@ package facade
 import "Overclock/internal/model"
 
 type ControlService interface {
-	TransformRawData(wheelRawData model.WheelRawData) model.WheelSpeed
+	TransformRawData(wheelRawData model.WheelRawData) (model.WheelSpeed, bool)
 
 	GoForward(wheelRawData model.WheelRawData) model.WheelSpeed
 	Stop(wheelRawData model.WheelRawData) model.WheelSpeed
