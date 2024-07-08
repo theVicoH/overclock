@@ -3,11 +3,13 @@ package service
 import (
 	"Overclock/internal/model"
 	"fmt"
+	"time"
 )
 
 var (
 	wheel     model.WheelSpeed
 	prevValue model.WheelRawData
+	prevTime  time.Time
 )
 
 func (s *ControlService) Direction(speeds model.WheelSpeed) error {
@@ -26,9 +28,12 @@ func (s *ControlService) TransformRawData(wheelRawData model.WheelRawData) (mode
 	// Y > 0 -> bas
 	// Y < 0 -> haut
 	// on multiplie par la force et on envoie [4500 x force, 4500 x force, 4500 x force, 4500 x force]
-	fmt.Println(prevValue, "&&", wheelRawData)
+	now := time.Now()
 
-	if prevValue != wheelRawData {
+	isTimeMoreThan10MS := s.MoreThan10Ms(now)
+	areValueDifferent := s.ValueAreDifferent(prevValue, wheelRawData)
+
+	if areValueDifferent && isTimeMoreThan10MS {
 		prevValue = wheelRawData
 
 		if wheelRawData.X == 0 && wheelRawData.Y == 0 && wheelRawData.Force == 0 {
@@ -99,4 +104,28 @@ func (s *ControlService) Stop(wheelRawData model.WheelRawData) model.WheelSpeed 
 	fmt.Println("STOP", wheel)
 	return wheel
 
+}
+
+func (s *ControlService) MoreThan10Ms(now time.Time) bool {
+	if now.Sub(prevTime) > 10*time.Millisecond {
+		fmt.Println(" > 10 millisecond", now.Sub(prevTime))
+		return true
+	} else {
+		fmt.Println(" > 10 millisecond", now.Sub(prevTime))
+
+		return false
+	}
+
+}
+
+func (s *ControlService) ValueAreDifferent(prevValue model.WheelRawData, wheelRawData model.WheelRawData) bool {
+
+	if prevValue != wheelRawData {
+		fmt.Println("prevValue != wheelRawData", prevValue != wheelRawData)
+		return true
+	} else {
+		fmt.Println("prevValue != wheelRawData", prevValue != wheelRawData)
+
+		return false
+	}
 }
