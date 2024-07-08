@@ -4,7 +4,7 @@ import { colors } from "common/styles"
 import { ButtonShape, ButtonVariants } from "../types/buttons"
 
 type Props = {
-  variant?: ButtonVariants.Primary | ButtonVariants.Secondary | ButtonVariants.Error | ButtonVariants.Inline
+  variant?: ButtonVariants
   onPress?: (event: GestureResponderEvent) => void
   disabled?: boolean
   icon: React.ReactNode
