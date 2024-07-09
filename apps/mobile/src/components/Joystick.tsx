@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect, useContext } from "react"
-import { View, StyleSheet, PanResponder, Animated, Text } from "react-native"
+import { View, StyleSheet, PanResponder, Animated } from "react-native"
 import { useJoystickControls } from "../hooks/joystickCalculation"
 import { colors } from "common/styles"
 import ControlButton from "./ControlButton"
 import { SocketContext } from "../context/socket"
+import { StopCar, GoForward, GoBack, GoLeft, GoRight } from "../utils/wheel"
 
 const Joystick = () => {
   const pan = useRef(new Animated.ValueXY()).current
@@ -11,32 +12,50 @@ const Joystick = () => {
   const [x, setX] = useState(0)
   const [y, setY] = useState(0)
   const [force, setForce] = useState(0)
-  const [joystickDataJson, setJoystickDataJson] = useState("")
   const socket = useContext(SocketContext)
 
   useEffect(() => {
     const joystickData = {
-      "x": parseFloat(x.toFixed(2)),
-      "y": parseFloat(y.toFixed(2)),
-      "force": parseFloat(force.toFixed(2))
+      "x": parseFloat(x.toFixed(0)),
+      "y": parseFloat(y.toFixed(0)),
+      "force": parseFloat(force.toFixed(1))
     }
-    setJoystickDataJson(JSON.stringify(joystickData))
     if (socket) {
-      socket.onopen = () => {
-        console.log("WebSocket connection established.")
-        socket.send(joystickDataJson)
-      }
-      socket.onmessage = (data) => {
-        console.log("Message from server:", data)
-      }
-      socket.onerror = (error) => {
-        console.error("WebSocket error:", error)
-      }
-      socket.onclose = (event) => {
-        console.log("WebSocket connection closed:", event)
-      }
-      return () => {
-        socket.close()
+      if (joystickData.force === 0) {
+        const wheelsSpeed = StopCar()
+        const payload = {
+          "cmd": 1,
+          "data": wheelsSpeed
+        }
+        socket.send(JSON.stringify(payload))
+      } else if ((joystickData.x >= -25 && joystickData.y <= 25) && joystickData.y < 0) {
+        const wheelsSpeed = GoForward(joystickData)
+        const payload = {
+          "cmd": 1,
+          "data": wheelsSpeed
+        }
+        socket.send(JSON.stringify(payload))
+      } else if ((joystickData.x >= -25 && joystickData.x <= 25) && joystickData.y > 0) {
+        const wheelsSpeed = GoBack(joystickData)
+        const payload = {
+          "cmd": 1,
+          "data": wheelsSpeed
+        }
+        socket.send(JSON.stringify(payload))
+      } else if (joystickData.x > 25 && (joystickData.y >= -25 && joystickData.y <= 25)) {
+        const wheelsSpeed = GoRight(joystickData)
+        const payload = {
+          "cmd": 1,
+          "data": wheelsSpeed
+        }
+        socket.send(JSON.stringify(payload))
+      } else if (joystickData.x < 25 && (joystickData.y >= -25 && joystickData.y <= 25)) {
+        const wheelsSpeed = GoLeft(joystickData)
+        const payload = {
+          "cmd": 1,
+          "data": wheelsSpeed
+        }
+        socket.send(JSON.stringify(payload))
       }
     }
   }, [x, y, force])
@@ -88,7 +107,6 @@ const Joystick = () => {
           <ControlButton />
         </Animated.View>
       </View>
-      <Text>{joystickDataJson}</Text>
     </View>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { WS_URL } from "@env"
-import { WebSocketContextType } from "src/types/websockets"
+import { WebSocketContextType } from "../types/websockets"
 import { SocketContext } from "../context/socket"
 import Joystick from "../components/Joystick"
 
@@ -10,10 +10,22 @@ const Commandpage = () => {
   useEffect(() => {
     const newSocket = new WebSocket(`${WS_URL}`)
     setSocket(newSocket)
-    return () => {
-      newSocket.close()
-    }
   }, [])
+
+  if (socket) {
+    socket.onopen = () => {
+      console.log("WebSocket connection established.")
+    }
+    socket.onmessage = (data) => {
+      console.log("Message from server:", data)
+    }
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error)
+    }
+    socket.onclose = (event) => {
+      console.log("WebSocket connection closed:", event)
+    }
+  }
 
   return (
     <SocketContext.Provider value={socket}>
