@@ -1,5 +1,5 @@
-import { defineConfig } from "vitest/config";
-import path from "path";
+import { defineConfig } from "vitest/config"
+import path from "path"
 
 export default defineConfig({
   test: {
@@ -8,9 +8,7 @@ export default defineConfig({
     setupFiles: "./vitest.setup.ts",
     server: {
       deps: {
-        inline: [
-          "react-native",
-        ],
+        inline: ["react-native"],
       },
     },
   },
@@ -20,4 +18,4 @@ export default defineConfig({
       "react-native": "react-native-web",
     },
   },
-});
+})

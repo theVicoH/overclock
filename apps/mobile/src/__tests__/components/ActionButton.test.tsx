@@ -1,15 +1,15 @@
-import React from "react";
+import React from "react"
 import { render, screen, fireEvent } from "@testing-library/react"
-import ActionButton from "../../components/ActionButton";
+import ActionButton from "../../components/ActionButton"
 
 describe("Action Button Component", () => {
   test("triggers onPress when clicked", () => {
-    const handlePress = vi.fn();
-    const icon = <svg />;
-    render(<ActionButton icon={icon} method={handlePress} />);
+    const handlePress = vi.fn()
+    const icon = <svg />
+    render(<ActionButton icon={icon} method={handlePress} />)
 
-    fireEvent.click(screen.getByTestId("actionButton"));
+    fireEvent.click(screen.getByTestId("actionButton"))
 
-    expect(handlePress).toHaveBeenCalledTimes(1);
-  });
-});
+    expect(handlePress).toHaveBeenCalledTimes(1)
+  })
+})
