@@ -1,3 +1,4 @@
+import React from "react";
 import { StyleSheet, View } from "react-native";
 import { colors } from "common/styles";
 import { useEffect, useState } from "react";
