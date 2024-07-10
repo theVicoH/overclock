@@ -37,7 +37,7 @@ const BatteryComponent = ({ battery }: BatteryComponentProps) => {
     <View style={styles.batteryContainer}>
       <View style={styles.batteryMain}>
         <View
-          testID="battery-fill"
+          testID="batteryFill"
           style={[
             styles.batteryFill,
             { width: current.size, backgroundColor: current.color },
