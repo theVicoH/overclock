@@ -5,21 +5,24 @@
     "test": "vitest",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --ignore-path ../../.gitignore",
     "format": "prettier --config ../config/.prettierrc --write .",
-    "common": "pnpm run icons && node ./scripts/generateImport.js",
+    "format:icons": "prettier --config ../config/.prettierrc --write ./src/icons",
+    "common": "pnpm run icons && ts-node ./src/scripts/generateImport.ts",
     "type": "tsc",
-    "clear-icons": "node ./scripts/clearIcons.js",
-    "icons:remove-xmlns": "node ./scripts/removeXmlns.js",
-    "icons:web": "node ./scripts/generateIconsWeb.js",
-    "icons:mobile": "node ./scripts/generateIconsMobile.js && pnpm run icons:remove-xmlns",
-    "icons:add-props": "node ./scripts/addSvgProps.js",
-    "icons": "pnpm run clear-icons && pnpm run icons:web && pnpm run icons:mobile && pnpm run icons:add-props"
+    "clear-icons": "ts-node ./src/scripts/clearIcons.ts",
+    "icons:remove-xmlns": "ts-node ./src/scripts/removeXmlns.ts",
+    "icons:web": "ts-node ./src/scripts/generateIconsWeb.ts",
+    "icons:mobile": "ts-node ./src/scripts/generateIconsMobile.ts && pnpm run icons:remove-xmlns",
+    "icons:add-props": "ts-node ./src/scripts/addSvgProps.ts",
+    "icons": "pnpm run clear-icons && pnpm run icons:web && pnpm run icons:mobile && pnpm run icons:add-props && pnpm run format:icons"
   },
   "devDependencies": {
     "@svgr/cli": "^8.1.0",
     "@svgr/core": "^8.1.0",
     "@types/mock-fs": "^4.13.4",
     "cross-env": "^7.0.3",
-    "mock-fs": "^5.2.0"
+    "mock-fs": "^5.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.2.2"
   },
   "eslintConfig": {
     "extends": "../config/.eslintrc.json"

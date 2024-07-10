@@ -1,12 +1,12 @@
-const fs = require("fs")
-const path = require("path")
+import fs from "fs"
+import path from "path"
 
-const baseDir = path.join(__dirname, "../src/icons")
+const baseDir = path.join(__dirname, "../icons")
 
-function addSvgProps(dir) {
+export default function addSvgProps(dir: string) {
   fs.readdir(dir, (err, files) => {
     if (err) {
-      console.error(`Erreur lors de la lecture du répertoire ${dir}:`, err)
+      console.error(`Error reading directory ${dir}:`, err)
       return
     }
 
@@ -14,7 +14,7 @@ function addSvgProps(dir) {
       const filePath = path.join(dir, file)
       fs.stat(filePath, (err, stats) => {
         if (err) {
-          console.error(`Erreur lors de la lecture du fichier ${filePath}:`, err)
+          console.error(`Error reading file ${filePath}:`, err)
           return
         }
 
@@ -23,7 +23,7 @@ function addSvgProps(dir) {
         } else if (path.extname(file) === ".tsx") {
           fs.readFile(filePath, "utf8", (err, data) => {
             if (err) {
-              console.error(`Erreur lors de la lecture du fichier ${filePath}:`, err)
+              console.error(`Error reading file ${filePath}:`, err)
               return
             }
 
@@ -60,16 +60,16 @@ function addSvgProps(dir) {
 
               updatedData = updatedData.replace(/const Svg\w+ = \(props: SVGProps<SVGSVGElement>\) => \(/, functionDeclaration)
             } else {
-              console.warn(`Aucune déclaration de composant trouvée dans le fichier ${filePath}`)
+              console.warn(`No component declaration found in file ${filePath}`)
               return
             }
 
             fs.writeFile(filePath, updatedData, "utf8", (err) => {
               if (err) {
-                console.error(`Erreur lors de l'écriture du fichier ${filePath}:`, err)
+                console.error(`Error writing file ${filePath}:`, err)
                 return
               }
-              console.log(`Fichier ${filePath} mis à jour avec succès!`)
+              console.log(`File ${filePath} updated successfully!`)
             })
           })
         }

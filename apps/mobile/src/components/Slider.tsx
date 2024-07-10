@@ -10,8 +10,8 @@ export function Slider() {
     setVolume(newValue)
   }
   return (
-    <View style={styles.container}>
-      <Text>{Math.floor(volume)}</Text>
+    <View style={styles.container} >
+      {/* <Text>{Math.floor(volume)}</Text> */}
       <BaseSlider
         onValueChange={handleValueChange}
         value={volume}

@@ -9,7 +9,7 @@ interface Props {
 
 const ActionButton: React.FC<Props> = ({ icon, method }) => {
   return (
-    <Pressable style={styles.buttonContainer} onPress={method}>
+    <Pressable testID="actionButton" style={styles.buttonContainer} onPress={method}>
       <View style={styles.buttonContent}>{icon}</View>
     </Pressable>
   )

@@ -1,12 +1,10 @@
-const fs = require("fs")
-const path = require("path")
+import fs from "fs"
+import path from "path"
 
-const directoryPath = path.join(__dirname, "../src")
+const directoryPath = path.join(__dirname, "../")
 
-function getAllFiles(dirPath, arrayOfFiles) {
+function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): string[] {
   const files = fs.readdirSync(dirPath)
-
-  arrayOfFiles = arrayOfFiles || []
 
   files.forEach(function (file) {
     const fullPath = path.join(dirPath, file)
@@ -22,7 +20,7 @@ function getAllFiles(dirPath, arrayOfFiles) {
   return arrayOfFiles
 }
 
-function generateImport() {
+export function generateImport(): void {
   const files = getAllFiles(directoryPath)
 
   const directories = new Set(files.map((file) => path.dirname(file)))

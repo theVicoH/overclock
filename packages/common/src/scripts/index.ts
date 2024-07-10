@@ -1,0 +1,7 @@
+export * from "./addSvgProps"
+export * from "./clearDirectory"
+export * from "./clearIcons"
+export * from "./generateIconsMobile"
+export * from "./generateIconsWeb"
+export * from "./generateImport"
+export * from "./removeXmlns"
