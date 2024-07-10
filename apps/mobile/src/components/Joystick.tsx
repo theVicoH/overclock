@@ -4,7 +4,7 @@ import { useJoystickControls } from "../hooks/joystickCalculation"
 import { colors } from "common/styles"
 import ControlButton from "./ControlButton"
 import { SocketContext } from "../context/socket"
-import { StopCar, GoForward, GoBack, GoLeft, GoRight } from "../utils/wheel"
+import { stopCar, goForward, goBack, goLeft, goRight } from "../utils/control"
 
 const Joystick = () => {
   const pan = useRef(new Animated.ValueXY()).current
@@ -22,35 +22,35 @@ const Joystick = () => {
     }
     if (socket) {
       if (joystickData.force === 0) {
-        const wheelsSpeed = StopCar()
+        const wheelsSpeed = stopCar()
         const payload = {
           "cmd": 1,
           "data": wheelsSpeed
         }
         socket.send(JSON.stringify(payload))
-      } else if ((joystickData.x >= -25 && joystickData.y <= 25) && joystickData.y < 0) {
-        const wheelsSpeed = GoForward(joystickData)
+      } else if ((joystickData.x >= -25 && joystickData.x <= 25) && joystickData.y < 0) {
+        const wheelsSpeed = goForward(joystickData)
         const payload = {
           "cmd": 1,
           "data": wheelsSpeed
         }
         socket.send(JSON.stringify(payload))
       } else if ((joystickData.x >= -25 && joystickData.x <= 25) && joystickData.y > 0) {
-        const wheelsSpeed = GoBack(joystickData)
+        const wheelsSpeed = goBack(joystickData)
         const payload = {
           "cmd": 1,
           "data": wheelsSpeed
         }
         socket.send(JSON.stringify(payload))
       } else if (joystickData.x > 25 && (joystickData.y >= -25 && joystickData.y <= 25)) {
-        const wheelsSpeed = GoRight(joystickData)
+        const wheelsSpeed = goRight(joystickData)
         const payload = {
           "cmd": 1,
           "data": wheelsSpeed
         }
         socket.send(JSON.stringify(payload))
       } else if (joystickData.x < 25 && (joystickData.y >= -25 && joystickData.y <= 25)) {
-        const wheelsSpeed = GoLeft(joystickData)
+        const wheelsSpeed = goLeft(joystickData)
         const payload = {
           "cmd": 1,
           "data": wheelsSpeed

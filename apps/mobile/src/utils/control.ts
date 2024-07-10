@@ -1,11 +1,11 @@
 import { JoystickData } from "../types/joystick"
 
-export function StopCar(): number[] {
+export function stopCar(): number[] {
   const data = [0]
   return data
 }
 
-export function GoForward(joystickData: JoystickData): number[] {
+export function goForward(joystickData: JoystickData): number[] {
   let data = []
   if (joystickData.force === 0) {
     data = [0]
@@ -15,7 +15,7 @@ export function GoForward(joystickData: JoystickData): number[] {
   return data
 }
 
-export function GoBack(joystickData: JoystickData): number[] {
+export function goBack(joystickData: JoystickData): number[] {
   let data = []
   if (joystickData.force === 0) {
     data = [0]
@@ -25,7 +25,7 @@ export function GoBack(joystickData: JoystickData): number[] {
   return data
 }
 
-export function GoLeft(joystickData: JoystickData): number[] {
+export function goLeft(joystickData: JoystickData): number[] {
   let data = []
   if (joystickData.force === 0) {
     data = [0]
@@ -35,7 +35,7 @@ export function GoLeft(joystickData: JoystickData): number[] {
   return data
 }
 
-export function GoRight(joystickData: JoystickData): number[] {
+export function goRight(joystickData: JoystickData): number[] {
   let data = []
   if (joystickData.force === 0) {
     data = [0]
