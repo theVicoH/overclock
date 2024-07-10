@@ -1,8 +1,37 @@
-import React from "react";
-import { Text } from "react-native";
+import React, { useState, useEffect } from "react"
+import { WS_URL } from "@env"
+import { WebSocketContextType } from "../types/websockets"
+import { SocketContext } from "../context/socket"
+import Joystick from "../components/Joystick"
 
 const Commandpage = () => {
-  return <Text>Commandpage</Text>;
-};
+  const [socket, setSocket] = useState<WebSocketContextType>(null)
+
+  useEffect(() => {
+    const newSocket = new WebSocket(`${WS_URL}`)
+    setSocket(newSocket)
+  }, [])
+
+  if (socket) {
+    socket.onopen = () => {
+      console.log("WebSocket connection established.")
+    }
+    socket.onmessage = (data) => {
+      console.log("Message from server:", data)
+    }
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error)
+    }
+    socket.onclose = (event) => {
+      console.log("WebSocket connection closed:", event)
+    }
+  }
+
+  return (
+    <SocketContext.Provider value={socket}>
+      <Joystick />
+    </SocketContext.Provider>
+  )
+}
 
 export default Commandpage;

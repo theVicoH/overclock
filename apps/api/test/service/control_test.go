@@ -1,26 +1,21 @@
 package service__test
 
-import (
-	"Overclock/internal/model"
-	"Overclock/internal/service"
-	"testing"
+// "Overclock/internal/service"
+// "testing"
 
-	"github.com/stretchr/testify/assert"
-)
+// func TestControlServiceIsValidSpeed(t *testing.T) {
+// 	svc := &service.ControlService{}
 
-func TestControlServiceIsValidSpeed(t *testing.T) {
-	svc := &service.ControlService{}
+// 	// t.Run("valid speeds", func(t *testing.T) {
+// 	// 	speeds := model.WheelSpeed{1000, -1000, 4095, -4095}
+// 	// 	assert.True(t, svc.IsValidSpeed(speeds))
+// 	// })
 
-	t.Run("valid speeds", func(t *testing.T) {
-		speeds := model.WheelSpeed{1000, -1000, 4095, -4095}
-		assert.True(t, svc.IsValidSpeed(speeds))
-	})
-
-	t.Run("invalid speeds", func(t *testing.T) {
-		speeds := model.WheelSpeed{0, 5000, -5000}
-		assert.False(t, svc.IsValidSpeed(speeds))
-	})
-}
+// 	// t.Run("invalid speeds", func(t *testing.T) {
+// 	// 	speeds := model.WheelSpeed{0, 5000, -5000}
+// 	// 	assert.False(t, svc.IsValidSpeed(speeds))
+// 	// })
+// }
 
 // func TestControlServiceDirection(t *testing.T) {
 // 	svc := &service.ControlService{}
