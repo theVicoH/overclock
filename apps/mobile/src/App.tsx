@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { RootStackParamList } from "./types/rootStackParamList";
 import ManualPage from "./pages/ManualPage";
 import AutoPage from "./pages/AutoPage";
+import Commandpage from "./pages/Commandpage";
 
 enableScreens();
 
@@ -39,6 +40,7 @@ function App(): React.JSX.Element {
       >
         <Stack.Screen name="ManualPage" component={ManualPage} />
         <Stack.Screen name="AutoPage" component={AutoPage} />
+        <Stack.Screen name="CommandPage" component={Commandpage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
