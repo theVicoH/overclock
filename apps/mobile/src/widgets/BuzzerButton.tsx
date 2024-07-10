@@ -1,13 +1,29 @@
-import React from "react"
+import React, { useContext } from "react"
 import ActionButton from "../components/ActionButton"
 import { Megaphone } from "common/icons/mobile"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { SocketContext } from "../context/socket"
+
+interface BuzzerPayload {
+  cmd: number
+  data?: number[]
+}
 
 const BuzzerButton = () => {
-  function BuzzerButtonFunction() {
-    const data = [1, 5000]
-    console.log(JSON.stringify(data))
+  const socket = useContext(SocketContext)
+  async function HandleBuzzer() {
+    const asyncStorageVolume = await AsyncStorage.getItem("volume")
+    let payload: BuzzerPayload = { "cmd": 8 }
+    if (!asyncStorageVolume || !socket) return;
+    const intVolume = JSON.parse(asyncStorageVolume)
+    setTimeout(() => {
+      payload["data"] = [0, intVolume]
+      socket.send(JSON.stringify(payload))
+    }, 300)
+    payload["data"] = [1, intVolume]
+    socket.send(JSON.stringify(payload))
   }
-  return <ActionButton icon={<Megaphone />} method={BuzzerButtonFunction} />
+  return <ActionButton icon={<Megaphone />} method={HandleBuzzer} />
 }
 
 export default BuzzerButton

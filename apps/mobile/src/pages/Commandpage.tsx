@@ -3,6 +3,8 @@ import { WS_URL } from "@env"
 import { WebSocketContextType } from "../types/webSockets"
 import { SocketContext } from "../context/socket"
 import Joystick from "../components/Joystick"
+import BuzzerButton from "../widgets/BuzzerButton"
+import { Slider } from "../components/Slider"
 
 const Commandpage = () => {
   const [socket, setSocket] = useState<WebSocketContextType>(null)
@@ -29,6 +31,8 @@ const Commandpage = () => {
 
   return (
     <SocketContext.Provider value={socket}>
+      <BuzzerButton />
+      <Slider />
       <Joystick />
     </SocketContext.Provider>
   )
