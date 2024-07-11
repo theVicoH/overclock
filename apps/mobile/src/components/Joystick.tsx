@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     height: 124,
     width: 124,
     borderRadius: 64,
-    backgroundColor: colors.neutral0,
+    backgroundColor: colors.neutral400,
     borderWidth: 2,
     borderColor: colors.neutral300,
     display: "flex",
