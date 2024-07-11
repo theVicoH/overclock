@@ -16,12 +16,12 @@ export type AutoPageNavigationProp = StackNavigationProp<
 
 export type AutoPageRouteProp = RouteProp<RootStackParamList, "AutoPage">
 
-export type ManualPageNavigationProperties = {
+export type ManualPageProps = {
   navigation: AutoPageNavigationProp
   route: ManualPageRouteProp
 }
 
-export type AutoPageNavigationProperties = {
+export type AutoPageProps = {
   navigation: ManualPageNavigationProp
   route: AutoPageRouteProp
 }
