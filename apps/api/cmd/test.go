@@ -1,21 +1,17 @@
-// package main
+package main
 
-// import (
-// 	"fmt"
-// 	"log"
-// 	"os"
-// 	"os/signal"
-// 	"syscall"
+import (
+	"fmt"
 
-// 	mqtt "github.com/eclipse/paho.mqtt.golang"
-// )
+	mqtt "github.com/eclipse/paho.mqtt.golang"
+)
 
-// // MQTTMessageHandler handles incoming MQTT messages
-// func MQTTMessageHandler(client mqtt.Client, msg mqtt.Message) {
-// 	fmt.Printf("Received message on topic: %s\nMessage: %s\n", msg.Topic(), msg.Payload())
-// }
+// MQTTMessageHandler handles incoming MQTT messages
+func MQTTMessageHandler(client mqtt.Client, msg mqtt.Message) {
+	fmt.Printf("Received message on topic: %s\nMessage: %s\n", msg.Topic(), msg.Payload())
+}
 
-// func main() {
+// func test() {
 // 	broker := "tcp://195.15.198.5:1883"
 // 	clientID := "test_mqtt_client"
 // 	username := "guest"

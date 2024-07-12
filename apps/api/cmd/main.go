@@ -14,9 +14,9 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
-var (
-	videoHandler *handler.VideoHandler
-)
+// var (
+// 	videoHandler *handler.VideoHandler
+// )
 
 func init() {
 	// db := database.ConnectDB(database.DBConfig{
@@ -37,7 +37,7 @@ func init() {
 
 	videoService := service.NewVideoService(videoRepo)
 
-	videoHandler = handler.NewVideoHandler(videoService, broker, clientID, username, password)
+	handler.NewVideoHandler(videoService, broker, clientID, username, password)
 }
 
 func main() {
