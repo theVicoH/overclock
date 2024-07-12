@@ -3,7 +3,6 @@ package main
 import (
 	"Overclock/internal/handler"
 	"Overclock/internal/repository"
-	"Overclock/internal/router"
 	"Overclock/internal/service"
 	"fmt"
 	"log"
@@ -11,20 +10,12 @@ import (
 	"os/signal"
 	"syscall"
 
-	_ "Overclock/internal/doc"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/gofiber/swagger"
-	"github.com/gorilla/websocket"
 )
 
 var (
-	controlHandler *handler.ControlHandler
-	buzzerHandler  *handler.BuzzerHandler
-	videoHandler   *handler.VideoVariableHandler
-	faceHandler    *handler.FaceHandler
+	videoHandler *handler.VideoHandler
 )
 
 func init() {
@@ -37,47 +28,26 @@ func init() {
 	// 	Type:     os.Getenv("DB_TYPE"),
 	// })
 
-	// u := url.URL{Scheme: "ws", Host: os.Getenv("WS_IP"), Path: "/overclock"}
+	broker := os.Getenv("BROKER")
+	clientID := os.Getenv("CLIENT_ID")
+	username := os.Getenv("USERNAME")
+	password := os.Getenv("PASSWORD")
 
-	// conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
-	conn, _, err := websocket.DefaultDialer.Dial("ws://192.168.83.90/overclock", nil)
+	videoRepo := repository.NewVideoRepository()
 
-	if err != nil {
-		log.Fatalf("Error establishing WebSocket connection: %v", err)
-	}
-	// defer conn.Close()
-
-	controlRepo := repository.NewControlRepository(conn)
-	buzzerRepo := repository.NewBuzzerRepository(conn)
-	faceRepo := repository.NewFaceRepository(conn)
-	videoRepo := repository.NewVideoRepository(conn)
-
-	controlService := service.NewControlService(controlRepo)
-	buzzerService := service.NewBuzzerService(buzzerRepo)
-	faceService := service.NewFaceService(faceRepo)
 	videoService := service.NewVideoService(videoRepo)
 
-	controlHandler = handler.NewControlHandler(controlService)
-	faceHandler = handler.NewFaceHandler(faceService)
-	buzzerHandler = handler.NewBuzzerHandler(buzzerService)
-	videoHandler = handler.NewVideoHandler(videoService)
-
+	videoHandler = handler.NewVideoHandler(videoService, broker, clientID, username, password)
 }
 
 func main() {
 	app := fiber.New()
-	app.Use(cors.New(cors.Config{
-		AllowOrigins: "*",
-		AllowHeaders: "Origin, Content-Type, Accept",
-		AllowMethods: "GET, POST, PUT, DELETE",
-	}))
-	app.Use(recover.New())
+	app.Use(cors.New())
 
-	app.Get("/swagger/*", swagger.HandlerDefault)
-	router.ControlRoutes(app, controlHandler)
-	router.BuzzerRoutes(app, buzzerHandler)
-	router.VideoRoutes(app, videoHandler)
-	router.FaceRoutes(app, faceHandler)
+	// router.ControlRoutes(app, controlHandler)
+	// router.BuzzerRoutes(app, buzzerHandler)
+	// router.VideoRoutes(app, videoHandler)
+	// router.FaceRoutes(app, faceHandler)
 
 	app.Use(func(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusNotFound)

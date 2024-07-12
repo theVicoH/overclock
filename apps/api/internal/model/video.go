@@ -1,8 +1,7 @@
 package model
 
-type VideoVariable int
+type VideoVariable float32
 
 type ConfVideo struct {
-	Cmd           `json:"cmd"`
-	VideoVariable `json:"data"`
+	VideoVariable
 }
