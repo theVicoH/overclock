@@ -1,0 +1,6 @@
+all:
+  children:
+    proxy:
+      hosts:
+        srv1:
+          ansible_host: 195.15.197.198
