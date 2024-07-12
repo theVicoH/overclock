@@ -1,35 +1,54 @@
-import React from "react"
-import { LogoOverclock, Power } from "common/icons/mobile"
+import React, { useState, useEffect } from "react"
+import { View, StyleSheet, Alert } from "react-native"
+import { WS_URL } from "@env"
+import { WebSocketContextType } from "../types/webSockets"
+import { SocketContext } from "../context/socket"
+import Header from "../widgets/Header"
 import { colors } from "common/styles"
-import { View, Text, StyleSheet, Alert } from "react-native"
-import { ButtonVariants, ButtonIconsPosition } from "../types/buttons"
 import { AutoPageProps } from "../types/navigationProperties"
-import ModePicker from "../widgets/ModePicker"
 import Button from "../components/Button"
+import { ButtonIconsPosition, ButtonVariants } from "../types/buttons"
+import { LogoOverclock } from "common/icons/mobile"
 
-const AutoPage: React.FC<AutoPageProps> = ({ navigation, route }) => {
+const Autopage = ({ navigation }: AutoPageProps) => {
+  const [socket, setSocket] = useState<WebSocketContextType>(null)
+
+  useEffect(() => {
+    const newSocket = new WebSocket(`${WS_URL}`)
+    setSocket(newSocket)
+  }, [])
+
+  if (socket) {
+    socket.onopen = () => {
+      console.log("WebSocket connection established.")
+    }
+    socket.onmessage = (data: MessageEvent<any>) => {
+      console.log("Message from server:", data)
+    }
+    socket.onerror = (error: Event) => {
+      console.error("WebSocket error:", error)
+    }
+    socket.onclose = (event: CloseEvent) => {
+      console.log("WebSocket connection closed:", event)
+    }
+  }
+
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.viewSize}>
-          <LogoOverclock stroke={colors.neutral0} />
-        </View>
-        <ModePicker navigation={navigation} route={route} />
-        <View style={styles.viewSize}>
-          <Text></Text>
+    <SocketContext.Provider value={socket}>
+      <View style={styles.container}>
+        <Header navigation={navigation} />
+        <View style={styles.controls}>
+          <Button
+            variant={ButtonVariants.Primary}
+            onPress={() => Alert.alert("Starting Auto Mode")}
+            icon={<LogoOverclock stroke={colors.neutral1000} />}
+            iconPosition={ButtonIconsPosition.Left}
+          >
+            Start Auto Mode
+          </Button>
         </View>
       </View>
-      <View>
-        <Button
-          variant={ButtonVariants.Primary}
-          onPress={() => Alert.alert("Go to 2nd auto page")}
-          icon={<Power stroke={colors.neutral1000} />}
-          iconPosition={ButtonIconsPosition.Left}
-        >
-          Connect
-        </Button>
-      </View>
-    </View>
+    </SocketContext.Provider>
   )
 }
 
@@ -40,21 +59,16 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingBottom: 56,
     backgroundColor: colors.neutral1000,
   },
-  viewSize: {
-    width: 150
-  },
-  header: {
+  controls: {
+    width: "100%",
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 36,
-    paddingVertical: 16,
-    width: "100%"
+    flexDirection: "row",
+    paddingBottom: 56
   }
 })
 
-export default AutoPage
+export default Autopage;

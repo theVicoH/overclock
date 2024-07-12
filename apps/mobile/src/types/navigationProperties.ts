@@ -9,19 +9,37 @@ export type ManualPageNavigationProp = StackNavigationProp<
 
 export type ManualPageRouteProp = RouteProp<RootStackParamList, "ManualPage">
 
+export type AutoPageConnectNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "AutoPageConnect"
+>
+
+export type AutoPageConnectRouteProp = RouteProp<RootStackParamList, "AutoPageConnect">
+
+export type CommandPageNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "CommandPage"
+>
+
 export type AutoPageNavigationProp = StackNavigationProp<
   RootStackParamList,
   "AutoPage"
 >
 
-export type AutoPageRouteProp = RouteProp<RootStackParamList, "AutoPage">
-
 export type ManualPageProps = {
-  navigation: AutoPageNavigationProp
+  navigation: AutoPageConnectNavigationProp
   route: ManualPageRouteProp
 }
 
 export type AutoPageProps = {
+  navigation: AutoPageNavigationProp
+}
+
+export type CommandPageProps = {
+  navigation: CommandPageNavigationProp
+}
+
+export type AutoPageConnectProps = {
   navigation: ManualPageNavigationProp
-  route: AutoPageRouteProp
+  route: AutoPageConnectRouteProp
 }

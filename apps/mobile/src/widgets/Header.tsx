@@ -1,19 +1,21 @@
 import React from "react"
 import { CameraOff, Database, LogoOverclock, Settings, Smile } from "common/icons/mobile"
 import { colors } from "common/styles"
-import { View, Text, StyleSheet, Alert } from "react-native"
+import { View, Text, StyleSheet, Alert, Pressable } from "react-native"
 import BatteryComponent from "../components/Battery"
 import fontStyles from "../fontStyles"
 import IconButton from "../components/IconButton"
 import { ButtonShape, ButtonVariants } from "../types/buttons"
 
-const Header = () => {
+const Header = ({ navigation }: any) => {
   const battery = 100
   return (
     <View style={styles.container}>
       <View style={styles.leftContainer}>
-        {/* TODO mettre le bon logo */}
-        <LogoOverclock stroke={colors.neutral0} />
+        <Pressable onPress={() => navigation.goBack() }>
+          {/* TODO mettre le bon logo */}
+          <LogoOverclock stroke={colors.neutral0} />
+        </Pressable>
         <View style={styles.batteryContainer}>
           <BatteryComponent battery={battery} />
           <Text style={[styles.batteryText, fontStyles.notoSansRegular]}>{battery}%</Text>

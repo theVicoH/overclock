@@ -9,7 +9,7 @@ import fontStyles from "../fontStyles"
 export default function ModePicker({ navigation, route }: any) {
   const handleNavigation = () => {
     if (route.name === "ManualPage") {
-      navigation.navigate("AutoPage")
+      navigation.navigate("AutoPageConnect")
     } else {
       navigation.navigate("ManualPage")
     }

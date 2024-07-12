@@ -7,8 +7,9 @@ import Joystick from "../components/Joystick"
 import BuzzerButton from "../widgets/BuzzerButton"
 import Header from "../widgets/Header"
 import { colors } from "common/styles"
+import { CommandPageProps } from "../types/navigationProperties"
 
-const Commandpage = () => {
+const Commandpage = ({ navigation }: CommandPageProps) => {
   const [socket, setSocket] = useState<WebSocketContextType>(null)
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const Commandpage = () => {
   return (
     <SocketContext.Provider value={socket}>
       <View style={styles.container}>
-        <Header />
+        <Header navigation={navigation} />
         <View style={styles.controls}>
           <Joystick />
           <BuzzerButton />
