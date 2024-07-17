@@ -1,6 +1,7 @@
 package store
 
 import (
+	"Overclock/internal/types"
 	"database/sql"
 )
 
@@ -12,4 +13,9 @@ func NewVehicleStore(db *sql.DB) *VehicleStore {
 	return &VehicleStore{
 		db,
 	}
+}
+
+func (v *VehicleStore) AddVehicle(vehicle types.VehicleType) (bool, error) {
+
+	return true, nil
 }

@@ -1,6 +1,7 @@
 package store
 
 import (
+	"Overclock/internal/types"
 	"database/sql"
 )
 
@@ -12,4 +13,8 @@ func NewThresholdsStore(db *sql.DB) *ThresholdsStore {
 	return &ThresholdsStore{
 		db,
 	}
+}
+
+func (t *ThresholdsStore) AddThresholds(thresholds types.ThresholdsType) (bool, error) {
+	return true, nil
 }
