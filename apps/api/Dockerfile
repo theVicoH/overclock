@@ -10,7 +10,7 @@ COPY ./apps/api ./
 
 RUN CGO_ENABLED=0 go build -a --trimpath --installsuffix cgo --ldflags="-s" -o main ./cmd/main.go
 
-FROM scratch
+FROM gcr.io/distroless/static-debian12
 
 COPY --from=builder /app/main ./
 

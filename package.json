@@ -25,10 +25,7 @@
     "web": "pnpm --filter web dev",
     "dev": "pnpm -r dev",
     "ci": "pnpm format && pnpm lint && pnpm type && pnpm test",
-    "common": "pnpm --filter common common",
-    "apply": "pnpm --filter infrastructure apply",
-    "ansible": "pnpm --filter infrastructure ansible",
-    "destroy": "pnpm --filter infrastructure destroy"
+    "common": "pnpm --filter common common"
   },
   "devDependencies": {
     "eslint": "^8.57.0",

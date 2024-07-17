@@ -99,18 +99,4 @@ dist-ssr
 *.sln
 *.sw?
 
-/mobile/.env
-
-openrc.sh
-.terraform/
-*.tfstate
-*.tfstate.*
-*.tfvars
-*.tfvars.json
-.terraformrc
-terraform.rc
-.terraform.lock.hcl
-*.swp
-*.log
-
-.vscode/
+/apps/mobile/.env
