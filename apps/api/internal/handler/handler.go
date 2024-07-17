@@ -2,67 +2,39 @@ package handler
 
 import (
 	"Overclock/internal/facade"
-	"encoding/json"
 	"log"
 
-	"github.com/gofiber/websocket/v2"
+	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
-type Response struct {
-	Status  string
-	Message string
+type VideoHandler struct {
+	videoService facade.VideoService
+	mqttClient   mqtt.Client
 }
 
-type ControlHandler struct {
-	controlService facade.ControlService
-}
-
-type FaceHandler struct {
-	faceService facade.FaceService
-}
-type HeadAngleHandler struct {
-	headAngleService facade.FaceService
-}
-
-type BuzzerHandler struct {
-	buzzerService facade.BuzzerService
-}
-
-type VideoVariableHandler struct {
-	videoService facade.VideoVariableService
-}
-
-func NewControlHandler(controlService facade.ControlService) *ControlHandler {
-	return &ControlHandler{controlService}
-}
-
-func NewBuzzerHandler(buzzerService facade.BuzzerService) *BuzzerHandler {
-	return &BuzzerHandler{buzzerService}
-}
-
-func NewVideoHandler(videoService facade.VideoVariableService) *VideoVariableHandler {
-	return &VideoVariableHandler{videoService}
-}
-
-func NewFaceHandler(faceHandler facade.FaceService) *FaceHandler {
-	return &FaceHandler{faceHandler}
-}
-func NewHeadAngleHandler(headAngleService facade.FaceService) *HeadAngleHandler {
-	return &HeadAngleHandler{headAngleService}
-
-}
-
-func sendResponse(c *websocket.Conn, status string, message string) {
-	response := Response{
-		Status:  status,
-		Message: message,
+func NewVideoHandler(videoService facade.VideoService, broker string, clientID string, username string, password string) *VideoHandler {
+	handler := &VideoHandler{
+		videoService: videoService,
 	}
-	responseJSON, err := json.Marshal(response)
-	if err != nil {
-		log.Printf("Error marshaling response: %v", err)
-		return
+	handler.mqttClient = InitializeMQTT(broker, clientID, username, password, handler.Video, "esp32/sonar")
+	return handler
+}
+
+func InitializeMQTT(broker, clientID, username, password string, handler mqtt.MessageHandler, topic string) mqtt.Client {
+	opts := mqtt.NewClientOptions().AddBroker(broker)
+	opts.SetClientID(clientID)
+	opts.SetUsername(username)
+	opts.SetPassword(password)
+
+	opts.SetDefaultPublishHandler(handler)
+	client := mqtt.NewClient(opts)
+	if token := client.Connect(); token.Wait() && token.Error() != nil {
+		log.Fatalf("Error connecting to MQTT broker: %v", token.Error())
 	}
-	if err := c.WriteMessage(websocket.TextMessage, responseJSON); err != nil {
-		log.Printf("Error writing message: %v", err)
+
+	if token := client.Subscribe(topic, 0, nil); token.Wait() && token.Error() != nil {
+		log.Fatalf("Error subscribing to topic: %v", token.Error())
 	}
+
+	return client
 }

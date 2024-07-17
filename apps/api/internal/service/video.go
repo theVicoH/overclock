@@ -5,14 +5,14 @@ import (
 	"fmt"
 )
 
-func (v *VideoVariableService) IsValideVideoVariable(videoVariable model.VideoVariable) bool {
-	if videoVariable != 0 && videoVariable != 1 {
+func (v *VideoService) IsValideVideoVariable(video model.VideoVariable) bool {
+	if video != 0 && video != 1 {
 		return false
 	}
 	return true
 }
 
-func (s *VideoVariableService) SetVideo(videoVariable model.VideoVariable) error {
+func (s *VideoService) SetVideo(videoVariable model.VideoVariable) error {
 	err := s.videoRepo.SetVideo(videoVariable)
 	if err != nil {
 		fmt.Println("Error : ", err)
