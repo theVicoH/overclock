@@ -1,0 +1,140 @@
+info:
+  contact: {}
+paths:
+  /v1/buzzer/alarm:
+    get:
+      consumes:
+      - application/json
+      description: Receive  buzzer frequency via WebSocket
+      parameters:
+      - description: buzzerVariable
+        in: body
+        name: buzzerVariable
+        required: true
+        schema:
+          items:
+            type: integer
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Error
+          schema:
+            type: string
+      summary: ON/OFF buzzer and frequency control
+      tags:
+      - control
+  /v1/control/manual:
+    get:
+      consumes:
+      - application/json
+      description: Receive manual control commands via WebSocket
+      parameters:
+      - description: Wheel Speeds
+        in: body
+        name: speeds
+        required: true
+        schema:
+          items:
+            type: integer
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Error
+          schema:
+            type: string
+      summary: Control the vehicle manually
+      tags:
+      - control
+  /v1/face/set:
+    get:
+      consumes:
+      - application/json
+      description: Receive an ID via WebSocket
+      parameters:
+      - description: Face id
+        in: body
+        name: face
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Error
+          schema:
+            type: string
+      summary: Set the face of the vehicule
+      tags:
+      - control
+  /v1/headAngle:
+    get:
+      consumes:
+      - application/json
+      description: Receive two angles via WebSocket
+      parameters:
+      - description: Head angle
+        in: body
+        name: angle
+        required: true
+        schema:
+          items:
+            type: integer
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Error
+          schema:
+            type: string
+      summary: Rotate the head of the vehicle
+      tags:
+      - control
+  /v1/video:
+    get:
+      consumes:
+      - application/json
+      description: Receive video ON/OFF instruction via WebSocket
+      parameters:
+      - description: VideoVariable
+        in: body
+        name: VideoVariable
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Error
+          schema:
+            type: string
+      summary: ON/OFF Video
+      tags:
+      - control
+swagger: "2.0"

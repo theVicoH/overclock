@@ -3,26 +3,53 @@ package handler
 import (
 	"Overclock/internal/model"
 	"encoding/json"
-	"fmt"
 
-	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"github.com/gofiber/websocket/v2"
 )
 
-func (h *VideoHandler) Video(client mqtt.Client, msg mqtt.Message) {
-	var videoVariable model.VideoVariable
-	if err := json.Unmarshal(msg.Payload(), &videoVariable); err != nil {
-		fmt.Printf("Error parsing message: %v\n", err)
-		return
+// VideoVariableControl
+// @Summary ON/OFF Video
+// @Description Receive video ON/OFF instruction via WebSocket
+// @Tags control
+// @Accept json
+// @Produce json
+// @Param VideoVariable body model.VideoVariable true "VideoVariable"
+// @Success 200 {string} string "OK"
+// @Failure 400 {string} string "Error"
+// @Router /v1/video [get]
+func (h *VideoVariableHandler) VideoVariable(c *websocket.Conn) {
+	defer c.Close()
+
+	for {
+		_, message, err := c.ReadMessage()
+		if err != nil {
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error reading message")); writeErr != nil {
+				return
+			}
+			break
+		}
+		var videoControl model.VideoVariable
+		if err := json.Unmarshal(message, &videoControl); err != nil {
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error parsing message")); writeErr != nil {
+				sendResponse(c, "Error", "Error parsing video command")
+				return
+			}
+			break
+		}
+		if !h.videoService.IsValideVideoVariable(videoControl) {
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("invalide videoVariable value")); writeErr != nil {
+				sendResponse(c, "Error", "invalide video command")
+				return
+			}
+			break
+		}
+		if err := h.videoService.SetVideo(videoControl); err != nil {
+			if writeErr := c.WriteMessage(websocket.TextMessage, []byte("Error processing face command")); writeErr != nil {
+				sendResponse(c, "Error", "Error processing video command")
+				return
+			}
+			break
+		}
 	}
 
-	fmt.Println("Video message received", videoVariable)
-	// if !h.videoService.IsValidVideoVariable(videoVariable) {
-	// 	fmt.Println("Invalid VideoVariable value")
-	// 	return
-	// }
-
-	// if err := h.videoService.SetVideoVariable(videoVariable); err != nil {
-	// 	fmt.Printf("Error processing Video value: %v\n", err)
-	// 	return
-	// }
 }

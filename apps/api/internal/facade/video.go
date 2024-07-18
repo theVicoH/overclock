@@ -2,11 +2,11 @@ package facade
 
 import "Overclock/internal/model"
 
-type VideoService interface {
+type VideoVariableService interface {
 	IsValideVideoVariable(videoVariable model.VideoVariable) bool
 	SetVideo(videoVariable model.VideoVariable) error
 }
 
-type VideoRepository interface {
+type VideoVariableRepository interface {
 	SetVideo(videoVariable model.VideoVariable) error
 }

@@ -3,12 +3,13 @@ module Overclock
 go 1.22.1
 
 require (
-	github.com/eclipse/paho.mqtt.golang v1.4.3
 	github.com/gofiber/fiber/v2 v2.52.4
+	github.com/gofiber/swagger v1.0.0
 	github.com/gofiber/websocket/v2 v2.2.1
 	github.com/lib/pq v1.10.9
 	github.com/stretchr/testify v1.7.0
 	github.com/swaggo/swag v1.16.3
+	github.com/gorilla/websocket v1.5.1
 )
 
 require (
@@ -23,7 +24,6 @@ require (
 	github.com/go-openapi/spec v0.20.4 // indirect
 	github.com/go-openapi/swag v0.19.15 // indirect
 	github.com/google/uuid v1.5.0 // indirect
-	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/klauspost/compress v1.17.0 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
@@ -33,11 +33,11 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/savsgio/gotils v0.0.0-20230208104028-c358bd845dee // indirect
+	github.com/swaggo/files/v2 v2.0.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.51.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	golang.org/x/net v0.17.0 // indirect
-	golang.org/x/sync v0.1.0 // indirect
 	golang.org/x/sys v0.15.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
 	golang.org/x/tools v0.7.0 // indirect
