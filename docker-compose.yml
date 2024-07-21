@@ -5,11 +5,18 @@ services:
     ports:
       - 5432:5432
     volumes:
+      - ./apps/api/internal/database/init.sql:/docker-entrypoint-initdb.d/init.sql
       - psql-data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: overclock
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 1333:8080
 
 volumes:
   psql-data:
