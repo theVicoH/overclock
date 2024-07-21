@@ -16,5 +16,23 @@ func NewStatsRaceStore(db *sql.DB) *StatsStore {
 }
 
 func (s *StatsStore) AddStatsRace(statsRace types.StatsRaceType) (bool, error) {
-	return true, nil
+
+	return false, nil
+}
+
+func (s *StatsStore) GetStatsRaceById(id int) (types.StatsRaceType, error) {
+	var statsRace types.StatsRaceType
+
+	return statsRace, nil
+}
+
+func (s *StatsStore) DeleteStatsRaceById(id int) (bool, error) {
+
+	return false, nil
+}
+
+func (s *StatsStore) UpdateStatsRaceById(id int) (types.StatsRaceType, error) {
+	var statsRace types.StatsRaceType
+
+	return statsRace, nil
 }

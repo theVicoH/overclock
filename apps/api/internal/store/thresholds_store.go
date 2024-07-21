@@ -16,5 +16,21 @@ func NewThresholdsStore(db *sql.DB) *ThresholdsStore {
 }
 
 func (t *ThresholdsStore) AddThresholds(thresholds types.ThresholdsType) (bool, error) {
-	return true, nil
+	return false, nil
+}
+
+func (t *ThresholdsStore) GetThresholdsById(id int) (types.ThresholdsType, error) {
+	var thresholds types.ThresholdsType
+
+	return thresholds, nil
+}
+
+func (t *ThresholdsStore) DeleteThresholdsById(id int) (bool, error) {
+	return false, nil
+}
+
+func (t *ThresholdsStore) UpdateThresholdsById(id int) (types.ThresholdsType, error) {
+	var thresholds types.ThresholdsType
+
+	return thresholds, nil
 }
