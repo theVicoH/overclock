@@ -17,7 +17,7 @@ func LoadDBConfig() *DBConfig {
 	return &DBConfig{
 		DBUsername: "root",
 		DBPassword: "root",
-		DBHost:     "localhost",
+		DBHost:     "database",
 		DBName:     "race",
 	}
 }

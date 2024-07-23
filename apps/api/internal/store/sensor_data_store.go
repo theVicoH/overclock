@@ -16,5 +16,23 @@ func NewSenSorDataStore(db *sql.DB) *SensorStore {
 }
 
 func (s *SensorStore) AddSensorData(sensorData types.SensorDataType) (bool, error) {
-	return true, nil
+
+	return false, nil
+}
+
+func (s *SensorStore) GetSensorDataById(id int) (types.SensorDataType, error) {
+	var sensorData types.SensorDataType
+
+	return sensorData, nil
+}
+
+func (s *SensorStore) DeleteSensorDataById(id int) (bool, error) {
+
+	return false, nil
+}
+
+func (s *SensorStore) UpdateSensorDataById(id int) (types.SensorDataType, error) {
+	var sensorData types.SensorDataType
+
+	return sensorData, nil
 }
