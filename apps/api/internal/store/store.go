@@ -2,21 +2,28 @@ package store
 
 import (
 	"Overclock/internal/model"
-	"database/sql"
+
+	"gorm.io/gorm"
 )
 
-func CreateStore(db *sql.DB) *Store {
-	return &Store{
+type Store struct {
+	db *gorm.DB
+}
+
+func CreateStore(db *gorm.DB) *StoreStruct {
+	return &StoreStruct{
 		SensorModelInterface:     NewSenSorDataStore(db),
 		StatsRaceInterface:       NewStatsRaceStore(db),
 		ThresholdsModelInterface: NewThresholdsStore(db),
 		VehicleModelInterface:    NewVehicleStore(db),
+		RaceModelInterface:       NewRaceStore(db),
 	}
 }
 
-type Store struct {
+type StoreStruct struct {
 	model.SensorModelInterface
 	model.StatsRaceInterface
 	model.ThresholdsModelInterface
 	model.VehicleModelInterface
+	model.RaceModelInterface
 }

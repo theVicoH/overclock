@@ -2,37 +2,34 @@ package store
 
 import (
 	"Overclock/internal/types"
-	"database/sql"
+
+	"gorm.io/gorm"
 )
 
-type VehicleStore struct {
-	*sql.DB
-}
-
-func NewVehicleStore(db *sql.DB) *VehicleStore {
-	return &VehicleStore{
+func NewVehicleStore(db *gorm.DB) *Store {
+	return &Store{
 		db,
 	}
 }
 
-func (v *VehicleStore) AddVehicle(vehicle types.VehicleType) (bool, error) {
+func (v *Store) AddVehicle(vehicle types.VehicleType) (bool, error) {
 
 	return false, nil
 }
 
-func (v *VehicleStore) GetVehicleById(id int) (types.VehicleType, error) {
+func (v *Store) GetVehicleById(id int) (types.VehicleType, error) {
 
 	var vehicle types.VehicleType
 
 	return vehicle, nil
 }
 
-func (v *VehicleStore) DeleteVehicleById(id int) (bool, error) {
+func (v *Store) DeleteVehicleById(id int) (bool, error) {
 
 	return false, nil
 }
 
-func (v *VehicleStore) UpdateVehicleById(id int) (types.VehicleType, error) {
+func (v *Store) UpdateVehicleById(id int) (types.VehicleType, error) {
 
 	var vehicle types.VehicleType
 

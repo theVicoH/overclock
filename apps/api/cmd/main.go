@@ -1,27 +1,28 @@
 package main
 
 import (
+	"Overclock/internal/database"
+	"Overclock/internal/routes"
+	"Overclock/internal/store"
 	"fmt"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/gofiber/fiber/v3"
 )
 
-func main() {
-	app := fiber.New()
-	app.Use(cors.New(cors.Config{
-		AllowOrigins: "*",
-		AllowHeaders: "Origin, Content-Type, Accept",
-		AllowMethods: "GET, POST, PUT, DELETE",
-	}))
-	app.Use(recover.New())
+var db = database.InitDb()
 
-	app.Use(func(c *fiber.Ctx) error {
+func main() {
+
+	myStore := store.CreateStore(db)
+
+	app := fiber.New()
+	routes.SetRoute(app, myStore)
+
+	app.Use(func(c fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusNotFound)
 	})
 
@@ -35,6 +36,7 @@ func main() {
 }
 
 func shutdown(app *fiber.App) {
+
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 
