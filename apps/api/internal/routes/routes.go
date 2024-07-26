@@ -1,16 +1,15 @@
 package routes
 
 import (
-	sensor_routes "Overclock/internal/routes/sensor_data"
-	"Overclock/internal/store"
+	"Overclock/internal/handler"
 
 	"github.com/gofiber/fiber/v3"
 )
 
-func SetRoute(app *fiber.App, myStore *store.StoreStruct) {
-
-	api := app.Group("/api")
-
-	sensorGroup := api.Group("/sensor")
-	sensor_routes.SetUpSensorRoute(sensorGroup, myStore)
+func SetRoute(app *fiber.App, handler *handler.HandlerStruct) {
+	sensorGroup := app.Group("/sensor")
+	sensorGroup.Get("/:id", handler.GetSensorDataById)
+	sensorGroup.Post("/", handler.AddSensorData)
+	sensorGroup.Put("/:id", handler.UpdateSensorDataById)
+	sensorGroup.Delete("/:id", handler.DeleteSensorDataById)
 }

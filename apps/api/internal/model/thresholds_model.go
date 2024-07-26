@@ -1,8 +1,19 @@
 package model
 
-import "Overclock/internal/types"
+import (
+	"Overclock/internal/types"
 
-type ThresholdsModelInterface interface {
+	"github.com/gofiber/fiber/v3"
+)
+
+type ThresholdsModelHandler interface {
+	AddThresholds(fiber.Ctx) error
+	GetThresholdsById(fiber.Ctx) error
+	DeleteThresholdsById(fiber.Ctx) error
+	UpdateThresholdsById(fiber.Ctx) error
+}
+
+type ThresholdsModelStore interface {
 	AddThresholds(thresholds types.ThresholdsType) (bool, error)
 	GetThresholdsById(id int) (types.ThresholdsType, error)
 	DeleteThresholdsById(id int) (bool, error)

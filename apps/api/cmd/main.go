@@ -2,8 +2,10 @@ package main
 
 import (
 	"Overclock/internal/database"
+	"Overclock/internal/handler"
 	"Overclock/internal/routes"
 	"Overclock/internal/store"
+	"database/sql"
 	"fmt"
 	"log"
 	"os"
@@ -13,14 +15,18 @@ import (
 	"github.com/gofiber/fiber/v3"
 )
 
-var db = database.InitDb()
-
 func main() {
+	var db = database.InitDb()
+	sqlDB, err := db.DB()
+	if err != nil {
+		log.Fatalf("Failed to get database object from GORM: %v", err)
+	}
 
-	myStore := store.CreateStore(db)
+	store := store.CreateStore(db)
+	handler := handler.CreateHandler(store)
 
 	app := fiber.New()
-	routes.SetRoute(app, myStore)
+	routes.SetRoute(app, handler)
 
 	app.Use(func(c fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusNotFound)
@@ -32,10 +38,10 @@ func main() {
 		}
 	}()
 
-	shutdown(app)
+	shutdown(app, sqlDB)
 }
 
-func shutdown(app *fiber.App) {
+func shutdown(app *fiber.App, sqlDB *sql.DB) {
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
@@ -47,6 +53,8 @@ func shutdown(app *fiber.App) {
 	}
 
 	fmt.Println("Running cleanup tasks...")
-	// db.Close()
+	if err := sqlDB.Close(); err != nil {
+		log.Fatalf("Error closing database connection: %v", err)
+	}
 	fmt.Println("Fiber was successfully shut down.")
 }
