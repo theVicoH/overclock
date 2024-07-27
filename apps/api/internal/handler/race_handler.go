@@ -8,19 +8,19 @@ import (
 	"github.com/gofiber/fiber/v3"
 )
 
-func NewRaceHandler(store *store.StoreStruct) *Hanlder {
-	return &Hanlder{
+func NewRaceHandler(store *store.StoreStruct) *Handler {
+	return &Handler{
 		store,
 	}
 }
 
-func (h *Hanlder) AddRace(c fiber.Ctx) error {
+func (h *Handler) AddRace(c fiber.Ctx) error {
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "Data successfully fetched",
 	})
 }
 
-func (h *Hanlder) GetRaceById(c fiber.Ctx) error {
+func (h *Handler) GetRaceById(c fiber.Ctx) error {
 	idStr := c.Params("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
@@ -33,7 +33,7 @@ func (h *Hanlder) GetRaceById(c fiber.Ctx) error {
 	})
 }
 
-func (h *Hanlder) DeleteRaceById(c fiber.Ctx) error {
+func (h *Handler) DeleteRaceById(c fiber.Ctx) error {
 	idStr := c.Params("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
@@ -45,7 +45,7 @@ func (h *Hanlder) DeleteRaceById(c fiber.Ctx) error {
 	})
 }
 
-func (h *Hanlder) UpdateRaceById(c fiber.Ctx) error {
+func (h *Handler) UpdateRaceById(c fiber.Ctx) error {
 	idStr := c.Params("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {

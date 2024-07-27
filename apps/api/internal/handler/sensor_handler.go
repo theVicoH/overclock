@@ -7,13 +7,13 @@ import (
 	"github.com/gofiber/fiber/v3"
 )
 
-func NewSenSorDataHandler(store *store.StoreStruct) *Hanlder {
-	return &Hanlder{
+func NewSenSorDataHandler(store *store.StoreStruct) *Handler {
+	return &Handler{
 		store,
 	}
 }
 
-func (h *Hanlder) AddSensorData(c fiber.Ctx) error {
+func (h *Handler) AddSensorData(c fiber.Ctx) error {
 	idStr := c.Params("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
@@ -23,16 +23,16 @@ func (h *Hanlder) AddSensorData(c fiber.Ctx) error {
 	// pb de type exemple id ne peux pas être envoyé ici
 	// sensor, err := h.store.AddSensorData(id)
 
-	if err != nil {
-		return c.SendStatus(fiber.StatusInternalServerError)
-	}
+	// if err != nil {
+	// 	return c.SendStatus(fiber.StatusInternalServerError)
+	// }
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "Data successfully fetched",
 		"data":    id,
 	})
 }
 
-func (h *Hanlder) GetSensorDataById(c fiber.Ctx) error {
+func (h *Handler) GetSensorDataById(c fiber.Ctx) error {
 	idStr := c.Params("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
@@ -50,7 +50,7 @@ func (h *Hanlder) GetSensorDataById(c fiber.Ctx) error {
 	})
 }
 
-func (h *Hanlder) DeleteSensorDataById(c fiber.Ctx) error {
+func (h *Handler) DeleteSensorDataById(c fiber.Ctx) error {
 	idStr := c.Params("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
@@ -68,7 +68,7 @@ func (h *Hanlder) DeleteSensorDataById(c fiber.Ctx) error {
 	})
 }
 
-func (h *Hanlder) UpdateSensorDataById(c fiber.Ctx) error {
+func (h *Handler) UpdateSensorDataById(c fiber.Ctx) error {
 	idStr := c.Params("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {

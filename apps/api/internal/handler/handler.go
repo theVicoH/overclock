@@ -5,24 +5,22 @@ import (
 	"Overclock/internal/store"
 )
 
-type Hanlder struct {
+type Handler struct {
 	store *store.StoreStruct
 }
 
 func CreateHandler(store *store.StoreStruct) *HandlerStruct {
 	return &HandlerStruct{
-		SensorModelHandler:     NewSenSorDataHandler(store),
-		StatsRaceHandler:       NewStatsRaceHandler(store),
-		ThresholdsModelHandler: NewThresholdsHandler(store),
-		VehicleModelHandler:    NewVehicleHandler(store),
-		RaceModelHandler:       NewRaceHandler(store),
+		SensorModelHandler:  NewSenSorDataHandler(store),
+		StatsRaceHandler:    NewStatsRaceHandler(store),
+		VehicleModelHandler: NewVehicleHandler(store),
+		RaceModelHandler:    NewRaceHandler(store),
 	}
 }
 
 type HandlerStruct struct {
 	model.SensorModelHandler
 	model.StatsRaceHandler
-	model.ThresholdsModelHandler
 	model.VehicleModelHandler
 	model.RaceModelHandler
 }
