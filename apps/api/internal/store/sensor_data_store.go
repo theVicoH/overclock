@@ -2,6 +2,7 @@ package store
 
 import (
 	"Overclock/internal/types"
+	"time"
 
 	"gorm.io/gorm"
 )
@@ -13,8 +14,11 @@ func NewSenSorDataStore(db *gorm.DB) *Store {
 }
 
 func (s *Store) AddSensorData(sensorData types.SensorDataType) (bool, error) {
-
-	return false, nil
+	sensorData.DateTech = time.Now()
+	if err := s.db.Create(&sensorData).Error; err != nil {
+		return false, err
+	}
+	return true, nil
 }
 
 func (s *Store) GetSensorDataById(id int) (types.SensorDataType, error) {
