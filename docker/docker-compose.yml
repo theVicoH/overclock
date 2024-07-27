@@ -1,17 +1,16 @@
 services:
   database:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: postgres:latest
     container_name: postgres
     ports:
       - 5432:5432
     volumes:
       - psql-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: race
+      POSTGRES_DB: overclock
 
   adminer:
     image: adminer
