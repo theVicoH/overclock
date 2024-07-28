@@ -1,6 +1,6 @@
 package types
 
 type VehicleType struct {
-	Id  int    `json:"id"`
-	Var string `json:"var"`
+	Id   string `json:"id" gorm:"type:uuid;default:gen_random_uuid()"`
+	Name string `json:"name"`
 }
