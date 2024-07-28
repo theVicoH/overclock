@@ -14,7 +14,7 @@ var (
 	port     = "5432"
 	dbuser   = "root"
 	password = "root"
-	dbname   = "race"
+	dbname   = "datas"
 )
 
 func InitDb() *gorm.DB {
@@ -25,6 +25,11 @@ func InitDb() *gorm.DB {
 	if err != nil {
 		log.Fatal("err : ", err)
 	}
+
+	vehicleIds := SeedVehicle(conn)
+	raceIds := SeedRace(conn)
+	SeedSensor(conn, vehicleIds, raceIds)
+	SeedStatsRace(conn, vehicleIds, raceIds)
 
 	return conn
 }
