@@ -13,27 +13,51 @@ func NewRaceStore(db *gorm.DB) *Store {
 	}
 }
 
-func (s *Store) AddRace(raceData types.RaceType) (bool, error) {
+func (s *Store) AddRace(race types.RaceType) (bool, error) {
+	var raceData types.RaceType
 	raceData.Date = time.Now()
-	if err := s.db.Create(&raceData).Error; err != nil {
+	raceData.Name = race.Name
+
+	if err := s.db.Table("race").Create(&raceData).Error; err != nil {
 		return false, err
 	}
 	return true, nil
 }
 
-func (s *Store) GetRaceById(id int) (types.RaceType, error) {
+func (s *Store) GetRaceById(id string) (types.RaceType, error) {
 	var raceData types.RaceType
-
+	if err := s.db.Table("race").Where("id = ?", id).First(&raceData).Error; err != nil {
+		return raceData, err
+	}
 	return raceData, nil
 }
 
-func (s *Store) DeleteRaceById(id int) (bool, error) {
-
-	return false, nil
+func (s *Store) DeleteRaceById(id string) (bool, error) {
+	if err := s.db.Table("race").Where("id = ?", id).Delete(&types.RaceType{}).Error; err != nil {
+		return false, err
+	}
+	return true, nil
 }
 
-func (s *Store) UpdateRaceById(id int) (types.RaceType, error) {
+func (s *Store) UpdateRaceById(id string, updatedData types.RaceType) (types.RaceType, error) {
 	var raceData types.RaceType
+	if err := s.db.Table("race").Where("id = ?", id).First(&raceData).Error; err != nil {
+		return raceData, err
+	}
+	// Update the fields with the new data
+	raceData.Name = updatedData.Name
+	raceData.Date = time.Now()
 
+	if err := s.db.Table("race").Save(&raceData).Error; err != nil {
+		return raceData, err
+	}
+	return raceData, nil
+}
+
+func (s *Store) GetAllRace() ([]types.RaceType, error) {
+	var raceData []types.RaceType
+	if err := s.db.Table("race").Find(&raceData).Error; err != nil {
+		return nil, err
+	}
 	return raceData, nil
 }
