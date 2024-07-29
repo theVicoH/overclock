@@ -4,8 +4,8 @@ import (
 	"Overclock/internal/types"
 	"log"
 
-	"gorm.io/gorm"
 	MQTT "github.com/eclipse/paho.mqtt.golang"
+	"gorm.io/gorm"
 )
 
 func NewStatsRaceStore(db *gorm.DB, client *MQTT.Client) *StoreMqtt {

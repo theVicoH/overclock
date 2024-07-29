@@ -10,17 +10,17 @@ import (
 )
 
 type Store struct {
-	db     *gorm.DB
+	db *gorm.DB
 }
 type StoreMqtt struct {
 	db     *gorm.DB
 	client *MQTT.Client
 }
 
-func CreateStore(db *gorm.DB,client *MQTT.Client) *StoreStruct {
+func CreateStore(db *gorm.DB, client *MQTT.Client) *StoreStruct {
 	return &StoreStruct{
 		SensorModelStore:  NewSenSorDataStore(db),
-		StatsRaceStore:    NewStatsRaceStore(db,client),
+		StatsRaceStore:    NewStatsRaceStore(db, client),
 		VehicleModelStore: NewVehicleStore(db),
 		RaceModelStore:    NewRaceStore(db),
 	}
