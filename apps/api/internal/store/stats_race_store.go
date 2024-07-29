@@ -5,20 +5,22 @@ import (
 	"log"
 
 	"gorm.io/gorm"
+	MQTT "github.com/eclipse/paho.mqtt.golang"
 )
 
-func NewStatsRaceStore(db *gorm.DB) *Store {
-	return &Store{
+func NewStatsRaceStore(db *gorm.DB, client *MQTT.Client) *StoreMqtt {
+	return &StoreMqtt{
 		db,
+		client,
 	}
 }
 
-func (s *Store) AddStatsRace(statsRace types.StatsRaceType) (bool, error) {
-
+func (s *StoreMqtt) AddStatsRace(statsRace types.StatsRaceType) (bool, error) {
+	SendMessage(*s.client, "esp32/sensor", "test")
 	return false, nil
 }
 
-func (s *Store) GetStatsRaceById(id int) (types.StatsRaceType, error) {
+func (s *StoreMqtt) GetStatsRaceById(id int) (types.StatsRaceType, error) {
 	var statsRace types.StatsRaceType
 
 	db := s.db.Table("users").Where("id = ?", 1).First(&statsRace)
@@ -29,12 +31,12 @@ func (s *Store) GetStatsRaceById(id int) (types.StatsRaceType, error) {
 	return statsRace, nil
 }
 
-func (s *Store) DeleteStatsRaceById(id int) (bool, error) {
+func (s *StoreMqtt) DeleteStatsRaceById(id int) (bool, error) {
 
 	return false, nil
 }
 
-func (s *Store) UpdateStatsRaceById(id int) (types.StatsRaceType, error) {
+func (s *StoreMqtt) UpdateStatsRaceById(id int) (types.StatsRaceType, error) {
 	var statsRace types.StatsRaceType
 
 	return statsRace, nil

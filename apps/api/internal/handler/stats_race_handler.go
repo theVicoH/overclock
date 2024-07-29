@@ -2,28 +2,33 @@ package handler
 
 import (
 	"Overclock/internal/store"
+	"fmt"
 
+	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"github.com/gofiber/fiber/v3"
 )
 
-func NewStatsRaceHandler(store *store.StoreStruct) *Handler {
-	return &Handler{
+func NewStatsRaceHandler(store *store.StoreStruct, client *MQTT.Client) *HandlerMqtt {
+	return &HandlerMqtt{
 		store,
+		client,
 	}
 }
 
-func (h *Handler) AddStatsRace(c fiber.Ctx) error {
+func (h *HandlerMqtt) AddStatsRace(c fiber.Ctx) error {
+	var test = ReadMessages(*h.client, "esp32/sensor")
+	fmt.Println("je suis le test" , test)
 	return nil
 }
 
-func (h *Handler) GetStatsRaceById(c fiber.Ctx) error {
+func (h *HandlerMqtt) GetStatsRaceById(c fiber.Ctx) error {
 	return nil
 }
 
-func (h *Handler) DeleteStatsRaceById(c fiber.Ctx) error {
+func (h *HandlerMqtt) DeleteStatsRaceById(c fiber.Ctx) error {
 	return nil
 }
 
-func (h *Handler) UpdateStatsRaceById(c fiber.Ctx) error {
+func (h *HandlerMqtt) UpdateStatsRaceById(c fiber.Ctx) error {
 	return nil
 }

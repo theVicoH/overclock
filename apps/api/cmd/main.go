@@ -1,6 +1,7 @@
 package main
 
 import (
+	"Overclock/internal/broker"
 	"Overclock/internal/database"
 	"Overclock/internal/handler"
 	"Overclock/internal/routes"
@@ -17,13 +18,15 @@ import (
 
 func main() {
 	var db = database.InitDb()
+	var client = broker.InitBroker()
+
 	sqlDB, err := db.DB()
 	if err != nil {
 		log.Fatalf("Failed to get database object from GORM: %v", err)
 	}
 
-	store := store.CreateStore(db)
-	handler := handler.CreateHandler(store)
+	store := store.CreateStore(db , &client)
+	handler := handler.CreateHandler(store, &client)
 
 	app := fiber.New()
 	routes.SetRoute(app, handler)

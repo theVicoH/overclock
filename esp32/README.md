@@ -1,0 +1,1 @@
+Fil .env in data folder with your wifi configuration
