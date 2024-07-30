@@ -10,13 +10,11 @@ import (
 
 func SeedRace(db *gorm.DB) []string {
 	var raceIds []string
-
-	races := []types.RaceType{
+	for _, race := range []types.RaceType{
 		{Name: "Run 1", Date: time.Now()},
 		{Name: "Run 2", Date: time.Now()},
 		{Name: "Run 3", Date: time.Now()},
-	}
-	for _, race := range races {
+	} {
 		if err := db.Table("race").Create(&race).Error; err != nil {
 			log.Fatalf("Error seeding race: %v", err)
 		}
