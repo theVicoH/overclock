@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.9-slim AS builder
 
 WORKDIR /app
 
@@ -7,8 +7,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-#EXPOSE 5000
+FROM python:3.9-slim
 
-#EXPOSE 8765
+WORKDIR /app
 
-CMD ["bash", "-c", "python main.py"]
+COPY --from=builder /app /app
+
+CMD ["python", "detect.py"]

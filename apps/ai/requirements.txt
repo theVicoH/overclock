@@ -1,6 +1,0 @@
-opencv-python-headless
-pika
-psycopg2-binary
-flask
-numpy
-websockets
