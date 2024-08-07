@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, MagicMock
-import cv2
+#import cv2
 from utils import initialize_yolo, connect_mqtt
 from pid_controller import PIDController
 import detect
@@ -19,7 +19,7 @@ class TestIntegration(unittest.TestCase):
         
         mock_initialize_yolo.assert_called_once()
         mock_connect_mqtt.assert_called_once()
-        mock_VideoCapture.assert_called_once_with("http://your_camera_stream_url")
+        mock_VideoCapture.assert_called_once_with("url cam")
 
 if __name__ == '__main__':
     unittest.main()
