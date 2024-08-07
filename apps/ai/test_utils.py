@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import paho.mqtt.client as mqtt
-from utils import connect_mqtt, send_message, on_connect, on_message
+from utils import connect_mqtt, send_message, on_connect, on_message, initialize_yolo
 
 class TestUtils(unittest.TestCase):
     @patch('paho.mqtt.client.Client')
@@ -27,6 +27,12 @@ class TestUtils(unittest.TestCase):
         with patch('logging.info') as mock_logging:
             on_message(None, None, msg)
             mock_logging.assert_called_with('Received message: payload from topic: test/topic')
+
+    def test_initialize_yolo(self):
+        model_path = 'apps/IA/YOLO/yolov7-w6.pt'
+        model = initialize_yolo(model_path)
+        self.assertIsNotNone(model)
+
 
 if __name__ == '__main__':
     unittest.main()
