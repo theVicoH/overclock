@@ -13,4 +13,6 @@ WORKDIR /app
 
 COPY --from=builder /app /app
 
+RUN flake8 . && python -m unittest discover -s .
+
 CMD ["python", "detect.py"]
