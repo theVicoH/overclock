@@ -2,6 +2,7 @@ import json
 import os
 import paho.mqtt.client as mqtt
 import logging
+import torch
 
 logging.basicConfig(level=logging.INFO)
 
@@ -45,7 +46,7 @@ def read_messages(client, topic):
     logging.info(" [*] Waiting for messages. To exit press CTRL+C")
     client.loop_start()
 
-def initialize_yolo(model_path):
-    import torch
-    model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_path, force_reload=True)
+def initialize_yolo(model):
+    model = torch.load(model, map_location='cpu')
+    model.eval()
     return model
