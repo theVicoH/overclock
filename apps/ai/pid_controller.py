@@ -5,7 +5,7 @@ class PIDController:
         self.kd = kd
         self.integral = 0
         self.last_error = 0
-    
+
     def update(self, error, dt):
         self.integral += error * dt
         derivative = (error - self.last_error) / dt
