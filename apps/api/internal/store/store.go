@@ -19,7 +19,7 @@ type StoreMqtt struct {
 
 func CreateStore(db *gorm.DB, client *MQTT.Client) *StoreStruct {
 	return &StoreStruct{
-		SensorModelStore:  NewSenSorDataStore(db),
+		// SensorModelStore:  NewSenSorDataStore(db),
 		StatsRaceStore:    NewStatsRaceStore(db, client),
 		VehicleModelStore: NewVehicleStore(db),
 		RaceModelStore:    NewRaceStore(db),
@@ -35,7 +35,7 @@ func SendMessage(client MQTT.Client, topic string, payload string) {
 }
 
 type StoreStruct struct {
-	model.SensorModelStore
+	// model.SensorModelStore
 	model.StatsRaceStore
 	model.VehicleModelStore
 	model.RaceModelStore
