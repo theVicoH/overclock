@@ -3,6 +3,7 @@ package handler
 import (
 	"Overclock/internal/store"
 	"fmt"
+	// "fmt"
 
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"github.com/gofiber/fiber/v3"
@@ -16,9 +17,19 @@ func NewStatsRaceHandler(store *store.StoreStruct, client *MQTT.Client) *Handler
 }
 
 func (h *HandlerMqtt) AddStatsRace(c fiber.Ctx) error {
-	var test = ReadMessages(*h.client, "esp32/sensor")
-	fmt.Println("je suis le test" , test)
-	return nil
+	  // Lire les messages du broker MQTT
+	  test := ReadMessages(*h.client, "esp32/track")
+	  fmt.Println("Valeur reçue de ReadMessages:", test)
+	  // Vérifier si des données sont reçues
+	  if test == "" {
+		  // Si aucune donnée n'est reçue, retourner un statut d'erreur (par exemple, 404)
+		  return c.Status(fiber.StatusNotFound).SendString("No data received from broker")
+	  }
+	  
+	  // Retourner les données reçues en réponse HTTP
+	  return c.JSON(fiber.Map{
+		  "data": test,
+	  })
 }
 
 func (h *HandlerMqtt) GetStatsRaceById(c fiber.Ctx) error {
