@@ -28,7 +28,7 @@ func InitDb() *gorm.DB {
 
 	vehicleIds := SeedVehicle(conn)
 	raceIds := SeedRace(conn)
-	SeedSensor(conn, vehicleIds, raceIds)
+	// SeedSensor(conn, vehicleIds, raceIds)
 	SeedStatsRace(conn, vehicleIds, raceIds)
 
 	return conn
