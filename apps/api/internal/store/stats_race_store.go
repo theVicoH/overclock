@@ -15,8 +15,8 @@ func NewStatsRaceStore(db *gorm.DB, client *MQTT.Client) *StoreMqtt {
 	}
 }
 
+
 func (s *StoreMqtt) AddStatsRace(statsRace types.StatsRaceType) (bool, error) {
-	SendMessage(*s.client, "esp32/sensor", "test")
 	return false, nil
 }
 

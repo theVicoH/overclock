@@ -2,8 +2,6 @@ package store
 
 import (
 	"Overclock/internal/model"
-	"fmt"
-
 	"gorm.io/gorm"
 
 	MQTT "github.com/eclipse/paho.mqtt.golang"
@@ -19,23 +17,14 @@ type StoreMqtt struct {
 
 func CreateStore(db *gorm.DB, client *MQTT.Client) *StoreStruct {
 	return &StoreStruct{
-		// SensorModelStore:  NewSenSorDataStore(db),
+		SensorModelStore:  NewSenSorDataStore(db),
 		StatsRaceStore:    NewStatsRaceStore(db, client),
 		VehicleModelStore: NewVehicleStore(db),
 		RaceModelStore:    NewRaceStore(db),
 	}
 }
-
-func SendMessage(client MQTT.Client, topic string, payload string) {
-	token := client.Publish(topic, 0, false, payload)
-	token.Wait()
-	if token.Error() != nil {
-		fmt.Printf("Failed to publish a message")
-	}
-}
-
 type StoreStruct struct {
-	// model.SensorModelStore
+	model.SensorModelStore
 	model.StatsRaceStore
 	model.VehicleModelStore
 	model.RaceModelStore
