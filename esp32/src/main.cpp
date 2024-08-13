@@ -113,20 +113,28 @@ void setup()
 
         if (line.startsWith("WIFI_SSID=")) {
             strlcpy(ssid_wifi, line.substring(10).c_str(), sizeof(ssid_wifi));
+
         } else if (line.startsWith("WIFI_PASSWORD=")) {
             strlcpy(password_wifi, line.substring(14).c_str(), sizeof(password_wifi));
+
         } else if (line.startsWith("MQTT_SERVER=")) {
             strlcpy(mqtt_server, line.substring(12).c_str(), sizeof(mqtt_server));
+
         } else if (line.startsWith("MQTT_PORT=")) {
             mqtt_port = line.substring(10).toInt();
+
         } else if (line.startsWith("LOCAL_IP=")) {
             localIP.fromString(line.substring(9));
+
         } else if (line.startsWith("LOCAL_GATEWAY=")) {
             localGateway.fromString(line.substring(14));
+
         } else if (line.startsWith("LOCAL_SUBNET=")) {
             localSubnet.fromString(line.substring(13));
+
         } else if (line.startsWith("PRIMARY_DNS=")) {
             primaryDNS.fromString(line.substring(12));
+
         } else if (line.startsWith("SECONDARY_DNS=")) {
             secondaryDNS.fromString(line.substring(14));
         }
@@ -422,6 +430,20 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len)
             bool video_activation = doc["data"] == 1;
             videoFlag = video_activation;
         }
+
+        // copyright Marie
+        // récup de l'id de la course et le stock dans une varible globale , qu'on renvoie au broker à change fois que change = true 
+        // inspire toi de distance / timer 
+        else if (10 == cmd)
+        {
+            int race_id = doc["data"];
+            bool race_change = false;
+        }
+         // copyright Marie et fabrice
+         else if (11 == cmd)
+         {
+            // balancé track car avec argemnt 1 dans freenve_4WD_Car_for_ESP32.cpp
+         }
 
         notifyClients();
     }

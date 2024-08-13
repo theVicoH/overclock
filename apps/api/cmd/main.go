@@ -24,14 +24,10 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to get database object from GORM: %v", err)
 	}
-	
-    messageCallback := func(message string) {
-        fmt.Printf("Processing message: %s\n", message)
-    }
-   
-    broker.ReadMessages(client, "#", messageCallback)
 
-	store := store.CreateStore(db , &client)
+	broker.ReadMessages(client, "#", handler.MessageCallback)
+
+	store := store.CreateStore(db, &client)
 	handler := handler.CreateHandler(store, &client)
 
 	app := fiber.New()

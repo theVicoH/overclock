@@ -2,37 +2,29 @@ package handler
 
 import (
 	"Overclock/internal/store"
+	"fmt"
 	"strconv"
 
+	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"github.com/gofiber/fiber/v3"
 )
 
-func NewSenSorDataHandler(store *store.StoreStruct) *Handler {
-	return &Handler{
+func NewSenSorDataHandler(store *store.StoreStruct, client *MQTT.Client) *HandlerMqtt {
+	return &HandlerMqtt{
 		store,
+		client,
 	}
 }
 
-func (h *Handler) AddSensorData(c fiber.Ctx) error {
-	idStr := c.Params("id")
-	id, err := strconv.Atoi(idStr)
-	if err != nil {
-		return c.SendStatus(fiber.StatusBadRequest)
-	}
-
-	// pb de type exemple id ne peux pas être envoyé ici
-	// sensor, err := h.store.AddSensorData(id)
-
-	// if err != nil {
-	// 	return c.SendStatus(fiber.StatusInternalServerError)
-	// }
-	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"message": "Data successfully fetched",
-		"data":    id,
-	})
+func MessageCallback(message string)  {
+	fmt.Printf("Processing message: %s\n", message)
 }
 
-func (h *Handler) GetSensorDataById(c fiber.Ctx) error {
+func (h *HandlerMqtt) AddSensorData(c fiber.Ctx) error {
+	return nil
+}
+
+func (h *HandlerMqtt) GetSensorDataById(c fiber.Ctx) error {
 	idStr := c.Params("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
@@ -50,7 +42,7 @@ func (h *Handler) GetSensorDataById(c fiber.Ctx) error {
 	})
 }
 
-func (h *Handler) DeleteSensorDataById(c fiber.Ctx) error {
+func (h *HandlerMqtt) DeleteSensorDataById(c fiber.Ctx) error {
 	idStr := c.Params("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
@@ -68,7 +60,7 @@ func (h *Handler) DeleteSensorDataById(c fiber.Ctx) error {
 	})
 }
 
-func (h *Handler) UpdateSensorDataById(c fiber.Ctx) error {
+func (h *HandlerMqtt) UpdateSensorDataById(c fiber.Ctx) error {
 	idStr := c.Params("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {

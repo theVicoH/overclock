@@ -2,7 +2,6 @@ package handler
 
 import (
 	"Overclock/internal/store"
-
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"github.com/gofiber/fiber/v3"
 )
@@ -23,11 +22,11 @@ func (h *HandlerMqtt) AddStatsRace(c fiber.Ctx) error {
 	// 	  // Si aucune donnée n'est reçue, retourner un statut d'erreur (par exemple, 404)
 	// 	  return c.Status(fiber.StatusNotFound).SendString("No data received from broker")
 	//   }
-	  
+
 	//   // Retourner les données reçues en réponse HTTP
 	//   return c.JSON(fiber.Map{
 	// 	  "data": test,
-	//   }) 
+	//   })
 	return nil
 }
 
