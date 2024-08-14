@@ -13,6 +13,7 @@
 #include <ArduinoJson.h>
 #include <limits.h>
 #include <SPIFFS.h>
+#include <functional>
 
 #define STREAM_CONTENT_BOUNDARY "123456789000000000000987654321"
 
@@ -88,6 +89,21 @@ void WiFi_Init()
     frame_size = FRAMESIZE_CIF;      // 400*296
 }
 
+void callback(char* topic, byte* payload, unsigned int length) {
+    Serial.print("Message arrived on topic: ");
+    Serial.println(topic);
+
+    Serial.print("Payload: ");
+    for (int i = 0; i < length; i++) {
+        Serial.print((char)payload[i]);
+    }
+    Serial.println();
+
+    String messageTemp;
+    for (int i = 0; i < length; i++) {
+        messageTemp += (char)payload[i];
+    }
+}
 void setup()
 {
     // delay(5000);
@@ -183,6 +199,7 @@ void setup()
     xTaskCreateUniversal(loopTask_WTD, "loopTask_WTD", 8192, NULL, 0, NULL, 0);
 
     client.setServer(mqtt_server, mqtt_port);
+    client.setCallback(callback);
 
     initWebSocket();
 
@@ -485,7 +502,7 @@ void reconnect()
         {
             Serial.println("connected");
             // Subscribe
-            client.subscribe("esp32/output");
+            client.subscribe("esp32/distance");
         }
         else
         {
@@ -555,7 +572,7 @@ void testInternetConnectivity()
 {
     Serial.print("Testing Internet connectivity: ");
     WiFiClient client;
-    if (client.connect("93.184.216.34", 80)) // Test with example.com IP
+    if (client.connect("93.184.216.34", 80)) 
     {
         Serial.println("Internet connection OK");
         client.stop();
