@@ -36,39 +36,14 @@ def connect_mqtt():
 
     return client
 
-
 def send_message(client, topic, payload):
     result = client.publish(topic, payload)
-    status = result[0]
-    if status == 0:
+    status = result.rc
+    if status == mqtt.MQTT_ERR_SUCCESS:
         logging.info(f" [x] Congrats, sending message: {payload}")
     else:
         fail_on_error(status, "Failed to publish a message")
 
-def read_messages(client, topic):
-    client.subscribe(topic)
-    logging.info(f"Subscribed to topic: {topic}")
-    client.loop_start() 
-
 def initialize_yolo(model_path):
     model = torch.hub.load('WongKinYiu/yolov7', 'custom', path_or_model=model_path, source='github')
     return model
-
-
-
-if __name__ == "__main__":
-    client = connect_mqtt()  
-    read_messages(client, "esp32/sonar") 
-    send_message(client, "esp32/sonar", "Hello, MQTT!") 
-    send_message(client, "esp32/sonar", "Hello, MQTT 2!") 
-
-    
-    try:
-
-        logging.info("Listening for messages. Press Ctrl+C to exit.")
-        while True:
-            pass
-    except KeyboardInterrupt:
-        logging.info("Exiting...")
-        client.loop_stop()
-        client.disconnect()
