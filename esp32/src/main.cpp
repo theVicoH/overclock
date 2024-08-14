@@ -89,28 +89,106 @@ void WiFi_Init()
     frame_size = FRAMESIZE_CIF;      // 400*296
 }
 
-void callback(char* topic, byte* payload, unsigned int length) {
-    Serial.print("Message arrived on topic: ");
-    Serial.println(topic);
+void processCommand(const char* jsonData) {
+    StaticJsonDocument<200> doc;
 
-    Serial.print("Payload: ");
-    for (int i = 0; i < length; i++) {
-        Serial.print((char)payload[i]);
-    }
-    Serial.println();
+    DeserializationError error = deserializeJson(doc, jsonData);
 
-    String messageTemp;
-    for (int i = 0; i < length; i++) {
-        messageTemp += (char)payload[i];
+    if (error) {
+        Serial.print("deserializeJson() failed: ");
+        Serial.println(error.c_str());
+        return;
     }
+
+    int cmd = doc["cmd"];
+
+    if (1 == cmd) {
+        JsonArray data = doc["data"];
+        int data_0 = data[0];
+        int data_1 = data[1];
+        int data_2 = data[2];
+        int data_3 = data[3];
+
+        Motor_Move(data_0, data_1, data_2, data_3);
+
+        if (data_0 == 0 && data_1 == 0 && data_2 == 0 && data_3 == 0) {
+            // Stop the timer
+            startTime = 0;
+            timerActive = false;
+        } else {    
+            // Start the timer
+            startTime = millis();
+            timerActive = true;
+        }
+
+        data_total_0 = data_0;
+        data_total_1 = data_1;
+        data_total_2 = data_2;
+        data_total_3 = data_3;
+
+    } else if (2 == cmd) {
+        int data = doc["data"];
+        Emotion_SetMode(data);
+    } else if (3 == cmd) {
+        JsonArray angles = doc["data"];
+        int angle_0 = angles[0];
+        int angle_1 = angles[1];
+        Servo_1_Angle(angle_0); // Set the Angle value of servo 1 to 0 to 180°
+        Servo_2_Angle(angle_1);
+    } else if (4 == cmd) {
+        int led_mode = doc["data"];
+        WS2812_SetMode(led_mode);
+    } else if (5 == cmd) {
+        JsonArray led_color = doc["data"];
+        int led_color_0 = led_color[0];
+        int led_color_1 = led_color[1];
+        int led_color_2 = led_color[2];
+        int led_color_3 = led_color[3];
+
+        WS2812_Set_Color_1(led_color_0, led_color_1, led_color_2, led_color_3);
+    } else if (6 == cmd) {
+        JsonArray led_color_2 = doc["data"];
+        int led_color_2_0 = led_color_2[0];
+        int led_color_2_1 = led_color_2[1];
+        int led_color_2_2 = led_color_2[2];
+        int led_color_2_3 = led_color_2[3];
+
+        WS2812_Set_Color_2(led_color_2_0, led_color_2_1, led_color_2_2, led_color_2_3);
+    } else if (7 == cmd) {
+        bool alarm = doc["data"] == 1;
+        Buzzer_Alarm(alarm);
+    } else if (8 == cmd) {
+        JsonArray buzzer_data = doc["data"];
+        int alarm_on = buzzer_data[0] == 1;
+        int frequency_hz = buzzer_data[1];
+        Buzzer_Variable(alarm_on, frequency_hz);
+    } else if (9 == cmd) {
+        bool video_activation = doc["data"] == 1;
+        videoFlag = video_activation;
+    } else if (10 == cmd) {
+        int race_id = doc["data"];
+        bool race_change = false;
+    } else if (11 == cmd) {
+        // Gérer la commande spécifique ici
+    }
+
+    notifyClients();
 }
+
+void handleMQTTMessage(char* topic, uint8_t* payload, unsigned int length) {
+    payload[length] = '\0';  // Assure la terminaison de la chaîne
+    processCommand((char*)payload);
+}
+
+
 void setup()
 {
     // delay(5000);
 
     Serial.begin(115200);
     Serial.setDebugOutput(true);
-    // le focher spiffs
+
+    // le fichier spiffs
     if (!SPIFFS.begin(true)) {
         Serial.println("An error occurred while mounting SPIFFS");
         return;
@@ -199,7 +277,7 @@ void setup()
     xTaskCreateUniversal(loopTask_WTD, "loopTask_WTD", 8192, NULL, 0, NULL, 0);
 
     client.setServer(mqtt_server, mqtt_port);
-    client.setCallback(callback);
+    client.setCallback(handleMQTTMessage);
 
     initWebSocket();
 
@@ -282,26 +360,26 @@ void loop()
         // du coup, lire la valeur de batterie fait freeze la batterie
         // Battery level
         dtostrf(Get_Battery_Voltage(), 5, 2, buff);
-        client.publish("esp32/battery", buff);
+        client.publish("esp32bis/battery", buff);
 
         // Track Read
         Track_Read();
         sensor_v = static_cast<int>(sensorValue[3]);
         char const *n_char = std::to_string(sensor_v).c_str();
-        client.publish("esp32/track", n_char);
+        client.publish("esp32bis/track", n_char);
 
         // Ultrasonic Data
         dtostrf(Get_Sonar(), 5, 2, ultrasonic_buff);
-        client.publish("esp32/sonar", ultrasonic_buff);
+        client.publish("esp32bis/sonar", ultrasonic_buff);
 
         // Photosensitive Data
         dtostrf(Get_Photosensitive(), 5, 2, ultrasonic_buff);
-        client.publish("esp32/light", ultrasonic_buff);
+        client.publish("esp32bis/light", ultrasonic_buff);
 
          // Send the total distance
         char distance_buff[10];
         dtostrf(total_Distance, 5, 2, distance_buff);
-        client.publish("esp32/distance", distance_buff);
+        client.publish("esp32bis/distance", distance_buff);
 
         // Send timer data if active
         if (timerActive)
@@ -310,7 +388,7 @@ void loop()
             unsigned long duration = millis() - startTime;
             char timer_buff[10];
             dtostrf(duration, 5, 2, timer_buff);
-            client.publish("esp32/timer", timer_buff);
+            client.publish("esp32bis/timer", timer_buff);
 
             //send distance 
              updateDistance(duration);
@@ -318,14 +396,14 @@ void loop()
             // sed distance total
             char distance_buff[10];
             dtostrf(total_Distance, 5, 2, distance_buff);
-            client.publish("esp32/distance", distance_buff);
+            client.publish("esp32bis/distance", distance_buff);
             
            // send speed
             float duration_in_seconds = duration / 1000.0; // Convert duration to seconds
             total_speed = total_Distance / duration_in_seconds; // Calculate speed
             char speed_buff[10];
             dtostrf(total_speed, 5,2,speed_buff);
-            client.publish("esp32/speed",speed_buff );
+            client.publish("esp32bis/speed",speed_buff );
 
         }
     }
@@ -338,131 +416,12 @@ void notifyClients()
 }
 
 
-void handleWebSocketMessage(void *arg, uint8_t *data, size_t len)
-{
+void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
     AwsFrameInfo *info = (AwsFrameInfo *)arg;
 
-    // Serial.println((char *)data);
-
-    if (info->final && info->index == 0 && info->len == len && info->opcode == WS_TEXT)
-    {
-        data[len] = 0;
-
-        StaticJsonDocument<200> doc;
-
-        DeserializationError error = deserializeJson(doc, (char *)data);
-
-        if (error)
-        {
-            Serial.print("deserializeJson() failed: ");
-            Serial.println(error.c_str());
-            return;
-        }
-
-        int cmd = doc["cmd"];
-
-        if (1 == cmd)
-        {
-            JsonArray data = doc["data"];
-            int data_0 = data[0];
-            int data_1 = data[1];
-            int data_2 = data[2];
-            int data_3 = data[3];
-
-            Motor_Move(data_0, data_1, data_2, data_3);
-
-            // Débuter le timer
-             if (data_0 == 0 && data_1 == 0 && data_2 == 0 && data_3 == 0)
-            {
-                // Stop the timer
-                startTime = 0;
-                timerActive = false;
-            }
-            else
-            {    
-                // Start the timer
-                startTime = millis();
-                timerActive = true;
-            }
-
-            //On initialise les variable globale de force 
-            data_total_0 = data_0;
-            data_total_1 = data_1;
-            data_total_2 = data_2;
-            data_total_3 = data_3;
-            
-        }
-        else if (2 == cmd)
-        {
-            int data = doc["data"];
-            Emotion_SetMode(data);
-        }
-        else if (3 == cmd)
-        {
-            JsonArray angles = doc["data"];
-            int angle_0 = angles[0];
-            int angle_1 = angles[1];
-            Servo_1_Angle(angle_0); // Set the Angle value of servo 1 to 0 to 180°
-            Servo_2_Angle(angle_1);
-        }
-        else if (4 == cmd)
-        {
-            int led_mode = doc["data"];
-            WS2812_SetMode(led_mode);
-        }
-        else if (5 == cmd)
-        {
-            JsonArray led_color = doc["data"];
-            int led_color_0 = led_color[0];
-            int led_color_1 = led_color[1];
-            int led_color_2 = led_color[2];
-            int led_color_3 = led_color[3];
-
-            WS2812_Set_Color_1(led_color_0, led_color_1, led_color_2, led_color_3);
-        }
-        else if (6 == cmd)
-        {
-            JsonArray led_color_2 = doc["data"];
-            int led_color_2_0 = led_color_2[0];
-            int led_color_2_1 = led_color_2[1];
-            int led_color_2_2 = led_color_2[2];
-            int led_color_2_3 = led_color_2[3];
-
-            WS2812_Set_Color_2(led_color_2_0, led_color_2_1, led_color_2_2, led_color_2_3);
-        }
-        else if (7 == cmd)
-        {
-            bool alarm = doc["data"] == 1;
-            Buzzer_Alarm(alarm);
-        }
-        else if (8 == cmd)
-        {
-            JsonArray buzzer_data = doc["data"];
-            int alarm_on = buzzer_data[0] == 1;
-            int frequency_hz = buzzer_data[1];
-            Buzzer_Variable(alarm_on, frequency_hz);
-        }
-        else if (9 == cmd)
-        {
-            bool video_activation = doc["data"] == 1;
-            videoFlag = video_activation;
-        }
-
-        // copyright Marie
-        // récup de l'id de la course et le stock dans une varible globale , qu'on renvoie au broker à change fois que change = true 
-        // inspire toi de distance / timer 
-        else if (10 == cmd)
-        {
-            int race_id = doc["data"];
-            bool race_change = false;
-        }
-         // copyright Marie et fabrice
-         else if (11 == cmd)
-         {
-            // balancé track car avec argemnt 1 dans freenve_4WD_Car_for_ESP32.cpp
-         }
-
-        notifyClients();
+    if (info->final && info->index == 0 && info->len == len && info->opcode == WS_TEXT) {
+        data[len] = 0;  // Assure la terminaison de la chaîne
+        processCommand((char*)data);
     }
 }
 
@@ -498,11 +457,11 @@ void reconnect()
     {
         Serial.print("Attempting MQTT connection...");
         // Attempt to connect
-        if (client.connect("ESP32Client"))
+        if (client.connect("ESP32ClientBis"))
         {
             Serial.println("connected");
             // Subscribe
-            client.subscribe("esp32/distance");
+            client.subscribe("esp32bis/ajustments");
         }
         else
         {
