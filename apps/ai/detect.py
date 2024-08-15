@@ -1,45 +1,75 @@
 import cv2
 import json
-
+import time
+import base64
+import numpy as np
 from pid_controller import PIDController
-from functions import initialize_yolo, send_message, connect_mqtt
+from functions import send_message, connect_mqtt, initialize_yolo
 
 sonar_distance = float('inf')
-automatic_mode = True 
+automatic_mode = False  
 SONAR_THRESHOLD = 3
-#video_stream_url = ""  # URL du flux vidéo
+frame = None  
 
 def on_message(client, userdata, msg):
-    print(f"Received message on topic {msg.topic}") 
+    global frame, sonar_distance, automatic_mode
+
+    print(f"Received message on topic {msg.topic}")
     payload = msg.payload.decode()
-    print(f"Message payload: {payload}") 
     
     try:
         if msg.topic == "esp32/sonar":
-            global sonar_distance
             sonar_distance = float(payload)
             print(f"Updated sonar distance: {sonar_distance}")
 
         elif msg.topic == "esp32/mode":
-            global automatic_mode
-            automatic_mode = payload.lower() == "automatic"
+            automatic_mode = payload.lower() == "auto"
             print(f"Automatic mode set to: {automatic_mode}")
+
+        elif msg.topic == "esp32/camera":
+            try:
+                image_data = base64.b64decode(payload)
+                np_array = np.frombuffer(image_data, np.uint8)
+                frame = cv2.imdecode(np_array, cv2.IMREAD_COLOR)
+                print(f"Received and decoded image from camera")
+            except Exception as e:
+                print(f"Failed to decode image: {e}")
 
     except ValueError:
         print(f"Error parsing message: {payload}")
 
-
-def send_adjustment_command(client, cmd_id, data_values):
+def send_adjustment_command(client, cmd_id, data_values, topic="esp32/ajustments"):
     message = {
         "cmd": cmd_id,
         "data": data_values
     }
-    send_message(client, "esp32/ajustments", json.dumps(message))
+    send_message(client, topic, json.dumps(message))
+
+def send_alert(client):
+    send_adjustment_command(client, 5, [1, 255, 0, 0], topic="esp32/alertleds")
+    send_adjustment_command(client, 7, 1, topic="esp32/alertbip")
+    
+    time.sleep(3)
+    
+    send_adjustment_command(client, 5, [0, 0, 0, 0], topic="esp32/alertleds")
+    send_adjustment_command(client, 7, 0, topic="esp32/alertbip")
 
 def process_frame(frame, model, pid, client):
     detections = model(frame)
     obstacle_detected = False
     control_signal = 0
+    person_fallen = False
+
+    # Identifier l'index de la classe "person" dans les labels du modèle
+    person_class_index = None
+    for index, class_name in enumerate(model.names):
+        if class_name == "person":
+            person_class_index = index
+            break
+
+    if person_class_index is None:
+        print("Error: 'person' class not found in the model labels")
+        return
 
     for detection in detections.xyxy[0]: 
         x1, y1, x2, y2, conf, cls = detection
@@ -55,7 +85,14 @@ def process_frame(frame, model, pid, client):
             cv2.putText(frame, f"{model.names[int(cls)]}: {conf:.2f}", (int(x1), int(y1) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
             
             obstacle_detected = True
-    
+
+            # Vérifier si la détection correspond à une personne tombée
+            if int(cls) == person_class_index and (y2 - y1) > (x2 - x1):
+                person_fallen = True
+
+    if person_fallen:
+        send_alert(client)
+
     if sonar_distance <= SONAR_THRESHOLD and automatic_mode:
         send_adjustment_command(client, 1, [0, 0, 0, 0])  # Stop
     elif obstacle_detected and automatic_mode:
@@ -72,32 +109,24 @@ def main():
     
     client.subscribe("esp32/sonar")
     client.subscribe("esp32/mode") 
-    #client.subscribe("esp32/camera")
+    client.subscribe("esp32/led")
+    client.subscribe("esp32/bip")
+    client.subscribe("esp32/camera")
 
     client.loop_start()
 
-    cap = cap = cv2.VideoCapture(0) #URL CAMERA pour linstant local pour test
-    
-    if not cap.isOpened():
-        print("Error: Failed to connect to camera")
-        return
-
     while True:
-        ret, frame = cap.read()
-        if not ret:
-            print("Error: Failed to read frame from camera")
-            break
+        if automatic_mode and frame is not None:
+            process_frame(frame, model, pid, client)
+            cv2.imshow('Frame', frame)
         
-        process_frame(frame, model, pid, client)
-        
-        cv2.imshow('Frame', frame)
-        
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+        else:
+            print("Waiting for automatic mode to be enabled or for frame data...")
+            time.sleep(1)
 
-    cap.release()
     cv2.destroyAllWindows()
-
     client.loop_stop()
 
 if __name__ == "__main__":
