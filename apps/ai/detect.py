@@ -38,7 +38,7 @@ def on_message(client, userdata, msg):
     except ValueError:
         print(f"Error parsing message: {payload}")
 
-def send_adjustment_command(client, cmd_id, data_values, topic="esp32/ajustments"):
+def send_adjustment_command(client, cmd_id, data_values, topic="ia/ajustments"):
     message = {
         "cmd": cmd_id,
         "data": data_values
@@ -46,13 +46,13 @@ def send_adjustment_command(client, cmd_id, data_values, topic="esp32/ajustments
     send_message(client, topic, json.dumps(message))
 
 def send_alert(client):
-    send_adjustment_command(client, 5, [1, 255, 0, 0], topic="esp32/alertleds")
-    send_adjustment_command(client, 7, 1, topic="esp32/alertbip")
+    send_adjustment_command(client, 5, [1, 255, 0, 0], topic="ia/alertleds")
+    send_adjustment_command(client, 7, 1, topic="ia/alertbip")
     
     time.sleep(3)
     
-    send_adjustment_command(client, 5, [0, 0, 0, 0], topic="esp32/alertleds")
-    send_adjustment_command(client, 7, 0, topic="esp32/alertbip")
+    send_adjustment_command(client, 5, [0, 0, 0, 0], topic="ia/alertleds")
+    send_adjustment_command(client, 7, 0, topic="ia/alertbip")
 
 def process_frame(frame, model, pid, client):
     detections = model(frame)
@@ -109,8 +109,8 @@ def main():
     
     client.subscribe("esp32/sonar")
     client.subscribe("esp32/mode") 
-    client.subscribe("esp32/led")
-    client.subscribe("esp32/bip")
+    client.subscribe("ia/led")
+    client.subscribe("ia/bip")
     client.subscribe("esp32/camera")
 
     client.loop_start()
