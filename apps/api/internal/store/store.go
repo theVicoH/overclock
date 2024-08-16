@@ -2,6 +2,7 @@ package store
 
 import (
 	"Overclock/internal/model"
+
 	"gorm.io/gorm"
 
 	MQTT "github.com/eclipse/paho.mqtt.golang"
@@ -23,6 +24,7 @@ func CreateStore(db *gorm.DB, client *MQTT.Client) *StoreStruct {
 		RaceModelStore:    NewRaceStore(db),
 	}
 }
+
 type StoreStruct struct {
 	model.SensorModelStore
 	model.StatsRaceStore
