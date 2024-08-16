@@ -54,6 +54,9 @@ int distance[4];          // Storage of ultrasonic data
 int sensor_v;             // Int cast of track sensor data
 char buff[6];             // Buffer to store the battery voltage data
 char ultrasonic_buff[10]; // Buffer to store the Ultrasonic data
+char distance_buff[10];   // Buffer to store the distance
+char speed_buff[10];      // Buffer to store the speed
+char  race_id_buffer[10];  // buffer to store the rice_id
 
 // Variables for the timer
 unsigned long startTime = 0;
@@ -68,6 +71,10 @@ float total_Distance = 0.0;
 
 // Variable vitesse 
 float total_speed = 0.0;
+
+// race variable
+ int race_id = 0;
+ bool race_change = false;
 
 // put function declarations here:
 void WiFi_Init();
@@ -119,12 +126,12 @@ void processCommand(const char* jsonData) {
             // Start the timer
             startTime = millis();
             timerActive = true;
+            // initialize wheelSpeed variable
+            data_total_0 = data_0;
+            data_total_1 = data_1;
+            data_total_2 = data_2;
+            data_total_3 = data_3;
         }
-
-        data_total_0 = data_0;
-        data_total_1 = data_1;
-        data_total_2 = data_2;
-        data_total_3 = data_3;
 
     } else if (2 == cmd) {
         int data = doc["data"];
@@ -166,10 +173,28 @@ void processCommand(const char* jsonData) {
         bool video_activation = doc["data"] == 1;
         videoFlag = video_activation;
     } else if (10 == cmd) {
-        int race_id = doc["data"];
-        bool race_change = false;
+        race_id = doc["data"];
+        if (race_id == 0)
+        {
+            race_change = false;
+        }else{
+            race_change = true;
+        }   
+        
     } else if (11 == cmd) {
-        // Gérer la commande spécifique ici
+        int mode = doc["data"];
+         while (mode == 1) {  // Continuer à lire les capteurs tant que le mode suivi de ligne est activé
+            Track_Car(1);
+
+            // Ajoutez un petit délai pour éviter de saturer le processeur
+            delay(10);
+
+            // Vous pouvez ajouter une condition pour sortir de la boucle, comme une nouvelle commande ou un autre critère
+            if (mode == 0) {
+                break;
+                Motor_Move(0,0,0,0);
+            }
+        }
     }
 
     notifyClients();
@@ -179,7 +204,6 @@ void handleMQTTMessage(char* topic, uint8_t* payload, unsigned int length) {
     payload[length] = '\0';  // Assure la terminaison de la chaîne
     processCommand((char*)payload);
 }
-
 
 void setup()
 {
@@ -351,60 +375,83 @@ void loop()
     }
     client.loop();
 
-    long now = millis();
+   long now = millis();
     if (now - last_message > mqtt_interval_ms)
     {
         last_message = now;
 
-        // Les led et la batteries sont branchés tous les deux sur le pin 32
-        // du coup, lire la valeur de batterie fait freeze la batterie
-        // Battery level
-        dtostrf(Get_Battery_Voltage(), 5, 2, buff);
-        client.publish("esp32bis/battery", buff);
-
-        // Track Read
-        Track_Read();
-        sensor_v = static_cast<int>(sensorValue[3]);
-        char const *n_char = std::to_string(sensor_v).c_str();
-        client.publish("esp32bis/track", n_char);
-
-        // Ultrasonic Data
-        dtostrf(Get_Sonar(), 5, 2, ultrasonic_buff);
-        client.publish("esp32bis/sonar", ultrasonic_buff);
-
-        // Photosensitive Data
-        dtostrf(Get_Photosensitive(), 5, 2, ultrasonic_buff);
-        client.publish("esp32bis/light", ultrasonic_buff);
-
-         // Send the total distance
-        char distance_buff[10];
-        dtostrf(total_Distance, 5, 2, distance_buff);
-        client.publish("esp32bis/distance", distance_buff);
-
-        // Send timer data if active
-        if (timerActive)
+        if (race_change)
         {
-            // send Time
-            unsigned long duration = millis() - startTime;
-            char timer_buff[10];
-            dtostrf(duration, 5, 2, timer_buff);
-            client.publish("esp32bis/timer", timer_buff);
+            // Les led et la batteries sont branchés tous les deux sur le pin 32
+            // du coup, lire la valeur de batterie fait freeze la batterie
+            // Battery level
+            dtostrf(Get_Battery_Voltage(), 5, 2, buff);
+            client.publish("esp32bis/battery", buff);
 
-            //send distance 
-             updateDistance(duration);
-            
-            // sed distance total
-            char distance_buff[10];
+            // Track Read
+            Track_Read();
+            sensor_v = static_cast<int>(sensorValue[3]);
+            char const *n_char = std::to_string(sensor_v).c_str();
+            client.publish("esp32bis/track", n_char);
+
+            // Ultrasonic Data
+            dtostrf(Get_Sonar(), 5, 2, ultrasonic_buff);
+            client.publish("esp32bis/sonar", ultrasonic_buff);
+
+            // Photosensitive Data
+            dtostrf(Get_Photosensitive(), 5, 2, ultrasonic_buff);
+            client.publish("esp32bis/light", ultrasonic_buff);
+
+            // Send the total distance
             dtostrf(total_Distance, 5, 2, distance_buff);
             client.publish("esp32bis/distance", distance_buff);
-            
-           // send speed
-            float duration_in_seconds = duration / 1000.0; // Convert duration to seconds
-            total_speed = total_Distance / duration_in_seconds; // Calculate speed
-            char speed_buff[10];
-            dtostrf(total_speed, 5,2,speed_buff);
-            client.publish("esp32bis/speed",speed_buff );
 
+            // Send timer data if active
+            if (timerActive)
+            {
+                // send Time
+                unsigned long duration = millis() - startTime;
+                float duration_in_seconds = duration / 1000.0; // Convert duration to seconds
+                char timer_buff[10];
+                dtostrf(duration_in_seconds, 5, 2, timer_buff);
+                client.publish("esp32bis/timer", timer_buff);
+
+                //send distance 
+                updateDistance(duration);
+
+                // send distance total
+                dtostrf(total_Distance, 5, 2, distance_buff);
+                client.publish("esp32bis/distance", distance_buff);
+
+                // send speed
+                total_speed = total_Distance / duration_in_seconds; // Calculate speed
+                dtostrf(total_speed, 5, 2, speed_buff);
+                client.publish("esp32bis/speed", speed_buff);
+            }
+
+            // Envoie l'ID de la course uniquement si race_change est true
+            dtostrf(race_id, 5, 2, race_id_buffer);
+            client.publish("esp32bis/race", race_id_buffer);
+        }
+        else
+        {
+              // Si race_change est false, envoie seulement "false" dans le topic "esp32bis/race"
+        client.publish("esp32bis/race", "false");
+
+        // Réinitialiser toutes les variables à leurs valeurs par défaut
+        total_Distance = 0.0;
+        total_speed = 0.0;
+        timerActive = false;
+        startTime = 0;
+        race_id = 0;
+        race_change = false;
+
+        // Réinitialisation des buffers pour ne pas garder les anciennes données
+        memset(buff, 0, sizeof(buff));
+        memset(ultrasonic_buff, 0, sizeof(ultrasonic_buff));
+        memset(distance_buff, 0, sizeof(distance_buff));
+        memset(speed_buff, 0, sizeof(speed_buff));
+        memset(race_id_buffer, 0, sizeof(race_id_buffer));
         }
     }
 }
