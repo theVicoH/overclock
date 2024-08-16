@@ -7,11 +7,8 @@ import (
 )
 
 func SetRoute(app *fiber.App, handler *handler.HandlerStruct) {
-	// sensorGroup := app.Group("/sensor")
-	// sensorGroup.Get("/:id", handler.GetSensorDataById)
-	// sensorGroup.Post("/", handler.AddSensorData)
-	// sensorGroup.Put("/:id", handler.UpdateSensorDataById)
-	// sensorGroup.Delete("/:id", handler.DeleteSensorDataById)
+	sensorGroup := app.Group("/sensor")
+	sensorGroup.Get("/:id", handler.GetSensorDataById)
 
 	raceGroup := app.Group("/race")
 	raceGroup.Get("/:id", handler.GetRaceById)

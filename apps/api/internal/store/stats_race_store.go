@@ -3,24 +3,21 @@ package store
 import (
 	"Overclock/internal/types"
 	"log"
-
-	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"gorm.io/gorm"
 )
 
-func NewStatsRaceStore(db *gorm.DB, client *MQTT.Client) *StoreMqtt {
-	return &StoreMqtt{
+func NewStatsRaceStore(db *gorm.DB) *Store {
+	return &Store{
 		db,
-		client,
 	}
 }
 
 
-func (s *StoreMqtt) AddStatsRace(statsRace types.StatsRaceType) (bool, error) {
+func (s *Store) AddStatsRace(statsRace types.StatsRaceType) (bool, error) {
 	return false, nil
 }
 
-func (s *StoreMqtt) GetStatsRaceById(id int) (types.StatsRaceType, error) {
+func (s *Store) GetStatsRaceById(id int) (types.StatsRaceType, error) {
 	var statsRace types.StatsRaceType
 
 	db := s.db.Table("users").Where("id = ?", 1).First(&statsRace)
@@ -31,12 +28,12 @@ func (s *StoreMqtt) GetStatsRaceById(id int) (types.StatsRaceType, error) {
 	return statsRace, nil
 }
 
-func (s *StoreMqtt) DeleteStatsRaceById(id int) (bool, error) {
+func (s *Store) DeleteStatsRaceById(id int) (bool, error) {
 
 	return false, nil
 }
 
-func (s *StoreMqtt) UpdateStatsRaceById(id int) (types.StatsRaceType, error) {
+func (s *Store) UpdateStatsRaceById(id int) (types.StatsRaceType, error) {
 	var statsRace types.StatsRaceType
 
 	return statsRace, nil

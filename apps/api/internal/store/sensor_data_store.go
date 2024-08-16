@@ -19,19 +19,14 @@ func (s *Store) AddSensorData(sensorData types.SensorData) (bool, error) {
 	return true, nil
 }
 
-func (s *Store) GetSensorDataById(id int) (types.SensorData, error) {
-	var sensorData types.SensorData
+func (s *Store) GetSensorDataByRaceId(raceID string) ([]types.SensorData, error) {
+	var sensorData []types.SensorData
 
-	return sensorData, nil
-}
+	// Rechercher tous les enregistrements correspondant au race_id
+	if err := s.db.Where("race_id = ?", raceID).Find(&sensorData).Error; err != nil {
+		return nil, err
+	}
 
-func (s *Store) DeleteSensorDataById(id int) (bool, error) {
-
-	return false, nil
-}
-
-func (s *Store) UpdateSensorDataById(id int) (types.SensorData, error) {
-	var sensorData types.SensorData
-
+	// Retourner la liste des enregistrements
 	return sensorData, nil
 }
