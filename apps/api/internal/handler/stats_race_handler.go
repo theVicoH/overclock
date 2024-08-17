@@ -4,6 +4,7 @@ import (
 	"Overclock/internal/store"
 	"Overclock/internal/types"
 	"fmt"
+	"sync"
 	"time"
 
 	MQTT "github.com/eclipse/paho.mqtt.golang"
@@ -20,25 +21,38 @@ func NewStatsRaceHandler(store *store.StoreStruct, client *MQTT.Client) *Handler
 func (h *HandlerMqtt) AddStatsRace(c fiber.Ctx) error {
 	id := c.Params("id")
 
-	race, err := h.store.GetRaceById(id) 
+	var wg sync.WaitGroup
+	var race types.RaceType
+	var success []types.SensorData
+	var raceErr, sensorErr error
 
-	if err != nil {
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		race, raceErr = h.store.GetRaceById(id)
+	}()
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		success, sensorErr = h.store.GetSensorDataByRaceId(id)
+	}()
+	wg.Wait()
+
+	if raceErr != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"code" : fiber.StatusInternalServerError,
-			"error" : err,
+			"code":  fiber.StatusInternalServerError,
+			"error": raceErr,
 		})
 	}
 
-	vehicule_id := race.VehicleId
-
-	success, err := h.store.GetSensorDataByRaceId(id)
-
-	if err != nil {
+	if sensorErr != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"code" : fiber.StatusInternalServerError,
-			"error" : err,
+			"code":  fiber.StatusInternalServerError,
+			"error": sensorErr,
 		})
-	}	
+	}
+
+	vehicule_id := race.VehicleId	
 
 	current_distance := 0
 	speed_total := 0
@@ -98,7 +112,7 @@ func (h *HandlerMqtt) AddStatsRace(c fiber.Ctx) error {
 		DateTech: time.Now(),
 	}
 	
-	_, err = h.store.AddStatsRace(stats)
+	_, err := h.store.AddStatsRace(stats)
 
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
