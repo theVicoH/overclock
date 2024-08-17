@@ -19,3 +19,4 @@ type StatsRaceStore interface {
 	DeleteStatsRaceById(id int) (bool, error)
 	UpdateStatsRaceById(id int) (types.StatsRaceType, error)
 }
+/*test commit*/
