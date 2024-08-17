@@ -15,7 +15,7 @@ type StatsRaceHandler interface {
 
 type StatsRaceStore interface {
 	AddStatsRace(statRace types.StatsRaceType) (bool, error)
-	GetStatsRaceById(id int) (types.StatsRaceType, error)
+	GetStatsRaceById(id string) (types.StatsRaceType, error)
 	DeleteStatsRaceById(id int) (bool, error)
 	UpdateStatsRaceById(id int) (types.StatsRaceType, error)
 }
