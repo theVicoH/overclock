@@ -36,13 +36,21 @@ func (s *Store) GetStatsRaceById(id string) (types.StatsRaceType, error) {
 	return statsRace, nil
 }
 
-func (s *Store) DeleteStatsRaceById(id int) (bool, error) {
+func (s *Store) DeleteStatsRaceById(id string) (bool, error) {
 
-	return false, nil
+	var statsRace types.StatsRaceType
+
+	db := s.db.Table("stats_race").Where("race_id = ?", id).Delete(&statsRace)
+	if db.Error != nil {
+		log.Println("db error => ", db.Error)
+		return false, db.Error
+	}
+
+	return true, nil
 }
 
-func (s *Store) UpdateStatsRaceById(id int) (types.StatsRaceType, error) {
+/*func (s *Store) UpdateStatsRaceById(id string) (types.StatsRaceType, error) {
 	var statsRace types.StatsRaceType
 
 	return statsRace, nil
-}
+}*/

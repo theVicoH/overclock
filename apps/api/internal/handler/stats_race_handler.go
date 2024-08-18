@@ -147,7 +147,20 @@ func (h *HandlerMqtt) GetStatsRaceById(c fiber.Ctx) error {
 }
 
 func (h *HandlerMqtt) DeleteStatsRaceById(c fiber.Ctx) error {
-	return nil
+	id := c.Params("id")
+
+	_, err := h.store.DeleteStatsRaceById(id)
+
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"code" : fiber.StatusInternalServerError,
+			"error" : err,
+		})
+	}
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"code" : fiber.StatusInternalServerError,
+		"message" : "Race deleted",
+	})
 }
 
 func (h *HandlerMqtt) UpdateStatsRaceById(c fiber.Ctx) error {
