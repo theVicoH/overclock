@@ -25,19 +25,18 @@ func InitBroker() MQTT.Client {
 }
 
 func ReadMessages(client MQTT.Client, topic string, callback func(string, string)) {
-    token := client.Subscribe(topic, 0, func(client MQTT.Client, msg MQTT.Message) {
-        message := string(msg.Payload())
-        fmt.Printf("Received message: %s from topic: %s\n", message, msg.Topic())
-        callback(message, msg.Topic()) 
-    })
-    token.Wait()
-    if token.Error() != nil {
-        log.Fatalf("Failed to subscribe to topic: %v", token.Error())
-    }
+	token := client.Subscribe(topic, 0, func(client MQTT.Client, msg MQTT.Message) {
+		message := string(msg.Payload())
+		fmt.Printf("Received message: %s from topic: %s\n", message, msg.Topic())
+		callback(message, msg.Topic())
+	})
+	token.Wait()
+	if token.Error() != nil {
+		log.Fatalf("Failed to subscribe to topic: %v", token.Error())
+	}
 
-    // Wait for messages
-    log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
-    stop := make(chan os.Signal, 1)
-    signal.Notify(stop, os.Interrupt)
-    <-stop
+	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, os.Interrupt)
+	<-stop
 }

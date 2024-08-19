@@ -23,20 +23,16 @@ func NewSenSorDataHandler(store *store.StoreStruct, client *MQTT.Client) *Handle
 
 var sensorDataMap = make(map[string]types.SensorData)
 
-// Fonction pour accumuler et traiter les messages MQTT
 func (h *HandlerMqtt) MessageCallback(message string, topic string) {
 	fmt.Printf("Processing message: %s from topic: %s\n", message, topic)
 
-	// Déterminer la RaceID
 	raceID := sensorDataMap["race"].RaceID
 
-	// Si RaceID n'est pas encore défini, attendre son arrivée
 	if raceID == "" && topic != "esp32Bis/race" {
 		fmt.Println("RaceID not set yet, waiting for RaceID")
 		return
 	}
 
-	// Accumuler les données selon le topic
 	switch topic {
 	case "esp32Bis/race":
 		raceID = message
@@ -73,13 +69,10 @@ func (h *HandlerMqtt) MessageCallback(message string, topic string) {
 		return
 	}
 
-	// Vérifier si toutes les données essentielles sont présentes
 	data := sensorDataMap["race"]
 	if data.RaceID != "" && data.Speed != 0 && data.Distance != 0 && data.Consumption != 0 {
-		// Ajouter la date actuelle
 		data.DateTech = time.Now()
 
-		// Insérer les données dans la base de données
 		sensorStore := h.store.SensorModelStore
 		success, err := sensorStore.AddSensorData(data)
 		if err != nil {
@@ -88,7 +81,6 @@ func (h *HandlerMqtt) MessageCallback(message string, topic string) {
 			fmt.Printf("Sensor data added successfully: %v\n", success)
 		}
 
-		// Réinitialiser les données pour la prochaine course
 		sensorDataMap = make(map[string]types.SensorData)
 	}
 }
