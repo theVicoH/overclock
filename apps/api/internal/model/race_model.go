@@ -15,7 +15,7 @@ type RaceModelHandler interface {
 }
 
 type RaceModelStore interface {
-	AddRace(raceData types.RaceType) (bool, error)
+	AddRace(raceData types.RaceType) (types.RaceType, error)
 	GetRaceById(id string) (types.RaceType, error)
 	GetAllRace() ([]types.RaceType, error)
 	DeleteRaceById(id string) (bool, error)

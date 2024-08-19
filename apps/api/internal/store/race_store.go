@@ -13,15 +13,16 @@ func NewRaceStore(db *gorm.DB) *Store {
 	}
 }
 
-func (s *Store) AddRace(race types.RaceType) (bool, error) {
+func (s *Store) AddRace(race types.RaceType) (types.RaceType, error) {
 	var raceData types.RaceType
 	raceData.Date = time.Now()
+	raceData.VehicleId = race.VehicleId
 	raceData.Name = race.Name
 
 	if err := s.db.Table("race").Create(&raceData).Error; err != nil {
-		return false, err
+		return raceData, err
 	}
-	return true, nil
+	return raceData, nil
 }
 
 func (s *Store) GetRaceById(id string) (types.RaceType, error) {
@@ -44,8 +45,9 @@ func (s *Store) UpdateRaceById(id string, updatedData types.RaceType) (types.Rac
 	if err := s.db.Table("race").Where("id = ?", id).First(&raceData).Error; err != nil {
 		return raceData, err
 	}
-	// Update the fields with the new data
+
 	raceData.Name = updatedData.Name
+	raceData.VehicleId = updatedData.VehicleId
 	raceData.Date = time.Now()
 
 	if err := s.db.Table("race").Save(&raceData).Error; err != nil {

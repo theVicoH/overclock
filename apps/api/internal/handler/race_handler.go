@@ -23,12 +23,13 @@ func (h *Handler) AddRace(c fiber.Ctx) error {
 	}
 
 	raceData := types.RaceType{
-		Name: requestData.Data.Name,
-		Date: time.Now(),
+		Name:      requestData.Data.Name,
+		VehicleId: requestData.Data.VehicleId,
+		Date:      time.Now(),
 	}
 
 	success, err := h.store.AddRace(raceData)
-	if err != nil || !success {
+	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": err,
 			"code":  fiber.StatusInternalServerError,
@@ -38,6 +39,7 @@ func (h *Handler) AddRace(c fiber.Ctx) error {
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"code":    fiber.StatusAccepted,
 		"message": "Race successfully added",
+		"data":    success,
 	})
 }
 
@@ -70,7 +72,7 @@ func (h *Handler) DeleteRaceById(c fiber.Ctx) error {
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"code":    fiber.StatusOK,
-		"message": "Data successfully fetched",
+		"message": "Data successfully deleted",
 		"data":    success,
 	})
 }
@@ -84,8 +86,9 @@ func (h *Handler) UpdateRaceById(c fiber.Ctx) error {
 	}
 
 	raceData := types.RaceType{
-		Name: requestData.Data.Name,
-		Date: time.Now(),
+		Name:      requestData.Data.Name,
+		VehicleId: requestData.Data.VehicleId,
+		Date:      time.Now(),
 	}
 
 	success, err := h.store.UpdateRaceById(id, raceData)
@@ -98,7 +101,7 @@ func (h *Handler) UpdateRaceById(c fiber.Ctx) error {
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"code":    fiber.StatusOK,
-		"message": "Data successfully fetched",
+		"message": "Data successfully updated",
 		"data":    success,
 	})
 }
