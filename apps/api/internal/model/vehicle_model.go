@@ -11,11 +11,13 @@ type VehicleModelHandler interface {
 	GetVehicleById(fiber.Ctx) error
 	DeleteVehicleById(fiber.Ctx) error
 	UpdateVehicleById(fiber.Ctx) error
+	GetAllVehicle(fiber.Ctx) error
 }
 
 type VehicleModelStore interface {
-	AddVehicle(vehicle types.VehicleType) (bool, error)
-	GetVehicleById(id int) (types.VehicleType, error)
-	DeleteVehicleById(id int) (bool, error)
-	UpdateVehicleById(id int) (types.VehicleType, error)
+	AddVehicle(vehicle types.VehicleType) (types.VehicleType, error)
+	GetVehicleById(id string) (types.VehicleType, error)
+	DeleteVehicleById(id string) (bool, error)
+	UpdateVehicleById(id string, vehicleType types.VehicleType) (types.VehicleType, error)
+	GetAllVehicle() ([]types.VehicleType, error)
 }
