@@ -29,4 +29,10 @@ func SetRoute(app *fiber.App, handler *handler.HandlerStruct) {
 	vehicleGroup.Post("/", handler.AddVehicle)
 	vehicleGroup.Delete("/:id", handler.DeleteVehicleById)
 	vehicleGroup.Put("/:id", handler.UpdateVehicleById)
+
+	statsRaceGroup.Post("/:id", handler.AddStatsRace)
+	statsRaceGroup.Delete("/:id", handler.DeleteStatsRaceById)
+	// statsRaceGroup.Get("/", handler.GetAllRace)
+	// statsRaceGroup.Get("/", handler.AddStatsRace)
+	// statsRaceGroup.Put("/:id", handler.UpdateStatsRaceById)
 }
