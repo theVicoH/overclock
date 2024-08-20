@@ -20,8 +20,11 @@ CREATE TABLE "stats_race" (
     race_id UUID NOT NULL,
     vehicle_id UUID NOT NULL,
     distance FLOAT NOT NULL,
-    speed FLOAT NOT NULL,
-    time TIMESTAMP NOT NULL,
+    speed_max FLOAT NOT NULL,
+    speed_average FLOAT NOT NULL,
+    battery_max INT NOT NULL,
+    battery_min INT NOT NULL,
+    time BIGINT NOT NULL,
     date_tech TIMESTAMP NOT NULL,
     CONSTRAINT fk_race_stats_race FOREIGN KEY (race_id) REFERENCES race(id) ON DELETE CASCADE,
     CONSTRAINT fk_stats_race_vehicle FOREIGN KEY (vehicle_id) REFERENCES vehicle(id) ON DELETE CASCADE
@@ -35,3 +38,4 @@ CREATE TABLE "sensor_data" (
     date_tech TIMESTAMP NOT NULL,
     consumption FLOAT NOT NULL
 );
+
