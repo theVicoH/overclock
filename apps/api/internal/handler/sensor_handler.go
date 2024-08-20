@@ -90,10 +90,52 @@ func (h *HandlerMqtt) GetSensorDataById(c fiber.Ctx) error {
 	sensor, err := h.store.GetSensorDataByRaceId(race_id)
 
 	if err != nil {
-		return c.SendStatus(fiber.StatusInternalServerError)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"code":  fiber.StatusInternalServerError,
+			"error": err,
+		})
 	}
+
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": "Data successfully fetched",
+		"code":    fiber.StatusOK,
+		"message": "Data successfully updated",
 		"data":    sensor,
+	})
+}
+
+func (h *HandlerMqtt) GetSpeedLastTenMin(c fiber.Ctx) error {
+	race_id := c.Params("id")
+
+	success, err := h.store.GetSpeedLastTenMin(race_id)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"code":  fiber.StatusInternalServerError,
+			"error": err,
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"code":    fiber.StatusOK,
+		"message": "Data successfully updated",
+		"data":    success,
+	})
+}
+
+func (h HandlerMqtt) GetConsumptionLastTenMin(c fiber.Ctx) error {
+	race_id := c.Params("id")
+
+	success, err := h.store.GetConsumptionLastTenMin(race_id)
+
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"code":  fiber.StatusInternalServerError,
+			"error": err,
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"code":    fiber.StatusOK,
+		"message": "Data successfully updated",
+		"data":    success,
 	})
 }
