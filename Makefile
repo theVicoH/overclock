@@ -9,7 +9,8 @@ NC := \033[0m
 ORM_MIGRATIONS_PATH := api/database/migrations
 API_MAIN = cmd/main.go
 
-db: db-docker db-up
+db: 
+	cd docker && docker compose up
 
 dev-api:
 	cd api && go run ${API_MAIN}
