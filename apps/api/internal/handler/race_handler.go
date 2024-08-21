@@ -3,34 +3,121 @@ package handler
 import (
 	"Overclock/internal/store"
 	"Overclock/internal/types"
+	"time"
 
 	"github.com/gofiber/fiber/v3"
 )
 
-func AddRace(c fiber.Ctx, raceStore *store.StoreStruct) error {
-	var raceData types.RaceType
+func NewRaceHandler(store *store.StoreStruct) *Handler {
+	return &Handler{
+		store,
+	}
+}
 
-	if err := c.Bind().Body(raceData); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "Invalid input",
-		})
+func (h *Handler) AddRace(c fiber.Ctx) error {
+
+	var requestData types.RequestType
+
+	if err := c.Bind().Body(&requestData); err != nil {
+		return err
 	}
 
-	success, err := raceStore.AddRace(raceData)
+	raceData := types.RaceType{
+		Name:      requestData.Data.Name,
+		VehicleId: requestData.Data.VehicleId,
+		Date:      time.Now(),
+	}
+
+	success, err := h.store.AddRace(raceData)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": err.Error(),
+			"error": err,
+			"code":  fiber.StatusInternalServerError,
 		})
 	}
 
-	if success {
-		return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-			"message": "Race added successfully",
-			"race":    raceData,
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+		"code":    fiber.StatusAccepted,
+		"message": "Race successfully added",
+		"data":    success,
+	})
+}
+
+func (h *Handler) GetRaceById(c fiber.Ctx) error {
+	id := c.Params("id")
+	success, err := h.store.GetRaceById(id)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"code":  fiber.StatusInternalServerError,
+			"error": err,
 		})
 	}
 
-	return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-		"error": "Failed to add race",
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"code":    fiber.StatusOK,
+		"message": "Data successfully fetched",
+		"data":    success,
+	})
+}
+
+func (h *Handler) DeleteRaceById(c fiber.Ctx) error {
+	id := c.Params("id")
+	success, err := h.store.DeleteRaceById(id)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"code":  fiber.StatusInternalServerError,
+			"error": err,
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"code":    fiber.StatusOK,
+		"message": "Data successfully deleted",
+		"data":    success,
+	})
+}
+
+func (h *Handler) UpdateRaceById(c fiber.Ctx) error {
+	var requestData types.RequestType
+	id := c.Params("id")
+
+	if err := c.Bind().Body(&requestData); err != nil {
+		return err
+	}
+
+	raceData := types.RaceType{
+		Name:      requestData.Data.Name,
+		VehicleId: requestData.Data.VehicleId,
+		Date:      time.Now(),
+	}
+
+	success, err := h.store.UpdateRaceById(id, raceData)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"code":  fiber.StatusInternalServerError,
+			"error": err,
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"code":    fiber.StatusOK,
+		"message": "Data successfully updated",
+		"data":    success,
+	})
+}
+
+func (h *Handler) GetAllRace(c fiber.Ctx) error {
+
+	success, err := h.store.GetAllRace()
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": err,
+			"code":  fiber.StatusInternalServerError,
+		})
+	}
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"code":    fiber.StatusOK,
+		"message": "Data successfully fetched",
+		"data":    success,
 	})
 }
