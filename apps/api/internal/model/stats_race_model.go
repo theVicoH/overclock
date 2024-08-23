@@ -16,7 +16,8 @@ type StatsRaceHandler interface {
 type StatsRaceStore interface {
 	AddStatsRace(statRace types.StatsRaceType) (bool, error)
 	GetStatsRaceById(id string) (types.StatsRaceType, error)
-	DeleteStatsRaceById(id string) (bool, error)
+	DeleteStatsRaceById(id string) (types.StatsRaceType, error)
 	//UpdateStatsRaceById(id string) (types.StatsRaceType, error)
 }
+
 /*test commit*/

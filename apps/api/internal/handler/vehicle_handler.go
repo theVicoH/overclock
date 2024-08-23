@@ -25,18 +25,16 @@ func (h *Handler) AddVehicle(c fiber.Ctx) error {
 		Name: requestData.Data.Name,
 	}
 
-	success, err := h.store.AddVehicle(vehicleData)
+	vehicle, err := h.store.AddVehicle(vehicleData)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": err,
-			"code":  fiber.StatusInternalServerError,
+			"message": "Error adding Vehicle",
 		})
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"code":    fiber.StatusAccepted,
 		"message": "Vehicle successfully added",
-		"data":    success,
+		"data":    vehicle,
 	})
 
 }
@@ -44,19 +42,17 @@ func (h *Handler) AddVehicle(c fiber.Ctx) error {
 func (h *Handler) GetVehicleById(c fiber.Ctx) error {
 
 	id := c.Params("id")
-	success, err := h.store.GetVehicleById(id)
+	vehicle, err := h.store.GetVehicleById(id)
 
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": err,
-			"code":  fiber.StatusInternalServerError,
+			"error": "Error fetching vehicle",
 		})
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"code":    fiber.StatusAccepted,
 		"message": "Vehicle successfully added",
-		"data":    success,
+		"data":    vehicle,
 	})
 
 }
@@ -64,18 +60,16 @@ func (h *Handler) GetVehicleById(c fiber.Ctx) error {
 func (h *Handler) DeleteVehicleById(c fiber.Ctx) error {
 	id := c.Params("id")
 
-	success, err := h.store.DeleteVehicleById(id)
+	vehicle, err := h.store.DeleteVehicleById(id)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": err,
-			"code":  fiber.StatusInternalServerError,
+			"message": "Error deleting vehicle",
 		})
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"code":    fiber.StatusAccepted,
-		"message": "Vehicle successfully removed",
-		"data":    success,
+		"message": "Vehicle successfully deleted",
+		"data":    vehicle,
 	})
 
 }
@@ -92,35 +86,31 @@ func (h *Handler) UpdateVehicleById(c fiber.Ctx) error {
 		Name: requestData.Data.Name,
 	}
 
-	success, err := h.store.UpdateVehicleById(id, vehicleData)
+	vehicle, err := h.store.UpdateVehicleById(id, vehicleData)
 
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": err,
-			"code":  fiber.StatusInternalServerError,
+			"message": "Error updating vehicle",
 		})
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"code":    fiber.StatusAccepted,
-		"message": "Vehicle successfully update",
-		"data":    success,
+		"message": "Vehicle successfully updated",
+		"data":    vehicle,
 	})
 }
 
 func (h *Handler) GetAllVehicle(c fiber.Ctx) error {
-	success, err := h.store.GetAllVehicle()
+	vehicle, err := h.store.GetAllVehicle()
 
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": err,
-			"code":  fiber.StatusInternalServerError,
+			"message": vehicle,
 		})
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"code":    fiber.StatusAccepted,
 		"message": "Vehicle successfully fetched",
-		"data":    success,
+		"data":    vehicle,
 	})
 }
