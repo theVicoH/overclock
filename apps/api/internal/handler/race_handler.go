@@ -28,52 +28,46 @@ func (h *Handler) AddRace(c fiber.Ctx) error {
 		Date:      time.Now(),
 	}
 
-	success, err := h.store.AddRace(raceData)
+	race, err := h.store.AddRace(raceData)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": err,
-			"code":  fiber.StatusInternalServerError,
+			"message": "Error adding Race",
 		})
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"code":    fiber.StatusAccepted,
 		"message": "Race successfully added",
-		"data":    success,
+		"data":    race,
 	})
 }
 
 func (h *Handler) GetRaceById(c fiber.Ctx) error {
 	id := c.Params("id")
-	success, err := h.store.GetRaceById(id)
+	race, err := h.store.GetRaceById(id)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"code":  fiber.StatusInternalServerError,
-			"error": err,
+			"message": "Error fetching race",
 		})
 	}
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"code":    fiber.StatusOK,
-		"message": "Data successfully fetched",
-		"data":    success,
+		"message": "Race successfully fetched",
+		"data":    race,
 	})
 }
 
 func (h *Handler) DeleteRaceById(c fiber.Ctx) error {
 	id := c.Params("id")
-	success, err := h.store.DeleteRaceById(id)
+	race, err := h.store.DeleteRaceById(id)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"code":  fiber.StatusInternalServerError,
-			"error": err,
+			"message": "Error deleting race",
 		})
 	}
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"code":    fiber.StatusOK,
-		"message": "Data successfully deleted",
-		"data":    success,
+		"message": "Race successfully deleted",
+		"data":    race,
 	})
 }
 
@@ -91,33 +85,29 @@ func (h *Handler) UpdateRaceById(c fiber.Ctx) error {
 		Date:      time.Now(),
 	}
 
-	success, err := h.store.UpdateRaceById(id, raceData)
+	race, err := h.store.UpdateRaceById(id, raceData)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"code":  fiber.StatusInternalServerError,
-			"error": err,
+			"message": "Error updating race",
 		})
 	}
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"code":    fiber.StatusOK,
-		"message": "Data successfully updated",
-		"data":    success,
+		"message": "Race successfully updated",
+		"data":    race,
 	})
 }
 
 func (h *Handler) GetAllRace(c fiber.Ctx) error {
 
-	success, err := h.store.GetAllRace()
+	race, err := h.store.GetAllRace()
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": err,
-			"code":  fiber.StatusInternalServerError,
+			"message": "Error fetching races",
 		})
 	}
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"code":    fiber.StatusOK,
-		"message": "Data successfully fetched",
-		"data":    success,
+		"message": "Race successfully fetched",
+		"data":    race,
 	})
 }
