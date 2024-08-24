@@ -1,24 +1,30 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import viteLogo from "/vite.svg"
 
-import { fetchData } from "common/services"
+// import { fetchData } from "common/services"
 import { Close } from "common/icons/web"
+import { useFetchRaces } from "./hooks/useFetchRaces"
 
-function App() {
+export default function App() {
   const [count, setCount] = useState(0)
+  const { races, loading, error } = useFetchRaces()
 
-  useEffect(() => {
-    const fetchDataFromAPI = async () => {
-      try {
-        const result = await fetchData()
-        console.log(result)
-      } catch (error) {
-        console.error(error)
-      }
-    }
+  // useEffect(() => {
+  //   const fetchDataFromAPI = async () => {
+  //     try {
+  //       const result = await fetchData()
+  //       console.log(result)
+  //     } catch (error) {
+  //       console.error(error)
+  //     }
+  //   }
 
-    fetchDataFromAPI()
-  }, [])
+  //   fetchDataFromAPI()
+  // }, [])
+
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>{error}</div>
+
   return (
     <>
       <div>
@@ -36,8 +42,11 @@ function App() {
         </p>
       </div>
       <p>Click on the Vite and React logos to learn more</p>
+      <ul>
+        {races?.map((race) => (
+          <li key={race.id}>test race {race.name}</li>
+        ))}
+      </ul>
     </>
   )
 }
-
-export default App

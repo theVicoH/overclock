@@ -28,6 +28,7 @@
     "extends": "../config/.eslintrc.json"
   },
   "dependencies": {
+    "mqtt": "^5.10.0",
     "react-native-svg": "^15.3.0"
   }
 }
