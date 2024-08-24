@@ -14,6 +14,7 @@ import (
 	"syscall"
 
 	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/cors"
 )
 
 func main() {
@@ -30,6 +31,7 @@ func main() {
 	go broker.ReadMessages(client, "esp32Bis/#", handler.MessageCallback)
 
 	app := fiber.New()
+	app.Use(cors.New())
 	routes.SetRoute(app, handler)
 
 	app.Use(func(c fiber.Ctx) error {

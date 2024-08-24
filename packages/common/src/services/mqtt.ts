@@ -1,7 +1,7 @@
 import mqtt from "mqtt"
 
 // url in .env for delete the url in the code
-const MQTT_BROKER_URL = process.env.BROCKER_URL || "ws://176.132.246.222:5702"
+const MQTT_BROKER_URL = "ws://176.132.246.222:5702"
 const options = {
   clientId: `mqtt_web_${Math.random().toString(16).slice(3)}`,
 }

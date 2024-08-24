@@ -1,10 +1,8 @@
-const BASE_URL = process.env.BACKEND_URL || "http://localhost:3000"
+const BASE_URL = "http://127.0.0.1:3000"
 
 interface ApiResponse<T> {
   data?: T
   message?: string
-  error?: string
-  code?: number
 }
 
 export enum HttpMethod {
@@ -26,17 +24,15 @@ export async function http<T>(
     headers: {
       'Content-Type': 'application/json',
     },
-    body: data ? JSON.stringify(data) : undefined,
     signal,
+  }
+
+  if (method !== "GET" && data) {
+    options.body = JSON.stringify(data)
   }
 
   try {
     const response = await fetch(url, options)
-
-    // if (!response.ok) {
-    //   throw new Error(`HTTP error! status: ${response.status}`)
-    // }
-
     const responseData: ApiResponse<T> = await response.json()
     return responseData
   } catch (error: any) {
