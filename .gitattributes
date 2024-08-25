@@ -1,1 +1,1 @@
-apps/YOLO/yolov7-w6.pt filter=lfs diff=lfs merge=lfs -text
+ai/YOLO/yolov7-w6.pt filter=lfs diff=lfs merge=lfs -text
