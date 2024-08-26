@@ -63,3 +63,17 @@ func (s *Store) GetAllRace() ([]types.RaceType, error) {
 	}
 	return raceData, nil
 }
+
+func (s *Store) GetAllRacesWithData() ([]types.RaceResponse, error) {
+	var raceData []types.RaceResponse
+
+	if err := s.db.Table("race").
+		Select("race.*, stats_race.time, stats_race.speed_average, stats_race.distance, stats_race.id IS NOT NULL AS is_finish, vehicle.name AS vehicle_name").
+		Joins("LEFT JOIN stats_race ON stats_race.race_id = race.id").
+		Joins("LEFT JOIN vehicle ON vehicle.id = race.vehicle_id").
+		Scan(&raceData).Error; err != nil {
+		return nil, err
+	}
+
+	return raceData, nil
+}

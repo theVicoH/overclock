@@ -111,3 +111,16 @@ func (h *Handler) GetAllRace(c fiber.Ctx) error {
 		"data":    race,
 	})
 }
+
+func (h *Handler) GetAllRacesWithData(c fiber.Ctx) error {
+	races, err := h.store.GetAllRacesWithData()
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Error fetching races",
+		})
+	}
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"message": "Race successfully fetched",
+		"data":    races,
+	})
+}
