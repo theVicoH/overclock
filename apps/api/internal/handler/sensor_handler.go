@@ -56,22 +56,32 @@ func (h *HandlerMqtt) MessageCallback(message string, topic string) {
 		data.Distance = float32(math.Round(distance))
 		sensorDataMap["race"] = data
 	case "esp32Bis/battery":
-		consumption, err := strconv.ParseFloat(message, 32)
+		Battery, err := strconv.ParseFloat(message, 32)
 		if err != nil {
-			fmt.Printf("Error parsing consumption value: %v\n", err)
+			fmt.Printf("Error parsing Battery value: %v\n", err)
 			return
 		}
 		data := sensorDataMap["race"]
-		data.Consumption = float32(math.Round(consumption))
+		data.Battery = float32(math.Round(Battery))
 		sensorDataMap["race"] = data
+	case "esp32Bis/track":
+		Track, err := strconv.ParseFloat(message, 32)
+		if err != nil {
+			fmt.Printf("Error parsing Track value: %v\n", err)
+			return
+		}
+		data := sensorDataMap["race"]
+		data.Battery = float32(math.Round(Track))
+		sensorDataMap["race"] = data
+
 	default:
 		fmt.Printf("Unknown topic: %s\n", topic)
 		return
 	}
 
 	data := sensorDataMap["race"]
-	if data.RaceID != "" && data.Speed != 0 && data.Distance != 0 && data.Consumption != 0 {
-		data.DateTech = time.Now()
+	if data.RaceID != "" && data.Speed != 0 && data.Distance != 0 && data.Battery != 0 {
+		data.Date = time.Now()
 
 		sensorStore := h.store.SensorModelStore
 		success, err := sensorStore.AddSensorData(data)

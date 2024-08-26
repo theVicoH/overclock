@@ -7,8 +7,9 @@ type SensorData struct {
 	RaceID      string    `json:"race_id"`
 	Distance    float32   `json:"distance"`
 	Speed       float32   `json:"speed"`
-	Consumption float32   `json:"consumption"`
-	DateTech    time.Time `json:"date_tech"`
+	Battery     float32   `json:"battery"`
+	Track       float32     `json:"track"`
+	Date        time.Time     `json:"date"`
 }
 
 type Orientation struct {
