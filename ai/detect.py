@@ -101,7 +101,7 @@ def process_frame(frame, model, pid, client):
         send_adjustment_command(client, 1, [2000, 2000, 2000, 2000])  # Continue
 
 def main():
-    model = initialize_yolo('../yolo/yolov7-w6.pt')
+    model = initialize_yolo('./yolo/yolov7-w6.pt')
     pid = PIDController(0.1, 0.01, 0.05)
     
     client = connect_mqtt()
