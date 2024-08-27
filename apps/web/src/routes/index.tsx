@@ -1,11 +1,10 @@
-import { useState } from "react"
 import viteLogo from "/vite.svg"
 import { createFileRoute, Link } from "@tanstack/react-router"
 
 // import { fetchData } from "common/services"
 import { Close } from "common/icons/web"
 import { useFetch } from "../hooks/useFetch"
-import { Race } from "@/types/race"
+import { Races } from "@/types/race"
 import { HttpMethod } from "common/services"
 
 export const Route = createFileRoute("/")({
@@ -13,8 +12,7 @@ export const Route = createFileRoute("/")({
 })
 
 export default function Index() {
-  const [count, setCount] = useState(0)
-  const state = useFetch<Race[]>('race', HttpMethod.GET)
+  const state = useFetch<Races[]>('race', HttpMethod.GET)
 
   // useEffect(() => {
   //   const fetchDataFromAPI = async () => {
@@ -43,7 +41,6 @@ export default function Index() {
       <h1 className="font-notoSans font-thin text-lg bg-red-200">This is NotoSans Bold text.</h1>
       <h1 className="font-dsDigital text-lg">This is DS-Digital text.</h1>
       <div>
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>

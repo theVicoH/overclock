@@ -13,8 +13,8 @@ func SetRoute(app *fiber.App, handler *handler.HandlerStruct) {
 	sensorGroup.Get("/consumption/:id", handler.GetConsumptionLastTenMin)
 
 	raceGroup := app.Group("/race")
-	raceGroup.Get("/:id", handler.GetRaceById)
-	raceGroup.Get("/", handler.GetAllRace)
+	raceGroup.Get("/:id", handler.GetRaceDetailsById)
+	raceGroup.Get("/", handler.GetAllRacesWithData)
 	raceGroup.Post("/", handler.AddRace)
 	raceGroup.Delete("/:id", handler.DeleteRaceById)
 	raceGroup.Put("/:id", handler.UpdateRaceById)
