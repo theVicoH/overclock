@@ -7,15 +7,15 @@ import (
 )
 
 type RaceType struct {
-	Id        string    `json:"id" gorm:"type:uuid;default:gen_random_uuid()"`
-	VehicleId string    `json:"vehicle_id"`
+	Id        uuid.UUID `json:"id" gorm:"type:uuid;default:gen_random_uuid()"`
+	VehicleId uuid.UUID `json:"vehicle_id"`
 	Name      string    `json:"name"`
 	Date      time.Time `json:"date"`
 }
 
-type RaceResponse struct {
-	ID           uuid.UUID `json:"id"`
-	VehicleID    uuid.UUID `json:"vehicle_id"`
+type RacesResponse struct {
+	Id           uuid.UUID `json:"id"`
+	VehicleId    uuid.UUID `json:"vehicle_id"`
 	Name         string    `json:"name"`
 	Date         time.Time `json:"date"`
 	Time         int64     `json:"time,omitempty"`
@@ -25,16 +25,37 @@ type RaceResponse struct {
 	IsFinish     bool      `json:"is_finish"`
 }
 
+type RaceDetailsResponse struct {
+	RaceData    Race               `json:"race_data"`
+	VehicleName string             `json:"vehicle_name"`
+	Stats       StatsRaceType      `json:"stats_race_data"`
+	Sensor      SensorDataResponse `json:"sensor_data"`
+}
+
 type RaceNameType struct {
-	VehicleId string `json:"vehicle_id"`
-	Name      string `json:"name"`
+	VehicleId uuid.UUID `json:"vehicle_id"`
+	Name      string    `json:"name"`
 }
 
 type RaceUpdateType struct {
-	VehicleId string `json:"vehicle_id"`
-	Name      string `json:"name"`
+	VehicleId uuid.UUID `json:"vehicle_id"`
+	Name      string    `json:"name"`
 }
 
 type RequestType struct {
 	Data RaceUpdateType `json:"data"`
+}
+
+type Race struct {
+	Id        uuid.UUID     `json:"id" gorm:"type:uuid;default:gen_random_uuid()"`
+	VehicleId uuid.UUID     `json:"vehicle_id"`
+	Name      string        `json:"name"`
+	Date      time.Time     `json:"date"`
+	Vehicle   VehicleType   `json:"vehicle"`
+	Stats     StatsRaceType `json:"stats" gorm:"foreignKey:RaceId;references:Id"`
+	Sensors   []SensorData  `json:"sensors" gorm:"foreignKey:RaceId;references:Id"`
+}
+
+func (Race) TableName() string {
+	return "race"
 }

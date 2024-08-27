@@ -9,6 +9,7 @@ import (
 
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"github.com/gofiber/fiber/v3"
+	"github.com/google/uuid"
 )
 
 func NewStatsRaceHandler(store *store.StoreStruct, client *MQTT.Client) *HandlerMqtt {
@@ -19,7 +20,14 @@ func NewStatsRaceHandler(store *store.StoreStruct, client *MQTT.Client) *Handler
 }
 
 func (h *HandlerMqtt) AddStatsRace(c fiber.Ctx) error {
-	id := c.Params("id")
+	idStr := c.Params("id")
+
+	id, err := uuid.Parse(idStr)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid UUID format",
+		})
+	}
 
 	var wg sync.WaitGroup
 	var sonsorData []types.SensorData
@@ -50,11 +58,11 @@ func (h *HandlerMqtt) AddStatsRace(c fiber.Ctx) error {
 	for i := 0; i < len(sonsorData); i++ {
 		speed_total = speed_total + int(sonsorData[i].Speed)
 
-		if sonsorData[i].Speed > float32(speed_max) {
+		if sonsorData[i].Speed > float64(speed_max) {
 			speed_max = int(sonsorData[i].Speed)
 		}
 
-		if sonsorData[i].Distance > float32(current_distance) {
+		if sonsorData[i].Distance > float64(current_distance) {
 			current_distance = int(sonsorData[i].Distance)
 		}
 
@@ -73,10 +81,10 @@ func (h *HandlerMqtt) AddStatsRace(c fiber.Ctx) error {
 			battery_max = int(sonsorData[i].Battery)
 			battery_min = int(sonsorData[i].Battery)
 		} else {
-			if sonsorData[i].Battery > float32(battery_max) {
+			if sonsorData[i].Battery > float64(battery_max) {
 				battery_max = int(sonsorData[i].Battery)
 			}
-			if sonsorData[i].Battery < float32(battery_min) {
+			if sonsorData[i].Battery < float64(battery_min) {
 				battery_min = int(sonsorData[i].Battery)
 			}
 		}
@@ -87,16 +95,16 @@ func (h *HandlerMqtt) AddStatsRace(c fiber.Ctx) error {
 
 	stats := types.StatsRaceType{
 		RaceId:       id,
-		Distance:     float32(current_distance),
-		SpeedAverage: float32(speed_average),
-		SpeedMax:     float32(speed_max),
+		Distance:     float64(current_distance),
+		SpeedAverage: float64(speed_average),
+		SpeedMax:     float64(speed_max),
 		BatteryMax:   battery_max,
 		BatteryMin:   battery_min,
 		Time:         int(time_delta),
 		Date:         time.Now(),
 	}
 
-	_, err := h.store.AddStatsRace(stats)
+	_, err = h.store.AddStatsRace(stats)
 
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{

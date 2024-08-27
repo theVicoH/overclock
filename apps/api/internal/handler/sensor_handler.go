@@ -12,6 +12,7 @@ import (
 
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"github.com/gofiber/fiber/v3"
+	"github.com/google/uuid"
 )
 
 func NewSenSorDataHandler(store *store.StoreStruct, client *MQTT.Client) *HandlerMqtt {
@@ -26,17 +27,17 @@ var sensorDataMap = make(map[string]types.SensorData)
 func (h *HandlerMqtt) MessageCallback(message string, topic string) {
 	fmt.Printf("Processing message: %s from topic: %s\n", message, topic)
 
-	raceID := sensorDataMap["race"].RaceID
+	raceId := sensorDataMap["race"].RaceId
 
-	if raceID == "" && topic != "esp32Bis/race" {
+	if raceId == uuid.Nil && topic != "esp32Bis/race" {
 		fmt.Println("RaceID not set yet, waiting for RaceID")
 		return
 	}
 
 	switch topic {
 	case "esp32Bis/race":
-		raceID = message
-		sensorDataMap["race"] = types.SensorData{RaceID: raceID}
+		// raceId = message
+		sensorDataMap["race"] = types.SensorData{RaceId: raceId}
 	case "esp32Bis/speed":
 		speed, err := strconv.ParseFloat(message, 32)
 		if err != nil {
@@ -44,7 +45,7 @@ func (h *HandlerMqtt) MessageCallback(message string, topic string) {
 			return
 		}
 		data := sensorDataMap["race"]
-		data.Speed = float32(speed)
+		data.Speed = float64(speed)
 		sensorDataMap["race"] = data
 	case "esp32Bis/distance":
 		distance, err := strconv.ParseFloat(message, 32)
@@ -53,7 +54,7 @@ func (h *HandlerMqtt) MessageCallback(message string, topic string) {
 			return
 		}
 		data := sensorDataMap["race"]
-		data.Distance = float32(math.Round(distance))
+		data.Distance = float64(math.Round(distance))
 		sensorDataMap["race"] = data
 	case "esp32Bis/battery":
 		Battery, err := strconv.ParseFloat(message, 32)
@@ -62,7 +63,7 @@ func (h *HandlerMqtt) MessageCallback(message string, topic string) {
 			return
 		}
 		data := sensorDataMap["race"]
-		data.Battery = float32(math.Round(Battery))
+		data.Battery = float64(math.Round(Battery))
 		sensorDataMap["race"] = data
 	case "esp32Bis/track":
 		Track, err := strconv.ParseFloat(message, 32)
@@ -71,7 +72,7 @@ func (h *HandlerMqtt) MessageCallback(message string, topic string) {
 			return
 		}
 		data := sensorDataMap["race"]
-		data.Battery = float32(math.Round(Track))
+		data.Battery = float64(math.Round(Track))
 		sensorDataMap["race"] = data
 
 	default:
@@ -80,7 +81,7 @@ func (h *HandlerMqtt) MessageCallback(message string, topic string) {
 	}
 
 	data := sensorDataMap["race"]
-	if data.RaceID != "" && data.Speed != 0 && data.Distance != 0 && data.Battery != 0 {
+	if data.RaceId != uuid.Nil && data.Speed != 0 && data.Distance != 0 && data.Battery != 0 {
 		data.Date = time.Now()
 
 		sensorStore := h.store.SensorModelStore
@@ -96,8 +97,14 @@ func (h *HandlerMqtt) MessageCallback(message string, topic string) {
 }
 
 func (h *HandlerMqtt) GetSensorDataById(c fiber.Ctx) error {
-	race_id := c.Params("id")
-	sensor, err := h.store.GetSensorDataByRaceId(race_id)
+	idStr := c.Params("id")
+	id, err := uuid.Parse(idStr)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid UUID format",
+		})
+	}
+	sensor, err := h.store.GetSensorDataByRaceId(id)
 
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{

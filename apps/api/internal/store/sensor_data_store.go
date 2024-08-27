@@ -4,6 +4,7 @@ import (
 	"Overclock/internal/types"
 	"time"
 
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -20,7 +21,7 @@ func (s *Store) AddSensorData(sensorData types.SensorData) (bool, error) {
 	return true, nil
 }
 
-func (s *Store) GetSensorDataByRaceId(raceID string) ([]types.SensorData, error) {
+func (s *Store) GetSensorDataByRaceId(raceID uuid.UUID) ([]types.SensorData, error) {
 	var sensorData []types.SensorData
 
 	if err := s.db.Where("race_id = ?", raceID).Find(&sensorData).Error; err != nil {

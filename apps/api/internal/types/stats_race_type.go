@@ -1,18 +1,23 @@
 package types
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type StatsRaceType struct {
-	Id        string    `json:"id" gorm:"type:uuid;default:gen_random_uuid()"`
-	RaceId    string    `json:"race_id"`
-	Distance  float32   `json:"distance"`
-	SpeedAverage     float32   `json:"speed_average"`
-	SpeedMax float32 `json:"speed_max"`
-	BatteryMax int `json:"battery_max"`
-	BatteryMin int `json:"battery_min"`
-	Time      int `json:"time"`
-	Date  time.Time `json:"date"`
+	Id           uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
+	RaceId       uuid.UUID `gorm:"type:uuid;not null"`
+	Distance     float64   `gorm:"type:float;not null"`
+	SpeedMax     float64   `gorm:"type:float;not null"`
+	SpeedAverage float64   `gorm:"type:float;not null"`
+	BatteryMax   int       `gorm:"type:int;not null"`
+	BatteryMin   int       `gorm:"type:int;not null"`
+	Time         int       `gorm:"type:bigint;not null"`
+	Date         time.Time `gorm:"type:timestamp;not null"`
 }
 
-
-
+func (StatsRaceType) TableName() string {
+	return "stats_race"
+}

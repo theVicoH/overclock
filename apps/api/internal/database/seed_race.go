@@ -5,11 +5,12 @@ import (
 	"log"
 	"time"
 
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
-func SeedRace(db *gorm.DB,vehicleId string) []string {
-	var raceIds []string
+func SeedRace(db *gorm.DB, vehicleId uuid.UUID) []uuid.UUID {
+	var raceIds []uuid.UUID
 	for _, race := range []types.RaceType{
 		{Name: "Run 1", VehicleId: vehicleId, Date: time.Now()},
 		{Name: "Run 2", VehicleId: vehicleId, Date: time.Now()},

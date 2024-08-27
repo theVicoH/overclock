@@ -4,6 +4,7 @@ import (
 	"Overclock/internal/types"
 
 	"github.com/gofiber/fiber/v3"
+	"github.com/google/uuid"
 )
 
 type SensorModelHandler interface {
@@ -15,7 +16,7 @@ type SensorModelHandler interface {
 
 type SensorModelStore interface {
 	AddSensorData(sensorData types.SensorData) (bool, error)
-	GetSensorDataByRaceId(id string) ([]types.SensorData, error)
+	GetSensorDataByRaceId(id uuid.UUID) ([]types.SensorData, error)
 	GetSpeedLastTenMin(id string) ([]types.SensorSpeed, error)
 	GetConsumptionLastTenMin(id string) ([]types.SensorConsumption, error)
 }

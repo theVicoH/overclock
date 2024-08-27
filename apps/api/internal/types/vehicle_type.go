@@ -1,8 +1,10 @@
 package types
 
+import "github.com/google/uuid"
+
 type VehicleType struct {
-	Id   string `json:"id" gorm:"type:uuid;default:gen_random_uuid()"`
-	Name string `json:"name"`
+	Id   uuid.UUID `json:"id" gorm:"type:uuid;default:gen_random_uuid()"`
+	Name string    `json:"name"`
 }
 
 type RequestTypeVehicle struct {
@@ -11,4 +13,8 @@ type RequestTypeVehicle struct {
 
 type VehicleUpdateType struct {
 	Name string `json:"name"`
+}
+
+func (VehicleType) TableName() string {
+	return "vehicle"
 }
