@@ -1,7 +1,6 @@
 import cv2
 import json
 import time
-import base64
 import numpy as np
 from pid_controller import PIDController
 from functions import send_message, connect_mqtt, initialize_yolo
@@ -15,21 +14,20 @@ def on_message(client, userdata, msg):
     global frame, sonar_distance, automatic_mode
 
     print(f"Received message on topic {msg.topic}")
-    payload = msg.payload.decode()
+    payload = msg.payload
     
     try:
         if msg.topic == "esp32/sonar":
-            sonar_distance = float(payload)
+            sonar_distance = float(payload.decode())
             print(f"Updated sonar distance: {sonar_distance}")
 
         elif msg.topic == "esp32/mode":
-            automatic_mode = payload.lower() == "auto"
+            automatic_mode = payload.decode().lower() == "auto"
             print(f"Automatic mode set to: {automatic_mode}")
 
         elif msg.topic == "esp32/camera":
             try:
-                image_data = base64.b64decode(payload)
-                np_array = np.frombuffer(image_data, np.uint8)
+                np_array = np.frombuffer(payload, np.uint8)
                 frame = cv2.imdecode(np_array, cv2.IMREAD_COLOR)
                 print(f"Received and decoded image from camera")
             except Exception as e:
