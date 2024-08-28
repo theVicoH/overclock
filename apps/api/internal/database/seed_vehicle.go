@@ -13,11 +13,12 @@ func SeedVehicle(db *gorm.DB) uuid.UUID {
 	for _, vehicle := range []types.VehicleType{
 		{Name: "Overclock"},
 	} {
-		if err := db.Table("vehicle").Create(&vehicle).Error; err != nil {
+		vehicleCopy := vehicle
+		if err := db.Table("vehicle").Create(&vehicleCopy).Error; err != nil {
 			log.Fatalf("Error seeding vehicle: %v", err)
 		}
-		vehicleId = vehicle.Id
-		log.Println("Inserted Vehicle ID:", vehicle.Id)
+		vehicleId = vehicleCopy.Id
+		log.Println("Inserted Vehicle ID:", vehicleCopy.Id)
 	}
 	return vehicleId
 }

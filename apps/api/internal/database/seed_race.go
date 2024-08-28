@@ -16,11 +16,12 @@ func SeedRace(db *gorm.DB, vehicleId uuid.UUID) []uuid.UUID {
 		{Name: "Run 2", VehicleId: vehicleId, Date: time.Now()},
 		{Name: "Run 3", VehicleId: vehicleId, Date: time.Now()},
 	} {
-		if err := db.Table("race").Create(&race).Error; err != nil {
+		raceCopy := race
+		if err := db.Table("race").Create(&raceCopy).Error; err != nil {
 			log.Fatalf("Error seeding race: %v", err)
 		}
-		raceIds = append(raceIds, race.Id)
-		log.Println("Insered races ID : ", race.Id)
+		raceIds = append(raceIds, raceCopy.Id)
+		log.Println("Inserted race ID: ", raceCopy.Id)
 	}
 	return raceIds
 }

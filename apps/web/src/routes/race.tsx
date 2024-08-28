@@ -1,9 +1,9 @@
-import { useFetch } from '@/hooks/useFetch'
-import { RaceDetails } from '@/types/race'
-import { createFileRoute } from '@tanstack/react-router'
-import { HttpMethod } from 'common/services'
+import { useFetch } from "@/hooks/useFetch"
+import { RaceDetails } from "@/types/race"
+import { createFileRoute } from "@tanstack/react-router"
+import { HttpMethod } from "common/services"
 
-export const Route = createFileRoute('/race')({
+export const Route = createFileRoute("/race")({
   validateSearch: (race: Record<string, unknown>) => {
     return {
       id: (race?.id as string) || ""
@@ -16,25 +16,19 @@ export default function Race() {
   const { id } = Route.useSearch()
   const state = useFetch<RaceDetails>(`race/${id}`, HttpMethod.GET)
 
-  function handleDelete() {
-    if (confirm('Are you sure you want to delete this course?')) {
-      useFetch(`race/${id}`, HttpMethod.DELETE)
-    }
-  }
-
-  if (state.status === 'loading') return <div>Loading...</div>
-  if (state.status === 'error') return <div>{state.error}</div>
-  if (state.status === 'success') {
+  if (state.status === "loading") return <div>Loading...</div>
+  if (state.status === "error") return <div>{state.error}</div>
+  if (state.status === "success") {
     console.log(state.data)
 
     return (
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4">Race Details</h1>
-        <div className="flex justify-between items-center mb-4">
-          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={handleDelete}>
+        {/* <div className="flex justify-between items-center mb-4">
+          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => useFetch(`race/${id}`, HttpMethod.DELETE)}>
             Delete
           </button>
-        </div>
+        </div> */}
         <div className="bg-white shadow rounded-lg p-6 mb-4">
           <h2 className="text-xl font-semibold">{state.data?.race_data.name}</h2>
           <p>Vehicle: {state.data?.race_data.vehicle_name}</p>

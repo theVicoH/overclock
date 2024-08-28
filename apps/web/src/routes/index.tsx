@@ -12,7 +12,7 @@ export const Route = createFileRoute("/")({
 })
 
 export default function Index() {
-  const state = useFetch<Races[]>('race', HttpMethod.GET)
+  const state = useFetch<Races[]>("race", HttpMethod.GET)
 
   // useEffect(() => {
   //   const fetchDataFromAPI = async () => {
@@ -27,8 +27,8 @@ export default function Index() {
   //   fetchDataFromAPI()
   // }, [])
 
-  if (state.status === 'loading') return <div>Loading...</div>
-  if (state.status === 'error') return <div>{state.error}</div>
+  if (state.status === "loading") return <div>Loading...</div>
+  if (state.status === "error") return <div>{state.error}</div>
 
   return (
     <>
@@ -48,7 +48,7 @@ export default function Index() {
       <p>Click on the Vite and React logos to learn more</p>
       <div>
         <div className="flex flex-col gap-4">
-          {state.status === 'success' && state.data?.map((race) => (
+          {state.status === "success" && state.data?.map((race) => (
             <Link key={race.id} to="/race" search={{ id: race.id }}>
               <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white p-6">
                 <div className="mb-4">

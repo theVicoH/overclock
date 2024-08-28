@@ -36,7 +36,7 @@ func (h *HandlerMqtt) MessageCallback(message string, topic string) {
 
 	switch topic {
 	case "esp32Bis/race":
-		// raceId = message
+		raceId, _ = uuid.Parse(message)
 		sensorDataMap["race"] = types.SensorData{RaceId: raceId}
 	case "esp32Bis/speed":
 		speed, err := strconv.ParseFloat(message, 32)

@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom/client"
+import { createRoot } from "react-dom/client"
 import { RouterProvider, createRouter } from "@tanstack/react-router"
 import "./index.css"
 
@@ -12,6 +12,6 @@ declare module "@tanstack/react-router" {
   }
 }
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById("root")!).render(
   <RouterProvider router={router} />
 )

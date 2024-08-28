@@ -29,6 +29,7 @@
     "@tanstack/router-vite-plugin": "^1.49.3",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^16.0.0",
+    "@testing-library/react-hooks": "^8.0.1",
     "@types/node": "^20.14.2",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react-swc": "^3.5.0",

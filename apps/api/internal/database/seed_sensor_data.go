@@ -15,7 +15,8 @@ func SeedSensor(db *gorm.DB, raceIds []uuid.UUID) {
 		{RaceId: raceIds[1], Speed: 10, Distance: 100, Battery: 15, Track: 7, Date: time.Now()},
 		{RaceId: raceIds[2], Speed: 10, Distance: 100, Battery: 15, Track: 7, Date: time.Now()},
 	} {
-		if err := db.Table("sensor_data").Create(&sensor).Error; err != nil {
+		sensorCopy := sensor
+		if err := db.Table("sensor_data").Create(&sensorCopy).Error; err != nil {
 			log.Fatalf("Error seeding sensors: %v", err)
 		}
 	}
