@@ -11,6 +11,14 @@ SONAR_THRESHOLD = 3
 frame = None  
 
 def on_message(client, userdata, msg):
+    """
+    Gère les messages MQTT reçus et met à jour les variables d'état.
+
+    Args:
+        client: Instance du client MQTT.
+        userdata: Données utilisateur associées au client.
+        msg: Message MQTT reçu.
+    """
     global frame, sonar_distance, automatic_mode
 
     print(f"Received message on topic {msg.topic}")
@@ -37,6 +45,15 @@ def on_message(client, userdata, msg):
         print(f"Error parsing message: {payload}")
 
 def send_adjustment_command(client, cmd_id, data_values, topic="ia/ajustments"):
+    """
+    Envoie une commande d'ajustement à un topic MQTT.
+
+    Args:
+        client: Instance du client MQTT.
+        cmd_id: Identifiant de la commande.
+        data_values: Valeurs de la commande.
+        topic: Topic MQTT pour l'envoi.
+    """
     message = {
         "cmd": cmd_id,
         "data": data_values
@@ -44,6 +61,12 @@ def send_adjustment_command(client, cmd_id, data_values, topic="ia/ajustments"):
     send_message(client, topic, json.dumps(message))
 
 def send_alert(client):
+    """
+    Envoie une alerte via les LEDs et le buzzer en MQTT.
+
+    Args:
+        client: Instance du client MQTT.
+    """
     send_adjustment_command(client, 5, [1, 255, 0, 0], topic="ia/alertleds")
     send_adjustment_command(client, 7, 1, topic="ia/alertbip")
     
@@ -53,6 +76,15 @@ def send_alert(client):
     send_adjustment_command(client, 7, 0, topic="ia/alertbip")
 
 def process_frame(frame, model, pid, client):
+    """
+    Traite l'image pour détecter des obstacles et des personnes tombées.
+
+    Args:
+        frame: Image capturée.
+        model: Modèle YOLO pour la détection.
+        pid: Contrôleur PID.
+        client: Instance du client MQTT.
+    """
     detections = model(frame)
     obstacle_detected = False
     control_signal = 0
@@ -99,6 +131,10 @@ def process_frame(frame, model, pid, client):
         send_adjustment_command(client, 1, [2000, 2000, 2000, 2000])  # Continue
 
 def main():
+    """
+    Initialise le modèle YOLO, le contrôleur PID et le client MQTT,
+    puis démarre la boucle principale.
+    """
     model = initialize_yolo('./yolo/yolov7-w6.pt')
     pid = PIDController(0.1, 0.01, 0.05)
     
