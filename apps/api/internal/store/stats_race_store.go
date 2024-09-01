@@ -24,6 +24,11 @@ func (s *Store) AddStatsRace(statsRace types.StatsRaceType) (bool, error) {
 	return true, nil
 }
 
+func (s *Store) GetStatsRaceByVehiculeId(id string) (types.StatsRaceType, error) {
+	// var statRace types.StatsRaceType
+	return types.StatsRaceType{}, nil
+}
+
 func (s *Store) GetStatsRaceById(id string) (types.StatsRaceType, error) {
 	var statsRace types.StatsRaceType
 

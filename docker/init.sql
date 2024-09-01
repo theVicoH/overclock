@@ -12,22 +12,21 @@ CREATE TABLE "race" (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     vehicle_id UUID NOT NULL,
     name VARCHAR(255) NOT NULL,
-    date TIMESTAMP NOT NULL
+    date TIMESTAMP NOT NULL,
+    CONSTRAINT fk_race_vehicle FOREIGN KEY (vehicle_id) REFERENCES vehicle(id) ON DELETE CASCADE
 );
 
 CREATE TABLE "stats_race" (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     race_id UUID NOT NULL,
-    vehicle_id UUID NOT NULL,
     distance FLOAT NOT NULL,
     speed_max FLOAT NOT NULL,
     speed_average FLOAT NOT NULL,
     battery_max INT NOT NULL,
     battery_min INT NOT NULL,
     time BIGINT NOT NULL,
-    date_tech TIMESTAMP NOT NULL,
-    CONSTRAINT fk_race_stats_race FOREIGN KEY (race_id) REFERENCES race(id) ON DELETE CASCADE,
-    CONSTRAINT fk_stats_race_vehicle FOREIGN KEY (vehicle_id) REFERENCES vehicle(id) ON DELETE CASCADE
+    date TIMESTAMP NOT NULL,
+    CONSTRAINT fk_race_stats_race FOREIGN KEY (race_id) REFERENCES race(id) ON DELETE CASCADE
 );
 
 CREATE TABLE "sensor_data" (
@@ -35,7 +34,8 @@ CREATE TABLE "sensor_data" (
     race_id UUID NOT NULL,
     distance FLOAT NOT NULL,
     speed FLOAT NOT NULL,
-    date_tech TIMESTAMP NOT NULL,
-    consumption FLOAT NOT NULL
+    date TIMESTAMP NOT NULL,
+    battery FLOAT NOT NULL,
+    track INT NOT NULL,
+    CONSTRAINT fk_sensor_data_race FOREIGN KEY (race_id) REFERENCES race(id) ON DELETE CASCADE
 );
-

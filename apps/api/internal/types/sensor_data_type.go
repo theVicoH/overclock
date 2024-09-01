@@ -1,14 +1,27 @@
 package types
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type SensorData struct {
-	Id          string    `json:"id" gorm:"type:uuid;default:gen_random_uuid()"`
-	RaceID      string    `json:"race_id"`
-	Distance    float32   `json:"distance"`
-	Speed       float32   `json:"speed"`
-	Consumption float32   `json:"consumption"`
-	DateTech    time.Time `json:"date_tech"`
+	Id       uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
+	RaceId   uuid.UUID `gorm:"type:uuid;not null"`
+	Distance float64   `gorm:"type:float;not null"`
+	Speed    float64   `gorm:"type:float;not null"`
+	Date     time.Time `gorm:"type:timestamp;not null"`
+	Battery  float64   `gorm:"type:float;not null"`
+	Track    int       `gorm:"type:int;not null"`
+}
+
+type SensorDataResponse struct {
+	Distance []float64   `json:"distance"`
+	Speed    []float64   `json:"speed"`
+	Battery  []float64   `json:"battery"`
+	Track    []int       `json:"track"`
+	Date     []time.Time `json:"date"`
 }
 
 type Orientation struct {
@@ -24,4 +37,8 @@ type SensorSpeed struct {
 type SensorConsumption struct {
 	Consumption float32
 	DateTech    time.Time
+}
+
+func (SensorData) TableName() string {
+	return "sensor_data"
 }
