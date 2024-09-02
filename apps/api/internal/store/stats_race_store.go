@@ -23,38 +23,3 @@ func (s *Store) AddStatsRace(statsRace types.StatsRaceType) (bool, error) {
 
 	return true, nil
 }
-
-func (s *Store) GetStatsRaceByVehiculeId(id string) (types.StatsRaceType, error) {
-	// var statRace types.StatsRaceType
-	return types.StatsRaceType{}, nil
-}
-
-func (s *Store) GetStatsRaceById(id string) (types.StatsRaceType, error) {
-	var statsRace types.StatsRaceType
-
-	db := s.db.Table("stats_race").Where("race_id = ?", id).First(&statsRace)
-	if db.Error != nil {
-		log.Println("db error => ", db.Error)
-	}
-
-	return statsRace, nil
-}
-
-func (s *Store) DeleteStatsRaceById(id string) (types.StatsRaceType, error) {
-
-	var statsRace types.StatsRaceType
-
-	db := s.db.Table("stats_race").Where("race_id = ?", id).Delete(&statsRace)
-	if db.Error != nil {
-		log.Println("db error => ", db.Error)
-		return statsRace, db.Error
-	}
-
-	return statsRace, nil
-}
-
-/*func (s *Store) UpdateStatsRaceById(id string) (types.StatsRaceType, error) {
-	var statsRace types.StatsRaceType
-
-	return statsRace, nil
-}*/
