@@ -1,6 +1,5 @@
 export type RootStackParamList = {
-  ManualPage: undefined,
-  AutoPageConnect: undefined,
+  ModeSelectionPage: undefined,
   AutoPage: undefined,
-  CommandPage: undefined
+  ManualPage: undefined
 }
