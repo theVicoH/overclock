@@ -32,11 +32,6 @@ type RaceDetailsResponse struct {
 	Sensor      SensorDataResponse `json:"sensor_data"`
 }
 
-type RaceNameType struct {
-	VehicleId uuid.UUID `json:"vehicle_id"`
-	Name      string    `json:"name"`
-}
-
 type RaceUpdateType struct {
 	VehicleId uuid.UUID `json:"vehicle_id"`
 	Name      string    `json:"name"`

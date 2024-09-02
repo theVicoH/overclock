@@ -41,30 +41,6 @@ func (s *Store) DeleteRaceById(id string) (bool, error) {
 	return true, nil
 }
 
-func (s *Store) UpdateRaceById(id string, updatedData types.RaceType) (types.RaceType, error) {
-	var raceData types.RaceType
-	if err := s.db.Table("race").Where("id = ?", id).First(&raceData).Error; err != nil {
-		return raceData, err
-	}
-
-	raceData.Name = updatedData.Name
-	raceData.VehicleId = updatedData.VehicleId
-	raceData.Date = time.Now()
-
-	if err := s.db.Table("race").Save(&raceData).Error; err != nil {
-		return raceData, err
-	}
-	return raceData, nil
-}
-
-func (s *Store) GetAllRace() ([]types.RaceType, error) {
-	var raceData []types.RaceType
-	if err := s.db.Table("race").Find(&raceData).Error; err != nil {
-		return nil, err
-	}
-	return raceData, nil
-}
-
 func (s *Store) GetAllRacesWithData() ([]types.RacesResponse, error) {
 	var raceData []types.RacesResponse
 
