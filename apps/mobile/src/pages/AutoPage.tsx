@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react"
-import { View, StyleSheet } from "react-native"
+import { View, StyleSheet, Alert } from "react-native"
 import { WS_URL } from "@env"
 import { WebSocketContextType } from "../types/webSockets"
 import { SocketContext } from "../context/socket"
-import Joystick from "../components/Joystick"
-import BuzzerButton from "../widgets/BuzzerButton"
 import Header from "../widgets/Header"
 import { colors } from "common/styles"
-import { CommandPageProps } from "../types/navigationProperties"
+import { AutoPageProps } from "../types/navigationProperties"
+import Button from "../components/Button"
+import { ButtonIconsPosition, ButtonVariants } from "../types/buttons"
+import { LogoOverclock } from "common/icons/mobile"
 
-const Commandpage = ({ navigation }: CommandPageProps) => {
+const Autopage = ({ navigation }: AutoPageProps) => {
   const [socket, setSocket] = useState<WebSocketContextType>(null)
 
   useEffect(() => {
@@ -37,8 +38,14 @@ const Commandpage = ({ navigation }: CommandPageProps) => {
       <View style={styles.container}>
         <Header navigation={navigation} />
         <View style={styles.controls}>
-          <Joystick />
-          <BuzzerButton />
+          <Button
+            variant={ButtonVariants.Primary}
+            onPress={() => Alert.alert("Starting Auto Mode")}
+            icon={<LogoOverclock stroke={colors.neutral1000} />}
+            iconPosition={ButtonIconsPosition.Left}
+          >
+            Start Auto Mode
+          </Button>
         </View>
       </View>
     </SocketContext.Provider>
@@ -57,12 +64,11 @@ const styles = StyleSheet.create({
   controls: {
     width: "100%",
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    paddingHorizontal: 80,
-    paddingBottom: 48
+    paddingBottom: 56
   }
 })
 
-export default Commandpage;
+export default Autopage;
