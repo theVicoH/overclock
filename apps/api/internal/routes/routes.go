@@ -21,6 +21,7 @@ func SetRoute(app *fiber.App, handler *handler.HandlerStruct) {
 
 	statsRaceGroup := app.Group("/stats_race")
 	statsRaceGroup.Get("/:id", handler.GetStatsRaceById)
+	statsRaceGroup.Get("/:id", handler.GetStatsRaceByVehiculeId)
 	statsRaceGroup.Get("/", handler.AddStatsRace)
 	statsRaceGroup.Delete("/:id", handler.DeleteStatsRaceById)
 	statsRaceGroup.Put("/:id", handler.UpdateStatsRaceById)

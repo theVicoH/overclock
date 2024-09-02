@@ -25,8 +25,14 @@ func (s *Store) AddStatsRace(statsRace types.StatsRaceType) (bool, error) {
 }
 
 func (s *Store) GetStatsRaceByVehiculeId(id string) (types.StatsRaceType, error) {
-	// var statRace types.StatsRaceType
-	return types.StatsRaceType{}, nil
+	var statsRace types.StatsRaceType
+
+	db := s.db.Table("stats_race").Where("vehicule_id = ?", id).First(&statsRace)
+	if db.Error != nil {
+		log.Println("db error => ", db.Error)
+	}
+
+	return statsRace, nil
 }
 
 func (s *Store) GetStatsRaceById(id string) (types.StatsRaceType, error) {
