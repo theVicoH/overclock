@@ -3,13 +3,17 @@ This file provides instructions for setting up and running the API, web, and mob
 
 ## Table of Contents
 
+- [Development Guide](#development-guide)
+- [Table of Contents](#table-of-contents)
 - [Prerequisites](#prerequisites)
 - [Setup](#setup)
 - [Running the Applications](#running-the-applications)
   - [Start the Database](#start-the-database)
+  - [Start Application](#start-application)
   - [Start the API](#start-the-api)
+  - [Start the Client Application](#start-the-client-application)
   - [Start the Web Application](#start-the-web-application)
-  - [Start the Mobile Application](#start-the-aobile-application)
+  - [Start the Mobile Application](#start-the-mobile-application)
 - [Database Migrations](#database-migrations)
   - [Apply Migrations](#apply-migrations)
   - [Create a New Migration](#create-a-new-migration)
@@ -21,6 +25,24 @@ This file provides instructions for setting up and running the API, web, and mob
   - [Lint the API](#lint-the-api)
   - [Lint the Web Application](#lint-the-web-application)
   - [Lint the Mobile Application](#lint-the-mobile-application)
+  - [Lint the Common Application](#lint-the-common-application)
+- [Format the Client Code](#format-the-client-code)
+  - [Format Client Code](#format-client-code)
+  - [Format the Web Application](#format-the-web-application)
+  - [Format the Mobile Application](#format-the-mobile-application)
+  - [Format the Common Application](#format-the-common-application)
+- [Type check the Client Code](#type-check-the-client-code)
+  - [Type check Client Code](#type-check-client-code)
+  - [Type the Web Application](#type-the-web-application)
+  - [Type the Mobile Application](#type-the-mobile-application)
+  - [Type the Common Application](#type-the-common-application)
+- [Run Lint + Prettier + Type](#run-lint--prettier--type)
+- [Test check the Client Code](#test-check-the-client-code)
+  - [Test check Client Code](#test-check-client-code)
+  - [Test the Web Application](#test-the-web-application)
+  - [Tes the Mobile Application](#tes-the-mobile-application)
+  - [Test the Common Application](#test-the-common-application)
+- [Generate common](#generate-common)
 
 ## Prerequisites
 
@@ -89,9 +111,9 @@ pnpm run web
 
 ### Start the Mobile Application
 
-To start the mobile application, run the following command:
+To start the mobile application, ask a colleague the .env file and run the following command:
 ```sh
-pnpm run mobile
+pnpm run mobile --reset-cache
 ```
 
 ## Database Migrations
