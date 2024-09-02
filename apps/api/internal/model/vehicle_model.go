@@ -12,6 +12,7 @@ type VehicleModelHandler interface {
 	DeleteVehicleById(fiber.Ctx) error
 	UpdateVehicleById(fiber.Ctx) error
 	GetAllVehicle(fiber.Ctx) error
+	GetAllVehicleByRaces(fiber.Ctx) error
 }
 
 type VehicleModelStore interface {
@@ -20,4 +21,5 @@ type VehicleModelStore interface {
 	DeleteVehicleById(id string) (bool, error)
 	UpdateVehicleById(id string, vehicleType types.VehicleType) (types.VehicleType, error)
 	GetAllVehicle() ([]types.VehicleType, error)
+	GetAllVehicleByRaces() ([]types.VehicleByRacesDetailType, error)
 }
