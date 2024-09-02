@@ -2,7 +2,6 @@ package store
 
 import (
 	"Overclock/internal/types"
-	"log"
 
 	"gorm.io/gorm"
 )
@@ -63,16 +62,16 @@ func (v *Store) GetAllVehicle() ([]types.VehicleType, error) {
 	return vehicle, nil
 }
 
-	func (v *Store) GetAllVehicleByRaces() ([]types.VehicleByRacesDetailType, error) {
-		var vehicles []types.VehicleByRacesDetailType
+func (v *Store) GetAllVehicleByRaces() ([]types.VehicleByRacesDetailType, error) {
+	var vehicles []types.VehicleByRacesDetailType
 
-		if err := v.db.Table("vehicle").
-			Select("vehicle.*, stats_race.time, stats_race.date, stats_race.speed_average, stats_race.distance, race.name").
-			Joins("LEFT JOIN race ON race.vehicle_id = vehicle.id").
-			Joins("LEFT JOIN stats_race ON stats_race.race_id = race.id").
-			Scan(&vehicles).Error; err != nil {
-			return nil, err
-		}
-		
-		return vehicles, nil
+	if err := v.db.Table("vehicle").
+		Select("vehicle.*, stats_race.time, stats_race.date, stats_race.speed_average, stats_race.distance, race.name").
+		Joins("LEFT JOIN race ON race.vehicle_id = vehicle.id").
+		Joins("LEFT JOIN stats_race ON stats_race.race_id = race.id").
+		Scan(&vehicles).Error; err != nil {
+		return nil, err
 	}
+
+	return vehicles, nil
+}

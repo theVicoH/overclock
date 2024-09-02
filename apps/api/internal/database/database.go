@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	host     = "localhost"
+	host     = "database"
 	port     = "5432"
 	dbuser   = "root"
 	password = "root"
