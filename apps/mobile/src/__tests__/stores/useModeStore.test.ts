@@ -3,7 +3,6 @@ import useModeStore from "../../stores/useModeStore";
 
 describe("useModeStore", () => {
   beforeEach(() => {
-    // Reset the store state before each test
     useModeStore.setState({ mode: "Manual" });
   });
 
