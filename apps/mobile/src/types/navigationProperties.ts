@@ -1,6 +1,7 @@
 import { StackNavigationProp } from "@react-navigation/stack"
 import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "./rootStackParamList"
+import { NavigationProp } from "@react-navigation/native"
 
 export type ManualPageNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -42,4 +43,8 @@ export type CommandPageProps = {
 export type AutoPageConnectProps = {
   navigation: ManualPageNavigationProp
   route: AutoPageConnectRouteProp
+}
+
+export type HeaderProps = {
+  navigation: NavigationProp<RootStackParamList>
 }
