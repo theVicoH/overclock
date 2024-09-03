@@ -14,7 +14,7 @@ var (
 	port     = "5432"
 	dbuser   = "root"
 	password = "root"
-	dbname   = "datas"
+	dbname   = "pgs"
 )
 
 func InitDb() *gorm.DB {
