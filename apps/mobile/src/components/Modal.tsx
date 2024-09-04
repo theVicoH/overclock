@@ -42,7 +42,7 @@ const Modal = ({ active, setActive }: ModalProps) => {
     };
     if (race_name !== undefined && race_name !== null) {
       console.log(data);
-      const response = await fetch("http://localhost:3000/race/", {
+      const response = await fetch("https://api.clementpnn.com/race/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +50,10 @@ const Modal = ({ active, setActive }: ModalProps) => {
         body: JSON.stringify(data),
       });
 
+      const results = await response.json();
+
       console.log(response.status);
+      console.log(results);
 
       if (response.status === 201) {
         setIsLoading(false);
@@ -69,7 +72,7 @@ const Modal = ({ active, setActive }: ModalProps) => {
       <>
         <View style={styles.container}></View>
         {isLoading ? (
-          <View style={styles.backgroundIndicator}>
+          <View testID="loading-indicator" style={styles.backgroundIndicator}>
             <ActivityIndicator
               color={colors.primary500}
               size="large"
@@ -88,27 +91,33 @@ const Modal = ({ active, setActive }: ModalProps) => {
               <Text style={styles.title}>Create race</Text>
               <IconButton
                 variant={ButtonVariants.Inline}
-                icon={<Close stroke={colors.neutral1000} />}
+                icon={<Close stroke={colors.neutral200} />}
                 onPress={() => setActive(false)}
               />
             </View>
-            <View style={styles.titleExit}>
-              <Text>Course name</Text>
-              <Text>{value?.length}/50</Text>
+            <View style={[{ paddingHorizontal: 16, paddingBottom: 16 }]}>
+              <View style={styles.titleExit}>
+                <Text style={styles.textColor}>Course name</Text>
+                <Text style={styles.textColor}>
+                  {value ? value?.length : 0}/50
+                </Text>
+              </View>
+              <View style={{ marginBottom: 8 }}>
+                <InputComponent
+                  placeholder="Write here"
+                  value={value}
+                  setValue={checkLength}
+                />
+              </View>
+              <Button
+                fullWitdh={true}
+                onPress={() =>
+                  createRace("e9f997d8-3530-4c24-b29d-5f77c114861c", value)
+                }
+              >
+                Create
+              </Button>
             </View>
-            <InputComponent
-              placeholder="Write here"
-              value={value}
-              setValue={checkLength}
-            />
-            <Button
-              fullWitdh={true}
-              onPress={() =>
-                createRace("71ee5891-d61d-4140-a2f9-139e64d4a196", value)
-              }
-            >
-              Create
-            </Button>
           </View>
         )}
       </>
@@ -131,15 +140,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modal: {
-    backgroundColor: colors.neutral0,
+    backgroundColor: "#464646",
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: [{ translateY: -53 }, { translateX: -53 }],
-    padding: 16,
     borderRadius: 10,
     width: 250,
     height: "auto",
+    paddingTop: 8,
   },
   titleExit: {
     flex: 1,
@@ -150,6 +159,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
+    color: colors.neutral50,
+    paddingLeft: 16,
   },
   activityIndicator: {
     position: "absolute",
@@ -163,6 +174,9 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+  },
+  textColor: {
+    color: colors.neutral400,
   },
 });
 
