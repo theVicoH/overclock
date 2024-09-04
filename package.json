@@ -28,14 +28,15 @@
     "common": "pnpm --filter common common"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "typescript": "^5.2.2",
-    "prettier": "2.8.8",
-    "vitest": "^1.6.0",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^16.0.0",
+    "@types/mqtt": "^2.5.0",
     "@types/react": "^18.2.6",
-    "@typescript-eslint/parser": "^7.2.0"
+    "@typescript-eslint/parser": "^7.2.0",
+    "eslint": "^8.57.0",
+    "prettier": "2.8.8",
+    "typescript": "^5.2.2",
+    "vitest": "^1.6.0"
   },
   "packageManager": "pnpm@9.4.0",
   "engines": {
@@ -44,5 +45,8 @@
   "pnpm": {
     "auto-install-peers": true,
     "strict-peer-dependencies": false
+  },
+  "dependencies": {
+    "mqtt": "^5.10.0"
   }
 }
