@@ -1,37 +1,64 @@
-import mqtt from "mqtt"
+import { type MqttClient } from 'mqtt'
 
-// url in .env for delete the url in the code
-const MQTT_BROKER_URL = "ws://ws.groupe1.hetic.arcplex.dev"
-const options = {
-  clientId: `mqtt_web_${Math.random().toString(16).slice(3)}`,
+let mqttClient: MqttClient | null = null
+
+export async function connectMqttClient(): Promise<MqttClient> {
+  if (!mqttClient) {
+    const mqtt = await import('mqtt/dist/mqtt')
+
+    const MQTT_BROKER_URL = "ws://ws.groupe1.hetic.arcplex.dev/ws"
+    const options = {
+      clientId: `mqtt_web_${Math.random().toString(16).slice(3)}`,
+      login: 'guest',
+      passcode: 'guest'
+    }
+    mqttClient = mqtt.connect(MQTT_BROKER_URL, options)
+
+    mqttClient.on('connect', () => {
+      console.log('MQTT connecté')
+    })
+
+    mqttClient.on('error', (error: Error) => {
+      console.error('Erreur de connexion MQTT :', error)
+    })
+
+    mqttClient.on('close', () => {
+      console.log('Connexion MQTT fermée')
+    })
+
+    mqttClient.on('reconnect', () => {
+      console.log('Tentative de reconnexion MQTT')
+    })
+
+    mqttClient.on('offline', () => {
+      console.log('MQTT est hors ligne')
+    })
+  }
+  return mqttClient
 }
 
-export const mqttClient = mqtt.connect(MQTT_BROKER_URL, options)
+export async function subscribeToTopic(topic: string, onMessage: (message: string) => void): Promise<void> {
+  const client = await connectMqttClient()
 
-// console log for teste, remove it (my english is perfect)
-export function mptt(topic: string, onMessage: (message: string) => void) {
-  mqttClient.on('connect', () => {
-    console.log('MQTT connected')
-    mqttClient.subscribe(topic, (err) => {
-      if (!err) {
-        console.log(`Subscribed to topic: ${topic}`)
-      } else {
-        console.error(`Failed to subscribe to topic: ${topic}`, err)
-      }
-    })
+  client.subscribe(topic, (err: Error | null) => {
+    if (err) {
+      console.error(`Erreur lors de la souscription au topic : ${topic}`, err)
+    }
   })
 
-  mqttClient.on('message', (receivedTopic, message) => {
+  client.on('message', (receivedTopic: string, message: Buffer) => {
     if (receivedTopic === topic) {
       onMessage(message.toString())
     }
   })
+}
 
-  mqttClient.on('error', (error) => {
-    console.error('MQTT error', error)
-  })
+export async function publishToTopic(topic: string, message: string): Promise<void> {
+  const client = await connectMqttClient()
 
-  mqttClient.on('close', () => {
-    console.log('MQTT connection closed')
+  client.publish(topic, message, (err?: Error) => {
+    if (err) {
+      console.error('Erreur lors de la publication du message', err)
+    }
   })
 }

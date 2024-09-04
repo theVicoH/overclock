@@ -19,6 +19,7 @@
     "@svgr/cli": "^8.1.0",
     "@svgr/core": "^8.1.0",
     "@types/mock-fs": "^4.13.4",
+    "@types/mqtt": "^2.5.0",
     "cross-env": "^7.0.3",
     "mock-fs": "^5.2.0",
     "ts-node": "^10.9.2",
