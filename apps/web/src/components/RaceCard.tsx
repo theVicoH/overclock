@@ -34,7 +34,7 @@ const RaceCard:React.FC<RaceCardProps> = ({ id, name, vehicle_name, date, distan
         <p>Temps Total: {time || "-"} ms</p>
         {!is_finish && (
           <div className="mt-4 text-red-600">
-            <p>Course en cour</p>
+            <p>Course en cours</p>
           </div>
         )}
       </CardContent>
