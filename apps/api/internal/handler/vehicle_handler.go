@@ -121,12 +121,12 @@ func (h *Handler) GetAllVehicleByRaces(c fiber.Ctx) error {
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Error fetching vehicule",
-			"error" : err,
+			"error":   err,
 		})
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"message" : "vehicule successfully fetched",
-		"date" : vehicules,
+		"message": "vehicule successfully fetched",
+		"date":    vehicules,
 	})
 }
