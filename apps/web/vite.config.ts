@@ -21,7 +21,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['react/jsx-runtime']
+      external: ["react/jsx-runtime"]
     },
   },
 })
