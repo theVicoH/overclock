@@ -1,8 +1,8 @@
 import { Radar } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, RadialLinearScale, Title, Tooltip, Legend } from "chart.js";
 import { colors } from "common/styles/colors";
 
-ChartJS.register(CategoryScale, LinearScale, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, RadialLinearScale, Title, Tooltip, Legend);
 
 interface PerformanceRadarChartProps {
   maxSpeed: number;
@@ -19,7 +19,6 @@ const PerformanceRadarChart: React.FC<PerformanceRadarChartProps> = ({
   batteryUsage,
   time,
 }) => {
-
   const data = {
     labels: ["Vitesse Max", "Vitesse Moyenne", "Distance", "Utilisation de la Batterie", "Temps"],
     datasets: [
@@ -60,7 +59,7 @@ const PerformanceRadarChart: React.FC<PerformanceRadarChartProps> = ({
           color: colors.neutral700,
         },
         ticks: {
-          color: colors.neutral0,
+          color: colors.neutral700,
         },
         pointLabels: {
           color: colors.neutral0,
