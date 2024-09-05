@@ -24,4 +24,10 @@ export default defineConfig({
       external: ["react/jsx-runtime"]
     },
   },
+  server: {
+    port: 2000,
+    strictPort: true,
+    host: true,
+    origin: "http://0.0.0.0:2000",
+  },
 })
