@@ -1,6 +1,6 @@
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
-import { colors } from 'common/styles/colors';
+import { Line } from "react-chartjs-2";
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
+import { colors } from "common/styles/colors";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -13,12 +13,19 @@ interface RaceStatsChartProps {
   time: number;
 }
 
-const RaceStatsChart: React.FC<RaceStatsChartProps> = ({ distance, maxSpeed, averageSpeed, batteryMax, batteryMin, time }) => {
+const RaceStatsChart: React.FC<RaceStatsChartProps> = ({
+  distance,
+  maxSpeed,
+  averageSpeed,
+  batteryMax,
+  batteryMin,
+  time,
+}) => {
   const data = {
-    labels: ['Distance', 'Max Speed', 'Average Speed', 'Battery Max', 'Battery Min', 'Time'],
+    labels: ["Distance", "Max Speed", "Average Speed", "Battery Max", "Battery Min", "Time"],
     datasets: [
       {
-        label: 'Stats',
+        label: "Stats",
         data: [distance, maxSpeed, averageSpeed, batteryMax, batteryMin, time],
         borderColor: colors.primary500,
         backgroundColor: `${colors.primary500}40`,
@@ -37,7 +44,7 @@ const RaceStatsChart: React.FC<RaceStatsChartProps> = ({ distance, maxSpeed, ave
       },
       title: {
         display: true,
-        text: 'Statistiques Globales de la Course',
+        text: "Statistiques Globales de la Course",
         color: colors.primary500,
         font: { size: 18 },
       },

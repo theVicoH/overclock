@@ -1,8 +1,8 @@
 import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
 import { colors } from 'common/styles/colors';
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
 interface SpeedDistanceBarChartProps {
   dates: string[];
@@ -15,18 +15,16 @@ const SpeedDistanceBarChart: React.FC<SpeedDistanceBarChartProps> = ({ dates, sp
     labels: dates,
     datasets: [
       {
-        label: 'Speed (km/h)',
+        label: 'Vitesse (km/h)',
         data: speeds,
         backgroundColor: colors.primary500,
-        borderColor: colors.primary200,
-        borderWidth: 1,
+        stack: 'stack1',
       },
       {
         label: 'Distance (km)',
         data: distances,
         backgroundColor: colors.orange,
-        borderColor: colors.orange,
-        borderWidth: 1,
+        stack: 'stack2',
       },
     ],
   };
@@ -35,19 +33,25 @@ const SpeedDistanceBarChart: React.FC<SpeedDistanceBarChartProps> = ({ dates, sp
     responsive: true,
     plugins: {
       legend: {
+        position: 'top' as const,
         labels: {
           color: colors.primary500,
         },
       },
       title: {
         display: true,
-        text: 'Distance & Vitesse',
+        text: 'Vitesse et Distance au Fil du Temps',
         color: colors.primary500,
         font: { size: 18 },
       },
     },
     scales: {
       x: {
+        title: {
+          display: true,
+          text: 'Date',
+          color: colors.neutral0,
+        },
         ticks: {
           color: colors.neutral0,
         },
@@ -56,6 +60,11 @@ const SpeedDistanceBarChart: React.FC<SpeedDistanceBarChartProps> = ({ dates, sp
         },
       },
       y: {
+        title: {
+          display: true,
+          text: 'Valeur',
+          color: colors.neutral0,
+        },
         ticks: {
           color: colors.neutral0,
         },

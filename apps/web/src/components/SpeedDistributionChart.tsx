@@ -1,5 +1,5 @@
-import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
+import { Bar } from "react-chartjs-2";
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
 import { colors } from "common/styles/colors";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
@@ -13,7 +13,7 @@ const SpeedDistributionChart: React.FC<SpeedDistributionChartProps> = ({ speeds 
     labels: Array.from({ length: 10 }, (_, i) => `${i * 10}-${(i + 1) * 10} km/h`),
     datasets: [
       {
-        label: 'Distribution de la Vitesse',
+        label: "Distribution de la Vitesse",
         data: Array(10).fill(0).map((_, i) => speeds.filter(s => s >= i * 10 && s < (i + 1) * 10).length),
         backgroundColor: `${colors.primary500}50`,
         borderColor: colors.primary500,
@@ -26,14 +26,14 @@ const SpeedDistributionChart: React.FC<SpeedDistributionChartProps> = ({ speeds 
     responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const,
+        position: "top" as const,
         labels: {
           color: colors.primary500,
         },
       },
       title: {
         display: true,
-        text: 'Distribution de la Vitesse',
+        text: "Distribution de la Vitesse",
         color: colors.primary500,
         font: { size: 18 },
       },
@@ -42,7 +42,7 @@ const SpeedDistributionChart: React.FC<SpeedDistributionChartProps> = ({ speeds 
       x: {
         title: {
           display: true,
-          text: 'Plage de Vitesse (km/h)',
+          text: "Plage de Vitesse (km/h)",
           color: colors.neutral0,
         },
         ticks: {
@@ -55,7 +55,7 @@ const SpeedDistributionChart: React.FC<SpeedDistributionChartProps> = ({ speeds 
       y: {
         title: {
           display: true,
-          text: 'Fréquence',
+          text: "Fréquence",
           color: colors.neutral0,
         },
         ticks: {

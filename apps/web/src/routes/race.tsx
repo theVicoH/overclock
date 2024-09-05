@@ -1,4 +1,3 @@
-// Race.tsx
 import { useFetch } from '@/hooks/useFetch';
 import { RaceDetails } from '@/types/race';
 import RaceDetailsComponent from '../components/RaceDetailsComponent';
@@ -14,11 +13,9 @@ import { HttpMethod } from 'common/services';
 
 // Création de la route
 export const Route = createFileRoute('/race')({
-  validateSearch: (race: Record<string, unknown>) => {
-    return {
-      id: (race?.id as string) || '',
-    };
-  },
+  validateSearch: (race: Record<string, unknown>) => ({
+    id: (race?.id as string) || '',
+  }),
   component: Race,
 });
 
@@ -26,8 +23,13 @@ export default function Race() {
   const { id } = Route.useSearch();
   const state = useFetch<RaceDetails>(`race/${id}`, HttpMethod.GET);
 
-  if (state.status === 'loading') return <div className="text-foreground">Loading...</div>;
-  if (state.status === 'error') return <div className="text-destructive">{state.error}</div>;
+  if (state.status === 'loading') {
+    return <div className="text-foreground">Loading...</div>;
+  }
+
+  if (state.status === 'error') {
+    return <div className="text-destructive">{state.error}</div>;
+  }
 
   if (state.status === 'success') {
     const raceData = state.data?.race_data;

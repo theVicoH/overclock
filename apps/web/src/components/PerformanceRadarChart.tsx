@@ -1,8 +1,8 @@
-import { Radar } from 'react-chartjs-2';
-import { Chart as ChartJS, RadialLinearScale, RadarController, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import { colors } from 'common/styles/colors';
+import { Radar } from "react-chartjs-2";
+import { Chart as ChartJS, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
+import { colors } from "common/styles/colors";
 
-ChartJS.register(RadialLinearScale, RadarController, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, Title, Tooltip, Legend);
 
 interface PerformanceRadarChartProps {
   maxSpeed: number;
@@ -12,16 +12,24 @@ interface PerformanceRadarChartProps {
   time: number;
 }
 
-const PerformanceRadarChart: React.FC<PerformanceRadarChartProps> = ({ maxSpeed, averageSpeed, distance, batteryUsage, time }) => {
+const PerformanceRadarChart: React.FC<PerformanceRadarChartProps> = ({
+  maxSpeed,
+  averageSpeed,
+  distance,
+  batteryUsage,
+  time,
+}) => {
+
   const data = {
-    labels: ['Max Speed (km/h)', 'Average Speed (km/h)', 'Distance (km)', 'Battery Usage (%)', 'Time (s)'],
+    labels: ["Vitesse Max", "Vitesse Moyenne", "Distance", "Utilisation de la Batterie", "Temps"],
     datasets: [
       {
-        label: 'Performance Metrics',
+        label: "Performance",
         data: [maxSpeed, averageSpeed, distance, batteryUsage, time],
-        backgroundColor: colors.primary200,
+        backgroundColor: colors.primary500,
         borderColor: colors.primary500,
-        borderWidth: 2,
+        borderWidth: 1,
+        pointBackgroundColor: colors.primary500,
       },
     ],
   };
@@ -30,14 +38,14 @@ const PerformanceRadarChart: React.FC<PerformanceRadarChartProps> = ({ maxSpeed,
     responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const,
+        position: "top" as const,
         labels: {
           color: colors.primary500,
         },
       },
       title: {
         display: true,
-        text: 'Performance Radar',
+        text: "Performance du Véhicule",
         color: colors.primary500,
         font: { size: 18 },
       },
@@ -51,8 +59,12 @@ const PerformanceRadarChart: React.FC<PerformanceRadarChartProps> = ({ maxSpeed,
         grid: {
           color: colors.neutral700,
         },
-        suggestedMin: 0,
-        suggestedMax: Math.max(maxSpeed, averageSpeed, distance, batteryUsage, time),
+        ticks: {
+          color: colors.neutral0,
+        },
+        pointLabels: {
+          color: colors.neutral0,
+        },
       },
     },
   };
