@@ -21,9 +21,8 @@ const Commandpage = ({ navigation }: CommandPageProps) => {
     socket.onopen = () => {
       console.log("WebSocket connection established.")
     }
-    // TODO se connecter à la voiture et log le typeof(data) pour savoir quoi mettre à la place de any
-    socket.onmessage = (data: MessageEvent<any>) => {
-      console.log("Message from server:", typeof(data))
+    socket.onmessage = (data: MessageEvent<{data: string, isTrusted: boolean}>) => {
+      console.log("Message from server:", data)
     }
     socket.onerror = (error: Event) => {
       console.error("WebSocket error:", error)
