@@ -3,23 +3,16 @@ import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "./rootStackParamList"
 import { NavigationProp } from "@react-navigation/native"
 
+export type ModeSelectionPageNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "ModeSelectionPage"
+>
+
+export type ModeSelectionPageRouteProp = RouteProp<RootStackParamList, "ModeSelectionPage">
+
 export type ManualPageNavigationProp = StackNavigationProp<
   RootStackParamList,
   "ManualPage"
->
-
-export type ManualPageRouteProp = RouteProp<RootStackParamList, "ManualPage">
-
-export type AutoPageConnectNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  "AutoPageConnect"
->
-
-export type AutoPageConnectRouteProp = RouteProp<RootStackParamList, "AutoPageConnect">
-
-export type CommandPageNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  "CommandPage"
 >
 
 export type AutoPageNavigationProp = StackNavigationProp<
@@ -27,22 +20,17 @@ export type AutoPageNavigationProp = StackNavigationProp<
   "AutoPage"
 >
 
-export type ManualPageProps = {
-  navigation: AutoPageConnectNavigationProp
-  route: ManualPageRouteProp
-}
-
 export type AutoPageProps = {
   navigation: AutoPageNavigationProp
 }
 
-export type CommandPageProps = {
-  navigation: CommandPageNavigationProp
+export type ManualPageProps = {
+  navigation: ManualPageNavigationProp
 }
 
-export type AutoPageConnectProps = {
-  navigation: ManualPageNavigationProp
-  route: AutoPageConnectRouteProp
+export type ModeSelectionPageConnectProps = {
+  navigation: ModeSelectionPageNavigationProp
+  route: ModeSelectionPageRouteProp
 }
 
 export type HeaderProps = {
