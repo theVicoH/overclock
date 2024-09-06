@@ -1,4 +1,3 @@
-// RaceDetailsComponent.tsx
 interface RaceDetailsComponentProps {
   name: string;
   vehicleName: string;
