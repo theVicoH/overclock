@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react"
+import { View, StyleSheet } from "react-native"
 import { WS_URL } from "@env"
 import { WebSocketContextType } from "../types/webSockets"
 import { SocketContext } from "../context/socket"
 import Joystick from "../components/Joystick"
 import BuzzerButton from "../widgets/BuzzerButton"
-import { Slider } from "../components/Slider"
+import Header from "../widgets/Header"
+import { colors } from "common/styles"
+import { ManualPageProps } from "../types/navigationProperties"
 
-const Commandpage = () => {
+const ManualPage = ({ navigation }: ManualPageProps) => {
   const [socket, setSocket] = useState<WebSocketContextType>(null)
 
   useEffect(() => {
@@ -31,11 +34,35 @@ const Commandpage = () => {
 
   return (
     <SocketContext.Provider value={socket}>
-      <BuzzerButton />
-      <Slider />
-      <Joystick />
+      <View style={styles.container}>
+        <Header navigation={navigation} />
+        <View style={styles.controls}>
+          <Joystick />
+          <BuzzerButton />
+        </View>
+      </View>
     </SocketContext.Provider>
   )
 }
 
-export default Commandpage;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: colors.neutral1000,
+  },
+  controls: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    paddingHorizontal: 80,
+    paddingBottom: 48
+  }
+})
+
+export default ManualPage;

@@ -114,3 +114,19 @@ func (h *Handler) GetAllVehicle(c fiber.Ctx) error {
 		"data":    vehicle,
 	})
 }
+
+func (h *Handler) GetAllVehicleByRaces(c fiber.Ctx) error {
+	vehicules, err := h.store.GetAllVehicleByRaces()
+
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Error fetching vehicule",
+			"error" : err,
+		})
+	}
+
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+		"message" : "vehicule successfully fetched",
+		"date" : vehicules,
+	})
+}

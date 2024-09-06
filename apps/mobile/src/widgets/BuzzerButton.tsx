@@ -3,6 +3,7 @@ import ActionButton from "../components/ActionButton"
 import { Megaphone } from "common/icons/mobile"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { SocketContext } from "../context/socket"
+import { colors } from "common/styles"
 
 interface BuzzerPayload {
   cmd: number
@@ -23,7 +24,7 @@ const BuzzerButton = () => {
     payload["data"] = [1, intVolume]
     socket.send(JSON.stringify(payload))
   }
-  return <ActionButton icon={<Megaphone />} method={HandleBuzzer} />
+  return <ActionButton icon={<Megaphone stroke={colors.primary600} />} method={HandleBuzzer} />
 }
 
 export default BuzzerButton
