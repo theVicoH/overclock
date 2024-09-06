@@ -77,7 +77,7 @@ def send_alert(client):
 
 def process_frame(frame, model, pid, client):
     """
-    Traite l'image pour détecter des obstacles et un personne parterre.
+    Traite l'image pour détecter des obstacles et traite une situation critique (une personne par terre).
 
     Args:
         frame: Image capturée.
