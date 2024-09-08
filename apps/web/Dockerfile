@@ -9,12 +9,13 @@ COPY pnpm-lock.yaml .
 COPY pnpm-workspace.yaml .
 
 COPY ./apps/web/package.json ./apps/web/
+COPY ./packages/common/package.json ./packages/common/
+
+COPY ./packages/common ./packages/common
 
 RUN pnpm install --filter ./apps/web --no-frozen-lockfile  --prod=false
 
 COPY ./apps/web ./apps/web
-
-COPY ./packages/common ./packages/common
 
 RUN pnpm --filter ./apps/web build
 
