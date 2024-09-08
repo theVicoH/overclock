@@ -10,11 +10,13 @@ COPY pnpm-workspace.yaml .
 
 COPY ./apps/web/package.json ./apps/web/
 
-RUN pnpm install --filter ./apps/web --frozen-lockfile
+RUN pnpm install --filter ./apps/web --frozen-lockfile  --prod=false
 
 COPY ./apps/web ./apps/web
 
-RUN pnpm --filter web run build
+COPY ./packages/common ./packages/common
+
+RUN pnpm --filter ./apps/web build
 
 FROM nginx:alpine
 
