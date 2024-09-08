@@ -23,7 +23,7 @@ export default defineConfig({
     rollupOptions: {
       external: ["react/jsx-runtime"]
     },
-    outDir: 'build',
+    outDir: "build",
   },
   server: {
     port: 2000,
