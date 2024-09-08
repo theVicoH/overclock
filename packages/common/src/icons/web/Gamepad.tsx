@@ -1,5 +1,5 @@
-import type { SVGProps } from "react"
-const SvgGamepad = ({
+import React, { type SVGProps } from "react"
+const SvgGamepad: React.FC = ({
   width = 16,
   height = 16,
   fill = "none",

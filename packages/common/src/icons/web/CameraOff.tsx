@@ -1,5 +1,5 @@
-import type { SVGProps } from "react"
-const SvgCameraOff = ({
+import React, { type SVGProps } from "react"
+const SvgCameraOff: React.FC = ({
   width = 16,
   height = 16,
   fill = "none",

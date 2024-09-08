@@ -1,5 +1,5 @@
-import type { SVGProps } from "react"
-const SvgMegaphone = ({
+import React, { type SVGProps } from "react"
+const SvgMegaphone: React.FC = ({
   width = 16,
   height = 16,
   fill = "none",

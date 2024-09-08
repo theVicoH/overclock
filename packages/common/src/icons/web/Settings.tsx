@@ -1,5 +1,5 @@
-import type { SVGProps } from "react"
-const SvgSettings = ({
+import React, { type SVGProps } from "react"
+const SvgSettings: React.FC = ({
   width = 16,
   height = 16,
   fill = "none",
