@@ -1,12 +1,6 @@
 name: CI Web
 
 on:
-  pull_request:
-    paths:
-      - "apps/web/**"
-    types:
-      - opened
-      - reopened
   push:
     paths:
       - "apps/web/**"

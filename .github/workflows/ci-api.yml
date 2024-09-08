@@ -1,12 +1,6 @@
 name: CI API
 
 on:
-  pull_request:
-    paths:
-      - "apps/api/**"
-    types:
-      - opened
-      - reopened
   push:
     paths:
       - "apps/api/**"
