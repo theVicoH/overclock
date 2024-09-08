@@ -1,6 +1,6 @@
-import { Scatter } from 'react-chartjs-2';
-import { Chart as ChartJS, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
-import { colors } from 'common/styles/colors';
+import { Scatter } from "react-chartjs-2";
+import { Chart as ChartJS, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
+import { colors } from "common/styles/colors";
 
 ChartJS.register(PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
@@ -13,7 +13,7 @@ const SpeedBatteryScatterChart: React.FC<SpeedBatteryScatterChartProps> = ({ spe
   const data = {
     datasets: [
       {
-        label: 'Vitesse vs Batterie',
+        label: "Vitesse vs Batterie",
         data: speeds.map((speed, index) => ({ x: speed, y: battery[index] })),
         backgroundColor: colors.primary500,
         borderColor: colors.primary500,
@@ -27,14 +27,14 @@ const SpeedBatteryScatterChart: React.FC<SpeedBatteryScatterChartProps> = ({ spe
     responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const,
+        position: "top" as const,
         labels: {
           color: colors.primary500,
         },
       },
       title: {
         display: true,
-        text: 'Vitesse vs Batterie',
+        text: "Vitesse vs Batterie",
         color: colors.primary500,
         font: { size: 18 },
       },
@@ -43,7 +43,7 @@ const SpeedBatteryScatterChart: React.FC<SpeedBatteryScatterChartProps> = ({ spe
       x: {
         title: {
           display: true,
-          text: 'Vitesse (km/h)',
+          text: "Vitesse (km/h)",
           color: colors.neutral0,
         },
         ticks: {
@@ -56,7 +56,7 @@ const SpeedBatteryScatterChart: React.FC<SpeedBatteryScatterChartProps> = ({ spe
       y: {
         title: {
           display: true,
-          text: 'Niveau de Batterie (%)',
+          text: "Niveau de Batterie (%)",
           color: colors.neutral0,
         },
         ticks: {

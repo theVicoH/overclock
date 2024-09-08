@@ -1,6 +1,6 @@
-import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
-import { colors } from 'common/styles/colors';
+import { Bar } from "react-chartjs-2";
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
+import { colors } from "common/styles/colors";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
@@ -15,16 +15,16 @@ const SpeedDistanceBarChart: React.FC<SpeedDistanceBarChartProps> = ({ dates, sp
     labels: dates,
     datasets: [
       {
-        label: 'Vitesse (km/h)',
+        label: "Vitesse (km/h)",
         data: speeds,
         backgroundColor: colors.primary500,
-        stack: 'stack1',
+        stack: "stack1",
       },
       {
-        label: 'Distance (km)',
+        label: "Distance (km)",
         data: distances,
         backgroundColor: colors.orange,
-        stack: 'stack2',
+        stack: "stack2",
       },
     ],
   };
@@ -33,14 +33,14 @@ const SpeedDistanceBarChart: React.FC<SpeedDistanceBarChartProps> = ({ dates, sp
     responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const,
+        position: "top" as const,
         labels: {
           color: colors.primary500,
         },
       },
       title: {
         display: true,
-        text: 'Vitesse et Distance au Fil du Temps',
+        text: "Vitesse et Distance au Fil du Temps",
         color: colors.primary500,
         font: { size: 18 },
       },
@@ -49,7 +49,7 @@ const SpeedDistanceBarChart: React.FC<SpeedDistanceBarChartProps> = ({ dates, sp
       x: {
         title: {
           display: true,
-          text: 'Date',
+          text: "Date",
           color: colors.neutral0,
         },
         ticks: {
@@ -62,7 +62,7 @@ const SpeedDistanceBarChart: React.FC<SpeedDistanceBarChartProps> = ({ dates, sp
       y: {
         title: {
           display: true,
-          text: 'Valeur',
+          text: "Valeur",
           color: colors.neutral0,
         },
         ticks: {

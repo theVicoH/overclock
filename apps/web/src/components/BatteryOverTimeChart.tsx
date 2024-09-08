@@ -1,6 +1,6 @@
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
-import { colors } from 'common/styles/colors';
+import { Line } from "react-chartjs-2";
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
+import { colors } from "common/styles/colors";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
@@ -14,7 +14,7 @@ const BatteryOverTimeChart: React.FC<BatteryOverTimeChartProps> = ({ dates, batt
     labels: dates,
     datasets: [
       {
-        label: 'Niveau de Batterie (%)',
+        label: "Niveau de Batterie (%)",
         data: battery,
         borderColor: colors.primary500,
         backgroundColor: `${colors.primary500}40`,
@@ -28,14 +28,14 @@ const BatteryOverTimeChart: React.FC<BatteryOverTimeChartProps> = ({ dates, batt
     responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const,
+        position: "top" as const,
         labels: {
           color: colors.primary500,
         },
       },
       title: {
         display: true,
-        text: 'Évolution du Niveau de Batterie au Fil du Temps',
+        text: "Évolution du Niveau de Batterie au Fil du Temps",
         color: colors.primary500,
         font: { size: 18 },
       },
@@ -44,7 +44,7 @@ const BatteryOverTimeChart: React.FC<BatteryOverTimeChartProps> = ({ dates, batt
       x: {
         title: {
           display: true,
-          text: 'Date',
+          text: "Date",
           color: colors.neutral0,
         },
         grid: {
@@ -57,7 +57,7 @@ const BatteryOverTimeChart: React.FC<BatteryOverTimeChartProps> = ({ dates, batt
       y: {
         title: {
           display: true,
-          text: 'Niveau de Batterie (%)',
+          text: "Niveau de Batterie (%)",
           color: colors.neutral0,
         },
         grid: {

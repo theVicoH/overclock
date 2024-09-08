@@ -1,6 +1,6 @@
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
-import { colors } from 'common/styles/colors';
+import { Line } from "react-chartjs-2";
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
+import { colors } from "common/styles/colors";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
@@ -14,7 +14,7 @@ const DistanceOverTimeChart: React.FC<DistanceOverTimeChartProps> = ({ dates, di
     labels: dates,
     datasets: [
       {
-        label: 'Distance (km)',
+        label: "Distance (km)",
         data: distances,
         borderColor: colors.primary500,
         backgroundColor: `${colors.primary500}40`,
@@ -28,14 +28,14 @@ const DistanceOverTimeChart: React.FC<DistanceOverTimeChartProps> = ({ dates, di
     responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const,
+        position: "top" as const,
         labels: {
           color: colors.primary500,
         },
       },
       title: {
         display: true,
-        text: 'Distance Parcourue au Fil du Temps',
+        text: "Distance Parcourue au Fil du Temps",
         color: colors.primary500,
         font: { size: 18 },
       },
@@ -44,7 +44,7 @@ const DistanceOverTimeChart: React.FC<DistanceOverTimeChartProps> = ({ dates, di
       x: {
         title: {
           display: true,
-          text: 'Date',
+          text: "Date",
           color: colors.neutral0,
         },
         ticks: {
@@ -57,7 +57,7 @@ const DistanceOverTimeChart: React.FC<DistanceOverTimeChartProps> = ({ dates, di
       y: {
         title: {
           display: true,
-          text: 'Distance (km)',
+          text: "Distance (km)",
           color: colors.neutral0,
         },
         ticks: {
