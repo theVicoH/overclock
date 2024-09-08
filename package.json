@@ -20,6 +20,7 @@
     "test:web": "pnpm --filter web test",
     "test:mobile": "pnpm --filter mobile test",
     "test:common": "pnpm --filter common test",
+    "db": "cd docker && docker-compose up -d",
     "api": "pnpm --filter api dev",
     "mobile": "pnpm --filter mobile dev",
     "web": "pnpm --filter web dev",
