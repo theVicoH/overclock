@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
     "jsx": "react-jsx",
     "target": "ES6",
     "module": "commonjs",
@@ -17,6 +16,7 @@
       "./custom_typings"
     ],
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "skipLibCheck": true
   },
