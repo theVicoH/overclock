@@ -10,7 +10,7 @@ COPY pnpm-workspace.yaml .
 
 COPY ./apps/web/package.json ./apps/web/
 
-RUN pnpm install --filter ./apps/web --frozen-lockfile  --prod=false
+RUN pnpm install --filter ./apps/web --no-frozen-lockfile  --prod=false
 
 COPY ./apps/web ./apps/web
 
