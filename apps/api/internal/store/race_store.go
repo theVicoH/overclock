@@ -2,6 +2,7 @@ package store
 
 import (
 	"Overclock/internal/types"
+	"log"
 	"time"
 
 	"github.com/google/uuid"
@@ -21,14 +22,6 @@ func (s *Store) AddRace(race types.RaceType) (types.RaceType, error) {
 	raceData.Name = race.Name
 
 	if err := s.db.Table("race").Create(&raceData).Error; err != nil {
-		return raceData, err
-	}
-	return raceData, nil
-}
-
-func (s *Store) GetRaceById(id string) (types.RaceType, error) {
-	var raceData types.RaceType
-	if err := s.db.Table("race").Where("id = ?", id).First(&raceData).Error; err != nil {
 		return raceData, err
 	}
 	return raceData, nil
@@ -63,6 +56,7 @@ func (s *Store) GetRaceDetailsByID(raceId uuid.UUID) (*types.RaceDetailsResponse
 		Preload("Sensors").
 		Where("id = ?", raceId).
 		First(&race).Error; err != nil {
+		log.Print("ERRORRRRR =>", err)
 		return nil, err
 	}
 

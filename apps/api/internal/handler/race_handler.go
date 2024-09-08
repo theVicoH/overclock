@@ -42,21 +42,6 @@ func (h *Handler) AddRace(c fiber.Ctx) error {
 	})
 }
 
-func (h *Handler) GetRaceById(c fiber.Ctx) error {
-	id := c.Params("id")
-	race, err := h.store.GetRaceById(id)
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"message": "Error fetching race",
-		})
-	}
-
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": "Race successfully fetched",
-		"data":    race,
-	})
-}
-
 func (h *Handler) DeleteRaceById(c fiber.Ctx) error {
 	id := c.Params("id")
 	race, err := h.store.DeleteRaceById(id)
