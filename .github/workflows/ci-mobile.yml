@@ -1,12 +1,6 @@
 name: CI Mobile
 
 on:
-  pull_request:
-    paths:
-      - "apps/mobile/**"
-    types:
-      - opened
-      - reopened
   push:
     paths:
       - "apps/mobile/**"
