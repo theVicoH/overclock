@@ -22,7 +22,7 @@ const Autopage = ({ navigation }: AutoPageProps) => {
     socket.onopen = () => {
       console.log("WebSocket connection established.")
     }
-    socket.onmessage = (data: MessageEvent<any>) => {
+    socket.onmessage = (data: MessageEvent<Object>) => {
       console.log("Message from server:", data)
     }
     socket.onerror = (error: Event) => {
