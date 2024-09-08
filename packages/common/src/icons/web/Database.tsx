@@ -1,5 +1,5 @@
-import type { SVGProps } from "react"
-const SvgDatabase = ({
+import React, { type SVGProps } from "react"
+const SvgDatabase: React.FC = ({
   width = 16,
   height = 16,
   fill = "none",
