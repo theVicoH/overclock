@@ -1,24 +1,24 @@
-import { Radar } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, RadialLinearScale, Title, Tooltip, Legend } from "chart.js";
-import { colors } from "common/styles/colors";
+import { Radar } from "react-chartjs-2"
+import { Chart as ChartJS, CategoryScale, LinearScale, RadialLinearScale, Title, Tooltip, Legend } from "chart.js"
+import { colors } from "common/styles/colors"
 
-ChartJS.register(CategoryScale, LinearScale, RadialLinearScale, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, RadialLinearScale, Title, Tooltip, Legend)
 
 interface PerformanceRadarChartProps {
-  maxSpeed: number;
-  averageSpeed: number;
-  distance: number;
-  batteryUsage: number;
-  time: number;
+  maxSpeed: number
+  averageSpeed: number
+  distance: number
+  batteryUsage: number
+  time: number
 }
 
-const PerformanceRadarChart: React.FC<PerformanceRadarChartProps> = ({
+export default function PerformanceRadarChart({
   maxSpeed,
   averageSpeed,
   distance,
   batteryUsage,
   time,
-}) => {
+}: PerformanceRadarChartProps) {
   const data = {
     labels: ["Vitesse Max", "Vitesse Moyenne", "Distance", "Utilisation de la Batterie", "Temps"],
     datasets: [
@@ -31,7 +31,7 @@ const PerformanceRadarChart: React.FC<PerformanceRadarChartProps> = ({
         pointBackgroundColor: colors.primary500,
       },
     ],
-  };
+  }
 
   const options = {
     responsive: true,
@@ -66,9 +66,7 @@ const PerformanceRadarChart: React.FC<PerformanceRadarChartProps> = ({
         },
       },
     },
-  };
+  }
 
-  return <Radar data={data} options={options} />;
-};
-
-export default PerformanceRadarChart;
+  return <Radar data={data} options={options} />
+}

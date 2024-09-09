@@ -1,26 +1,26 @@
-import { Line } from "react-chartjs-2";
-import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
-import { colors } from "common/styles/colors";
+import { Line } from "react-chartjs-2"
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js"
+import { colors } from "common/styles/colors"
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, Tooltip, Legend);
+ChartJS.register(LineElement, CategoryScale, LinearScale, Tooltip, Legend)
 
 interface RaceStatsChartProps {
-  distance: number;
-  maxSpeed: number;
-  averageSpeed: number;
-  batteryMax: number;
-  batteryMin: number;
-  time: number;
+  distance: number
+  maxSpeed: number
+  averageSpeed: number
+  batteryMax: number
+  batteryMin: number
+  time: number
 }
 
-const RaceStatsChart: React.FC<RaceStatsChartProps> = ({
+export default function RaceStatsChart({
   distance,
   maxSpeed,
   averageSpeed,
   batteryMax,
   batteryMin,
   time,
-}) => {
+}: RaceStatsChartProps) {
   const data = {
     labels: ["Distance", "Max Speed", "Average Speed", "Battery Max", "Battery Min", "Time"],
     datasets: [
@@ -32,7 +32,7 @@ const RaceStatsChart: React.FC<RaceStatsChartProps> = ({
         borderWidth: 2,
       },
     ],
-  };
+  }
 
   const options = {
     responsive: true,
@@ -67,13 +67,11 @@ const RaceStatsChart: React.FC<RaceStatsChartProps> = ({
         },
       },
     },
-  };
+  }
 
   return (
     <div className="bg-card text-card-foreground p-4 rounded-lg shadow">
       <Line data={data} options={options} />
     </div>
-  );
-};
-
-export default RaceStatsChart;
+  )
+}

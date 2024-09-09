@@ -1,15 +1,15 @@
-import { Line } from "react-chartjs-2";
-import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
-import { colors } from "common/styles/colors";
+import { Line } from "react-chartjs-2"
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js"
+import { colors } from "common/styles/colors"
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
+ChartJS.register(LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend)
 
 interface DistanceOverTimeChartProps {
-  dates: string[];
-  distances: number[];
+  dates: string[]
+  distances: number[]
 }
 
-const DistanceOverTimeChart: React.FC<DistanceOverTimeChartProps> = ({ dates, distances }) => {
+export default function DistanceOverTimeChart({ dates, distances }: DistanceOverTimeChartProps) {
   const data = {
     labels: dates,
     datasets: [
@@ -22,7 +22,7 @@ const DistanceOverTimeChart: React.FC<DistanceOverTimeChartProps> = ({ dates, di
         fill: true,
       },
     ],
-  };
+  }
 
   const options = {
     responsive: true,
@@ -68,9 +68,7 @@ const DistanceOverTimeChart: React.FC<DistanceOverTimeChartProps> = ({ dates, di
         },
       },
     },
-  };
+  }
 
-  return <Line data={data} options={options} />;
-};
-
-export default DistanceOverTimeChart;
+  return <Line data={data} options={options} />
+}
