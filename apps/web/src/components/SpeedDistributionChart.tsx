@@ -1,14 +1,14 @@
-import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
-import { colors } from "common/styles/colors";
+import { Bar } from "react-chartjs-2"
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js"
+import { colors } from "common/styles/colors"
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
+ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend)
 
 interface SpeedDistributionChartProps {
-  speeds: number[];
+  speeds: number[]
 }
 
-const SpeedDistributionChart: React.FC<SpeedDistributionChartProps> = ({ speeds }) => {
+export default function SpeedDistributionChart({ speeds }: SpeedDistributionChartProps) {
   const data = {
     labels: Array.from({ length: 10 }, (_, i) => `${i * 10}-${(i + 1) * 10} km/h`),
     datasets: [
@@ -20,7 +20,7 @@ const SpeedDistributionChart: React.FC<SpeedDistributionChartProps> = ({ speeds 
         borderWidth: 1,
       },
     ],
-  };
+  }
 
   const options = {
     responsive: true,
@@ -66,9 +66,7 @@ const SpeedDistributionChart: React.FC<SpeedDistributionChartProps> = ({ speeds 
         },
       },
     },
-  };
+  }
 
-  return <Bar data={data} options={options} />;
-};
-
-export default SpeedDistributionChart;
+  return <Bar data={data} options={options} />
+}
