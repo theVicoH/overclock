@@ -20,9 +20,9 @@ export default defineConfig({
     include: [...configDefaults.include, "**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
   },
   build: {
-    rollupOptions: {
-      external: ["react/jsx-runtime"]
-    },
+    // rollupOptions: {
+    //   external: ["react/jsx-runtime"]
+    // },
     outDir: "build",
   },
   server: {
