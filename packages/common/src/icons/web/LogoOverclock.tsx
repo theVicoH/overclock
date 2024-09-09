@@ -1,7 +1,6 @@
-import * as React from "react"
 import { type SVGProps } from "react"
 
-const SvgLogoOverclock: React.FC = ({
+const SvgLogoOverclock = ({
   width = 20,
   height = 20,
   fill = "none",
