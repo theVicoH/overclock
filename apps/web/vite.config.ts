@@ -11,6 +11,7 @@ export default defineConfig({
     alias: {
       "@": resolve(__dirname, "./src"),
       "common": resolve(__dirname, "../../packages/common/src"),
+      "react/jsx-runtime": resolve(__dirname, "node_modules/react/jsx-runtime.js")
     },
   },
   test: {
