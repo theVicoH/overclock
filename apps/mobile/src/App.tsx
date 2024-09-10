@@ -5,9 +5,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { RootStackParamList } from "./types/rootStackParamList";
 import ManualPage from "./pages/ManualPage";
-import Commandpage from "./pages/Commandpage";
-import AutoPageConnect from "./pages/AutoPageConnect";
 import Autopage from "./pages/AutoPage";
+import ModeSelectionPage from "./pages/ModeSelectionPage";
 
 enableScreens();
 
@@ -33,15 +32,14 @@ function App(): React.JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="ManualPage"
+        initialRouteName="ModeSelectionPage"
         screenOptions={{
           headerShown: false,
           animation: "none",
         }}
       >
+        <Stack.Screen name="ModeSelectionPage" component={ModeSelectionPage} />
         <Stack.Screen name="ManualPage" component={ManualPage} />
-        <Stack.Screen name="AutoPageConnect" component={AutoPageConnect} />
-        <Stack.Screen name="CommandPage" component={Commandpage} />
         <Stack.Screen name="AutoPage" component={Autopage} />
       </Stack.Navigator>
     </NavigationContainer>

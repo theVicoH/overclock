@@ -6,7 +6,7 @@ interface InputComponentProps {
   placeholder: string;
   icon?: React.ReactElement;
   value?: string | number;
-  setValue: Dispatch<React.SetStateAction<any>>;
+  setValue: Dispatch<React.SetStateAction<string>>;
 }
 
 const InputComponent: React.FC<InputComponentProps> = ({
@@ -15,7 +15,7 @@ const InputComponent: React.FC<InputComponentProps> = ({
   setValue,
 }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const inputRef = useRef<any>(null);
+  const inputRef = useRef<TextInput>(null);
 
   const handleChange = (text: string) => {
     setValue(text);

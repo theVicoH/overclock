@@ -1,12 +1,9 @@
 name: CI Mobile
 
 on:
-  pull_request:
+  push:
     paths:
       - "apps/mobile/**"
-    types:
-      - opened
-      - reopened
 
 jobs:
   lint:

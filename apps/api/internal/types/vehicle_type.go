@@ -1,6 +1,10 @@
 package types
 
-import "github.com/google/uuid"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type VehicleType struct {
 	Id   uuid.UUID `json:"id" gorm:"type:uuid;default:gen_random_uuid()"`
@@ -17,4 +21,13 @@ type VehicleUpdateType struct {
 
 func (VehicleType) TableName() string {
 	return "vehicle"
+}
+
+type VehicleByRacesDetailType struct {
+	Id           uuid.UUID `json:"id"`
+	Name         string    `json:"name"`
+	Date         time.Time `json:"date"`
+	Time         int64     `json:"time,omitempty"`
+	SpeedAverage float64   `json:"speed_average,omitempty"`
+	Distance     float64   `json:"distance,omitempty"`
 }

@@ -1,4 +1,4 @@
-const BASE_URL = "http://127.0.0.1:3000"
+const BASE_URL = "https://api.clementpnn.com"
 
 interface ApiResponse<T> {
   data?: T
@@ -35,7 +35,7 @@ export async function http<T>(
     const response = await fetch(url, options)
     const responseData: ApiResponse<T> = await response.json()
     return responseData
-  } catch (error: any) {
+  } catch (error) {
     throw error
   }
 }

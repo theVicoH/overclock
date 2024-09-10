@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -10,11 +11,11 @@ import (
 )
 
 var (
-	host     = "localhost"
-	port     = "5432"
-	dbuser   = "root"
-	password = "root"
-	dbname   = "datas"
+	host     = os.Getenv("DB_HOST")
+	port     = os.Getenv("DB_PORT")
+	dbuser   = os.Getenv("DB_USER")
+	password = os.Getenv("DB_PASSWORD")
+	dbname   = os.Getenv("DB_NAME")
 )
 
 func InitDb() *gorm.DB {
@@ -26,10 +27,10 @@ func InitDb() *gorm.DB {
 		log.Fatal("err : ", err)
 	}
 
-	vehicleIds := SeedVehicle(conn)
-	raceIds := SeedRace(conn, vehicleIds)
-	SeedSensor(conn, raceIds)
-	SeedStatsRace(conn, vehicleIds, raceIds)
+	// vehicleIds := SeedVehicle(conn)
+	// raceIds := SeedRace(conn, vehicleIds)
+	// SeedSensor(conn, raceIds)
+	// SeedStatsRace(conn, vehicleIds, raceIds)
 
 	return conn
 }

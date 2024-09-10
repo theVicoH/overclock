@@ -1,35 +1,47 @@
-import React from "react"
-import { View, StyleSheet, Text } from "react-native"
+import React, { useState, useEffect } from "react"
+import { View, StyleSheet } from "react-native"
+import { WS_URL } from "@env"
+import { WebSocketContextType } from "../types/webSockets"
+import { SocketContext } from "../context/socket"
+import Joystick from "../components/Joystick"
+import BuzzerButton from "../widgets/BuzzerButton"
+import Header from "../widgets/Header"
 import { colors } from "common/styles"
-import ModePicker from "../widgets/ModePicker"
 import { ManualPageProps } from "../types/navigationProperties"
-import Button from "../components/Button"
-import { ButtonIconsPosition, ButtonVariants } from "../types/buttons"
-import { Power, LogoOverclock } from "common/icons/mobile"
 
-const ManualPage: React.FC<ManualPageProps> = ({ navigation, route }) => {
+const ManualPage = ({ navigation }: ManualPageProps) => {
+  const [socket, setSocket] = useState<WebSocketContextType>(null)
+
+  useEffect(() => {
+    const newSocket = new WebSocket(`${WS_URL}`)
+    setSocket(newSocket)
+  }, [])
+
+  if (socket) {
+    socket.onopen = () => {
+      console.log("WebSocket connection established.")
+    }
+    socket.onmessage = (data: MessageEvent<{data: string, isTrusted: boolean}>) => {
+      console.log("Message from server:", data)
+    }
+    socket.onerror = (error: Event) => {
+      console.error("WebSocket error:", error)
+    }
+    socket.onclose = (event: CloseEvent) => {
+      console.log("WebSocket connection closed:", event)
+    }
+  }
+
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.viewSize}>
-          <LogoOverclock stroke={colors.neutral0} />
-        </View>
-        <ModePicker navigation={navigation} route={route} />
-        <View style={styles.viewSize}>
-          <Text></Text>
+    <SocketContext.Provider value={socket}>
+      <View style={styles.container}>
+        <Header navigation={navigation} />
+        <View style={styles.controls}>
+          <Joystick />
+          <BuzzerButton />
         </View>
       </View>
-      <View>
-        <Button
-          variant={ButtonVariants.Primary}
-          onPress={() => navigation.navigate("CommandPage")}
-          icon={<Power stroke={colors.neutral1000} />}
-          iconPosition={ButtonIconsPosition.Left}
-        >
-          Connect
-        </Button>
-      </View>
-    </View>
+    </SocketContext.Provider>
   )
 }
 
@@ -40,21 +52,17 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingBottom: 56,
     backgroundColor: colors.neutral1000,
   },
-  viewSize: {
-    width: 150
-  },
-  header: {
+  controls: {
+    width: "100%",
     display: "flex",
-    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 36,
-    paddingVertical: 16,
-    width: "100%"
+    flexDirection: "row",
+    paddingHorizontal: 80,
+    paddingBottom: 48
   }
 })
 
-export default ManualPage
+export default ManualPage;

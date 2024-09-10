@@ -1,4 +1,5 @@
-import type { SVGProps } from "react"
+import { type SVGProps } from "react"
+
 const SvgArrowsMove = ({
   width = 40,
   height = 40,

@@ -293,7 +293,7 @@ const ButtonPage = () => {
         />
       </View>
 
-      <Text style={styles.text}>Commandpage</Text>
+      <Text style={styles.text}>ManualPage</Text>
     </ScrollView>
   )
 }
