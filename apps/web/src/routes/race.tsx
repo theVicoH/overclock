@@ -45,7 +45,7 @@ export default function Race() {
         />
 
         <div className="bg-card text-card-foreground shadow rounded-lg p-6 mb-6">
-          <h3 className="text-xl font-semibold text-primary">Données des Capteurs</h3>
+          <h3 className="text-xl font-semibold text-primary">Statistiques de la course</h3>
           <div>
             <h4 className="font-semibold">Distance:</h4>
             <p>{sensor.distance.length ? `${sensor.distance[sensor.distance.length - 1]} km` : "Aucune donnée"}</p>
