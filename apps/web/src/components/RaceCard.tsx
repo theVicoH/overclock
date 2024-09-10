@@ -24,7 +24,7 @@ export default function RaceCard({ id, name, vehicle_name, date, distance, speed
       <CardHeader>
         <CardTitle className="text-primary">{name}</CardTitle>
         <CardDescription>
-          <p>Vehicle: {vehicle_name}</p>
+          <p>Vehicule: {vehicle_name}</p>
           <p>Date: {new Date(date).toLocaleDateString()}</p>
         </CardDescription>
       </CardHeader>
