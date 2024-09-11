@@ -2,8 +2,9 @@ package handler
 
 import (
 	"Overclock/internal/store"
-	"github.com/gofiber/contrib/websocket"
 	"log"
+
+	"github.com/gofiber/contrib/websocket"
 )
 
 func NewVideoHandler(store *store.StoreStruct) *Handler {
