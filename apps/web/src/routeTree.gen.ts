@@ -11,10 +11,22 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as VehiclesWithStatsImport } from './routes/vehiclesWithStats'
+import { Route as VehicleImport } from './routes/vehicle'
 import { Route as RaceImport } from './routes/race'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const VehiclesWithStatsRoute = VehiclesWithStatsImport.update({
+  path: '/vehiclesWithStats',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const VehicleRoute = VehicleImport.update({
+  path: '/vehicle',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const RaceRoute = RaceImport.update({
   path: '/race',
@@ -44,12 +56,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RaceImport
       parentRoute: typeof rootRoute
     }
+    '/vehicle': {
+      id: '/vehicle'
+      path: '/vehicle'
+      fullPath: '/vehicle'
+      preLoaderRoute: typeof VehicleImport
+      parentRoute: typeof rootRoute
+    }
+    '/vehiclesWithStats': {
+      id: '/vehiclesWithStats'
+      path: '/vehiclesWithStats'
+      fullPath: '/vehiclesWithStats'
+      preLoaderRoute: typeof VehiclesWithStatsImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({ IndexRoute, RaceRoute })
+export const routeTree = rootRoute.addChildren({
+  IndexRoute,
+  RaceRoute,
+  VehicleRoute,
+  VehiclesWithStatsRoute,
+})
 
 /* prettier-ignore-end */
 
@@ -60,7 +91,9 @@ export const routeTree = rootRoute.addChildren({ IndexRoute, RaceRoute })
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/race"
+        "/race",
+        "/vehicle",
+        "/vehiclesWithStats"
       ]
     },
     "/": {
@@ -68,6 +101,12 @@ export const routeTree = rootRoute.addChildren({ IndexRoute, RaceRoute })
     },
     "/race": {
       "filePath": "race.tsx"
+    },
+    "/vehicle": {
+      "filePath": "vehicle.tsx"
+    },
+    "/vehiclesWithStats": {
+      "filePath": "vehiclesWithStats.tsx"
     }
   }
 }
