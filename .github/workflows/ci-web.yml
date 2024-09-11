@@ -1,12 +1,9 @@
 name: CI Web
 
 on:
-  pull_request:
+  push:
     paths:
       - "apps/web/**"
-    types:
-      - opened
-      - reopened
 
 jobs:
   lint:

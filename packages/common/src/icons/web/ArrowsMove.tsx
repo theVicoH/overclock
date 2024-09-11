@@ -1,5 +1,7 @@
-import type { SVGProps } from "react"
-const SvgArrowsMove = ({
+import * as React from "react"
+import { type SVGProps } from "react"
+
+const SvgArrowsMove: React.FC = ({
   width = 40,
   height = 40,
   fill = "none",

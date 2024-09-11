@@ -1,5 +1,7 @@
-import type { SVGProps } from "react"
-const SvgRunningSolid = ({
+import * as React from "react"
+import { type SVGProps } from "react"
+
+const SvgRunningSolid: React.FC = ({
   width = 16,
   height = 16,
   fill = "none",
