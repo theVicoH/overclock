@@ -32,35 +32,31 @@ type VehicleByRacesDetailType struct {
 	Distance     float64   `json:"distance,omitempty"`
 }
 
-// Représente un véhicule avec ses courses
 type VehicleWithRacesDetailType struct {
-    ID     string              `json:"id"`
-    Name   string              `json:"name"`
-    Races  []RaceDetailType    `json:"races" gorm:"-"`
+	ID    string           `json:"id"`
+	Name  string           `json:"name"`
+	Races []RaceDetailType `json:"races" gorm:"-"`
 }
 
-// Représente les détails d'une course
 type RaceDetailType struct {
-    ID            string    `json:"id"`
-    Name          string    `json:"name"`
-    Date          time.Time `json:"date"`
-    Time          int       `json:"time"`
-    SpeedAverage  float64   `json:"speed_average"`
-    Distance      float64   `json:"distance"`
+	ID           string    `json:"id"`
+	Name         string    `json:"name"`
+	Date         time.Time `json:"date"`
+	Time         int       `json:"time"`
+	SpeedAverage float64   `json:"speed_average"`
+	Distance     float64   `json:"distance"`
 }
 
 type VehicleStatsDetailType struct {
-    ID          string  `json:"id"`
-    Name        string  `json:"name"`
-    MaxSpeed    float64 `json:"max_speed"`
-    MaxDistance float64 `json:"max_distance"`
-    MinTime     int     `json:"min_time"`
+	ID          string  `json:"id"`
+	Name        string  `json:"name"`
+	MaxSpeed    float64 `json:"max_speed"`
+	MaxDistance float64 `json:"max_distance"`
+	MinTime     int     `json:"min_time"`
 }
 
 type VehiculeClassementBySpeedMax struct {
-	ID         string  `json:"id"`
-	Name       string   `json:"name"`
-	MaxSpeed   float32  `json:"max_speed"` 
+	ID       string  `json:"id"`
+	Name     string  `json:"name"`
+	MaxSpeed float32 `json:"max_speed"`
 }
-
-

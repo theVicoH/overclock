@@ -94,7 +94,7 @@ func (v *Store) GetAllVehiclesWithRaces() ([]types.VehicleWithRacesDetailType, e
 func (v *Store) GetVehicleWithRacesById(id uuid.UUID) (types.VehicleWithRacesDetailType, error) {
 	var vehicle types.VehicleWithRacesDetailType
 	var races []types.RaceDetailType
-
+	
 	// Récupérer les détails du véhicule
 	if err := v.db.Table("vehicle").
 		Select("id, name").

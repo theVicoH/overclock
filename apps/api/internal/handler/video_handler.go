@@ -3,7 +3,6 @@ package handler
 import (
 	"Overclock/internal/store"
 	"log"
-
 	"github.com/gofiber/contrib/websocket"
 )
 

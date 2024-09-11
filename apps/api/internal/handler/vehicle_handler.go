@@ -3,8 +3,9 @@ package handler
 import (
 	"Overclock/internal/store"
 	"Overclock/internal/types"
-	"github.com/google/uuid"
+
 	"github.com/gofiber/fiber/v3"
+	"github.com/google/uuid"
 )
 
 func NewVehicleHandler(store *store.StoreStruct) *Handler {
@@ -145,13 +146,13 @@ func (h *Handler) GetVehicleWithRacesById(c fiber.Ctx) error {
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Error fetching vehicule",
-			"error" : err,
+			"error":   err,
 		})
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"message" : "vehicule successfully fetched",
-		"date" : vehicule,
+		"message": "vehicule successfully fetched",
+		"date":    vehicule,
 	})
 }
 
@@ -161,13 +162,13 @@ func (h *Handler) GetVehiclesStats(c fiber.Ctx) error {
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Error fetching vehicule",
-			"error" : err,
+			"error":   err,
 		})
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"message" : "vehicule successfully fetched",
-		"date" : vehicules,
+		"message": "vehicule successfully fetched",
+		"date":    vehicules,
 	})
 }
 
@@ -184,13 +185,13 @@ func (h *Handler) GetVehicleStatsById(c fiber.Ctx) error {
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Error fetching vehicule",
-			"error" : err,
+			"error":   err,
 		})
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"message" : "vehicule successfully fetched",
-		"date" : vehicules,
+		"message": "vehicule successfully fetched",
+		"date":    vehicules,
 	})
 }
 
@@ -200,12 +201,12 @@ func (h *Handler) GetClassementBySpeed(c fiber.Ctx) error {
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Error fetching vehicule",
-			"error" : err,
+			"error":   err,
 		})
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"message" : "vehicule successfully fetched",
-		"date" : vehiculesclassementBySpeed,
+		"message": "vehicule successfully fetched",
+		"date":    vehiculesclassementBySpeed,
 	})
 }
