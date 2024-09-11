@@ -4,6 +4,7 @@ import (
 	"Overclock/internal/types"
 
 	"github.com/gofiber/fiber/v3"
+	"github.com/google/uuid"
 )
 
 type VehicleModelHandler interface {
@@ -12,7 +13,11 @@ type VehicleModelHandler interface {
 	DeleteVehicleById(fiber.Ctx) error
 	UpdateVehicleById(fiber.Ctx) error
 	GetAllVehicle(fiber.Ctx) error
-	GetAllVehicleByRaces(fiber.Ctx) error
+	GetAllVehiclesWithRaces(fiber.Ctx) error
+	GetVehicleWithRacesById(fiber.Ctx) error
+	GetVehiclesStats(fiber.Ctx) error
+	GetVehicleStatsById(fiber.Ctx) error
+	GetClassementBySpeed(fiber.Ctx) error
 }
 
 type VehicleModelStore interface {
@@ -21,5 +26,9 @@ type VehicleModelStore interface {
 	DeleteVehicleById(id string) (bool, error)
 	UpdateVehicleById(id string, vehicleType types.VehicleType) (types.VehicleType, error)
 	GetAllVehicle() ([]types.VehicleType, error)
-	GetAllVehicleByRaces() ([]types.VehicleByRacesDetailType, error)
+	GetAllVehiclesWithRaces() ([]types.VehicleWithRacesDetailType, error)
+	GetVehicleWithRacesById(id uuid.UUID) (types.VehicleWithRacesDetailType, error)
+	GetVehiclesStats() ([]types.VehicleStatsDetailType, error)
+	GetVehicleStatsById(id uuid.UUID) ([]types.VehicleStatsDetailType, error)
+	GetClassementBySpeed() ([]types.VehiculeClassementBySpeedMax, error)
 }
