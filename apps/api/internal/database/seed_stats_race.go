@@ -11,9 +11,9 @@ import (
 
 func SeedStatsRace(db *gorm.DB, vehicleId uuid.UUID, raceIds []uuid.UUID) {
 	for _, stats := range []types.StatsRaceType{
-		{RaceId: raceIds[0], Distance: 45, Time: 60, Date: time.Now(), BatteryMax: 90, BatteryMin: 85, SpeedAverage: 17, SpeedMax: 25},
-		{RaceId: raceIds[1], Distance: 35, Time: 60, Date: time.Now(), BatteryMax: 90, BatteryMin: 85, SpeedAverage: 17, SpeedMax: 25},
-		{RaceId: raceIds[2], Distance: 25, Time: 60, Date: time.Now(), BatteryMax: 90, BatteryMin: 85, SpeedAverage: 17, SpeedMax: 25},
+		{RaceId: raceIds[0], Distance: 45, Time: 60, Date: time.Now(), BatteryMax: 90, BatteryMin: 85, SpeedAverage: 17, SpeedMax: 50},
+		{RaceId: raceIds[1], Distance: 35, Time: 60, Date: time.Now(), BatteryMax: 90, BatteryMin: 85, SpeedAverage: 17, SpeedMax: 50},
+		{RaceId: raceIds[2], Distance: 50, Time: 60, Date: time.Now(), BatteryMax: 90, BatteryMin: 85, SpeedAverage: 17, SpeedMax: 50},
 	} {
 		statsCopy := stats
 		if err := db.Table("stats_race").Create(&statsCopy).Error; err != nil {

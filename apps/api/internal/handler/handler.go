@@ -22,6 +22,7 @@ func CreateHandler(store *store.StoreStruct, client *MQTT.Client) *HandlerStruct
 		StatsRaceHandler:    NewStatsRaceHandler(store, client),
 		VehicleModelHandler: NewVehicleHandler(store),
 		RaceModelHandler:    NewRaceHandler(store),
+		VideoModelHandler:   NewVideoHandler(store),
 	}
 }
 
@@ -30,4 +31,5 @@ type HandlerStruct struct {
 	model.StatsRaceHandler
 	model.VehicleModelHandler
 	model.RaceModelHandler
+	model.VideoModelHandler
 }
