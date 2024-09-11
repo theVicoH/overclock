@@ -97,14 +97,12 @@
     m4_speed = MOTOR_4_DIRECTION * constrain(m4_speed, MOTOR_SPEED_MIN, MOTOR_SPEED_MAX);
     if (m1_speed > 0)
     {
-      m1_speed = constrain(m1_speed, 1600, 4095);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M1_IN1, m1_speed);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M1_IN2, 0);
     }
     else if (m1_speed < 0)
     {
       m1_speed = -m1_speed;
-      m1_speed = constrain(m1_speed, 1600, 4095);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M1_IN1, 0);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M1_IN2, m1_speed);
     }
@@ -115,14 +113,12 @@
     }
     if (m2_speed > 0)
     {
-      m2_speed = constrain(m2_speed, 1600, 4095);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M2_IN1, m2_speed);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M2_IN2, 0);
     }
     else if (m2_speed < 0)
     {
       m2_speed = -m2_speed;
-      m2_speed = constrain(m2_speed, 1600, 4095);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M2_IN1, 0);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M2_IN2, m2_speed);
     }
@@ -133,14 +129,12 @@
     }
     if (m3_speed > 0)
     {
-      m3_speed = constrain(m3_speed, 1600, 4095);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M3_IN1, m3_speed);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M3_IN2, 0);
     }
     else if (m3_speed < 0)
     {
       m3_speed = -m3_speed;
-      m3_speed = constrain(m3_speed, 1600, 4095);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M3_IN1, 0);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M3_IN2, m3_speed);
     }
@@ -151,14 +145,12 @@
     }
     if (m4_speed > 0)
     {
-      m4_speed = constrain(m4_speed, 1600, 4095);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M4_IN1, m4_speed);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M4_IN2, 0);
     }
     else if (m4_speed < 0)
     {
       m4_speed = -m4_speed;
-      m4_speed = constrain(m4_speed, 1600, 4095);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M4_IN1, 0);
       pca9685.setChannelPulseWidth(PIN_MOTOR_M4_IN2, m4_speed);
     }
@@ -291,10 +283,9 @@
   #define PCF8574_ADDRESS 0x20 // Tracking module IIC address
   #define PCF8574_SDA 13       // Define the SDA pin number
   #define PCF8574_SCL 14       // Define the SCL pin number
-  #define SPEED_LV4 (200)
-  #define SPEED_LV3 (1500)
-  #define SPEED_LV2 (100)
-  #define SPEED_LV1 (50)
+  #define SPEED_LV4 (2500)
+  #define SPEED_LV3 (2500)
+  #define SPEED_LV1 (4000)
 
   unsigned char sensorValue[4] = {0};
   PCF8574 TRACK_SENSOR(PCF8574_ADDRESS);
@@ -314,43 +305,41 @@
     sensorValue[2] = (sensorValue[3] & 0x04) >> 2;  // On the right - 4
   }
 
-  // Track Car
-  void Track_Car(int mode)
+// Track Car
+void Track_Car(int mode)
+{
+  if (mode == 1)
   {
-    if (mode == 1)
+    Track_Read();
+    switch (sensorValue[3])
     {
-      Track_Read();
-       Serial.print("Sensor Value: ");
-       Serial.println(sensorValue[3]);
-      switch (sensorValue[3])
-      {
-        case 1: // 001
-      case 2: // 010
+    case 2: // 010
+    case 5: // 101
+     case 0: // 000
+     case 1: // 001
       case 4: // 100
-      case 5: // 101
-      case 0: // 000
-        Emotion_SetMode(3);
-        Motor_Move(SPEED_LV1, SPEED_LV1, SPEED_LV1, SPEED_LV1); // Move Forward
-        break;
-      case 7: // 111
-        Emotion_SetMode(6);
-        Motor_Move(0,0,0,0); // Stop
-        break;
-      case 3: // 011
-        Emotion_SetMode(4);
-        Motor_Move(-SPEED_LV3, -SPEED_LV3, SPEED_LV4, SPEED_LV4); // Turn Left
-        break;
-      
-      case 6: // 110
-        Emotion_SetMode(5);
-        Motor_Move(SPEED_LV4, SPEED_LV4, -SPEED_LV3, -SPEED_LV3); // Turn Right
-        break;
+      Emotion_SetMode(3);
+      Motor_Move(SPEED_LV1, SPEED_LV1, SPEED_LV1, SPEED_LV1); // Move Forward
+      break;
+    case 7: // 111
+      Emotion_SetMode(6);
+      Motor_Move(0, 0, 0, 0); // Stop
+      break;
+    case 3: // 011
+      Emotion_SetMode(4);
+      Motor_Move(SPEED_LV4, SPEED_LV4, -SPEED_LV3, -SPEED_LV3); // Turn Right
+      break;
+    case 6: // 110
+      Emotion_SetMode(5);
+      Motor_Move(-SPEED_LV3, -SPEED_LV3, SPEED_LV4, SPEED_LV4); // Turn Left
+      break;
 
-      default:
-        break;
-      }
+    default:
+      break;
     }
   }
+}
+
 
   //////////////////////Car drive area////////////////////////////////////////
   int carFlag = 0;
