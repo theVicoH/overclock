@@ -13,12 +13,10 @@ export interface VehicleDetails {
   }
 export interface VehicleStats {
     id: string;
-    distance: number;
-    speedMax: number;
-    speedAverage: number;
-    batteryMax: number;
-    batteryMin: number;
-    time: number;
+    name: string;
+    max_speed: number;
+    max_distance: number;
+    min_time: number;
   }
 
 export interface VehicleWithRaces {
@@ -26,9 +24,17 @@ export interface VehicleWithRaces {
     name: string;
     races: Race[];
   }
-export interface Race {
+  export interface Race {
     id: string;
-    raceName: string;
+    name: string;
     date: string;
-    position: number;
+    time: number;
+    speed_average: number;
+    distance: number;
+  }
+export interface VehicleClassement {
+  id: string;
+  name: string;
+  max_speed: number;
 }
+
