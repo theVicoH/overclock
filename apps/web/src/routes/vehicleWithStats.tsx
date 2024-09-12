@@ -1,4 +1,3 @@
-import React from "react";
 import { useFetch } from "@/hooks/useFetch";
 import { VehicleStats } from "@/types/vehicle";
 import { createFileRoute } from "@tanstack/react-router";
