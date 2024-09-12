@@ -1,9 +1,11 @@
+import React from "react";
 import { useFetch } from "@/hooks/useFetch";
 import { VehicleStats } from "@/types/vehicle";
 import { createFileRoute } from "@tanstack/react-router";
 import { HttpMethod } from "common/services";
+import VehicleStatsCard from "../components/VehicleStatsCard";
 
-function VehiclesWithStats() {
+const VehiclesWithStats: React.FC = () => {
   const state = useFetch<VehicleStats[]>("vehicle/stats", HttpMethod.GET);
 
   if (state.status === "loading") {
@@ -18,23 +20,23 @@ function VehiclesWithStats() {
     return (
       <div>
         <h1>Liste des Véhicules avec Statistiques</h1>
+        <div className="vehicle-list">
         {state.data.map((vehicle: VehicleStats) => (
-          <div key={vehicle.id}>
-            <h2>{vehicle.id}</h2>
-            <p>Distance: {vehicle.distance}</p>
-            <p>Max Speed: {vehicle.speedMax}</p>
-            <p>Average Speed: {vehicle.speedAverage}</p>
-            <p>Max Battery: {vehicle.batteryMax}</p>
-            <p>Min Battery: {vehicle.batteryMin}</p>
-            <p>Time: {vehicle.time}</p>
-          </div>
+          <VehicleStatsCard
+            id={vehicle.id}
+            name={vehicle.name}
+            max_speed={vehicle.max_speed}
+            max_distance={vehicle.max_distance}
+            min_time={vehicle.min_time}
+          />
         ))}
+      </div>
       </div>
     );
   }
 
   return <div>Idle state or no data available</div>;
-}
+};
 
 export const Route = createFileRoute("/vehiclesWithStats")({
   component: VehiclesWithStats,
