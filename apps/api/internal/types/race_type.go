@@ -41,6 +41,10 @@ type RequestType struct {
 	Data RaceUpdateType `json:"data"`
 }
 
+type RaceTestType struct {
+	Data RaceType
+}
+
 type Race struct {
 	Id        uuid.UUID     `json:"id" gorm:"type:uuid;default:gen_random_uuid()"`
 	VehicleId uuid.UUID     `json:"vehicle_id"`
