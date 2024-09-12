@@ -1,43 +1,37 @@
-import React from "react"
-import { View, Text, StyleSheet } from "react-native"
-import { colors } from "common/styles"
-import { ChevronLeft, ChevronRight } from "common/icons/mobile"
-import { ButtonShape, ButtonVariants } from "../types/buttons"
-import IconButton from "../components/IconButton"
-import fontStyles from "../fontStyles"
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { colors } from "common/styles";
+import { ChevronLeft, ChevronRight } from "common/icons/mobile";
+import { ButtonShape, ButtonVariants } from "../types/buttons";
+import IconButton from "../components/IconButton";
+import fontStyles from "../fontStyles";
+import useModeStore from "../stores/useModeStore";
 
-export default function ModePicker({ navigation, route }: any) {
-  const handleNavigation = () => {
-    if (route.name === "ManualPage") {
-      navigation.navigate("AutoPageConnect")
-    } else {
-      navigation.navigate("ManualPage")
-    }
-  }
+export default function ModePicker() {
+  const { mode, toggleMode } = useModeStore();
+
   return (
     <View style={styles.container}>
       <IconButton
         variant={ButtonVariants.Inline}
         shape={ButtonShape.Square}
-        onPress={handleNavigation}
+        onPress={toggleMode}
         icon={<ChevronLeft stroke={colors.neutral0} />}
       />
       <View style={styles.subContainer}>
         <Text style={[styles.title, fontStyles.notoSansRegular]}>Mode</Text>
-        { route.name === "ManualPage" ? (
-          <Text style={[styles.subTitle, fontStyles.notoSansRegular]}>Manual</Text>
-        ) : (
-          <Text style={[styles.subTitle, fontStyles.notoSansRegular]}>Auto</Text>
-        )}
+        <Text style={[styles.subTitle, fontStyles.notoSansRegular]}>
+          {mode}
+        </Text>
       </View>
       <IconButton
         variant={ButtonVariants.Inline}
         shape={ButtonShape.Square}
-        onPress={handleNavigation}
+        onPress={toggleMode} // Change le mode à droite
         icon={<ChevronRight stroke={colors.neutral0} />}
       />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -63,4 +57,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 21,
   },
-})
+});

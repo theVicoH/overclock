@@ -1,12 +1,9 @@
 name: CI API
 
 on:
-  pull_request:
+  push:
     paths:
       - "apps/api/**"
-    types:
-      - opened
-      - reopened
 
 jobs:
   lint:

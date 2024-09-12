@@ -27,9 +27,11 @@ export function useFetch<T>(endpoint: string, method: HttpMethod) {
       try {
         const response = await http<T>(endpoint, method, { signal })
         dispatch({ type: "RESOLVE", data: response.data })
-      } catch (err: any) {
-        if (err.name !== "AbortError") {
+      } catch (err) {
+        if (err instanceof Error && err.name !== "AbortError") {
           dispatch({ type: "REJECT", error: err.message || "Failed to retrieve data" })
+        } else {
+          dispatch({ type: "REJECT", error: "Unknown error occurred" })
         }
       }
     }
