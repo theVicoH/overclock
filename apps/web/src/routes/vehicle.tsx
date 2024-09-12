@@ -1,7 +1,8 @@
 import { useFetch } from "@/hooks/useFetch";
-import { Vehicle } from "@/types/vehicle";
+import { Vehicle } from "@/types/vehicle";  
 import { createFileRoute } from "@tanstack/react-router";
 import { HttpMethod } from "common/services";
+import VehicleCard from "../components/VehicleCard"; // Import du composant VehicleCard
 
 function Vehicles() {
   const state = useFetch<Vehicle[]>("vehicle", HttpMethod.GET);
@@ -18,9 +19,15 @@ function Vehicles() {
     return (
       <div>
         <h1>Liste des Véhicules</h1>
-        {state.data.map((vehicle: Vehicle) => (
-          <div key={vehicle.id}>{vehicle.name}</div>
-        ))}
+        <div className="vehicle-list">
+          {state.data.map((vehicle: Vehicle) => (
+            <VehicleCard
+              key={vehicle.id}
+              id={vehicle.id}
+              name={vehicle.name}
+            />
+          ))}
+        </div>
       </div>
     );
   }
