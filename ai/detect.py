@@ -12,7 +12,7 @@ frame = None
 
 def on_message(client, userdata, msg):
     """
-    Gère les messages MQTT reçus et met à jour les variables d'état.
+    Gère les messages MQTT reçus et met à jour les variables global.
 
     Args:
         client: Instance du client MQTT.
@@ -77,7 +77,7 @@ def send_alert(client):
 
 def process_frame(frame, model, pid, client):
     """
-    Traite l'image pour détecter des obstacles et des personnes tombées.
+    Traite l'image pour détecter des obstacles et traite une situation critique (une personne par terre).
 
     Args:
         frame: Image capturée.
@@ -119,16 +119,23 @@ def process_frame(frame, model, pid, client):
             # Vérifier si la détection correspond à une personne tombée
             if int(cls) == person_class_index and (y2 - y1) > (x2 - x1):
                 person_fallen = True
-
-    if person_fallen:
+                
+    # Envoie une alerte si une personne est tombée
+    if person_fallen and automatic_mode:
         send_alert(client)
 
-    if sonar_distance <= SONAR_THRESHOLD and automatic_mode:
-        send_adjustment_command(client, 1, [0, 0, 0, 0])  # Stop
-    elif obstacle_detected and automatic_mode:
-        send_adjustment_command(client, 1, [control_signal, control_signal, control_signal, control_signal])  # Avoid
-    elif not obstacle_detected and automatic_mode:
-        send_adjustment_command(client, 1, [2000, 2000, 2000, 2000])  # Continue
+    if automatic_mode:
+        if sonar_distance <= SONAR_THRESHOLD:
+            if obstacle_detected:
+                # Priorité à l'évitement si un obstacle est détecté par YOLO
+                send_adjustment_command(client, 1, [control_signal, control_signal, control_signal, control_signal])  # Éviter
+            else:
+                # Arrêt uniquement si aucun obstacle n'est détecté par YOLO
+                send_adjustment_command(client, 1, [0, 0, 0, 0])  # Arrêt immédiat
+        elif obstacle_detected:
+            send_adjustment_command(client, 1, [control_signal, control_signal, control_signal, control_signal])  # Éviter
+        else:
+            send_adjustment_command(client, 1, [2000, 2000, 2000, 2000])  # Continuer
 
 def main():
     """

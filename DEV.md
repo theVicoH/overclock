@@ -10,17 +10,28 @@ This file provides instructions for setting up and running the API, web, and mob
   - [Start the API](#start-the-api)
   - [Start the Web Application](#start-the-web-application)
   - [Start the Mobile Application](#start-the-aobile-application)
-- [Database Migrations](#database-migrations)
-  - [Apply Migrations](#apply-migrations)
-  - [Create a New Migration](#create-a-new-migration)
-  - [Rollback Migrations](#rollback-migrations)
-- [Generate ORM](#generate-orm)
-- [Generate API Documentation](#generate-api-documentation)
 - [Linting the Code](#linting-the-code)
   - [Lint All Code](#lint-all-code)
   - [Lint the API](#lint-the-api)
   - [Lint the Web Application](#lint-the-web-application)
   - [Lint the Mobile Application](#lint-the-mobile-application)
+- [Format the Code](#format-the-code)
+  - [Format All Code](#format-all-code)
+  - [Format the API](#format-the-api)
+  - [Format the Web Application](#format-the-web-application)
+  - [Format the Mobile Application](#format-the-mobile-application)
+- [Type Check the Code](#type-ckeck-the-code)
+  - [Type Check All Code](#type-ckeck-all-code)
+  - [Type Check the API](#type-ckeck-the-api)
+  - [Type Check the Web Application](#type-ckeck-the-web-application)
+  - [Type Check the Mobile Application](#type-ckeck-the-mobile-application)
+- [Test the Code](#test-the-code)
+  - [Test All Code](#test-all-code)
+  - [Test the API](#test-the-api)
+  - [Test the Web Application](#test-the-web-application)
+  - [Test the Mobile Application](#test-the-mobile-application)
+- [Run CI](#run-ci)
+- [Generate common](#generate-common)
 
 ## Prerequisites
 
@@ -30,9 +41,6 @@ Make sure you have the following tools installed:
 - [Docker](https://www.docker.com)
 - [Node.js](https://nodejs.org)
 - [pnpm](https://pnpm.io)
-- [sqlc](https://sqlc.dev)
-- [migrate](https://github.com/golang-migrate/migrate)
-- [swag](https://github.com/swaggo/swag)
 - [golangci-lint](https://golangci-lint.run)
 
 ## Setup
@@ -55,7 +63,7 @@ pnpm install
 
 To start the database, run the following command:
 ```sh
-make db
+pnpm run db
 ```
 
 ### Start Application
@@ -94,38 +102,6 @@ To start the mobile application, run the following command:
 pnpm run mobile
 ```
 
-## Database Migrations
-
-### Apply Migrations
-To apply all database migrations and bring the database schema up to date, run the following command:
-```sh
-make db-up
-```
-
-### Create a New Migration
-To create a new database migration, run the following command and follow the prompts:
-```sh
-make db-migrate
-```
-
-### Rollback Migrations
-To rollback the last set of database migrations, run the following command:
-```sh
-make db-down
-```
-
-## Generate ORM
-To generate the Sqlc ORM for the API, run the following command:
-```sh
-make orm
-```
-
-## Generate API Documentation
-To generate the Swagger documentation for the API, run the following command:
-```sh
-make swag
-```
-
 ## Linting the Code
 
 ### Lint All Code
@@ -158,9 +134,9 @@ To lint the common application code, run the following command:
 pnpm run lint:common
 ```
 
-## Format the Client Code
+## Format the Code
 
-### Format Client Code
+### Format All Code
 To format client code (web, mobile and common), run the following command:
 ```sh
 pnpm run format
@@ -184,41 +160,35 @@ To format the common application code, run the following command:
 pnpm run format:common
 ```
 
-## Type check the Client Code
+## Type Check the Code
 
-### Type check Client Code
+### Type Check All Code
 To type check client code (web, mobile and common), run the following command:
 ```sh
 pnpm run type
 ```
 
-### Type the Web Application
+### Type Check the Web Application
 To type the web application code, run the following command:
 ```sh
 pnpm run type:web
 ```
 
-### Type the Mobile Application
+### Type Check the Mobile Application
 To type the mobile application code, run the following command:
 ```sh
 pnpm run type:mobile
 ```
 
-### Type the Common Application
+### Type Check the Common Application
 To type the common application code, run the following command:
 ```sh
 pnpm run type:common
 ```
 
-## Run Lint + Prettier + Type
-To run the lint, the prettier and the type command run the following command:
-```sh
-pnpm run ci
-```
+## Test the Code
 
-## Test check the Client Code
-
-### Test check Client Code
+### Test All Code
 To test client code (web, mobile and common), run the following command:
 ```sh
 pnpm run test
@@ -240,6 +210,12 @@ pnpm run test:mobile
 To test the common application code, run the following command:
 ```sh
 pnpm run test:common
+```
+
+## Run CI
+To run the lint, the prettier and the type command run the following command:
+```sh
+pnpm run ci
 ```
 
 ## Generate common

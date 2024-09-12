@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	host     = "localhost"
+	host     = "database"
 	port     = "5432"
 	dbuser   = "root"
 	password = "root"
@@ -26,10 +26,10 @@ func InitDb() *gorm.DB {
 		log.Fatal("err : ", err)
 	}
 
-	vehicleIds := SeedVehicle(conn)
-	raceIds := SeedRace(conn, vehicleIds)
-	SeedSensor(conn, raceIds)
-	SeedStatsRace(conn, vehicleIds, raceIds)
+	// vehicleIds := SeedVehicle(conn)
+	// raceIds := SeedRace(conn, vehicleIds)
+	// SeedSensor(conn, raceIds)
+	// SeedStatsRace(conn, vehicleIds, raceIds)
 
 	return conn
 }

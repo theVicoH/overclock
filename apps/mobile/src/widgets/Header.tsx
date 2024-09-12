@@ -6,8 +6,9 @@ import BatteryComponent from "../components/Battery"
 import fontStyles from "../fontStyles"
 import IconButton from "../components/IconButton"
 import { ButtonShape, ButtonVariants } from "../types/buttons"
+import { HeaderProps } from "../types/navigationProperties"
 
-const Header = ({ navigation }: any) => {
+const Header = ({ navigation }: HeaderProps) => {
   const battery = 100
   return (
     <View style={styles.container}>
