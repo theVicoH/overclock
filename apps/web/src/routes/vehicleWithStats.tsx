@@ -30,19 +30,19 @@ export default function VehicleWithStats() {
       <div>
         <h1>Meilleurs Statistiques par véhicule</h1>
         <div className="vehicle-list">
-        {state.data.map((vehicle: VehicleStats) => (
-          <VehicleStatsCard
-            id={vehicle.id}
-            name={vehicle.name}
-            max_speed={vehicle.max_speed}
-            max_distance={vehicle.max_distance}
-            min_time={vehicle.min_time}
-          />
-        ))}
-      </div>
+          {state.data.map((vehicle: VehicleStats) => (
+            <VehicleStatsCard
+              id={vehicle.id}
+              name={vehicle.name}
+              max_speed={vehicle.max_speed}
+              max_distance={vehicle.max_distance}
+              min_time={vehicle.min_time}
+            />
+          ))}
+        </div>
       </div>
     );
- }
+  }
 
   return <div>Idle state or no data available</div>;
 };

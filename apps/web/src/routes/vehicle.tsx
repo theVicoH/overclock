@@ -1,5 +1,5 @@
 import { useFetch } from "@/hooks/useFetch";
-import { Vehicle } from "@/types/vehicle";  
+import { Vehicle } from "@/types/vehicle";
 import { createFileRoute } from "@tanstack/react-router";
 import { HttpMethod } from "common/services";
 import VehicleCard from "../components/VehicleCard"; // Import du composant VehicleCard

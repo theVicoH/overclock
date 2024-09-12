@@ -32,7 +32,7 @@ const VehiclesWithRaces: React.FC = () => {
   return <div>Idle state or no data available</div>;
 };
 
-export const Route = createFileRoute('/vehiclesWithRaces')({
+export const Route = createFileRoute("/vehiclesWithRaces")({
   component: VehiclesWithRaces,
 });
 

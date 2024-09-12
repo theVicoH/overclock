@@ -21,16 +21,16 @@ const VehiclesWithStats: React.FC = () => {
       <div>
         <h1>Liste des Véhicules avec Statistiques</h1>
         <div className="vehicle-list">
-        {state.data.map((vehicle: VehicleStats) => (
-          <VehicleStatsCard
-            id={vehicle.id}
-            name={vehicle.name}
-            max_speed={vehicle.max_speed}
-            max_distance={vehicle.max_distance}
-            min_time={vehicle.min_time}
-          />
-        ))}
-      </div>
+          {state.data.map((vehicle: VehicleStats) => (
+            <VehicleStatsCard
+              id={vehicle.id}
+              name={vehicle.name}
+              max_speed={vehicle.max_speed}
+              max_distance={vehicle.max_distance}
+              min_time={vehicle.min_time}
+            />
+          ))}
+        </div>
       </div>
     );
   }

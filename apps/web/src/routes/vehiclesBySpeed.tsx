@@ -37,7 +37,7 @@ const VehiclesBySpeed: React.FC = () => {
   return <div>Idle state or no data available</div>;
 };
 
-export const Route = createFileRoute('/vehiclesBySpeed')({
+export const Route = createFileRoute("/vehiclesBySpeed")({
   component: VehiclesBySpeed,
 });
 

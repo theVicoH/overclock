@@ -24,7 +24,7 @@ export interface VehicleWithRaces {
     name: string;
     races: Race[];
   }
-  export interface Race {
+export interface Race {
     id: string;
     name: string;
     date: string;
