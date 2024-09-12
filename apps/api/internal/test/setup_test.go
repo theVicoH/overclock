@@ -27,7 +27,7 @@ func setDbMockTest(t *testing.T) (sqlmock.Sqlmock, *gorm.DB) {
 	return mock, gormDB
 }
 
-func setAppTest(t *testing.T) (sqlmock.Sqlmock, *fiber.App) {
+func setAppTest(t *testing.T) (sqlmock.Sqlmock, *fiber.App, *store.StoreStruct, *MockBroker) {
 	app := fiber.New()
 
 	mock, gormDB := setDbMockTest(t)
@@ -39,23 +39,9 @@ func setAppTest(t *testing.T) (sqlmock.Sqlmock, *fiber.App) {
 	mqttHandler := handler.SensorModelHandler
 	broker.SetCallback(mqttHandler.MessageCallback)
 
-	return mock, app
+	return mock, app, storeStruct, broker
 }
 
-func setAppTestBroker(t *testing.T) (sqlmock.Sqlmock, *fiber.App, *MockBroker) {
-	app := fiber.New()
-
-	mock, gormDB := setDbMockTest(t)
-	storeStruct := setStoreTest(gormDB)
-	handler := setHandlerTest(storeStruct)
-	setRouterTest(app, handler)
-
-	broker := NewMockBroker()
-	mqttHandler := handler.SensorModelHandler
-	broker.SetCallback(mqttHandler.MessageCallback)
-
-	return mock, app, broker
-}
 func setStoreTest(gormDB *gorm.DB) *store.StoreStruct {
 	return &store.StoreStruct{
 		RaceModelStore:    store.NewRaceStore(gormDB),

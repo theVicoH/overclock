@@ -18,7 +18,7 @@ import (
 )
 
 func Test_Add_Race_Route_Success(t *testing.T) {
-	mock, app := setAppTest(t)
+	mock, app, _, _ := setAppTest(t)
 
 	raceUUID := uuid.New()
 
@@ -50,7 +50,7 @@ func Test_Add_Race_Route_Success(t *testing.T) {
 }
 
 func Test_Add_Race_Route_Failure(t *testing.T) {
-	mock, app := setAppTest(t)
+	mock, app, _, _ := setAppTest(t)
 
 	raceUUID := uuid.New()
 
@@ -81,7 +81,7 @@ func Test_Add_Race_Route_Failure(t *testing.T) {
 }
 
 func Test_Delete_Race_Route_Success(t *testing.T) {
-	mock, app := setAppTest(t)
+	mock, app, _, _ := setAppTest(t)
 
 	raceUUID := uuid.New()
 
@@ -103,7 +103,7 @@ func Test_Delete_Race_Route_Success(t *testing.T) {
 }
 
 func Test_Delete_Race_Route_Failure(t *testing.T) {
-	mock, app := setAppTest(t)
+	mock, app, _, _ := setAppTest(t)
 
 	raceUUID := uuid.New()
 
@@ -125,7 +125,7 @@ func Test_Delete_Race_Route_Failure(t *testing.T) {
 }
 
 func Test_Get_All_Races_With_Data_Route_Success(t *testing.T) {
-	mock, app := setAppTest(t)
+	mock, app, _, _ := setAppTest(t)
 
 	vehicleName := "Test Vehicle"
 	raceData := types.RacesResponse{
@@ -155,7 +155,7 @@ func Test_Get_All_Races_With_Data_Route_Success(t *testing.T) {
 }
 
 func Test_Get_All_Races_With_Data_Route_Failure(t *testing.T) {
-	mock, app := setAppTest(t)
+	mock, app, _, _ := setAppTest(t)
 
 	mock.ExpectQuery(regexp.QuoteMeta(`SELECT race.*, stats_race.time, stats_race.speed_average, stats_race.distance, stats_race.id IS NOT NULL AS is_finish, vehicle.name AS vehicle_name FROM "race"`)).
 		WillReturnError(gorm.ErrInvalidData)
@@ -172,7 +172,7 @@ func Test_Get_All_Races_With_Data_Route_Failure(t *testing.T) {
 }
 
 func Test_Get_Race_Details_By_Id_Route_Success(t *testing.T) {
-	mock, app := setAppTest(t)
+	mock, app, _, _ := setAppTest(t)
 	raceUUID := uuid.New()
 	vehicleUUID := uuid.New()
 	statsId := uuid.New()
@@ -241,7 +241,7 @@ func Test_Get_Race_Details_By_Id_Route_Success(t *testing.T) {
 }
 
 func Test_Get_Race_Details_By_Id_Route_Failure(t *testing.T) {
-	mock, app := setAppTest(t)
+	mock, app, _, _ := setAppTest(t)
 	raceUUID := uuid.New()
 	vehicleUUID := uuid.New()
 	statsId := uuid.New()

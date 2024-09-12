@@ -16,7 +16,7 @@ import (
 )
 
 func Test_Add_Vehicle_Route_Success(t *testing.T) {
-	mock, app := setAppTest(t)
+	mock, app, _, _ := setAppTest(t)
 
 	raceUUID := uuid.New()
 
@@ -47,7 +47,7 @@ func Test_Add_Vehicle_Route_Success(t *testing.T) {
 }
 
 func Test_Add_Vehicle_Route_Failure(t *testing.T) {
-	mock, app := setAppTest(t)
+	mock, app, _, _ := setAppTest(t)
 
 	mock.ExpectBegin()
 	mock.ExpectQuery(regexp.QuoteMeta(`INSERT INTO "vehicle" ("name") VALUES ($1) RETURNING "id"`)).
@@ -75,7 +75,7 @@ func Test_Add_Vehicle_Route_Failure(t *testing.T) {
 }
 
 func Test_Delete_Vehicle_Route_Success(t *testing.T) {
-	mock, app := setAppTest(t)
+	mock, app, _, _ := setAppTest(t)
 
 	vehicleUUID := uuid.New()
 
@@ -97,7 +97,7 @@ func Test_Delete_Vehicle_Route_Success(t *testing.T) {
 }
 
 func Test_Delete_Vehicle_Route_Failure(t *testing.T) {
-	mock, app := setAppTest(t)
+	mock, app, _, _ := setAppTest(t)
 
 	vehicleUUID := uuid.New()
 
