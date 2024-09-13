@@ -32,11 +32,6 @@ func SetRoute(app *fiber.App, handler *handler.HandlerStruct) {
 	vehicleGroup.Delete("/:id", handler.DeleteVehicleById)
 	vehicleGroup.Put("/:id", handler.UpdateVehicleById)
 
-	statsRaceGroup.Delete("/:id", handler.DeleteStatsRaceById)
-	// statsRaceGroup.Get("/", handler.GetAllRace)
-	// statsRaceGroup.Get("/", handler.AddStatsRace)
-	// statsRaceGroup.Put("/:id", handler.UpdateStatsRaceById)
-
 	// videoGroup := app.Group("/video")
 
 	// // // Route pour gérer la connexion WebSocket
