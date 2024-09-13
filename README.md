@@ -18,14 +18,21 @@ In addition, the project integrates artificial intelligence that can detect the 
 
 ## Setting Up Locally
 
-To configure Overclock locally, you will need to clone the repository and configure the following environment variables (in the .env file in apps/api folder):
+To configure Overclock locally, you will need to clone the repository and configure the following environment variables in the .env file in apps/api folder:
 
 ```
-DB_HOST="database"
+DB_HOST="localhost"
 DB_PORT="5432"
 DB_USER="root"
 DB_PASSWORD="root"
 DB_NAME="postgres"
+```
+
+And the .env file in apps/mobile folder:
+
+```
+WS_URL="url"
+WEBSITE_URL="url"
 ```
 
 To run the app locally, you can run the following commands:
@@ -67,11 +74,11 @@ Overclock is built on the following stack:
 
 **Brocker**
 
-- [RabbitMQ](https://www.rabbitmq.com/)
+- [RabbitMQ](https://www.rabbitmq.com/) - MQTT Brocker
 
 **AI**
 
-- [Python](https://www.python.org/)
+- [Python](https://www.python.org/) - Programming Language
 
 **Infrastructure & Deployment:**
 
