@@ -1,15 +1,15 @@
-import { Line } from "react-chartjs-2";
-import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
-import { colors } from "common/styles/colors";
+import { Line } from "react-chartjs-2"
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js"
+import { colors } from "common/styles/colors"
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
+ChartJS.register(LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend)
 
 interface BatteryOverTimeChartProps {
-  dates: string[];
-  battery: number[];
+  dates: string[]
+  battery: number[]
 }
 
-const BatteryOverTimeChart: React.FC<BatteryOverTimeChartProps> = ({ dates, battery }) => {
+export default function BatteryOverTimeChart({ dates, battery }: BatteryOverTimeChartProps) {
   const data = {
     labels: dates,
     datasets: [
@@ -22,7 +22,7 @@ const BatteryOverTimeChart: React.FC<BatteryOverTimeChartProps> = ({ dates, batt
         fill: true,
       },
     ],
-  };
+  }
 
   const options = {
     responsive: true,
@@ -68,9 +68,7 @@ const BatteryOverTimeChart: React.FC<BatteryOverTimeChartProps> = ({ dates, batt
         },
       },
     },
-  };
+  }
 
-  return <Line data={data} options={options} />;
-};
-
-export default BatteryOverTimeChart;
+  return <Line data={data} options={options} />
+}

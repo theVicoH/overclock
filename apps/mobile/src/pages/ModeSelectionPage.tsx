@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { LogoOverclock, Power } from "common/icons/mobile";
 import { colors } from "common/styles";
 import { View, Text, StyleSheet } from "react-native";
@@ -7,15 +7,27 @@ import { ModeSelectionPageConnectProps } from "../types/navigationProperties";
 import ModePicker from "../widgets/ModePicker";
 import Button from "../components/Button";
 import useModeStore from "../stores/useModeStore";
+import { SocketContext } from "../context/socket"
 
 const ModeSelectionPage: React.FC<ModeSelectionPageConnectProps> = ({ navigation }) => {
+  const socket = useContext(SocketContext)
+  // this payload is to set the car on manual mode
+  let payload: { cmd: number, data: number} = {
+    "cmd": 11,
+    "data": 0
+  }
   const { mode } = useModeStore();
 
   const handleConnectPress = () => {
+    if (!socket) return
     if (mode === "Manual") {
       navigation.navigate("ManualPage");
+      socket.send(JSON.stringify(payload))
     } else {
       navigation.navigate("AutoPage");
+      // this payload is to set the car on auto mode
+      payload["data"] = 1
+      socket.send(JSON.stringify(payload))
     }
   };
 

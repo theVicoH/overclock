@@ -1,16 +1,16 @@
-import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
-import { colors } from "common/styles/colors";
+import { Bar } from "react-chartjs-2"
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js"
+import { colors } from "common/styles/colors"
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
+ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend)
 
 interface SpeedDistanceBarChartProps {
-  dates: string[];
-  speeds: number[];
-  distances: number[];
+  dates: string[]
+  speeds: number[]
+  distances: number[]
 }
 
-const SpeedDistanceBarChart: React.FC<SpeedDistanceBarChartProps> = ({ dates, speeds, distances }) => {
+export default function SpeedDistanceBarChart({ dates, speeds, distances }: SpeedDistanceBarChartProps) {
   const data = {
     labels: dates,
     datasets: [
@@ -27,7 +27,7 @@ const SpeedDistanceBarChart: React.FC<SpeedDistanceBarChartProps> = ({ dates, sp
         stack: "stack2",
       },
     ],
-  };
+  }
 
   const options = {
     responsive: true,
@@ -73,9 +73,7 @@ const SpeedDistanceBarChart: React.FC<SpeedDistanceBarChartProps> = ({ dates, sp
         },
       },
     },
-  };
+  }
 
-  return <Bar data={data} options={options} />;
-};
-
-export default SpeedDistanceBarChart;
+  return <Bar data={data} options={options} />
+}

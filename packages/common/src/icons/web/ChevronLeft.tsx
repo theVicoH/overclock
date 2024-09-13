@@ -1,7 +1,6 @@
 import * as React from "react"
-import { type SVGProps } from "react"
-
-const SvgChevronLeft: React.FC = ({
+import type { SVGProps } from "react"
+const SvgChevronLeft = ({
   width = 16,
   height = 16,
   fill = "none",

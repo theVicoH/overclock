@@ -1,49 +1,33 @@
-import React, { useState, useEffect } from "react"
-import { View, StyleSheet } from "react-native"
-import { WS_URL } from "@env"
-import { WebSocketContextType } from "../types/webSockets"
-import { SocketContext } from "../context/socket"
-import Joystick from "../components/Joystick"
-import BuzzerButton from "../widgets/BuzzerButton"
-import Header from "../widgets/Header"
-import { colors } from "common/styles"
-import { ManualPageProps } from "../types/navigationProperties"
+import React, { useState } from "react";
+import { View, StyleSheet, Text, SafeAreaView } from "react-native";
+import Joystick from "../components/Joystick";
+import BuzzerButton from "../widgets/BuzzerButton";
+import Header from "../widgets/Header";
+import { colors } from "common/styles";
+import { ManualPageProps } from "../types/navigationProperties";
+import BackgroundVideoComponent from "../components/BackGroundVideo";
 
 const ManualPage = ({ navigation }: ManualPageProps) => {
-  const [socket, setSocket] = useState<WebSocketContextType>(null)
-
-  useEffect(() => {
-    const newSocket = new WebSocket(`${WS_URL}`)
-    setSocket(newSocket)
-  }, [])
-
-  if (socket) {
-    socket.onopen = () => {
-      console.log("WebSocket connection established.")
-    }
-    socket.onmessage = (data: MessageEvent<{data: string, isTrusted: boolean}>) => {
-      console.log("Message from server:", data)
-    }
-    socket.onerror = (error: Event) => {
-      console.error("WebSocket error:", error)
-    }
-    socket.onclose = (event: CloseEvent) => {
-      console.log("WebSocket connection closed:", event)
-    }
-  }
-
+  const [activeVideo, setActiveVideo] = useState<boolean>(false);
   return (
-    <SocketContext.Provider value={socket}>
-      <View style={styles.container}>
-        <Header navigation={navigation} />
+    <BackgroundVideoComponent
+      active={activeVideo}
+      url="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    >
+      <SafeAreaView style={styles.container}>
+        <Header
+          navigation={navigation}
+          activeVideo={activeVideo}
+          setActiveVideo={setActiveVideo}
+        />
         <View style={styles.controls}>
           <Joystick />
           <BuzzerButton />
         </View>
-      </View>
-    </SocketContext.Provider>
-  )
-}
+      </SafeAreaView>
+    </BackgroundVideoComponent>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -52,7 +36,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: colors.neutral1000,
+    backgroundColor: "transparent",
   },
   controls: {
     width: "100%",
@@ -61,8 +45,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     paddingHorizontal: 80,
-    paddingBottom: 48
-  }
-})
+    paddingBottom: 48,
+  },
+});
 
 export default ManualPage;

@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.twig": "html",
+        "functional": "cpp",
+        "random": "cpp"
+    }
+}

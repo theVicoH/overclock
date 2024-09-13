@@ -1,17 +1,27 @@
-import React, { useRef } from "react"
-import { Pressable, Text, StyleSheet, GestureResponderEvent, ViewStyle, TextStyle, View, Animated } from "react-native"
-import fontStyles from "../fontStyles"
-import { colors } from "common/styles"
-import { ButtonVariants, ButtonIconsPosition } from "../types/buttons"
+import React, { useRef } from "react";
+import {
+  Pressable,
+  Text,
+  StyleSheet,
+  GestureResponderEvent,
+  ViewStyle,
+  TextStyle,
+  View,
+  Animated,
+} from "react-native";
+import fontStyles from "../fontStyles";
+import { colors } from "common/styles";
+import { ButtonVariants, ButtonIconsPosition } from "../types/buttons";
 
 type Props = {
-  variant?: ButtonVariants
-  onPress?: (event: GestureResponderEvent) => void
-  disabled?: boolean
-  children: React.ReactNode
-  icon?: React.ReactNode
-  iconPosition?: ButtonIconsPosition.Left | ButtonIconsPosition.Right
-}
+  variant?: ButtonVariants;
+  onPress?: (event: GestureResponderEvent) => void;
+  disabled?: boolean;
+  children?: React.ReactNode;
+  icon?: React.ReactNode;
+  iconPosition?: ButtonIconsPosition.Left | ButtonIconsPosition.Right;
+  fullWidth?: boolean;
+};
 
 const Button: React.FC<Props> = ({
   variant = ButtonVariants.Primary,
@@ -20,71 +30,86 @@ const Button: React.FC<Props> = ({
   children,
   icon,
   iconPosition = ButtonIconsPosition.Left,
+  fullWidth,
 }) => {
-  const scaleValue = useRef(new Animated.Value(1)).current
+  const scaleValue = useRef(new Animated.Value(1)).current;
 
   const handlePressIn = () => {
     Animated.spring(scaleValue, {
       toValue: 0.9,
       useNativeDriver: true,
-    }).start()
-  }
+    }).start();
+  };
 
   const handlePressOut = () => {
     Animated.spring(scaleValue, {
       toValue: 1,
       useNativeDriver: true,
-    }).start()
-  }
+    }).start();
+  };
 
   const getBackgroundStyle = (): ViewStyle => {
     switch (variant) {
       case ButtonVariants.Primary:
-        return disabled ? styles.primaryBackgroundDisabled : styles.primaryBackground
+        return disabled
+          ? styles.primaryBackgroundDisabled
+          : styles.primaryBackground;
       case ButtonVariants.Secondary:
-        return disabled ? styles.secondaryBackgroundDisabled : styles.secondaryBackground
+        return disabled
+          ? styles.secondaryBackgroundDisabled
+          : styles.secondaryBackground;
       case ButtonVariants.Error:
-        return disabled ? styles.errorBackgroundDisabled : styles.errorBackground
+        return disabled
+          ? styles.errorBackgroundDisabled
+          : styles.errorBackground;
       case ButtonVariants.Inline:
-        return disabled ? styles.inlineBackgroundDisabled : styles.inlineBackground
+        return disabled
+          ? styles.inlineBackgroundDisabled
+          : styles.inlineBackground;
       default:
-        return disabled ? styles.primaryBackgroundDisabled : styles.primaryBackground
+        return disabled
+          ? styles.primaryBackgroundDisabled
+          : styles.primaryBackground;
     }
-  }
+  };
 
   const getTextStyle = (): TextStyle => {
     switch (variant) {
       case ButtonVariants.Primary:
-        return styles.textBlack
+        return styles.textBlack;
       case ButtonVariants.Secondary:
-        return styles.textWhite
+        return styles.textWhite;
       case ButtonVariants.Error:
-        return styles.textWhite
+        return styles.textWhite;
       case ButtonVariants.Inline:
-        return styles.textWhite
+        return styles.textWhite;
       default:
-        return styles.textWhite
+        return styles.textWhite;
     }
-  }
+  };
 
   const getPaddingStyle = (): ViewStyle => {
     if (icon) {
       if (iconPosition === ButtonIconsPosition.Left) {
-        return styles.paddingLeftIcon
+        return styles.paddingLeftIcon;
       } else if (iconPosition === ButtonIconsPosition.Right) {
-        return styles.paddingRightIcon
+        return styles.paddingRightIcon;
       }
     }
-    return styles.paddingNoIcon
-  }
+    return styles.paddingNoIcon;
+  };
 
-  const backgroundStyle = getBackgroundStyle()
-  const textStyle = getTextStyle()
-  const paddingStyle = getPaddingStyle()
+  const backgroundStyle = getBackgroundStyle();
+  const textStyle = getTextStyle();
+  const paddingStyle = getPaddingStyle();
 
   return (
     <Pressable
-      style={({ pressed }) => [styles.touchableContainer, pressed && !disabled && { transform: [{ scale: 0.9 }] }]}
+      style={({ pressed }) => [
+        styles.touchableContainer,
+        fullWidth && { width: "100%" },
+        pressed && !disabled && { transform: [{ scale: 0.9 }] },
+      ]}
       onPress={onPress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
@@ -92,21 +117,41 @@ const Button: React.FC<Props> = ({
       role="button"
       aria-disabled={disabled}
     >
-      <Animated.View style={[styles.buttonInnerContainer, { transform: [{ scale: scaleValue }] }]}>
-        <View style={[styles.background, backgroundStyle]} testID="background" />
+      <Animated.View
+        style={[
+          styles.buttonInnerContainer,
+          { transform: [{ scale: scaleValue }] },
+        ]}
+      >
+        <View
+          style={[styles.background, backgroundStyle]}
+          testID="background"
+        />
         <View style={[styles.buttonContent, paddingStyle]}>
           {icon && iconPosition === ButtonIconsPosition.Left && (
-            <View style={[styles.iconLeft, disabled && styles.disabledIcon]}>{icon}</View>
+            <View style={[styles.iconLeft, disabled && styles.disabledIcon]}>
+              {icon}
+            </View>
           )}
-          <Text style={[fontStyles.notoSansSemiBold, textStyle, disabled && styles.disabledText]}>{children}</Text>
+          <Text
+            style={[
+              fontStyles.notoSansSemiBold,
+              textStyle,
+              disabled && styles.disabledText,
+            ]}
+          >
+            {children}
+          </Text>
           {icon && iconPosition === ButtonIconsPosition.Right && (
-            <View style={[styles.iconRight, disabled && styles.disabledIcon]}>{icon}</View>
+            <View style={[styles.iconRight, disabled && styles.disabledIcon]}>
+              {icon}
+            </View>
           )}
         </View>
       </Animated.View>
     </Pressable>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   touchableContainer: {
@@ -202,6 +247,6 @@ const styles = StyleSheet.create({
   iconRight: {
     marginLeft: 4,
   },
-})
+});
 
-export default Button
+export default Button;

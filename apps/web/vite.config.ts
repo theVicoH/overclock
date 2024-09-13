@@ -11,6 +11,7 @@ export default defineConfig({
     alias: {
       "@": resolve(__dirname, "./src"),
       "common": resolve(__dirname, "../../packages/common/src"),
+      "react/jsx-runtime": resolve(__dirname, "node_modules/react/jsx-runtime.js")
     },
   },
   test: {
@@ -20,9 +21,6 @@ export default defineConfig({
     include: [...configDefaults.include, "**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
   },
   build: {
-    rollupOptions: {
-      external: ["react/jsx-runtime"]
-    },
     outDir: "build",
   },
   server: {

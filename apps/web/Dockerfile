@@ -13,6 +13,7 @@ COPY ./packages/common/package.json ./packages/common/
 
 COPY ./packages/common ./packages/common
 
+RUN pnpm install --filter ./packages/common --no-frozen-lockfile  --prod=false
 RUN pnpm install --filter ./apps/web --no-frozen-lockfile  --prod=false
 
 COPY ./apps/web ./apps/web

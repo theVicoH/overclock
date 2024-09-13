@@ -8,23 +8,23 @@ import {
 } from "@/components/ui/card"
 
 interface RaceCardProps {
-  id: string,
-  name: string,
-  vehicle_name: string,
-  date: string,
-  distance: number | undefined,
-  speed_average: number | undefined,
-  time: number | undefined,
+  id: string
+  name: string
+  vehicle_name: string
+  date: string
+  distance: number | undefined
+  speed_average: number | undefined
+  time: number | undefined
   is_finish: boolean
 }
 
-const RaceCard:React.FC<RaceCardProps> = ({ id, name, vehicle_name, date, distance, speed_average, time, is_finish }) => {
+export default function RaceCard({ id, name, vehicle_name, date, distance, speed_average, time, is_finish }: RaceCardProps) {
   return <Link key={id} to="/race" search={{ id: id }}>
     <Card>
       <CardHeader>
         <CardTitle className="text-primary">{name}</CardTitle>
         <CardDescription>
-          <p>Vehicle: {vehicle_name}</p>
+          <p>Vehicule: {vehicle_name}</p>
           <p>Date: {new Date(date).toLocaleDateString()}</p>
         </CardDescription>
       </CardHeader>
@@ -41,5 +41,3 @@ const RaceCard:React.FC<RaceCardProps> = ({ id, name, vehicle_name, date, distan
     </Card>
   </Link>
 }
-
-export default RaceCard

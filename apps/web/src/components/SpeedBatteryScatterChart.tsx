@@ -1,15 +1,15 @@
-import { Scatter } from "react-chartjs-2";
-import { Chart as ChartJS, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js";
-import { colors } from "common/styles/colors";
+import { Scatter } from "react-chartjs-2"
+import { Chart as ChartJS, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from "chart.js"
+import { colors } from "common/styles/colors"
 
-ChartJS.register(PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
+ChartJS.register(PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend)
 
 interface SpeedBatteryScatterChartProps {
-  speeds: number[];
-  battery: number[];
+  speeds: number[]
+  battery: number[]
 }
 
-const SpeedBatteryScatterChart: React.FC<SpeedBatteryScatterChartProps> = ({ speeds, battery }) => {
+export default function SpeedBatteryScatterChart({ speeds, battery }: SpeedBatteryScatterChartProps) {
   const data = {
     datasets: [
       {
@@ -21,7 +21,7 @@ const SpeedBatteryScatterChart: React.FC<SpeedBatteryScatterChartProps> = ({ spe
         pointRadius: 5,
       },
     ],
-  };
+  }
 
   const options = {
     responsive: true,
@@ -67,9 +67,7 @@ const SpeedBatteryScatterChart: React.FC<SpeedBatteryScatterChartProps> = ({ spe
         },
       },
     },
-  };
+  }
 
-  return <Scatter data={data} options={options} />;
-};
-
-export default SpeedBatteryScatterChart;
+  return <Scatter data={data} options={options} />
+}

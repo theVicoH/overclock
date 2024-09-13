@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react"
 import "@testing-library/jest-dom"
 
-const FontImport: React.FC = () => {
+const FontImport = () => {
   return (
     <div>
       <div className="font-dsDigital" style={{ fontFamily: "DSDigitalBold" }}>

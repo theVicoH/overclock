@@ -5,6 +5,7 @@ import (
 	"Overclock/internal/types"
 
 	"github.com/gofiber/fiber/v3"
+	"github.com/google/uuid"
 )
 
 func NewVehicleHandler(store *store.StoreStruct) *Handler {
@@ -115,8 +116,8 @@ func (h *Handler) GetAllVehicle(c fiber.Ctx) error {
 	})
 }
 
-func (h *Handler) GetAllVehicleByRaces(c fiber.Ctx) error {
-	vehicules, err := h.store.GetAllVehicleByRaces()
+func (h *Handler) GetAllVehiclesWithRaces(c fiber.Ctx) error {
+	vehicules, err := h.store.GetAllVehiclesWithRaces()
 
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -127,6 +128,85 @@ func (h *Handler) GetAllVehicleByRaces(c fiber.Ctx) error {
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "vehicule successfully fetched",
-		"date":    vehicules,
+		"data":    vehicules,
+	})
+}
+
+func (h *Handler) GetVehicleWithRacesById(c fiber.Ctx) error {
+	idStr := c.Params("id")
+	id, err := uuid.Parse(idStr)
+
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid UUID format",
+		})
+	}
+	vehicule, err := h.store.GetVehicleWithRacesById(id)
+
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Error fetching vehicule",
+			"error":   err,
+		})
+	}
+
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+		"message": "vehicule successfully fetched",
+		"data":    vehicule,
+	})
+}
+
+func (h *Handler) GetVehiclesStats(c fiber.Ctx) error {
+	vehicules, err := h.store.GetVehiclesStats()
+
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Error fetching vehicule",
+			"error":   err,
+		})
+	}
+
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+		"message": "vehicule successfully fetched",
+		"data":    vehicules,
+	})
+}
+
+func (h *Handler) GetVehicleStatsById(c fiber.Ctx) error {
+	idStr := c.Params("id")
+	id, err := uuid.Parse(idStr)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid UUID format",
+		})
+	}
+	vehicules, err := h.store.GetVehicleStatsById(id)
+
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Error fetching vehicule",
+			"error":   err,
+		})
+	}
+
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+		"message": "vehicule successfully fetched",
+		"data":    vehicules,
+	})
+}
+
+func (h *Handler) GetClassementBySpeed(c fiber.Ctx) error {
+	vehiculesclassementBySpeed, err := h.store.GetClassementBySpeed()
+
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Error fetching vehicule",
+			"error":   err,
+		})
+	}
+
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+		"message": "vehicule successfully fetched",
+		"data":    vehiculesclassementBySpeed,
 	})
 }

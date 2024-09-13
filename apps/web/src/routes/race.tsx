@@ -43,28 +43,31 @@ export default function Race() {
           vehicleName={raceData?.vehicle_name || "Véhicule non disponible"}
           date={raceData?.date || "Date non disponible"}
         />
-
         <div className="bg-card text-card-foreground shadow rounded-lg p-6 mb-6">
-          <h3 className="text-xl font-semibold text-primary">Données des Capteurs</h3>
+          <h3 className="text-xl font-semibold text-primary">Statistiques de la course</h3>
           <div>
             <h4 className="font-semibold">Distance:</h4>
-            <p>{sensor.distance.length ? `${sensor.distance[sensor.distance.length - 1]} km` : "Aucune donnée"}</p>
+            <p>{stats?.Distance ? `${stats.Distance} km` : "Aucune donnée"}</p>
           </div>
           <div>
-            <h4 className="font-semibold">Vitesse:</h4>
-            <p>{sensor.speed.length ? `${sensor.speed[sensor.speed.length - 1]} km/h` : "Aucune donnée"}</p>
+            <h4 className="font-semibold">Vitesse Max:</h4>
+            <p>{stats?.SpeedMax ? `${stats.SpeedMax} km/h` : "Aucune donnée"}</p>
           </div>
           <div>
-            <h4 className="font-semibold">Batterie:</h4>
-            <p>{sensor.battery.length ? `${sensor.battery[sensor.battery.length - 1]}%` : "Aucune donnée"}</p>
+            <h4 className="font-semibold">Vitesse Moyenne:</h4>
+            <p>{stats?.SpeedAverage ? `${stats.SpeedAverage} km/h` : "Aucune donnée"}</p>
           </div>
           <div>
-            <h4 className="font-semibold">Trajet:</h4>
-            <p>{sensor.track.length ? `Trajet ${sensor.track[sensor.track.length - 1]}` : "Aucun trajet"}</p>
+            <h4 className="font-semibold">Batterie Max:</h4>
+            <p>{stats?.BatteryMax ? `${stats.BatteryMax}%` : "Aucune donnée"}</p>
           </div>
           <div>
-            <h4 className="font-semibold">Dates:</h4>
-            <p>{sensor.date.length ? new Date(sensor.date[sensor.date.length - 1]).toLocaleString() : "Aucune date"}</p>
+            <h4 className="font-semibold">Batterie Min:</h4>
+            <p>{stats?.BatteryMin ? `${stats.BatteryMin}%` : "Aucune donnée"}</p>
+          </div>
+          <div>
+            <h4 className="font-semibold">Temps:</h4>
+            <p>{stats?.Time ? `${stats.Time} minutes` : "Aucune donnée"}</p>
           </div>
         </div>
 

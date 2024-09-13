@@ -5,14 +5,15 @@ import { colors } from "common/styles";
 interface InputComponentProps {
   placeholder: string;
   icon?: React.ReactElement;
-  value?: string | number;
-  setValue: Dispatch<React.SetStateAction<string>>;
+  value?: string | undefined;
+  setValue: Dispatch<React.SetStateAction<any>>;
 }
 
 const InputComponent: React.FC<InputComponentProps> = ({
   placeholder,
   icon,
   setValue,
+  value,
 }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const inputRef = useRef<TextInput>(null);
@@ -42,6 +43,7 @@ const InputComponent: React.FC<InputComponentProps> = ({
           onBlur={() => setIsFocused(false)}
           onChangeText={(text) => handleChange(text)}
           style={styles.input}
+          value={value}
         />
         {icon && <View style={styles.icon}>{icon}</View>}
       </View>
