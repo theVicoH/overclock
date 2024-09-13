@@ -8,7 +8,6 @@ import (
 	"net/http/httptest"
 	"regexp"
 	"testing"
-	"time"
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/google/uuid"
@@ -118,7 +117,6 @@ func Test_Delete_Vehicle_Route_Failure(t *testing.T) {
 	err = mock.ExpectationsWereMet()
 	assert.NoError(t, err)
 }
-
 
 func Test_Get_Vehicle_By_Id_Success(t *testing.T) {
 	mock, app, _, _ := setAppTest(t)
