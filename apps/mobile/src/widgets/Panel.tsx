@@ -26,6 +26,14 @@ const LED = [
   {
     color: "White",
     rgb: [255, 255, 255]
+  },
+  {
+    color: "Purple",
+    rgb: [255, 0, 255]
+  },
+  {
+    color: "Cyan",
+    rgb: [0, 255, 255]
   }
 ]
 
@@ -49,8 +57,8 @@ const Panel = () => {
 
   const handleColorClick = (rgb: number[]) => {
     const payload = {
-      cmd: 6,
-      data: [0, ...rgb],
+      cmd: 5,
+      data: [4095, ...rgb],
     };
 
     if (socket) {
