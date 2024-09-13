@@ -4,7 +4,7 @@ import { Slider as BaseSlider } from "@miblanchard/react-native-slider"
 import { colors } from "common/styles"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-export function Slider() {
+export default function Slider() {
   const [volume, setVolume] = useState(5000)
   const handleValueChange = async (value: number[]) => {
     const newValue = Number(value)

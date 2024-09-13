@@ -10,6 +10,7 @@ import ModeSelectionPage from "./pages/ModeSelectionPage";
 import { WS_URL } from "@env"
 import { WebSocketContextType } from "./types/webSockets"
 import { SocketContext } from "./context/socket"
+import "react-native-svg"
 
 enableScreens();
 
