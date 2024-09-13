@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router"
 
-// import { fetchData } from "common/services"
 import { useFetch } from "../hooks/useFetch"
 import { Races } from "@/types/race"
 import { HttpMethod } from "common/services"
@@ -13,19 +12,6 @@ export const Route = createFileRoute("/")({
 
 export default function Index() {
   const state = useFetch<Races[]>("race", HttpMethod.GET)
-
-  // useEffect(() => {
-  //   const fetchDataFromAPI = async () => {
-  //     try {
-  //       const result = await fetchData()
-  //       console.log(result)
-  //     } catch (error) {
-  //       console.error(error)
-  //     }
-  //   }
-
-  //   fetchDataFromAPI()
-  // }, [])
 
   if (state.status === "loading") return <div>Loading...</div>
   if (state.status === "error") return <div>{state.error}</div>
