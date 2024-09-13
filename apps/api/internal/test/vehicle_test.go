@@ -8,6 +8,7 @@ import (
 	"net/http/httptest"
 	"regexp"
 	"testing"
+	"time"
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/google/uuid"
@@ -90,7 +91,7 @@ func Test_Delete_Vehicle_Route_Success(t *testing.T) {
 	resp, err := app.Test(req, -1)
 	assert.NoError(t, err)
 
-	assert.Equal(t, http.StatusOK, resp.StatusCode)
+	assert.Equal(t, http.StatusCreated, resp.StatusCode)
 
 	err = mock.ExpectationsWereMet()
 	assert.NoError(t, err)
@@ -112,6 +113,220 @@ func Test_Delete_Vehicle_Route_Failure(t *testing.T) {
 	resp, err := app.Test(req, -1)
 	assert.NoError(t, err)
 
+	assert.Equal(t, http.StatusInternalServerError, resp.StatusCode)
+
+	err = mock.ExpectationsWereMet()
+	assert.NoError(t, err)
+}
+
+func Test_Get_All_Vehicle_By_Races_Success(t *testing.T) {
+	mock, app, _, _ := setAppTest(t)
+
+	rows := sqlmock.NewRows([]string{
+		"id", "name", "model", "time", "date", "speed_average", "distance", "race_name"}).
+		AddRow(uuid.New(), "Vehicle 1", "Model X", 3600, time.Now().Truncate(time.Second), 100.0, 150.0, "Race 1").
+		AddRow(uuid.New(), "Vehicle 2", "Model Y", 4500, time.Now().Truncate(time.Second), 110.0, 160.0, "Race 2")
+
+	mock.ExpectQuery(regexp.QuoteMeta(
+		`SELECT vehicle.*, stats_race.time, stats_race.date, stats_race.speed_average, stats_race.distance, race.name 
+         FROM "vehicle" 
+         LEFT JOIN race ON race.vehicle_id = vehicle.id 
+         LEFT JOIN stats_race ON stats_race.race_id = race.id`)).
+		WillReturnRows(rows)
+
+	req := httptest.NewRequest(http.MethodGet, "/vehicle/details", nil)
+
+	resp, err := app.Test(req, -1)
+	assert.NoError(t, err)
+
+	assert.Equal(t, http.StatusCreated, resp.StatusCode)
+
+	err = mock.ExpectationsWereMet()
+	assert.NoError(t, err)
+}
+func Test_Get_All_Vehicle_By_Races_Failure(t *testing.T) {
+	mock, app, _, _ := setAppTest(t)
+
+	sqlmock.NewRows([]string{
+		"id", "name", "model", "time", "date", "speed_average", "distance", "race_name"}).
+		AddRow(uuid.New(), "Vehicle 1", "Model X", 3600, time.Now().Truncate(time.Second), 100.0, 150.0, "Race 1").
+		AddRow(uuid.New(), "Vehicle 2", "Model Y", 4500, time.Now().Truncate(time.Second), 110.0, 160.0, "Race 2")
+
+	mock.ExpectQuery(regexp.QuoteMeta(
+		`SELECT vehicle.*, stats_race.time, stats_race.date, stats_race.speed_average, stats_race.distance, race.name 
+         FROM "vehicle" 
+         LEFT JOIN race ON race.vehicle_id = vehicle.id 
+         LEFT JOIN stats_race ON stats_race.race_id = race.id`)).
+		WillReturnError(gorm.ErrRecordNotFound)
+
+	req := httptest.NewRequest(http.MethodGet, "/vehicle/details", nil)
+
+	resp, err := app.Test(req, -1)
+	assert.NoError(t, err)
+
+	assert.Equal(t, http.StatusInternalServerError, resp.StatusCode)
+
+	err = mock.ExpectationsWereMet()
+	assert.NoError(t, err)
+}
+
+func Test_Get_Vehicle_By_Id_Success(t *testing.T) {
+	mock, app, _, _ := setAppTest(t)
+
+	vehicleUUID := uuid.New()
+
+	rows := sqlmock.NewRows([]string{"id", "name"}).
+		AddRow(vehicleUUID.String(), "Voiture 1")
+	mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM "vehicle" WHERE id = $1 ORDER BY "vehicle"."id" LIMIT $2`)).
+		WithArgs(vehicleUUID.String(), 1).
+		WillReturnRows(rows)
+
+	req := httptest.NewRequest(http.MethodGet, "/vehicle/"+vehicleUUID.String(), nil)
+
+	resp, err := app.Test(req, -1)
+	assert.NoError(t, err)
+
+	assert.Equal(t, http.StatusCreated, resp.StatusCode)
+
+	err = mock.ExpectationsWereMet()
+	assert.NoError(t, err)
+}
+
+func Test_Get_Vehicle_By_Id_Failure(t *testing.T) {
+	mock, app, _, _ := setAppTest(t)
+
+	vehicleUUID := uuid.New()
+
+	mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM "vehicle" WHERE id = $1 ORDER BY "vehicle"."id" LIMIT $2`)).
+		WithArgs(vehicleUUID.String(), 1).
+		WillReturnError(gorm.ErrRecordNotFound)
+
+	req := httptest.NewRequest(http.MethodGet, "/vehicle/"+vehicleUUID.String(), nil)
+
+	resp, err := app.Test(req, -1)
+	assert.NoError(t, err)
+
+	assert.Equal(t, http.StatusInternalServerError, resp.StatusCode)
+
+	err = mock.ExpectationsWereMet()
+	assert.NoError(t, err)
+}
+
+func Test_Get_All_Vehicle_Success(t *testing.T) {
+	mock, app, _, _ := setAppTest(t)
+
+	vehicleUUID := uuid.New()
+
+	rows := sqlmock.NewRows([]string{"id", "name"}).
+		AddRow(vehicleUUID.String(), "Voiture 1")
+	mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM "vehicle"`)).
+		WillReturnRows(rows)
+
+	req := httptest.NewRequest(http.MethodGet, "/vehicle/", nil)
+
+	resp, err := app.Test(req, -1)
+	assert.NoError(t, err)
+
+	assert.Equal(t, http.StatusCreated, resp.StatusCode)
+
+	err = mock.ExpectationsWereMet()
+	assert.NoError(t, err)
+}
+
+func Test_Get_All_Vehicle_Failure(t *testing.T) {
+	mock, app, _, _ := setAppTest(t)
+
+	mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM "vehicle"`)).
+		WillReturnError(gorm.ErrRecordNotFound)
+
+	req := httptest.NewRequest(http.MethodGet, "/vehicle/", nil)
+
+	resp, err := app.Test(req, -1)
+	assert.NoError(t, err)
+
+	assert.Equal(t, http.StatusInternalServerError, resp.StatusCode)
+
+	err = mock.ExpectationsWereMet()
+	assert.NoError(t, err)
+}
+
+func Test_Update_Vehicle_By_Id_Success(t *testing.T) {
+	mock, app, _, _ := setAppTest(t)
+
+	vehicleUUID := uuid.New()
+
+	vehicle := types.VehicleType{
+		Id:   vehicleUUID,
+		Name: "Ancien nom",
+	}
+
+	rows := sqlmock.NewRows([]string{"id", "name"}).
+		AddRow(vehicle.Id.String(), vehicle.Name)
+	mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM "vehicle" WHERE id = $1 ORDER BY "vehicle"."id" LIMIT $2`)).
+		WithArgs(vehicle.Id.String(), 1).
+		WillReturnRows(rows)
+
+	mock.ExpectBegin()
+
+	mock.ExpectExec(regexp.QuoteMeta(`UPDATE "vehicle" SET "name"=$1 WHERE "id" = $2`)).
+		WithArgs("Nouveau nom", vehicle.Id).
+		WillReturnResult(sqlmock.NewResult(1, 1))
+
+	mock.ExpectCommit()
+
+	requestBody := types.RequestTypeVehicle{
+		Data: types.VehicleUpdateType{Name: "Nouveau nom"},
+	}
+
+	requestBodyJSON, _ := json.Marshal(requestBody)
+
+	req := httptest.NewRequest(http.MethodPut, "/vehicle/"+vehicle.Id.String(), bytes.NewBuffer(requestBodyJSON))
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := app.Test(req)
+
+	assert.NoError(t, err)
+	assert.Equal(t, http.StatusCreated, resp.StatusCode)
+
+	err = mock.ExpectationsWereMet()
+	assert.NoError(t, err)
+}
+func Test_Update_Vehicle_By_Id_Failure(t *testing.T) {
+	mock, app, _, _ := setAppTest(t)
+
+	vehicleUUID := uuid.New()
+
+	vehicle := types.VehicleType{
+		Id:   vehicleUUID,
+		Name: "Ancien nom",
+	}
+
+	rows := sqlmock.NewRows([]string{"id", "name"}).
+		AddRow(vehicle.Id.String(), vehicle.Name)
+	mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM "vehicle" WHERE id = $1 ORDER BY "vehicle"."id" LIMIT $2`)).
+		WithArgs(vehicle.Id.String(), 1).
+		WillReturnRows(rows)
+
+	mock.ExpectBegin()
+
+	mock.ExpectExec(regexp.QuoteMeta(`UPDATE "vehicle" SET "name"=$1 WHERE "id" = $2`)).
+		WithArgs("Nouveau nom", vehicle.Id).
+		WillReturnError(gorm.ErrRecordNotFound)
+
+	mock.ExpectRollback()
+
+	requestBody := types.RequestTypeVehicle{
+		Data: types.VehicleUpdateType{Name: "Nouveau nom"},
+	}
+
+	requestBodyJSON, _ := json.Marshal(requestBody)
+
+	req := httptest.NewRequest(http.MethodPut, "/vehicle/"+vehicle.Id.String(), bytes.NewBuffer(requestBodyJSON))
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := app.Test(req)
+
+	assert.NoError(t, err)
 	assert.Equal(t, http.StatusInternalServerError, resp.StatusCode)
 
 	err = mock.ExpectationsWereMet()

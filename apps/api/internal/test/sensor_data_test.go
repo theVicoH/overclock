@@ -63,7 +63,7 @@ func Test_Add_Sensor_Data_Failure(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func Test_GetSensorDataByRaceId_Success(t *testing.T) {
+func Test_Get_Sensor_Data_By_Race_Id_Success(t *testing.T) {
 	mock, _, store, _ := setAppTest(t)
 
 	raceUUID := uuid.New()

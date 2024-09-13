@@ -69,6 +69,7 @@ func setRouterTest(app *fiber.App, handler *handler.HandlerStruct) {
 	raceGroup.Delete("/:id", handler.DeleteRaceById)  //done
 
 	vehicleGroup := app.Group("/vehicle")
+	vehicleGroup.Get("/details", handler.GetAllVehicleByRaces)
 	vehicleGroup.Get("/:id", handler.GetVehicleById)
 	vehicleGroup.Get("/", handler.GetAllVehicle)
 	vehicleGroup.Post("/", handler.AddVehicle)

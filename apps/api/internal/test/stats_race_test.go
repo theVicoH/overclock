@@ -18,22 +18,34 @@ func Test_Add_Stats_Race_Success(t *testing.T) {
 	raceUUID := uuid.New()
 	sensorUUID := uuid.New()
 
-	// Simulation du début de la transaction
-	mock.ExpectBegin()
+	currentTime := time.Now().Truncate(time.Second)
+
 	rows := sqlmock.NewRows([]string{"id", "race_id", "distance", "speed", "date", "battery", "track"}).
-		AddRow(sensorUUID.String(), raceUUID.String(), 100.0, 120.0, time.Now().Truncate(time.Second), 80.0, 0)
+		AddRow(sensorUUID.String(), raceUUID.String(), 100.0, 120.0, currentTime, 80.0, 0)
 	mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM "sensor_data" WHERE race_id = $1`)).
 		WithArgs(raceUUID.String()).
 		WillReturnRows(rows)
 
-	mock.ExpectExec(regexp.QuoteMeta(`INSERT INTO "stats_race"`)).
-		WithArgs(raceUUID, sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()).
-		WillReturnResult(sqlmock.NewResult(1, 1))
+	mock.ExpectBegin()
+
+	mock.ExpectExec(regexp.QuoteMeta(`INSERT INTO "stats_race" ("race_id","distance","speed_max","speed_average","battery_max","battery_min","time","date") VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING "id"`)).
+		WithArgs(
+			raceUUID.String(),
+			100.0,
+			120.0,
+			120.0,
+			80.0,
+			80.0,
+			0,
+			sqlmock.AnyArg(), // Pour la date, car elle est dynamique
+		).
+		WillReturnResult(sqlmock.NewResult(1, 1)) // Retourner un résultat valide avec LastInsertId
 
 	mock.ExpectCommit()
 
 	req := httptest.NewRequest(http.MethodPost, "/stats_race/"+raceUUID.String(), nil)
 	resp, err := app.Test(req)
+
 	assert.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resp.StatusCode)
 
