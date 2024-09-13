@@ -35,7 +35,3 @@ Base URL (prod): [api.clementpnn.com](api.clementpnn.com)
 
 `/stats_race/` Displays stats of a race<br>
 `/stats_race/?id` Add stats to a race
-
-**MQTT Routes:**
-
-`/` <br>
