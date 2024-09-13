@@ -60,7 +60,11 @@ const BackgroundVideoComponent = ({
   };
 
   if (!active) {
-    return <View style={styles.background}>{children}</View>;
+    return (
+      <View testID="empty-section" style={styles.background}>
+        {children}
+      </View>
+    );
   }
 
   if (active && error) {
@@ -78,7 +82,7 @@ const BackgroundVideoComponent = ({
   return (
     <View style={styles.background}>
       {(isInitialLoading || isBuffering) && (
-        <View style={styles.backgroundIndicator}>
+        <View testID="load-section" style={styles.backgroundIndicator}>
           <Text style={{ marginTop: 40, color: colors.neutral0 }}>
             Chargement...
           </Text>
