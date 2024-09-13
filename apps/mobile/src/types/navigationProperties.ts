@@ -1,38 +1,44 @@
-import { StackNavigationProp } from "@react-navigation/stack"
+import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
-import { RootStackParamList } from "./rootStackParamList"
-import { NavigationProp } from "@react-navigation/native"
+import { RootStackParamList } from "./rootStackParamList";
+import { NavigationProp } from "@react-navigation/native";
+import { Dispatch, SetStateAction } from "react";
 
 export type ModeSelectionPageNavigationProp = StackNavigationProp<
   RootStackParamList,
   "ModeSelectionPage"
->
+>;
 
-export type ModeSelectionPageRouteProp = RouteProp<RootStackParamList, "ModeSelectionPage">
+export type ModeSelectionPageRouteProp = RouteProp<
+  RootStackParamList,
+  "ModeSelectionPage"
+>;
 
 export type ManualPageNavigationProp = StackNavigationProp<
   RootStackParamList,
   "ManualPage"
->
+>;
 
 export type AutoPageNavigationProp = StackNavigationProp<
   RootStackParamList,
   "AutoPage"
->
+>;
 
 export type AutoPageProps = {
-  navigation: AutoPageNavigationProp
-}
+  navigation: AutoPageNavigationProp;
+};
 
 export type ManualPageProps = {
-  navigation: ManualPageNavigationProp
-}
+  navigation: ManualPageNavigationProp;
+};
 
 export type ModeSelectionPageConnectProps = {
-  navigation: ModeSelectionPageNavigationProp
-  route: ModeSelectionPageRouteProp
-}
+  navigation: ModeSelectionPageNavigationProp;
+  route: ModeSelectionPageRouteProp;
+};
 
 export type HeaderProps = {
-  navigation: NavigationProp<RootStackParamList>
-}
+  navigation: NavigationProp<RootStackParamList>;
+  activeVideo: boolean;
+  setActiveVideo: Dispatch<SetStateAction<boolean>>;
+};

@@ -23,7 +23,7 @@ importers:
     devDependencies:
       '@testing-library/jest-dom':
         specifier: ^6.4.5
-        version: 6.4.5(vitest@1.6.0)
+        version: 6.4.5(@jest/globals@27.5.1)(vitest@1.6.0)
       '@testing-library/react':
         specifier: ^16.0.0
         version: 16.0.0(@testing-library/dom@10.1.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
@@ -101,6 +101,9 @@ importers:
       react-native-svg:
         specifier: ^15.3.0
         version: 15.3.0(react-native@0.74.2)(react@18.2.0)
+      react-native-video:
+        specifier: ^6.5.0
+        version: 6.5.0(react-native@0.74.2)(react@18.2.0)
       react-native-web:
         specifier: ^0.19.12
         version: 0.19.12(react-dom@18.3.1)(react@18.2.0)
@@ -131,7 +134,7 @@ importers:
         version: 0.74.84
       '@testing-library/jest-dom':
         specifier: ^6.4.5
-        version: 6.4.5(vitest@1.6.0)
+        version: 6.4.5(@jest/globals@27.5.1)(vitest@1.6.0)
       '@testing-library/jest-native':
         specifier: ^5.4.3
         version: 5.4.3(react-native@0.74.2)(react-test-renderer@18.2.0)(react@18.2.0)
@@ -4786,38 +4789,6 @@ packages:
       vitest: 1.6.0(@types/node@20.14.2)(jsdom@24.1.0)
     dev: true
 
-  /@testing-library/jest-dom@6.4.5(vitest@1.6.0):
-    resolution: {integrity: sha512-AguB9yvTXmCnySBP1lWjfNNUwpbElsaQ567lt2VdGqAdHtpieLgjmcVyv1q7PMIvLbgpDdkWV5Ydv3FEejyp2A==}
-    engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
-    peerDependencies:
-      '@jest/globals': '>= 28'
-      '@types/bun': latest
-      '@types/jest': '>= 28'
-      jest: '>= 28'
-      vitest: '>= 0.32'
-    peerDependenciesMeta:
-      '@jest/globals':
-        optional: true
-      '@types/bun':
-        optional: true
-      '@types/jest':
-        optional: true
-      jest:
-        optional: true
-      vitest:
-        optional: true
-    dependencies:
-      '@adobe/css-tools': 4.4.0
-      '@babel/runtime': 7.24.6
-      aria-query: 5.3.0
-      chalk: 3.0.0
-      css.escape: 1.5.1
-      dom-accessibility-api: 0.6.3
-      lodash: 4.17.21
-      redent: 3.0.0
-      vitest: 1.6.0
-    dev: true
-
   /@testing-library/jest-native@5.4.3(react-native@0.74.2)(react-test-renderer@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-/sSDGaOuE+PJ1Z9Kp4u7PQScSVVXGud59I/qsBFFJvIbcn4P6yYw6cBnBmbPF+X9aRIsTJRDl6gzw5ZkJNm66w==}
     peerDependencies:
@@ -9398,6 +9369,16 @@ packages:
       css-tree: 1.1.3
       react: 18.3.1
       react-native: 0.74.2(@babel/core@7.25.2)(@babel/preset-env@7.24.7)(@types/react@18.3.3)(react@18.3.1)
+    dev: false
+
+  /react-native-video@6.5.0(react-native@0.74.2)(react@18.2.0):
+    resolution: {integrity: sha512-P3FmyQgKigS4BmFG+6heRHzSp591U/Z+Iw08wWmiNsNiyLRa6x8B0ob4wqWTW4QfzsBf80udg1/T2W49KxxzYw==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7)(@types/react@18.3.3)(react@18.2.0)
     dev: false
 
   /react-native-web@0.19.12(react-dom@18.3.1)(react@18.2.0):
