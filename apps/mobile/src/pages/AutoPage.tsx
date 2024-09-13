@@ -9,9 +9,11 @@ import { LogoOverclock } from "common/icons/mobile";
 import { SocketContext } from "../context/socket";
 import { SafeAreaView } from "react-native";
 import BackgroundVideoComponent from "../components/BackGroundVideo";
+import Modal from "../components/Modal";
 
 const Autopage = ({ navigation }: AutoPageProps) => {
   const [activeVideo, setActiveVideo] = useState<boolean>(false);
+  const [activeModal, setActiveModal] = useState<boolean>(false);
   const socket = useContext(SocketContext);
   useEffect(() => {
     return () => {
@@ -22,28 +24,31 @@ const Autopage = ({ navigation }: AutoPageProps) => {
     };
   }, []);
   return (
-    <BackgroundVideoComponent
-      active={activeVideo}
-      url="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-    >
-      <SafeAreaView style={styles.container}>
-        <Header
-          navigation={navigation}
-          activeVideo={activeVideo}
-          setActiveVideo={setActiveVideo}
-        />
-        <View style={styles.controls}>
-          <Button
-            variant={ButtonVariants.Primary}
-            onPress={() => Alert.alert("Starting Auto Mode")}
-            icon={<LogoOverclock stroke={colors.neutral1000} />}
-            iconPosition={ButtonIconsPosition.Left}
-          >
-            Start Auto Mode
-          </Button>
-        </View>
-      </SafeAreaView>
-    </BackgroundVideoComponent>
+    <>
+      <BackgroundVideoComponent
+        active={activeVideo}
+        url="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+      >
+        <SafeAreaView style={styles.container}>
+          <Header
+            navigation={navigation}
+            activeVideo={activeVideo}
+            setActiveVideo={setActiveVideo}
+          />
+          <View style={styles.controls}>
+            <Button
+              variant={ButtonVariants.Primary}
+              onPress={() => setActiveModal(true)}
+              icon={<LogoOverclock stroke={colors.neutral1000} />}
+              iconPosition={ButtonIconsPosition.Left}
+            >
+              Start Auto Mode
+            </Button>
+          </View>
+        </SafeAreaView>
+      </BackgroundVideoComponent>
+      <Modal active={activeModal} setActive={setActiveModal} />
+    </>
   );
 };
 
