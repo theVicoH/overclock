@@ -44,20 +44,18 @@ func setAppTest(t *testing.T) (sqlmock.Sqlmock, *fiber.App, *store.StoreStruct, 
 
 func setStoreTest(gormDB *gorm.DB) *store.StoreStruct {
 	return &store.StoreStruct{
-		RaceModelStore:    store.NewRaceStore(gormDB),
-		VehicleModelStore: store.NewVehicleStore(gormDB),
-		SensorModelStore:  store.NewSenSorDataStore(gormDB),
-		StatsRaceStore:    store.NewStatsRaceStore(gormDB),
+		RaceModelStore:   store.NewRaceStore(gormDB),
+		SensorModelStore: store.NewSenSorDataStore(gormDB),
+		StatsRaceStore:   store.NewStatsRaceStore(gormDB),
 	}
 
 }
 
 func setHandlerTest(store *store.StoreStruct) *handler.HandlerStruct {
 	return &handler.HandlerStruct{
-		SensorModelHandler:  handler.NewSenSorDataHandler(store, nil),
-		RaceModelHandler:    handler.NewRaceHandler(store),
-		VehicleModelHandler: handler.NewVehicleHandler(store),
-		StatsRaceHandler:    handler.NewStatsRaceHandler(store, nil),
+		SensorModelHandler: handler.NewSenSorDataHandler(store, nil),
+		RaceModelHandler:   handler.NewRaceHandler(store),
+		StatsRaceHandler:   handler.NewStatsRaceHandler(store, nil),
 	}
 }
 
@@ -67,13 +65,6 @@ func setRouterTest(app *fiber.App, handler *handler.HandlerStruct) {
 	raceGroup.Get("/", handler.GetAllRacesWithData)   //done
 	raceGroup.Post("/", handler.AddRace)              //done
 	raceGroup.Delete("/:id", handler.DeleteRaceById)  //done
-
-	vehicleGroup := app.Group("/vehicle")
-	vehicleGroup.Get("/:id", handler.GetVehicleById)
-	vehicleGroup.Get("/", handler.GetAllVehicle)
-	vehicleGroup.Post("/", handler.AddVehicle)
-	vehicleGroup.Delete("/:id", handler.DeleteVehicleById)
-	vehicleGroup.Put("/:id", handler.UpdateVehicleById)
 
 	statsRaceGroup := app.Group("/stats_race")
 	statsRaceGroup.Get("/", handler.AddStatsRace)
