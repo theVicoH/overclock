@@ -5,11 +5,13 @@ import BuzzerButton from "../widgets/BuzzerButton"
 import Header from "../widgets/Header"
 import { colors } from "common/styles"
 import { ManualPageProps } from "../types/navigationProperties"
+import Panel from "../widgets/Panel"
 
 const ManualPage = ({ navigation }: ManualPageProps) => {
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
+      <Panel />
       <View style={styles.controls}>
         <Joystick />
         <BuzzerButton />
@@ -34,7 +36,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     paddingHorizontal: 80,
-    paddingBottom: 48
+    paddingBottom: 48,
   }
 })
 
