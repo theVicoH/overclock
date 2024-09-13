@@ -120,7 +120,7 @@ const Modal = ({ active, setActive }: ModalProps) => {
               />
             </View>
             <Button
-              fullWitdh={true}
+              fullWidth={true}
               onPress={() =>
                 createRace("e9f997d8-3530-4c24-b29d-5f77c114861c", value)
               }

@@ -20,7 +20,7 @@ type Props = {
   children?: React.ReactNode;
   icon?: React.ReactNode;
   iconPosition?: ButtonIconsPosition.Left | ButtonIconsPosition.Right;
-  fullWitdh?: boolean;
+  fullWidth?: boolean;
 };
 
 const Button: React.FC<Props> = ({
@@ -30,7 +30,7 @@ const Button: React.FC<Props> = ({
   children,
   icon,
   iconPosition = ButtonIconsPosition.Left,
-  fullWitdh,
+  fullWidth,
 }) => {
   const scaleValue = useRef(new Animated.Value(1)).current;
 
@@ -107,7 +107,7 @@ const Button: React.FC<Props> = ({
     <Pressable
       style={({ pressed }) => [
         styles.touchableContainer,
-        fullWitdh && { width: "100%" },
+        fullWidth && { width: "100%" },
         pressed && !disabled && { transform: [{ scale: 0.9 }] },
       ]}
       onPress={onPress}
