@@ -1,39 +1,51 @@
-import React, { useContext, useEffect } from "react"
-import { View, StyleSheet, Alert } from "react-native"
-import Header from "../widgets/Header"
-import { colors } from "common/styles"
-import { AutoPageProps } from "../types/navigationProperties"
-import Button from "../components/Button"
-import { ButtonIconsPosition, ButtonVariants } from "../types/buttons"
-import { LogoOverclock } from "common/icons/mobile"
-import { SocketContext } from "../context/socket"
+import React, { useContext, useEffect, useState } from "react";
+import { View, StyleSheet, Alert } from "react-native";
+import Header from "../widgets/Header";
+import { colors } from "common/styles";
+import { AutoPageProps } from "../types/navigationProperties";
+import Button from "../components/Button";
+import { ButtonIconsPosition, ButtonVariants } from "../types/buttons";
+import { LogoOverclock } from "common/icons/mobile";
+import { SocketContext } from "../context/socket";
+import { SafeAreaView } from "react-native";
+import BackgroundVideoComponent from "../components/BackGroundVideo";
 
 const Autopage = ({ navigation }: AutoPageProps) => {
-  const socket = useContext(SocketContext)
+  const [activeVideo, setActiveVideo] = useState<boolean>(false);
+  const socket = useContext(SocketContext);
   useEffect(() => {
     return () => {
       if (socket) {
         // on component unmount we set car on manual mode
-        socket.send(JSON.stringify({ "cmd": 11, "data": 0 }))
+        socket.send(JSON.stringify({ cmd: 11, data: 0 }));
       }
-    }
-  }, [])
+    };
+  }, []);
   return (
-    <View style={styles.container}>
-      <Header navigation={navigation} />
-      <View style={styles.controls}>
-        <Button
-          variant={ButtonVariants.Primary}
-          onPress={() => Alert.alert("Starting Auto Mode")}
-          icon={<LogoOverclock stroke={colors.neutral1000} />}
-          iconPosition={ButtonIconsPosition.Left}
-        >
-          Start Auto Mode
-        </Button>
-      </View>
-    </View>
-  )
-}
+    <BackgroundVideoComponent
+      active={activeVideo}
+      url="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    >
+      <SafeAreaView style={styles.container}>
+        <Header
+          navigation={navigation}
+          activeVideo={activeVideo}
+          setActiveVideo={setActiveVideo}
+        />
+        <View style={styles.controls}>
+          <Button
+            variant={ButtonVariants.Primary}
+            onPress={() => Alert.alert("Starting Auto Mode")}
+            icon={<LogoOverclock stroke={colors.neutral1000} />}
+            iconPosition={ButtonIconsPosition.Left}
+          >
+            Start Auto Mode
+          </Button>
+        </View>
+      </SafeAreaView>
+    </BackgroundVideoComponent>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -42,7 +54,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: colors.neutral1000,
+    backgroundColor: "transparent",
   },
   controls: {
     width: "100%",

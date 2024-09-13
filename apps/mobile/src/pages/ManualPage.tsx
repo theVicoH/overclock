@@ -1,24 +1,33 @@
-import React from "react"
-import { View, StyleSheet } from "react-native"
-import Joystick from "../components/Joystick"
-import BuzzerButton from "../widgets/BuzzerButton"
-import Header from "../widgets/Header"
-import { colors } from "common/styles"
-import { ManualPageProps } from "../types/navigationProperties"
-import Panel from "../widgets/Panel"
+import React, { useState } from "react";
+import { View, StyleSheet, Text, SafeAreaView } from "react-native";
+import Joystick from "../components/Joystick";
+import BuzzerButton from "../widgets/BuzzerButton";
+import Header from "../widgets/Header";
+import { colors } from "common/styles";
+import { ManualPageProps } from "../types/navigationProperties";
+import BackgroundVideoComponent from "../components/BackGroundVideo";
 
 const ManualPage = ({ navigation }: ManualPageProps) => {
+  const [activeVideo, setActiveVideo] = useState<boolean>(false);
   return (
-    <View style={styles.container}>
-      <Header navigation={navigation} />
-      <Panel />
-      <View style={styles.controls}>
-        <Joystick />
-        <BuzzerButton />
-      </View>
-    </View>
-  )
-}
+    <BackgroundVideoComponent
+      active={activeVideo}
+      url="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    >
+      <SafeAreaView style={styles.container}>
+        <Header
+          navigation={navigation}
+          activeVideo={activeVideo}
+          setActiveVideo={setActiveVideo}
+        />
+        <View style={styles.controls}>
+          <Joystick />
+          <BuzzerButton />
+        </View>
+      </SafeAreaView>
+    </BackgroundVideoComponent>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -27,7 +36,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: colors.neutral1000,
+    backgroundColor: "transparent",
   },
   controls: {
     width: "100%",
@@ -37,7 +46,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingHorizontal: 80,
     paddingBottom: 48,
-  }
-})
+  },
+});
 
 export default ManualPage;
