@@ -99,6 +99,7 @@ const Joystick = () => {
   return (
     <View style={styles.container}>
       <View style={styles.joystickBackground}>
+        <View style={styles.background} />
         <Animated.View
           style={{
             transform: [{ translateX: pan.x }, { translateY: pan.y }]
@@ -121,13 +122,23 @@ const styles = StyleSheet.create({
     height: 124,
     width: 124,
     borderRadius: 64,
-    backgroundColor: colors.neutral400,
-    borderWidth: 2,
-    borderColor: colors.neutral300,
+    borderWidth: 1,
+    borderColor: colors.neutral800,
+    borderStyle: "solid",
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
-  }
+  },
+  background: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: colors.neutral600,
+    opacity: 0.2,
+    borderRadius: 64,
+  },
 })
 
 export default Joystick
