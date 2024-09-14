@@ -20,6 +20,16 @@ func SetRoute(app *fiber.App, handler *handler.HandlerStruct) {
 	statsRaceGroup.Get("/", handler.AddStatsRace)
 	statsRaceGroup.Post("/:id", handler.AddStatsRace)
 
+	vehicleGroup := app.Group("/vehicle")
+	vehicleGroup.Get("/details", handler.GetAllVehiclesWithRaces)
+	vehicleGroup.Get("/stats", handler.GetVehiclesStats)
+	vehicleGroup.Get("/sort", handler.GetClassementBySpeed)
+	vehicleGroup.Get("/:id", handler.GetVehicleById)
+	vehicleGroup.Get("/stats/:id", handler.GetVehicleStatsById)
+	vehicleGroup.Get("/details/:id", handler.GetVehicleWithRacesById)
+	vehicleGroup.Get("/", handler.GetAllVehicle)
+	vehicleGroup.Post("/", handler.AddVehicle)
+
 	// videoGroup := app.Group("/video")
 
 	// // // Route pour gérer la connexion WebSocket

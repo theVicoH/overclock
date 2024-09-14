@@ -18,16 +18,18 @@ type HandlerMqtt struct {
 
 func CreateHandler(store *store.StoreStruct, client *MQTT.Client) *HandlerStruct {
 	return &HandlerStruct{
-		SensorModelHandler: NewSenSorDataHandler(store, client),
-		StatsRaceHandler:   NewStatsRaceHandler(store, client),
-		RaceModelHandler:   NewRaceHandler(store),
-		VideoModelHandler:  NewVideoHandler(store),
+		SensorModelHandler:  NewSenSorDataHandler(store, client),
+		StatsRaceHandler:    NewStatsRaceHandler(store, client),
+		VehicleModelHandler: NewVehicleHandler(store),
+		RaceModelHandler:    NewRaceHandler(store),
+		VideoModelHandler:   NewVideoHandler(store),
 	}
 }
 
 type HandlerStruct struct {
 	model.SensorModelHandler
 	model.StatsRaceHandler
+	model.VehicleModelHandler
 	model.RaceModelHandler
 	model.VideoModelHandler
 }
