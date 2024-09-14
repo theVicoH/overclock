@@ -55,6 +55,9 @@
     unsigned long startTime = 0;
     bool timerActive = false;
 
+    // mode variable
+    bool mode = false;
+
     // variable du calcul de distance 
     int data_total_0 = 0;
     int data_total_1 = 0;
@@ -110,7 +113,7 @@
         payload[length] = '\0';  // Assure la terminaison de la chaîne
         commandProcessor.processCommand((char*)payload, ws, startTime, timerActive, 
                                         data_total_0, data_total_1, data_total_2, data_total_3, 
-                                        videoFlag, race_id, race_change);
+                                        videoFlag, race_id, race_change, mode);
     }
 
    void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
@@ -120,7 +123,7 @@
             data[len] = 0;  // Assure la terminaison de la chaîne
             commandProcessor.processCommand((char*)data, ws, startTime, timerActive, 
                                             data_total_0, data_total_1, data_total_2, data_total_3, 
-                                            videoFlag, race_id, race_change);
+                                            videoFlag, race_id, race_change , mode);
         }
     }
 
@@ -192,7 +195,7 @@
         client.loop();
         publishToTopic.publish(client, last_message, sensor_v, buff, ultrasonic_buff, distance_buff, speed_buff,
                                race_id_buffer, startTime, timerActive, total_Distance, total_speed, race_id,
-                               race_change, mqtt_interval_ms, data_total_0 , data_total_1,data_total_2,data_total_3);    
+                               race_change, mqtt_interval_ms, data_total_0 , data_total_1,data_total_2,data_total_3, mode);    
     }
     
     void webSocketEvent(WStype_t type, uint8_t *payload, size_t length) {
