@@ -24,7 +24,7 @@ export default function PerformanceRadarChart({
     datasets: [
       {
         label: "Performance",
-        data: [maxSpeed, averageSpeed, distance, batteryUsage, time],
+        data: [maxSpeed / 10, averageSpeed / 10, distance, batteryUsage, time],
         backgroundColor: colors.primary500,
         borderColor: colors.primary500,
         borderWidth: 1,

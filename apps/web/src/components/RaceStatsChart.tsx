@@ -26,7 +26,7 @@ export default function RaceStatsChart({
     datasets: [
       {
         label: "Stats",
-        data: [distance, maxSpeed, averageSpeed, batteryMax, batteryMin, time],
+        data: [distance, maxSpeed / 10, averageSpeed / 10, batteryMax, batteryMin, time],
         borderColor: colors.primary500,
         backgroundColor: `${colors.primary500}40`,
         borderWidth: 2,
