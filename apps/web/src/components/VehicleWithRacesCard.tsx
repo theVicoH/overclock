@@ -27,7 +27,7 @@ const VehicleDetailsCard: React.FC<VehicleDetailsCardProps> = ({ vehicle }) => (
     <CardContent>
       <h2 className="text-xl font-semibold">Courses</h2>
       {vehicle.races.map((race) => (
-        <RaceCard key={race.id} race={race} /> 
+        <RaceCard key={race.id} race={race} />
       ))}
     </CardContent>
   </Card>

@@ -38,17 +38,17 @@ export default function Index() {
         <Header />
         <p className="text-2xl">Tableau de bord</p>
         <Link to="/vehicle">
-            <Button variant="outline">Voir les véhicules</Button>
-          </Link>
-          <Link to="/vehiclesBySpeed">
-            <Button variant="outline">Voir le classement des véhicules par vitesse</Button>
-          </Link>
-          <Link to="/vehiclesWithStats">
-            <Button variant="outline">Voir les vehicules avec les meilleurs Statistiques</Button>
-          </Link>
-          <Link to="/vehiclesWithRaces">
-            <Button variant="outline">Voir les véhicule avec Courses</Button>
-          </Link>
+          <Button variant="outline">Voir les véhicules</Button>
+        </Link>
+        <Link to="/vehiclesBySpeed">
+          <Button variant="outline">Voir le classement des véhicules par vitesse</Button>
+        </Link>
+        <Link to="/vehiclesWithStats">
+          <Button variant="outline">Voir les vehicules avec les meilleurs Statistiques</Button>
+        </Link>
+        <Link to="/vehiclesWithRaces">
+          <Button variant="outline">Voir les véhicule avec Courses</Button>
+        </Link>
         <div className="grid grid-cols-4 gap-6">
           {state.status === "success" && state.data?.map((race) => (
             <RaceCard

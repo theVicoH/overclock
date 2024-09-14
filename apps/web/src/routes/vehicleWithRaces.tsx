@@ -4,7 +4,6 @@ import { HttpMethod } from "common/services";
 import VehicleWithRacesCard from "../components/VehicleWithRacesCard";
 import { VehicleWithRaces } from "@/types/vehicle";
 
-
 export const Route = createFileRoute("/vehicleWithRaces")({
   validateSearch: (vehicleId: Record<string, unknown>) => ({
     id: (vehicleId?.id as string) || "",
