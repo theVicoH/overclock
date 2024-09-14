@@ -11,12 +11,21 @@ void PublishToTopicManager::publish(PubSubClient& client, long& last_message, in
                                     char race_id_buffer[], unsigned long startTime, bool timerActive, 
                                     float& total_Distance, float& total_speed, int race_id, bool race_change, 
                                     unsigned long mqtt_interval_ms,  int& data_total_0, int& data_total_1, 
-                                    int& data_total_2, int& data_total_3)
+                                    int& data_total_2, int& data_total_3 , bool& mode)
 {
     long now = millis();
     if (now - last_message > mqtt_interval_ms)
     {
         last_message = now;
+
+        if (mode == 1){
+             // Send auto true
+            client.publish("esp32bis/mode", "auto");
+        } else if (mode == 0)
+        {
+            client.publish("esp32bis/mode", "manuel");
+        }
+        
 
         if (race_change)
         {
@@ -77,7 +86,7 @@ void PublishToTopicManager::publish(PubSubClient& client, long& last_message, in
             race_id = 0;
             race_change = false;
     
-            // Clear buffers
+            // Clear buffers 
             memset(buff, 0, sizeof(buff));
             memset(ultrasonic_buff, 0, sizeof(ultrasonic_buff));
             memset(distance_buff, 0, sizeof(distance_buff));

@@ -11,10 +11,46 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as VehiclesWithStatsImport } from './routes/vehiclesWithStats'
+import { Route as VehiclesWithRacesImport } from './routes/vehiclesWithRaces'
+import { Route as VehiclesBySpeedImport } from './routes/vehiclesBySpeed'
+import { Route as VehicleWithStatsImport } from './routes/vehicleWithStats'
+import { Route as VehicleWithRacesImport } from './routes/vehicleWithRaces'
+import { Route as VehicleImport } from './routes/vehicle'
 import { Route as RaceImport } from './routes/race'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const VehiclesWithStatsRoute = VehiclesWithStatsImport.update({
+  path: '/vehiclesWithStats',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const VehiclesWithRacesRoute = VehiclesWithRacesImport.update({
+  path: '/vehiclesWithRaces',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const VehiclesBySpeedRoute = VehiclesBySpeedImport.update({
+  path: '/vehiclesBySpeed',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const VehicleWithStatsRoute = VehicleWithStatsImport.update({
+  path: '/vehicleWithStats',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const VehicleWithRacesRoute = VehicleWithRacesImport.update({
+  path: '/vehicleWithRaces',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const VehicleRoute = VehicleImport.update({
+  path: '/vehicle',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const RaceRoute = RaceImport.update({
   path: '/race',
@@ -44,12 +80,63 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RaceImport
       parentRoute: typeof rootRoute
     }
+    '/vehicle': {
+      id: '/vehicle'
+      path: '/vehicle'
+      fullPath: '/vehicle'
+      preLoaderRoute: typeof VehicleImport
+      parentRoute: typeof rootRoute
+    }
+    '/vehicleWithRaces': {
+      id: '/vehicleWithRaces'
+      path: '/vehicleWithRaces'
+      fullPath: '/vehicleWithRaces'
+      preLoaderRoute: typeof VehicleWithRacesImport
+      parentRoute: typeof rootRoute
+    }
+    '/vehicleWithStats': {
+      id: '/vehicleWithStats'
+      path: '/vehicleWithStats'
+      fullPath: '/vehicleWithStats'
+      preLoaderRoute: typeof VehicleWithStatsImport
+      parentRoute: typeof rootRoute
+    }
+    '/vehiclesBySpeed': {
+      id: '/vehiclesBySpeed'
+      path: '/vehiclesBySpeed'
+      fullPath: '/vehiclesBySpeed'
+      preLoaderRoute: typeof VehiclesBySpeedImport
+      parentRoute: typeof rootRoute
+    }
+    '/vehiclesWithRaces': {
+      id: '/vehiclesWithRaces'
+      path: '/vehiclesWithRaces'
+      fullPath: '/vehiclesWithRaces'
+      preLoaderRoute: typeof VehiclesWithRacesImport
+      parentRoute: typeof rootRoute
+    }
+    '/vehiclesWithStats': {
+      id: '/vehiclesWithStats'
+      path: '/vehiclesWithStats'
+      fullPath: '/vehiclesWithStats'
+      preLoaderRoute: typeof VehiclesWithStatsImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({ IndexRoute, RaceRoute })
+export const routeTree = rootRoute.addChildren({
+  IndexRoute,
+  RaceRoute,
+  VehicleRoute,
+  VehicleWithRacesRoute,
+  VehicleWithStatsRoute,
+  VehiclesBySpeedRoute,
+  VehiclesWithRacesRoute,
+  VehiclesWithStatsRoute,
+})
 
 /* prettier-ignore-end */
 
@@ -60,7 +147,13 @@ export const routeTree = rootRoute.addChildren({ IndexRoute, RaceRoute })
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/race"
+        "/race",
+        "/vehicle",
+        "/vehicleWithRaces",
+        "/vehicleWithStats",
+        "/vehiclesBySpeed",
+        "/vehiclesWithRaces",
+        "/vehiclesWithStats"
       ]
     },
     "/": {
@@ -68,6 +161,24 @@ export const routeTree = rootRoute.addChildren({ IndexRoute, RaceRoute })
     },
     "/race": {
       "filePath": "race.tsx"
+    },
+    "/vehicle": {
+      "filePath": "vehicle.tsx"
+    },
+    "/vehicleWithRaces": {
+      "filePath": "vehicleWithRaces.tsx"
+    },
+    "/vehicleWithStats": {
+      "filePath": "vehicleWithStats.tsx"
+    },
+    "/vehiclesBySpeed": {
+      "filePath": "vehiclesBySpeed.tsx"
+    },
+    "/vehiclesWithRaces": {
+      "filePath": "vehiclesWithRaces.tsx"
+    },
+    "/vehiclesWithStats": {
+      "filePath": "vehiclesWithStats.tsx"
     }
   }
 }

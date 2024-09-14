@@ -9,7 +9,7 @@ void CommandProcessor::processCommand(const char* jsonData, AsyncWebSocket& ws,
                                       unsigned long& startTime, bool& timerActive, 
                                       int& data_total_0, int& data_total_1, 
                                       int& data_total_2, int& data_total_3, 
-                                      bool& videoFlag, int& race_id, bool& race_change) 
+                                      bool& videoFlag, int& race_id, bool& race_change , bool& mode) 
 {
     StaticJsonDocument<200> doc;
 
@@ -53,7 +53,7 @@ void CommandProcessor::processCommand(const char* jsonData, AsyncWebSocket& ws,
         race_id = doc["data"];
         handleRaceCommand(race_id, race_change);
     } else if (11 == cmd) {
-        int mode = doc["data"];
+         mode = doc["data"];
         handleTrackModeCommand(mode);
     }
 

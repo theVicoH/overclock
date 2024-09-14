@@ -11,7 +11,7 @@ public:
                  char distance_buff[], char speed_buff[], char race_id_buffer[], unsigned long startTime,
                  bool timerActive, float& total_Distance, float& total_speed, int race_id, bool race_change, 
                  unsigned long mqtt_interval_ms,  int& data_total_0, int& data_total_1, 
-                                                 int& data_total_2, int& data_total_3);
+                                                 int& data_total_2, int& data_total_3 , bool& mode);
                  
 private:
 

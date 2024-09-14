@@ -41,6 +41,7 @@ func (s *Store) GetAllRacesWithData() ([]types.RacesResponse, error) {
 		Select("race.*, stats_race.time, stats_race.speed_average, stats_race.distance, stats_race.id IS NOT NULL AS is_finish, vehicle.name AS vehicle_name").
 		Joins("LEFT JOIN stats_race ON stats_race.race_id = race.id").
 		Joins("LEFT JOIN vehicle ON vehicle.id = race.vehicle_id").
+		Order("stats_race.date DESC").
 		Scan(&raceData).Error; err != nil {
 		return nil, err
 	}
