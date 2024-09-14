@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -25,10 +26,10 @@ export default function VehicleCard({ id, name }: VehicleCardProps) {
         <p>Nom du véhicule: {name}</p>
         <div className="flex space-x-4 mt-4">
           <Link to="/vehicleWithStats" search={{ id }}>
-            <button className="btn btn-primary">Voir les Statistiques</button>
+            <Button variant="outline">Voir les Statistiques</Button>
           </Link>
           <Link to="/vehicleWithRaces" search={{ id }}>
-            <button className="btn btn-secondary">Voir les Courses</button>
+            <Button variant="outline">Voir les Courses</Button>
           </Link>
         </div>
       </CardContent>

@@ -1,10 +1,10 @@
 import { useFetch } from "@/hooks/useFetch";
 import { createFileRoute } from "@tanstack/react-router";
 import { HttpMethod } from "common/services";
-import VehicleDetailsCard from "../components/VehicleDetailsCard";
+import VehicleWithRacesCard from "../components/VehicleWithRacesCard";
 import { VehicleWithRaces } from "@/types/vehicle";
 
-// Define the route
+
 export const Route = createFileRoute("/vehicleWithRaces")({
   validateSearch: (vehicleId: Record<string, unknown>) => ({
     id: (vehicleId?.id as string) || "",
@@ -12,7 +12,6 @@ export const Route = createFileRoute("/vehicleWithRaces")({
   component: VehicleWithRacesPage,
 });
 
-// Main component
 export default function VehicleWithRacesPage() {
   const { id } = Route.useSearch();
   const state = useFetch<VehicleWithRaces>(`vehicle/details/${id}`, HttpMethod.GET);
@@ -31,8 +30,7 @@ export default function VehicleWithRacesPage() {
       <div>
         <h1>Détails du Véhicule: {vehicle.name}</h1>
         <div className="vehicle-list">
-          {/* Pass the entire vehicle object to VehicleDetailsCard */}
-          <VehicleDetailsCard key={vehicle.id} vehicle={vehicle} />
+          <VehicleWithRacesCard key={vehicle.id} vehicle={vehicle} />
         </div>
       </div>
     );
