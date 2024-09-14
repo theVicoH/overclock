@@ -29,8 +29,6 @@ func SetRoute(app *fiber.App, handler *handler.HandlerStruct) {
 	vehicleGroup.Get("/details/:id", handler.GetVehicleWithRacesById)
 	vehicleGroup.Get("/", handler.GetAllVehicle)
 	vehicleGroup.Post("/", handler.AddVehicle)
-	vehicleGroup.Delete("/:id", handler.DeleteVehicleById)
-	vehicleGroup.Put("/:id", handler.UpdateVehicleById)
 
 	// videoGroup := app.Group("/video")
 
