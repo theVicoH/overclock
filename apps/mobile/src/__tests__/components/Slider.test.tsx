@@ -1,7 +1,7 @@
 import React from "react"
 import { create } from "react-test-renderer"
 import { View } from "react-native"
-import { Slider } from "../../components/Slider"
+import Slider from "../../components/Slider"
 
 describe("Slider Component", () => {
   test("should render the slider with initial value and change value correctly", () => {

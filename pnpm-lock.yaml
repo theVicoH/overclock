@@ -8,9 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@testing-library/dom':
+        specifier: ^10.1.0
+        version: 10.1.0
       mqtt:
         specifier: ^5.10.0
-        version: 5.10.0
+        version: 5.10.1
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -82,7 +85,10 @@ importers:
         version: 18.2.0
       react-native:
         specifier: 0.74.2
-        version: 0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(react@18.2.0)
+        version: 0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7)(@types/react@18.3.3)(react@18.2.0)
+      react-native-device-info:
+        specifier: ^11.1.0
+        version: 11.1.0(react-native@0.74.2)
       react-native-orientation-locker:
         specifier: ^1.7.0
         version: 1.7.0(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(react@18.2.0))(react@18.2.0)
@@ -94,7 +100,10 @@ importers:
         version: 3.32.0(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(react@18.2.0))(react@18.2.0)
       react-native-svg:
         specifier: ^15.3.0
-        version: 15.3.0(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(react@18.2.0))(react@18.2.0)
+        version: 15.3.0(react-native@0.74.2)(react@18.2.0)
+      react-native-video:
+        specifier: ^6.5.0
+        version: 6.5.0(react-native@0.74.2)(react@18.2.0)
       react-native-web:
         specifier: ^0.19.12
         version: 0.19.12(react-dom@18.3.1(react@18.2.0))(react@18.2.0)
@@ -261,7 +270,7 @@ importers:
     dependencies:
       mqtt:
         specifier: ^5.10.0
-        version: 5.10.0
+        version: 5.10.1
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -6422,7 +6431,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.24.7
       '@babel/helper-plugin-utils': 7.24.7
-      '@babel/helper-validator-option': 7.24.7
+      '@babel/helper-validator-option': 7.24.8
       '@babel/plugin-transform-flow-strip-types': 7.24.7(@babel/core@7.24.7)
 
   '@babel/preset-modules@0.1.6-no-external-plugins(@babel/core@7.24.7)':
@@ -6436,7 +6445,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.24.7
       '@babel/helper-plugin-utils': 7.24.7
-      '@babel/helper-validator-option': 7.24.7
+      '@babel/helper-validator-option': 7.24.8
       '@babel/plugin-syntax-jsx': 7.24.7(@babel/core@7.24.7)
       '@babel/plugin-transform-modules-commonjs': 7.24.7(@babel/core@7.24.7)
       '@babel/plugin-transform-typescript': 7.24.7(@babel/core@7.24.7)
@@ -6615,7 +6624,9 @@ snapshots:
     dependencies:
       '@hapi/hoek': 9.3.0
 
-  '@humanwhocodes/config-array@0.11.14':
+  /@humanwhocodes/config-array@0.11.14:
+    resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
+    engines: {node: '>=10.10.0'}
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
       debug: 4.3.5
@@ -6625,7 +6636,9 @@ snapshots:
 
   '@humanwhocodes/module-importer@1.0.1': {}
 
-  '@humanwhocodes/object-schema@2.0.3': {}
+  /@humanwhocodes/object-schema@2.0.3:
+    resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
+    dev: true
 
   '@isaacs/cliui@8.0.2':
     dependencies:
@@ -7518,21 +7531,45 @@ snapshots:
       lz-string: 1.5.0
       pretty-format: 27.5.1
 
-  '@testing-library/jest-dom@6.4.5(@jest/globals@27.5.1)(vitest@1.6.0(@types/node@20.14.2)(jsdom@24.1.0)(terser@5.31.1))':
+  /@testing-library/jest-dom@6.4.5(@jest/globals@27.5.1)(vitest@1.6.0):
+    resolution: {integrity: sha512-AguB9yvTXmCnySBP1lWjfNNUwpbElsaQ567lt2VdGqAdHtpieLgjmcVyv1q7PMIvLbgpDdkWV5Ydv3FEejyp2A==}
+    engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
+    peerDependencies:
+      '@jest/globals': '>= 28'
+      '@types/bun': latest
+      '@types/jest': '>= 28'
+      jest: '>= 28'
+      vitest: '>= 0.32'
+    peerDependenciesMeta:
+      '@jest/globals':
+        optional: true
+      '@types/bun':
+        optional: true
+      '@types/jest':
+        optional: true
+      jest:
+        optional: true
+      vitest:
+        optional: true
     dependencies:
       '@adobe/css-tools': 4.4.0
       '@babel/runtime': 7.24.6
+      '@jest/globals': 27.5.1
       aria-query: 5.3.0
       chalk: 3.0.0
       css.escape: 1.5.1
       dom-accessibility-api: 0.6.3
       lodash: 4.17.21
       redent: 3.0.0
-    optionalDependencies:
-      '@jest/globals': 27.5.1
-      vitest: 1.6.0(@types/node@20.14.2)(jsdom@24.1.0)(terser@5.31.1)
+      vitest: 1.6.0(@types/node@20.14.2)(jsdom@24.1.0)
+    dev: true
 
-  '@testing-library/jest-native@5.4.3(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(react@18.2.0))(react-test-renderer@18.2.0(react@18.2.0))(react@18.2.0)':
+  /@testing-library/jest-native@5.4.3(react-native@0.74.2)(react-test-renderer@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-/sSDGaOuE+PJ1Z9Kp4u7PQScSVVXGud59I/qsBFFJvIbcn4P6yYw6cBnBmbPF+X9aRIsTJRDl6gzw5ZkJNm66w==}
+    peerDependencies:
+      react: '>=16.0.0'
+      react-native: '>=0.59'
+      react-test-renderer: '>=16.0.0'
     dependencies:
       chalk: 4.1.2
       jest-diff: 29.7.0
@@ -7636,7 +7673,7 @@ snapshots:
 
   '@types/mqtt@2.5.0':
     dependencies:
-      mqtt: 5.10.0
+      mqtt: 5.10.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7882,9 +7919,13 @@ snapshots:
       mime-types: 2.1.35
       negotiator: 0.6.3
 
-  acorn-jsx@5.3.2(acorn@8.12.1):
+  /acorn-jsx@5.3.2(acorn@8.11.3):
+    resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
+    peerDependencies:
+      acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
-      acorn: 8.12.1
+      acorn: 8.11.3
+    dev: true
 
   acorn-walk@8.3.2: {}
 
@@ -8860,8 +8901,8 @@ snapshots:
 
   espree@9.6.1:
     dependencies:
-      acorn: 8.12.1
-      acorn-jsx: 5.3.2(acorn@8.12.1)
+      acorn: 8.11.3
+      acorn-jsx: 5.3.2(acorn@8.11.3)
       eslint-visitor-keys: 3.4.3
 
   esprima@4.0.1: {}
@@ -9998,7 +10039,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  mqtt@5.10.0:
+  /mqtt@5.10.1:
+    resolution: {integrity: sha512-hXCOki8sANoQ7w+2OzJzg6qMBxTtrH9RlnVNV8panLZgnl+Gh0J/t4k6r8Az8+C7y3KAcyXtn0mmLixyUom8Sw==}
+    engines: {node: '>=16.0.0'}
+    hasBin: true
     dependencies:
       '@types/readable-stream': 4.0.15
       '@types/ws': 8.5.12
@@ -10437,7 +10481,18 @@ snapshots:
 
   react-is@18.3.1: {}
 
-  react-native-dotenv@3.4.11(@babel/runtime@7.24.6):
+  /react-native-device-info@11.1.0(react-native@0.74.2):
+    resolution: {integrity: sha512-hzXJSObJdezEz0hF7MAJ3tGeoesuQWenXXt9mrQR9Mjb8kXpZ09rqSsZ/quNpJdZpQ3rYiFa3/0GFG5KNn9PBg==}
+    peerDependencies:
+      react-native: '*'
+    dependencies:
+      react-native: 0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7)(@types/react@18.3.3)(react@18.2.0)
+    dev: false
+
+  /react-native-dotenv@3.4.11(@babel/runtime@7.24.6):
+    resolution: {integrity: sha512-6vnIE+WHABSeHCaYP6l3O1BOEhWxKH6nHAdV7n/wKn/sciZ64zPPp2NUdEUf1m7g4uuzlLbjgr+6uDt89q2DOg==}
+    peerDependencies:
+      '@babel/runtime': ^7.20.6
     dependencies:
       '@babel/runtime': 7.24.6
       dotenv: 16.4.5
@@ -10494,7 +10549,21 @@ snapshots:
       react: 18.3.1
       react-native: 0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(react@18.3.1)
 
-  react-native-web@0.19.12(react-dom@18.3.1(react@18.2.0))(react@18.2.0):
+  /react-native-video@6.5.0(react-native@0.74.2)(react@18.2.0):
+    resolution: {integrity: sha512-P3FmyQgKigS4BmFG+6heRHzSp591U/Z+Iw08wWmiNsNiyLRa6x8B0ob4wqWTW4QfzsBf80udg1/T2W49KxxzYw==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7)(@types/react@18.3.3)(react@18.2.0)
+    dev: false
+
+  /react-native-web@0.19.12(react-dom@18.3.1)(react@18.2.0):
+    resolution: {integrity: sha512-o2T0oztoVDQjztt4YksO9S1XRjoH/AqcSvifgWLrPJgGVbMWsfhILgl6lfUdEamVZzZSVV/2gqDVMAk/qq7mZw==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
     dependencies:
       '@babel/runtime': 7.24.6
       '@react-native/normalize-colors': 0.74.84
