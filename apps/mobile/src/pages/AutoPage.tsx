@@ -9,6 +9,7 @@ import { LogoOverclock } from "common/icons/mobile";
 import { SocketContext } from "../context/socket";
 import { SafeAreaView } from "react-native";
 import BackgroundVideoComponent from "../components/BackGroundVideo";
+import Panel from "../widgets/Panel";
 
 const Autopage = ({ navigation }: AutoPageProps) => {
   const [activeVideo, setActiveVideo] = useState<boolean>(false);
@@ -32,6 +33,7 @@ const Autopage = ({ navigation }: AutoPageProps) => {
           activeVideo={activeVideo}
           setActiveVideo={setActiveVideo}
         />
+        <Panel />
         <View style={styles.controls}>
           <Button
             variant={ButtonVariants.Primary}

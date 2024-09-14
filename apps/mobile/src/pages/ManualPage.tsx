@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, SafeAreaView } from "react-native";
+import { View, StyleSheet, SafeAreaView } from "react-native";
 import Joystick from "../components/Joystick";
 import BuzzerButton from "../widgets/BuzzerButton";
 import Header from "../widgets/Header";
-import { colors } from "common/styles";
 import { ManualPageProps } from "../types/navigationProperties";
 import BackgroundVideoComponent from "../components/BackGroundVideo";
+import Panel from "../widgets/Panel";
 
 const ManualPage = ({ navigation }: ManualPageProps) => {
   const [activeVideo, setActiveVideo] = useState<boolean>(false);
@@ -20,6 +20,7 @@ const ManualPage = ({ navigation }: ManualPageProps) => {
           activeVideo={activeVideo}
           setActiveVideo={setActiveVideo}
         />
+        <Panel />
         <View style={styles.controls}>
           <Joystick />
           <BuzzerButton />
