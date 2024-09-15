@@ -8,7 +8,7 @@ const RaceCard: React.FC<{ race: Race }> = ({ race }) => (
     <p>Date: {new Date(race.date).toLocaleDateString()}</p>
     <p>Distance: {race.distance} km</p>
     <p>Speed Average: {race.speed_average} km/h</p>
-    <p>Time: {race.time} ms</p>
+    <p>Time: {race.time} s</p>
   </div>
 );
 
