@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 
 const VehiclesWithStats: React.FC = () => {
   const state = useFetch<VehicleStats[]>("vehicle/stats", HttpMethod.GET);
+  console.log(state)
 
   if (state.status === "loading") {
     return <div>Loading...</div>;
@@ -18,6 +19,7 @@ const VehiclesWithStats: React.FC = () => {
   }
 
   if (state.status === "success" && state.data) {
+    console.log(state.data)
     return (
       <div className="grid grid-cols-1 gap-6">
         <Header />
