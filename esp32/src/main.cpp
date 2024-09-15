@@ -156,6 +156,7 @@
     // Rest of the initialization
     Buzzer_Setup();
     WiFi_Init();
+    Video.start_server_camera();
     WiFi_Setup(0);
     cameraSetup();
     camera_vflip(true);

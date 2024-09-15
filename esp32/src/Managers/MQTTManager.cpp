@@ -4,7 +4,7 @@ void MQTTManager::setupMQTTClient(PubSubClient& client, const char* server, int 
     client.setServer(server, port);
     // Ajouter d'autres configurations si nécessaires
 }
-void reconnect(PubSubClient& client){
+void MQTTManager::reconnect(PubSubClient& client){
      // Loop until we're reconnected
         while (!client.connected())
         {
