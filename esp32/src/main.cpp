@@ -83,6 +83,8 @@
     int mqtt_port;
     int mqtt_interval_ms = 5000;   // L'interval en ms entre deux envois de données
 
+    // WiFiServer server_Camera(7000);
+
     IPAddress localIP;
     IPAddress localGateway;
     IPAddress localSubnet;
@@ -97,7 +99,6 @@
     void handleWebSocketMessage(void *arg, uint8_t *data, size_t len);
     void onEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len);
     void initWebSocket();
-    void reconnect();
 
     void WiFi_Init()
     {
@@ -165,12 +166,12 @@
     Light_Setup();
     Track_Setup();
     Ultrasonic_Setup();
-
     disableCore0WDT();
-    xTaskCreateUniversal(Video.loopTask_Camera_WS, "loopTask_Camera_WS", 8192, NULL, 0, NULL, 0);
+    // xTaskCreateUniversal(Video.loopTask_Camera_WS, "loopTask_Camera_WS", 8192, NULL, 0, NULL, 0);
+    xTaskCreateUniversal(Video.loopTask_Camera, "loopTask_Camera", 8192, NULL, 0, NULL, 0);
     xTaskCreateUniversal(loopTask_WTD, "loopTask_WTD", 8192, NULL, 0, NULL, 0);
     initWebSocket();
-    server.begin();
+    Video.video_stream(&server);
 
     Emotion_SetMode(1);
     WS2812_SetMode(1);
@@ -190,7 +191,8 @@
         // The MQTT part
         if (!client.connected())
         {
-            reconnect();
+            // reconnect();
+            mqttManager.reconnect(client);
         }
         client.loop();
         publishToTopic.publish(client, last_message, sensor_v, buff, ultrasonic_buff, distance_buff, speed_buff,
@@ -244,29 +246,5 @@
         server.addHandler(&wsCar);
         webSocket.begin(websocket_server_url, websocket_server_port, websocket_path);
         webSocket.onEvent(webSocketEvent);
-    }
-
-    void reconnect()
-    {
-        // Loop until we're reconnected
-        while (!client.connected())
-        {
-            Serial.print("Attempting MQTT connection...");
-            // Attempt to connect
-            if (client.connect("ESP32ClientBis"))
-            {
-                Serial.println("connected");
-                // Subscribe
-                client.subscribe("esp32bis/ajustments");
-            }
-            else
-            {
-                Serial.print("failed, rc=");
-                Serial.print(client.state());
-                Serial.println(" try again in 5 seconds");
-                // Wait 5 seconds before retrying
-                delay(5000);
-            }
-        }
     }
   

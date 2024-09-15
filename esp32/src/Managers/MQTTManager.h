@@ -6,6 +6,7 @@
 class MQTTManager {
 public:
     void setupMQTTClient(PubSubClient& client, const char* server, int port);
+    void reconnect(PubSubClient& client);
 };
 
 #endif
