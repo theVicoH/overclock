@@ -127,16 +127,99 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({
-  IndexRoute,
-  RaceRoute,
-  VehicleRoute,
-  VehicleWithRacesRoute,
-  VehicleWithStatsRoute,
-  VehiclesBySpeedRoute,
-  VehiclesWithRacesRoute,
-  VehiclesWithStatsRoute,
-})
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '/race': typeof RaceRoute
+  '/vehicle': typeof VehicleRoute
+  '/vehicleWithRaces': typeof VehicleWithRacesRoute
+  '/vehicleWithStats': typeof VehicleWithStatsRoute
+  '/vehiclesBySpeed': typeof VehiclesBySpeedRoute
+  '/vehiclesWithRaces': typeof VehiclesWithRacesRoute
+  '/vehiclesWithStats': typeof VehiclesWithStatsRoute
+}
+
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/race': typeof RaceRoute
+  '/vehicle': typeof VehicleRoute
+  '/vehicleWithRaces': typeof VehicleWithRacesRoute
+  '/vehicleWithStats': typeof VehicleWithStatsRoute
+  '/vehiclesBySpeed': typeof VehiclesBySpeedRoute
+  '/vehiclesWithRaces': typeof VehiclesWithRacesRoute
+  '/vehiclesWithStats': typeof VehiclesWithStatsRoute
+}
+
+export interface FileRoutesById {
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/race': typeof RaceRoute
+  '/vehicle': typeof VehicleRoute
+  '/vehicleWithRaces': typeof VehicleWithRacesRoute
+  '/vehicleWithStats': typeof VehicleWithStatsRoute
+  '/vehiclesBySpeed': typeof VehiclesBySpeedRoute
+  '/vehiclesWithRaces': typeof VehiclesWithRacesRoute
+  '/vehiclesWithStats': typeof VehiclesWithStatsRoute
+}
+
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/race'
+    | '/vehicle'
+    | '/vehicleWithRaces'
+    | '/vehicleWithStats'
+    | '/vehiclesBySpeed'
+    | '/vehiclesWithRaces'
+    | '/vehiclesWithStats'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/race'
+    | '/vehicle'
+    | '/vehicleWithRaces'
+    | '/vehicleWithStats'
+    | '/vehiclesBySpeed'
+    | '/vehiclesWithRaces'
+    | '/vehiclesWithStats'
+  id:
+    | '__root__'
+    | '/'
+    | '/race'
+    | '/vehicle'
+    | '/vehicleWithRaces'
+    | '/vehicleWithStats'
+    | '/vehiclesBySpeed'
+    | '/vehiclesWithRaces'
+    | '/vehiclesWithStats'
+  fileRoutesById: FileRoutesById
+}
+
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  RaceRoute: typeof RaceRoute
+  VehicleRoute: typeof VehicleRoute
+  VehicleWithRacesRoute: typeof VehicleWithRacesRoute
+  VehicleWithStatsRoute: typeof VehicleWithStatsRoute
+  VehiclesBySpeedRoute: typeof VehiclesBySpeedRoute
+  VehiclesWithRacesRoute: typeof VehiclesWithRacesRoute
+  VehiclesWithStatsRoute: typeof VehiclesWithStatsRoute
+}
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  RaceRoute: RaceRoute,
+  VehicleRoute: VehicleRoute,
+  VehicleWithRacesRoute: VehicleWithRacesRoute,
+  VehicleWithStatsRoute: VehicleWithStatsRoute,
+  VehiclesBySpeedRoute: VehiclesBySpeedRoute,
+  VehiclesWithRacesRoute: VehiclesWithRacesRoute,
+  VehiclesWithStatsRoute: VehiclesWithStatsRoute,
+}
+
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* prettier-ignore-end */
 

@@ -85,7 +85,7 @@ func (h *Handler) GetAllVehiclesWithRaces(c fiber.Ctx) error {
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "vehicule successfully fetched",
-		"date":    vehicules,
+		"data":    vehicules,
 	})
 }
 
@@ -109,7 +109,7 @@ func (h *Handler) GetVehicleWithRacesById(c fiber.Ctx) error {
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "vehicule successfully fetched",
-		"date":    vehicule,
+		"data":    vehicule,
 	})
 }
 
@@ -125,7 +125,7 @@ func (h *Handler) GetVehiclesStats(c fiber.Ctx) error {
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "vehicule successfully fetched",
-		"date":    vehicules,
+		"data":    vehicules,
 	})
 }
 
@@ -148,7 +148,7 @@ func (h *Handler) GetVehicleStatsById(c fiber.Ctx) error {
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "vehicule successfully fetched",
-		"date":    vehicules,
+		"data":    vehicules,
 	})
 }
 
@@ -164,6 +164,6 @@ func (h *Handler) GetClassementBySpeed(c fiber.Ctx) error {
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "vehicule successfully fetched",
-		"date":    vehiculesclassementBySpeed,
+		"data":    vehiculesclassementBySpeed,
 	})
 }
