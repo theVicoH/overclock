@@ -24,7 +24,10 @@ const BatteryComponent = ({ battery }: BatteryComponentProps) => {
   };
 
   useEffect(() => {
-    let size = resize(battery);
+    let size = Math.round(Math.floor(resize(battery)));
+    if (size > 21) {
+      size = 21;
+    }
     if (battery >= 50) {
       setCurrent({ color: colors.white, size });
     } else if (battery > 20 && battery < 50) {
@@ -71,6 +74,7 @@ const styles = StyleSheet.create({
   batteryUsed: {
     backgroundColor: "transparent",
     flex: 1,
+    maxWidth: 21,
   },
 });
 
