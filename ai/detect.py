@@ -146,15 +146,31 @@ def main():
     
     client.loop_start()
 
-    # Capturer le flux vidéo à partir d'une URL
-    cap = cv2.VideoCapture('http://192.168.1.150:7000/') 
-
+    #connexion au flux vidéo
+    cap = None
+    stream_url = 'http://192.168.1.150:7000/'
+    
     while True:
         if automatic_mode:
-            ret, frame = cap.read() 
-            if ret:
-                process_frame(frame, model, pid, client)
-                cv2.imshow('Frame', frame)
+            if cap is None or not cap.isOpened():
+                print("Attempting to connect to video stream...")
+                cap = cv2.VideoCapture(stream_url)
+                if not cap.isOpened():
+                    print(f"Failed to open video stream from URL: {stream_url}")
+                    time.sleep(2)
+                    continue 
+                else:
+                    print("Connected to video stream successfully.")
+
+            ret, frame = cap.read()
+            if not ret:
+                print("Failed to read frame from stream.")
+                cap.release()
+                cap = None
+                continue
+
+            process_frame(frame, model, pid, client)
+            cv2.imshow('Frame', frame)
             
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
@@ -162,7 +178,8 @@ def main():
             print("Waiting for automatic mode to be enabled...")
             time.sleep(1)
 
-    cap.release()
+    if cap is not None:
+        cap.release()
     cv2.destroyAllWindows()
     client.loop_stop()
 
