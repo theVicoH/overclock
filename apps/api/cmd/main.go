@@ -28,7 +28,7 @@ func main() {
 
 	store := store.CreateStore(db, &client)
 	handler := handler.CreateHandler(store, &client)
-	// go broker.ReadMessages(client, "esp32Bis/#", handler.MessageCallback)
+	go broker.ReadMessages(client, "esp32Bis/#", handler.MessageCallback)
 
 	app := fiber.New()
 	app.Use(cors.New())
