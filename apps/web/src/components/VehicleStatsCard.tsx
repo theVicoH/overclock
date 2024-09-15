@@ -35,7 +35,7 @@ export default function VehicleStatsCard({
         <CardContent>
           <p>Vitesse Max: {max_speed} km/h</p>
           <p>Distance Max: {max_distance} km</p>
-          <p>Temps Minimum: {min_time} min</p>
+          <p>Temps Minimum: {min_time} s</p>
         </CardContent>
       </Card>
     </Link>

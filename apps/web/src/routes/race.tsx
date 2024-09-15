@@ -70,7 +70,7 @@ export default function Race() {
             </div>
             <div>
               <h4 className="font-semibold">Temps:</h4>
-              <p>{stats?.Time ? `${stats.Time} minutes` : "Aucune donnée"}</p>
+              <p>{stats?.Time ? `${stats.Time} s` : "Aucune donnée"}</p>
             </div>
           </div>
 
