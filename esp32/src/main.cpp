@@ -56,7 +56,7 @@
     bool timerActive = false;
 
     // mode variable
-    bool mode = false;
+    int mode = 0;
 
     // variable du calcul de distance 
     int data_total_0 = 0;
