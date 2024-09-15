@@ -1,7 +1,6 @@
-import React, { SetStateAction, useEffect, useState } from "react";
+import React, { SetStateAction, useContext, useState } from "react";
 import {
   ActivityIndicator,
-  Dimensions,
   StyleSheet,
   Text,
   View,
@@ -12,6 +11,7 @@ import { Close } from "common/icons/mobile";
 import IconButton from "./IconButton";
 import InputComponent from "./Input";
 import { colors } from "common/styles";
+import { SocketContext } from "../context/socket";
 
 type ModalProps = {
   active: boolean;
@@ -23,7 +23,7 @@ const Modal = ({ active, setActive }: ModalProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [modalWidth, setModalWidth] = useState<number>(0);
   const [modalHeight, setModalHeight] = useState<number>(0);
-
+  const socket = useContext(SocketContext)
   const checkLength = (value: string) => {
     if (value.length <= 50) {
       setValue(value);
@@ -57,6 +57,9 @@ const Modal = ({ active, setActive }: ModalProps) => {
       console.log(results);
 
       if (response.status === 201) {
+        if (!socket) return
+        // activating auto mode
+        socket.send(JSON.stringify({ "cmd": 11, "data": 1 }))
         setIsLoading(false);
         setActive(false);
       } else {

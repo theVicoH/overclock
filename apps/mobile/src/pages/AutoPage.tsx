@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { View, StyleSheet, Alert, Dimensions } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { View, StyleSheet, Dimensions } from "react-native";
 import Header from "../widgets/Header";
 import { colors } from "common/styles";
 import { AutoPageProps } from "../types/navigationProperties";
@@ -12,11 +12,13 @@ import Panel from "../widgets/Panel";
 import { VIDEO_URL } from "@env";
 import { WebView } from "react-native-webview"
 import { useCameraStore } from "../stores/useCameraStore";
+import Modal from "../components/Modal";
 
 const Autopage = ({ navigation }: AutoPageProps) => {
   const { isCameraOn } = useCameraStore()
   const { width, height } = Dimensions.get("window");
   const socket = useContext(SocketContext);
+  const [activeModal, setActiveModal] = useState<boolean>(false);
   useEffect(() => {
     return () => {
       if (socket) {
@@ -26,28 +28,31 @@ const Autopage = ({ navigation }: AutoPageProps) => {
     };
   }, []);
   return (
-    <SafeAreaView style={styles.container}>
-      <WebView
-        source={{ uri: VIDEO_URL }}
-        style={{
-          width: width,
-          height: height,
-          display: isCameraOn === false ? "none" : "flex"
-        }}
-      />
-      <Header navigation={navigation} />
-      <Panel />
-      <View style={styles.controls}>
-        <Button
-          variant={ButtonVariants.Primary}
-          onPress={() => Alert.alert("Starting Auto Mode")}
-          icon={<LogoOverclock stroke={colors.neutral1000} />}
-          iconPosition={ButtonIconsPosition.Left}
-        >
-          Start Auto Mode
-        </Button>
-      </View>
-    </SafeAreaView>
+    <>
+      <SafeAreaView style={styles.container}>
+        <WebView
+          source={{ uri: VIDEO_URL }}
+          style={{
+            width: width,
+            height: height,
+            display: isCameraOn === false ? "none" : "flex"
+          }}
+        />
+        <Header navigation={navigation} />
+        <Panel />
+        <View style={styles.controls}>
+          <Button
+            variant={ButtonVariants.Primary}
+            onPress={() => setActiveModal(true)}
+            icon={<LogoOverclock stroke={colors.neutral1000} />}
+            iconPosition={ButtonIconsPosition.Left}
+          >
+            Start Auto Mode
+          </Button>
+        </View>
+      </SafeAreaView>
+      <Modal active={activeModal} setActive={setActiveModal} />
+    </>
   );
 };
 
