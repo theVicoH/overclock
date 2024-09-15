@@ -1,6 +1,6 @@
 #include "PublishManager.h"
-#include <Arduino.h> // Pour utiliser millis() si vous utilisez la plateforme Arduino
-#include <cmath> // Pour utiliser fabs
+#include <Arduino.h> 
+#include <cmath>
 #include "Freenove_4WD_Car_WiFi.h"
 #include "Freenove_4WD_Car_Emotion.h"
 #include "Freenove_4WD_Car_WS2812.h"
