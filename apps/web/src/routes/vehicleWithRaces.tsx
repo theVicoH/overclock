@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { HttpMethod } from "common/services";
 import VehicleWithRacesCard from "../components/VehicleWithRacesCard";
 import { VehicleWithRaces } from "@/types/vehicle";
+import Header from "@/components/Header";
 
 export const Route = createFileRoute("/vehicleWithRaces")({
   validateSearch: (vehicleId: Record<string, unknown>) => ({
@@ -26,8 +27,9 @@ export default function VehicleWithRacesPage() {
   if (state.status === "success" && state.data) {
     const vehicle = state.data;
     return (
-      <div>
-        <h1>Détails du Véhicule: {vehicle.name}</h1>
+      <div className="grid grid-cols-1 gap-6">
+        <Header />
+        <h1 className="text-2xl">Détails du Véhicule: {vehicle.name}</h1>
         <div className="vehicle-list">
           <VehicleWithRacesCard key={vehicle.id} vehicle={vehicle} />
         </div>
