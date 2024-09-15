@@ -4,6 +4,7 @@ import { VehicleStats } from "@/types/vehicle";
 import { createFileRoute } from "@tanstack/react-router";
 import { HttpMethod } from "common/services";
 import VehicleStatsCard from "../components/VehicleStatsCard";
+import Header from "@/components/Header";
 
 const VehiclesWithStats: React.FC = () => {
   const state = useFetch<VehicleStats[]>("vehicle/stats", HttpMethod.GET);
@@ -18,11 +19,13 @@ const VehiclesWithStats: React.FC = () => {
 
   if (state.status === "success" && state.data) {
     return (
-      <div>
-        <h1>Liste des Véhicules avec Statistiques</h1>
-        <div className="vehicle-list">
+      <div className="grid grid-cols-1 gap-6">
+        <Header />
+        <h1 className="text-2xl">Liste des Véhicules avec Statistiques</h1>
+        <div className="grid grid-cols-4 gap-6">
           {state.data.map((vehicle: VehicleStats) => (
             <VehicleStatsCard
+              key={vehicle.id}
               id={vehicle.id}
               name={vehicle.name}
               max_speed={vehicle.max_speed}

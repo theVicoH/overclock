@@ -3,6 +3,7 @@ import { VehicleStats } from "@/types/vehicle";
 import { createFileRoute } from "@tanstack/react-router";
 import { HttpMethod } from "common/services";
 import VehicleStatsCard from "../components/VehicleStatsCard";
+import Header from "@/components/Header";
 
 // Création de la route
 export const Route = createFileRoute("/vehicleWithStats")({
@@ -26,11 +27,13 @@ export default function VehicleWithStats() {
 
   if (state.status === "success" && state.data) {
     return (
-      <div>
-        <h1>Meilleurs Statistiques par véhicule</h1>
+      <div className="grid grid-cols-1 gap-6">
+        <Header />
+        <h1 className="text-2xl">Meilleurs Statistiques par véhicule</h1>
         <div className="vehicle-list">
           {state.data.map((vehicle: VehicleStats) => (
             <VehicleStatsCard
+              key={vehicle.id}
               id={vehicle.id}
               name={vehicle.name}
               max_speed={vehicle.max_speed}
