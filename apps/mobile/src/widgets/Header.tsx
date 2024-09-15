@@ -18,7 +18,7 @@ import { PanelVariants } from "../types/panel";
 import { useCameraStore } from "../stores/useCameraStore";
 import { HeaderProps } from "../types/navigationProperties";
 
-const Header = ({ navigation, activeVideo, setActiveVideo }: HeaderProps) => {
+const Header = ({ navigation }: HeaderProps) => {
   const battery = 100;
   const { activePanel, setActivePanel } = usePanelStore();
   const { isCameraOn, toggleCamera } = useCameraStore();
@@ -79,14 +79,14 @@ const Header = ({ navigation, activeVideo, setActiveVideo }: HeaderProps) => {
         />
         <IconButton
           variant={
-            activeVideo === true
+            isCameraOn === true
               ? ButtonVariants.Primary
               : ButtonVariants.Secondary
           }
           shape={ButtonShape.Square}
-          onPress={() => setActiveVideo(!activeVideo)}
+          onPress={() => toggleCamera()}
           icon={
-            activeVideo === true ? (
+            isCameraOn === true ? (
               <CameraOff stroke={colors.neutral900} />
             ) : (
               <CameraOn stroke={colors.neutral0} />
@@ -118,6 +118,8 @@ const Header = ({ navigation, activeVideo, setActiveVideo }: HeaderProps) => {
 
 const styles = StyleSheet.create({
   container: {
+    "position": "absolute",
+    top: 0,
     width: "100%",
     display: "flex",
     justifyContent: "space-between",

@@ -1,32 +1,35 @@
-import React, { useState } from "react";
-import { View, StyleSheet, SafeAreaView } from "react-native";
+import React from "react";
+import { View, StyleSheet, SafeAreaView, Dimensions } from "react-native";
 import Joystick from "../components/Joystick";
 import BuzzerButton from "../widgets/BuzzerButton";
 import Header from "../widgets/Header";
 import { ManualPageProps } from "../types/navigationProperties";
-import BackgroundVideoComponent from "../components/BackGroundVideo";
 import Panel from "../widgets/Panel";
+import { VIDEO_URL } from "@env";
+import { WebView } from "react-native-webview"
+import { colors } from "common/styles";
+import { useCameraStore } from "../stores/useCameraStore";
 
 const ManualPage = ({ navigation }: ManualPageProps) => {
-  const [activeVideo, setActiveVideo] = useState<boolean>(false);
+  const { width, height } = Dimensions.get("window");
+  const { isCameraOn } = useCameraStore();
   return (
-    <BackgroundVideoComponent
-      active={activeVideo}
-      url="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-    >
-      <SafeAreaView style={styles.container}>
-        <Header
-          navigation={navigation}
-          activeVideo={activeVideo}
-          setActiveVideo={setActiveVideo}
-        />
-        <Panel />
-        <View style={styles.controls}>
-          <Joystick />
-          <BuzzerButton />
-        </View>
-      </SafeAreaView>
-    </BackgroundVideoComponent>
+    <SafeAreaView style={styles.container}>
+      <WebView
+        source={{ uri: VIDEO_URL }}
+        style={{
+          width: width,
+          height: height,
+          display: isCameraOn === false ? "none" : "flex"
+        }}
+      />
+      <Header navigation={navigation} />
+      <Panel />
+      <View style={styles.controls}>
+        <Joystick />
+        <BuzzerButton />
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -37,9 +40,11 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "transparent",
+    backgroundColor: colors.neutral1000,
   },
   controls: {
+    position: "absolute",
+    bottom: 0,
     width: "100%",
     display: "flex",
     justifyContent: "space-between",

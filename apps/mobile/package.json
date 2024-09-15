@@ -29,6 +29,7 @@
     "react-native-svg": "^15.3.0",
     "react-native-video": "^6.5.0",
     "react-native-web": "^0.19.12",
+    "react-native-webview": "^13.12.2",
     "zustand": "^4.5.5"
   },
   "devDependencies": {

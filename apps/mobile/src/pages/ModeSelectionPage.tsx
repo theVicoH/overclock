@@ -29,6 +29,8 @@ const ModeSelectionPage: React.FC<ModeSelectionPageConnectProps> = ({ navigation
       payload["data"] = 1
       socket.send(JSON.stringify(payload))
     }
+    // activate camera
+    socket.send(JSON.stringify({ "cmd": 9, "data": 1 }))
   };
 
   return (
