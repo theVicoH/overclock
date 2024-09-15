@@ -9,7 +9,7 @@ void CommandProcessor::processCommand(const char* jsonData, AsyncWebSocket& ws,
                                       unsigned long& startTime, bool& timerActive, 
                                       int& data_total_0, int& data_total_1, 
                                       int& data_total_2, int& data_total_3, 
-                                      bool& videoFlag, int& race_id, bool& race_change , bool& mode) 
+                                      bool& videoFlag, int& race_id, bool& race_change , int& mode) 
 {
     StaticJsonDocument<200> doc;
 
