@@ -52,18 +52,20 @@ func setAppTest(t *testing.T) (sqlmock.Sqlmock, *fiber.App, *store.StoreStruct, 
 
 func setStoreTest(gormDB *gorm.DB) *store.StoreStruct {
 	return &store.StoreStruct{
-		RaceModelStore:   store.NewRaceStore(gormDB),
-		SensorModelStore: store.NewSenSorDataStore(gormDB),
-		StatsRaceStore:   store.NewStatsRaceStore(gormDB),
+		RaceModelStore:    store.NewRaceStore(gormDB),
+		SensorModelStore:  store.NewSenSorDataStore(gormDB),
+		StatsRaceStore:    store.NewStatsRaceStore(gormDB),
+		VehicleModelStore: store.NewVehicleStore(gormDB),
 	}
 
 }
 
 func setHandlerTest(store *store.StoreStruct) *handler.HandlerStruct {
 	return &handler.HandlerStruct{
-		SensorModelHandler: handler.NewSenSorDataHandler(store, nil),
-		RaceModelHandler:   handler.NewRaceHandler(store),
-		StatsRaceHandler:   handler.NewStatsRaceHandler(store, nil),
+		SensorModelHandler:  handler.NewSenSorDataHandler(store, nil),
+		RaceModelHandler:    handler.NewRaceHandler(store),
+		StatsRaceHandler:    handler.NewStatsRaceHandler(store, nil),
+		VehicleModelHandler: handler.NewVehicleHandler(store),
 	}
 }
 
