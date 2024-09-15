@@ -14,7 +14,7 @@ export default function SpeedBatteryScatterChart({ speeds, battery }: SpeedBatte
     datasets: [
       {
         label: "Vitesse vs Batterie",
-        data: speeds.map((speed, index) => ({ x: speed, y: battery[index] })),
+        data: speeds.map((speed, index) => ({ x: speed / 10, y: battery[index] })),
         backgroundColor: colors.primary500,
         borderColor: colors.primary500,
         borderWidth: 1,

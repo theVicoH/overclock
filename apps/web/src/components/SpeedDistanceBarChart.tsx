@@ -16,7 +16,7 @@ export default function SpeedDistanceBarChart({ dates, speeds, distances }: Spee
     datasets: [
       {
         label: "Vitesse (km/h)",
-        data: speeds,
+        data: speeds.map(speed => speed / 10),
         backgroundColor: colors.primary500,
         stack: "stack1",
       },

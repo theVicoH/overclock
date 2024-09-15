@@ -14,7 +14,7 @@ export default function SpeedDistributionChart({ speeds }: SpeedDistributionChar
     datasets: [
       {
         label: "Distribution de la Vitesse",
-        data: Array(10).fill(0).map((_, i) => speeds.filter(s => s >= i * 10 && s < (i + 1) * 10).length),
+        data: Array(10).fill(0).map((_, i) => speeds.filter(s => s / 10 >= i * 10 && s / 10 < (i + 1) * 10).length),
         backgroundColor: `${colors.primary500}50`,
         borderColor: colors.primary500,
         borderWidth: 1,
