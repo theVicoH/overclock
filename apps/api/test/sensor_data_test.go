@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"gorm.io/gorm"
 )
@@ -18,8 +17,6 @@ func Test_Add_Sensor_Data_Success(t *testing.T) {
 	if app != nil {
 		fmt.Print("")
 	}
-	raceUUID := uuid.New()
-	sensorUUID := uuid.New()
 
 	mock.ExpectBegin()
 
@@ -46,8 +43,6 @@ func Test_Add_Sensor_Data_Failure(t *testing.T) {
 		fmt.Print("")
 	}
 
-	raceUUID := uuid.New()
-
 	mock.ExpectBegin()
 	mock.ExpectQuery(regexp.QuoteMeta(`INSERT INTO "sensor_data" ("race_id","distance","speed","date","battery","track") VALUES ($1,$2,$3,$4,$5,$6) RETURNING "id"`)).
 		WithArgs(raceUUID.String(), 100.0, 120.0, sqlmock.AnyArg(), 80.0, 0).
@@ -65,9 +60,6 @@ func Test_Add_Sensor_Data_Failure(t *testing.T) {
 
 func Test_Get_Sensor_Data_By_Race_Id_Success(t *testing.T) {
 	mock, _, store, _ := setAppTest(t)
-
-	raceUUID := uuid.New()
-	sensorUUID := uuid.New()
 
 	rows := sqlmock.NewRows([]string{"id", "race_id", "distance", "speed", "date", "battery", "track"}).
 		AddRow(sensorUUID.String(), raceUUID.String(), 100.0, 120.0, time.Now().Truncate(time.Second), 80.0, 0)
@@ -89,10 +81,8 @@ func Test_Get_Sensor_Data_By_Race_Id_Success(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func Test_GetSensorDataByRaceId_Error(t *testing.T) {
+func Test_Get_Sensor_Data_By_Race_Id_Falure(t *testing.T) {
 	mock, _, store, _ := setAppTest(t)
-
-	raceUUID := uuid.New()
 
 	mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM "sensor_data" WHERE race_id = $1`)).
 		WithArgs(raceUUID.String()).

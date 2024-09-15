@@ -4,7 +4,6 @@ import (
 	"Overclock/internal/types"
 	"bytes"
 	"encoding/json"
-	"log"
 	"net/http"
 	"net/http/httptest"
 	"regexp"
@@ -12,15 +11,12 @@ import (
 	"time"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"gorm.io/gorm"
 )
 
 func Test_Add_Race_Route_Success(t *testing.T) {
 	mock, app, _, _ := setAppTest(t)
-
-	raceUUID := uuid.New()
 
 	mock.ExpectBegin()
 	rows := sqlmock.NewRows([]string{"id"}).AddRow(raceUUID)
@@ -52,8 +48,6 @@ func Test_Add_Race_Route_Success(t *testing.T) {
 func Test_Add_Race_Route_Failure(t *testing.T) {
 	mock, app, _, _ := setAppTest(t)
 
-	raceUUID := uuid.New()
-
 	mock.ExpectBegin()
 	mock.ExpectQuery(regexp.QuoteMeta(`INSERT INTO "race" ("vehicle_id","name","date") VALUES ($1,$2,$3) RETURNING "id"`)).
 		WithArgs(raceUUID, "Test Race", sqlmock.AnyArg()).
@@ -83,8 +77,6 @@ func Test_Add_Race_Route_Failure(t *testing.T) {
 func Test_Delete_Race_Route_Success(t *testing.T) {
 	mock, app, _, _ := setAppTest(t)
 
-	raceUUID := uuid.New()
-
 	mock.ExpectBegin()
 	mock.ExpectExec(regexp.QuoteMeta(`DELETE FROM "race" WHERE id = $1`)).
 		WithArgs(raceUUID.String()).
@@ -104,8 +96,6 @@ func Test_Delete_Race_Route_Success(t *testing.T) {
 
 func Test_Delete_Race_Route_Failure(t *testing.T) {
 	mock, app, _, _ := setAppTest(t)
-
-	raceUUID := uuid.New()
 
 	mock.ExpectBegin()
 	mock.ExpectExec(regexp.QuoteMeta(`DELETE FROM "race" WHERE id = $1`)).
@@ -173,10 +163,6 @@ func Test_Get_All_Races_With_Data_Route_Failure(t *testing.T) {
 
 func Test_Get_Race_Details_By_Id_Route_Success(t *testing.T) {
 	mock, app, _, _ := setAppTest(t)
-	raceUUID := uuid.New()
-	vehicleUUID := uuid.New()
-	statsId := uuid.New()
-	sensorId := uuid.New()
 
 	raceData := types.Race{
 		Id:   raceUUID,
@@ -187,7 +173,7 @@ func Test_Get_Race_Details_By_Id_Route_Success(t *testing.T) {
 			Name: "Test Vehicle",
 		},
 		Stats: types.StatsRaceType{
-			Id:           statsId,
+			Id:           statsUUID,
 			RaceId:       raceUUID,
 			Distance:     500,
 			SpeedMax:     50,
@@ -199,7 +185,7 @@ func Test_Get_Race_Details_By_Id_Route_Success(t *testing.T) {
 		},
 		Sensors: []types.SensorData{
 			{
-				Id:       sensorId,
+				Id:       sensorUUID,
 				RaceId:   raceUUID,
 				Distance: 100,
 				Speed:    120,
@@ -233,19 +219,12 @@ func Test_Get_Race_Details_By_Id_Route_Success(t *testing.T) {
 	assert.Equal(t, http.StatusOK, resp.StatusCode)
 
 	err = mock.ExpectationsWereMet()
-	if err != nil {
 
-		log.Print("race_test.go l.260 ERR =>", err)
-	}
 	assert.NoError(t, err)
 }
 
 func Test_Get_Race_Details_By_Id_Route_Failure(t *testing.T) {
 	mock, app, _, _ := setAppTest(t)
-	raceUUID := uuid.New()
-	vehicleUUID := uuid.New()
-	statsId := uuid.New()
-	sensorId := uuid.New()
 
 	raceData := types.Race{
 		Id:   raceUUID,
@@ -256,7 +235,7 @@ func Test_Get_Race_Details_By_Id_Route_Failure(t *testing.T) {
 			Name: "Test Vehicle",
 		},
 		Stats: types.StatsRaceType{
-			Id:           statsId,
+			Id:           statsUUID,
 			RaceId:       raceUUID,
 			Distance:     500,
 			SpeedMax:     50,
@@ -268,7 +247,7 @@ func Test_Get_Race_Details_By_Id_Route_Failure(t *testing.T) {
 		},
 		Sensors: []types.SensorData{
 			{
-				Id:       sensorId,
+				Id:       sensorUUID,
 				RaceId:   raceUUID,
 				Distance: 100,
 				Speed:    120,
@@ -301,9 +280,6 @@ func Test_Get_Race_Details_By_Id_Route_Failure(t *testing.T) {
 	assert.Equal(t, http.StatusInternalServerError, resp.StatusCode)
 
 	err = mock.ExpectationsWereMet()
-	if err != nil {
 
-		log.Print("race_test.go l.260 ERR =>", err)
-	}
 	assert.NoError(t, err)
 }
