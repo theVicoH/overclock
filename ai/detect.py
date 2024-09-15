@@ -35,7 +35,7 @@ def on_message(client, userdata, msg):
     except ValueError:
         print(f"Error parsing message: {payload}")
 
-def send_adjustment_command(client, cmd_id, data_values, topic="ia/ajustments"):
+def send_adjustment_command(client, cmd_id, data_values, topic="esp32bis/ajustments"):
     """
     Envoie une commande d'ajustement à un topic MQTT.
 
@@ -100,7 +100,7 @@ def process_frame(frame, model, pid, client):
             error = center_x - (frame.shape[1] // 2)
             control_signal = pid.update(error, 0.1) 
             
-            send_adjustment_command(client, 1, [control_signal, control_signal, control_signal, control_signal])
+            send_adjustment_command(client, 1, [control_signal, control_signal, control_signal, control_signal], topic="esp32bis/ajustments")
 
             cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 2)
             cv2.putText(frame, f"{model.names[int(cls)]}: {conf:.2f}", (int(x1), int(y1) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
@@ -119,14 +119,14 @@ def process_frame(frame, model, pid, client):
         if sonar_distance <= SONAR_THRESHOLD:
             if obstacle_detected:
                 # Priorité à l'évitement si un obstacle est détecté par YOLO
-                send_adjustment_command(client, 1, [control_signal, control_signal, control_signal, control_signal])  # Éviter
+                send_adjustment_command(client, 1, [control_signal, control_signal, control_signal, control_signal], topic="esp32bis/ajustments")  # Éviter
             else:
                 # Arrêt uniquement si aucun obstacle n'est détecté par YOLO
-                send_adjustment_command(client, 1, [0, 0, 0, 0])  # Arrêt immédiat
+                send_adjustment_command(client, 1, [0, 0, 0, 0], topic="esp32bis/ajustments")  # Arrêt immédiat
         elif obstacle_detected:
-            send_adjustment_command(client, 1, [control_signal, control_signal, control_signal, control_signal])  # Éviter
+            send_adjustment_command(client, 1, [control_signal, control_signal, control_signal, control_signal], topic="esp32bis/ajustments")  # Éviter
         else:
-            send_adjustment_command(client, 1, [2000, 2000, 2000, 2000])  # Continuer
+            send_adjustment_command(client, 1, [2000, 2000, 2000, 2000], topic="esp32bis/ajustments")  # Continuer
 
 def main():
     """
@@ -146,7 +146,7 @@ def main():
     
     client.loop_start()
 
-    #connexion au flux vidéo
+    # Connexion au flux vidéo
     cap = None
     stream_url = 'http://192.168.1.150:7000/'
     
