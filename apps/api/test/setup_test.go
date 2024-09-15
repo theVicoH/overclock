@@ -7,10 +7,18 @@ import (
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/gofiber/fiber/v3"
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+)
+
+var (
+	vehicleUUID = uuid.New()
+	raceUUID    = uuid.New()
+	statsUUID   = uuid.New()
+	sensorUUID  = uuid.New()
 )
 
 func setDbMockTest(t *testing.T) (sqlmock.Sqlmock, *gorm.DB) {
@@ -44,18 +52,20 @@ func setAppTest(t *testing.T) (sqlmock.Sqlmock, *fiber.App, *store.StoreStruct, 
 
 func setStoreTest(gormDB *gorm.DB) *store.StoreStruct {
 	return &store.StoreStruct{
-		RaceModelStore:   store.NewRaceStore(gormDB),
-		SensorModelStore: store.NewSenSorDataStore(gormDB),
-		StatsRaceStore:   store.NewStatsRaceStore(gormDB),
+		RaceModelStore:    store.NewRaceStore(gormDB),
+		SensorModelStore:  store.NewSenSorDataStore(gormDB),
+		StatsRaceStore:    store.NewStatsRaceStore(gormDB),
+		VehicleModelStore: store.NewVehicleStore(gormDB),
 	}
 
 }
 
 func setHandlerTest(store *store.StoreStruct) *handler.HandlerStruct {
 	return &handler.HandlerStruct{
-		SensorModelHandler: handler.NewSenSorDataHandler(store, nil),
-		RaceModelHandler:   handler.NewRaceHandler(store),
-		StatsRaceHandler:   handler.NewStatsRaceHandler(store, nil),
+		SensorModelHandler:  handler.NewSenSorDataHandler(store, nil),
+		RaceModelHandler:    handler.NewRaceHandler(store),
+		StatsRaceHandler:    handler.NewStatsRaceHandler(store, nil),
+		VehicleModelHandler: handler.NewVehicleHandler(store),
 	}
 }
 
@@ -65,6 +75,16 @@ func setRouterTest(app *fiber.App, handler *handler.HandlerStruct) {
 	raceGroup.Get("/", handler.GetAllRacesWithData)   //done
 	raceGroup.Post("/", handler.AddRace)              //done
 	raceGroup.Delete("/:id", handler.DeleteRaceById)  //done
+
+	vehicleGroup := app.Group("/vehicle")
+	vehicleGroup.Get("/details", handler.GetAllVehiclesWithRaces)
+	vehicleGroup.Get("/stats", handler.GetVehiclesStats)
+	vehicleGroup.Get("/sort", handler.GetClassementBySpeed)
+	vehicleGroup.Get("/:id", handler.GetVehicleById)
+	vehicleGroup.Get("/stats/:id", handler.GetVehicleStatsById)
+	vehicleGroup.Get("/details/:id", handler.GetVehicleWithRacesById)
+	vehicleGroup.Get("/", handler.GetAllVehicle)
+	vehicleGroup.Post("/", handler.AddVehicle)
 
 	statsRaceGroup := app.Group("/stats_race")
 	statsRaceGroup.Get("/", handler.AddStatsRace)
