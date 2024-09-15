@@ -31,7 +31,7 @@
     MQTTManager mqttManager;
     CommandProcessor commandProcessor;
     PublishToTopicManager publishToTopic;
-    VideoManager Video;
+    // VideoManager Video;
 
     #define STREAM_CONTENT_BOUNDARY "123456789000000000000987654321"
 
@@ -83,7 +83,7 @@
     int mqtt_port;
     int mqtt_interval_ms = 5000;   // L'interval en ms entre deux envois de données
 
-    // WiFiServer server_Camera(7000);
+    WiFiServer server_Camera(7000);
 
     IPAddress localIP;
     IPAddress localGateway;
@@ -99,6 +99,8 @@
     void handleWebSocketMessage(void *arg, uint8_t *data, size_t len);
     void onEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len);
     void initWebSocket();
+    void reconnect();
+    void loopTask_Camera(void *pvParameters);
 
     void WiFi_Init()
     {
@@ -156,7 +158,7 @@
     // Rest of the initialization
     Buzzer_Setup();
     WiFi_Init();
-    Video.start_server_camera();
+    server_Camera.begin(7000);
     WiFi_Setup(0);
     cameraSetup();
     camera_vflip(true);
@@ -169,10 +171,34 @@
     Ultrasonic_Setup();
     disableCore0WDT();
     // xTaskCreateUniversal(Video.loopTask_Camera_WS, "loopTask_Camera_WS", 8192, NULL, 0, NULL, 0);
-    xTaskCreateUniversal(Video.loopTask_Camera, "loopTask_Camera", 8192, NULL, 0, NULL, 0);
+     xTaskCreateUniversal(loopTask_Camera, "loopTask_Camera", 8192, NULL, 0, NULL, 0);
     xTaskCreateUniversal(loopTask_WTD, "loopTask_WTD", 8192, NULL, 0, NULL, 0);
     initWebSocket();
-    Video.video_stream(&server);
+
+     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
+              { 
+                camera_fb_t *fb = NULL;
+                fb = esp_camera_fb_get();
+                        if (fb != NULL)
+                        {
+                            uint8_t slen[4];
+                            slen[0] = fb->len >> 0;
+                            slen[1] = fb->len >> 8;
+                            slen[2] = fb->len >> 16;
+                            slen[3] = fb->len >> 24;
+                            AsyncResponseStream *response = request->beginResponseStream("image");
+                            // response->write(slen, 4);
+                            response->write(fb->buf, fb->len);
+                            request->send(response);
+                            // client.write(slen, 4);
+                            // client.write(fb->buf, fb->len);
+                            // request->send_P(200, "application/octet-stream", fb->buf, fb->len);
+                            // request->send(fb->buf, "application/octet-stream", fb->len);
+                            // Serial.println("Camera send");
+                            esp_camera_fb_return(fb);
+                            fb = NULL;
+                        } });
+    server.begin();
 
     Emotion_SetMode(1);
     WS2812_SetMode(1);
@@ -192,8 +218,7 @@
         // The MQTT part
         if (!client.connected())
         {
-            // reconnect();
-            mqttManager.reconnect(client);
+            reconnect();
         }
         client.loop();
         publishToTopic.publish(client, last_message, sensor_v, buff, ultrasonic_buff, distance_buff, speed_buff,
@@ -241,11 +266,82 @@
     {
         ws.onEvent(onEvent);
         server.addHandler(&ws);
-        wsCar.onEvent([](AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len) {
-             Video.onVideoEvent(server, client, type, arg, data, len, videoFlag, wsCar);
-        });
+        // wsCar.onEvent([](AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len) {
+        //      Video.onVideoEvent(server, client, type, arg, data, len, videoFlag, wsCar);
+        // });
         server.addHandler(&wsCar);
         webSocket.begin(websocket_server_url, websocket_server_port, websocket_path);
         webSocket.onEvent(webSocketEvent);
+    }
+
+    void loopTask_Camera(void *pvParameters)
+{
+    while (1)
+    {
+        char size_buf[12];
+        WiFiClient wf_client = server_Camera.available(); // listen for incoming clients
+        if (wf_client)
+        { // if you get a client
+            Serial.println("Camera_Server connected to a client.");
+            if (wf_client.connected())
+            {
+                camera_fb_t *fb = NULL;
+                wf_client.write("HTTP/1.1 200 OK\r\nAccess-Control-Allow-Origin: *\r\nContent-Type: multipart/x-mixed-replace; boundary=" STREAM_CONTENT_BOUNDARY "\r\n");
+                while (wf_client.connected())
+                { // loop while the client's connected
+                    if (videoFlag == 1)
+                    {
+                        fb = esp_camera_fb_get();
+                        if (fb != NULL)
+                        {
+                            wf_client.write("\r\n--" STREAM_CONTENT_BOUNDARY "\r\n");
+                            wf_client.write("Content-Type: image/jpeg\r\nContent-Length: ");
+                            sprintf(size_buf, "%d\r\n\r\n", fb->len);
+                            wf_client.write(size_buf);
+                            wf_client.write(fb->buf, fb->len);
+
+                            // uint8_t slen[4];
+                            // slen[0] = fb->len >> 0;
+                            // slen[1] = fb->len >> 8;
+                            // slen[2] = fb->len >> 16;
+                            // slen[3] = fb->len >> 24;
+                            // wf_client.write(slen, 4);
+                            // wf_client.write(fb->buf, fb->len);
+                            // Serial.println("Camera send");
+                            esp_camera_fb_return(fb);
+                        }
+                    }
+                }
+                // close the connection:
+                wf_client.stop();
+                Serial.println("Camera Client Disconnected.");
+                // ESP.restart();
+            }
+        }
+    }
+}
+
+    void reconnect()
+    {
+        // Loop until we're reconnected
+        while (!client.connected())
+        {
+            Serial.print("Attempting MQTT connection...");
+            // Attempt to connect
+            if (client.connect("ESP32ClientBis"))
+            {
+                Serial.println("connected");
+                // Subscribe
+                client.subscribe("esp32bis/ajustments");
+            }
+            else
+            {
+                Serial.print("failed, rc=");
+                Serial.print(client.state());
+                Serial.println(" try again in 5 seconds");
+                // Wait 5 seconds before retrying
+                delay(5000);
+            }
+        }
     }
   
