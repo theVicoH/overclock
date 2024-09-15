@@ -24,21 +24,6 @@ type SensorDataResponse struct {
 	Date     []time.Time `json:"date"`
 }
 
-type Orientation struct {
-	X string
-	Y string
-}
-
-type SensorSpeed struct {
-	Speed    float32
-	DateTech time.Time
-}
-
-type SensorConsumption struct {
-	Consumption float32
-	DateTech    time.Time
-}
-
 func (SensorData) TableName() string {
 	return "sensor_data"
 }

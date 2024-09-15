@@ -31,7 +31,7 @@ export default function RaceCard({ id, name, vehicle_name, date, distance, speed
       <CardContent>
         <p>Distance Total: {distance || "-"} km</p>
         <p>Vitesse moyenne: {speed_average || "-"} km/h</p>
-        <p>Temps Total: {time || "-"} ms</p>
+        <p>Temps Total: {time || "-"} s</p>
         {!is_finish && (
           <div className="mt-4 text-red-600">
             <p>Course en cours</p>

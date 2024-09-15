@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import Header from "../widgets/Header";
 import { colors } from "common/styles";
 import { AutoPageProps } from "../types/navigationProperties";
@@ -8,13 +8,17 @@ import { ButtonIconsPosition, ButtonVariants } from "../types/buttons";
 import { LogoOverclock } from "common/icons/mobile";
 import { SocketContext } from "../context/socket";
 import { SafeAreaView } from "react-native";
-import BackgroundVideoComponent from "../components/BackGroundVideo";
+import Panel from "../widgets/Panel";
+import { VIDEO_URL } from "@env";
+import { WebView } from "react-native-webview"
+import { useCameraStore } from "../stores/useCameraStore";
 import Modal from "../components/Modal";
 
 const Autopage = ({ navigation }: AutoPageProps) => {
-  const [activeVideo, setActiveVideo] = useState<boolean>(false);
-  const [activeModal, setActiveModal] = useState<boolean>(false);
+  const { isCameraOn } = useCameraStore()
+  const { width, height } = Dimensions.get("window");
   const socket = useContext(SocketContext);
+  const [activeModal, setActiveModal] = useState<boolean>(false);
   useEffect(() => {
     return () => {
       if (socket) {
@@ -25,28 +29,28 @@ const Autopage = ({ navigation }: AutoPageProps) => {
   }, []);
   return (
     <>
-      <BackgroundVideoComponent
-        active={activeVideo}
-        url="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-      >
-        <SafeAreaView style={styles.container}>
-          <Header
-            navigation={navigation}
-            activeVideo={activeVideo}
-            setActiveVideo={setActiveVideo}
-          />
-          <View style={styles.controls}>
-            <Button
-              variant={ButtonVariants.Primary}
-              onPress={() => setActiveModal(true)}
-              icon={<LogoOverclock stroke={colors.neutral1000} />}
-              iconPosition={ButtonIconsPosition.Left}
-            >
-              Start Auto Mode
-            </Button>
-          </View>
-        </SafeAreaView>
-      </BackgroundVideoComponent>
+      <SafeAreaView style={styles.container}>
+        <WebView
+          source={{ uri: VIDEO_URL }}
+          style={{
+            width: width,
+            height: height,
+            display: isCameraOn === false ? "none" : "flex"
+          }}
+        />
+        <Header navigation={navigation} />
+        <Panel />
+        <View style={styles.controls}>
+          <Button
+            variant={ButtonVariants.Primary}
+            onPress={() => setActiveModal(true)}
+            icon={<LogoOverclock stroke={colors.neutral1000} />}
+            iconPosition={ButtonIconsPosition.Left}
+          >
+            Start Auto Mode
+          </Button>
+        </View>
+      </SafeAreaView>
       <Modal active={activeModal} setActive={setActiveModal} />
     </>
   );
@@ -59,9 +63,11 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "transparent",
+    backgroundColor: colors.neutral1000,
   },
   controls: {
+    position: "absolute",
+    bottom: 0,
     width: "100%",
     display: "flex",
     justifyContent: "center",

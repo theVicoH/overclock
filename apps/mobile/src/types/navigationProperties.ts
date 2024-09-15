@@ -39,6 +39,4 @@ export type ModeSelectionPageConnectProps = {
 
 export type HeaderProps = {
   navigation: NavigationProp<RootStackParamList>;
-  activeVideo: boolean;
-  setActiveVideo: Dispatch<SetStateAction<boolean>>;
 };

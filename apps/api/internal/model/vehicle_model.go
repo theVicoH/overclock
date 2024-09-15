@@ -10,8 +10,6 @@ import (
 type VehicleModelHandler interface {
 	AddVehicle(fiber.Ctx) error
 	GetVehicleById(fiber.Ctx) error
-	DeleteVehicleById(fiber.Ctx) error
-	UpdateVehicleById(fiber.Ctx) error
 	GetAllVehicle(fiber.Ctx) error
 	GetAllVehiclesWithRaces(fiber.Ctx) error
 	GetVehicleWithRacesById(fiber.Ctx) error
@@ -23,8 +21,6 @@ type VehicleModelHandler interface {
 type VehicleModelStore interface {
 	AddVehicle(vehicle types.VehicleType) (types.VehicleType, error)
 	GetVehicleById(id string) (types.VehicleType, error)
-	DeleteVehicleById(id string) (bool, error)
-	UpdateVehicleById(id string, vehicleType types.VehicleType) (types.VehicleType, error)
 	GetAllVehicle() ([]types.VehicleType, error)
 	GetAllVehiclesWithRaces() ([]types.VehicleWithRacesDetailType, error)
 	GetVehicleWithRacesById(id uuid.UUID) (types.VehicleWithRacesDetailType, error)

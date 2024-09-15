@@ -25,10 +25,9 @@ const ModeSelectionPage: React.FC<ModeSelectionPageConnectProps> = ({ navigation
       socket.send(JSON.stringify(payload))
     } else {
       navigation.navigate("AutoPage");
-      // this payload is to set the car on auto mode
-      payload["data"] = 1
-      socket.send(JSON.stringify(payload))
     }
+    // activate camera
+    socket.send(JSON.stringify({ "cmd": 9, "data": 1 }))
   };
 
   return (

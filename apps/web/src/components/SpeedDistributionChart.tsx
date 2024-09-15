@@ -10,11 +10,11 @@ interface SpeedDistributionChartProps {
 
 export default function SpeedDistributionChart({ speeds }: SpeedDistributionChartProps) {
   const data = {
-    labels: Array.from({ length: 10 }, (_, i) => `${i * 10}-${(i + 1) * 10} km/h`),
+    labels: Array.from({ length: 10 }, (_, i) => `${i}-${i + 1} km/h`),
     datasets: [
       {
         label: "Distribution de la Vitesse",
-        data: Array(10).fill(0).map((_, i) => speeds.filter(s => s >= i * 10 && s < (i + 1) * 10).length),
+        data: Array(10).fill(0).map((_, i) => speeds.filter((s) => s / 10 >= i && s / 10 < i + 1).length),
         backgroundColor: `${colors.primary500}50`,
         borderColor: colors.primary500,
         borderWidth: 1,

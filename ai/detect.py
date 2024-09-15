@@ -8,18 +8,17 @@ from functions import send_message, connect_mqtt, initialize_yolo
 sonar_distance = float('inf')
 automatic_mode = False  
 SONAR_THRESHOLD = 3
-frame = None  
 
 def on_message(client, userdata, msg):
     """
-    Gère les messages MQTT reçus et met à jour les variables global.
+    Gère les messages MQTT reçus et met à jour les variables globales.
 
     Args:
         client: Instance du client MQTT.
         userdata: Données utilisateur associées au client.
         msg: Message MQTT reçu.
     """
-    global frame, sonar_distance, automatic_mode
+    global sonar_distance, automatic_mode
 
     print(f"Received message on topic {msg.topic}")
     payload = msg.payload
@@ -33,18 +32,10 @@ def on_message(client, userdata, msg):
             automatic_mode = payload.decode().lower() == "auto"
             print(f"Automatic mode set to: {automatic_mode}")
 
-        elif msg.topic == "esp32/camera":
-            try:
-                np_array = np.frombuffer(payload, np.uint8)
-                frame = cv2.imdecode(np_array, cv2.IMREAD_COLOR)
-                print(f"Received and decoded image from camera")
-            except Exception as e:
-                print(f"Failed to decode image: {e}")
-
     except ValueError:
         print(f"Error parsing message: {payload}")
 
-def send_adjustment_command(client, cmd_id, data_values, topic="ia/ajustments"):
+def send_adjustment_command(client, cmd_id, data_values, topic="esp32bis/ajustments"):
     """
     Envoie une commande d'ajustement à un topic MQTT.
 
@@ -109,7 +100,7 @@ def process_frame(frame, model, pid, client):
             error = center_x - (frame.shape[1] // 2)
             control_signal = pid.update(error, 0.1) 
             
-            send_adjustment_command(client, 1, [control_signal, control_signal, control_signal, control_signal])
+            send_adjustment_command(client, 1, [control_signal, control_signal, control_signal, control_signal], topic="esp32bis/ajustments")
 
             cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 2)
             cv2.putText(frame, f"{model.names[int(cls)]}: {conf:.2f}", (int(x1), int(y1) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
@@ -128,14 +119,14 @@ def process_frame(frame, model, pid, client):
         if sonar_distance <= SONAR_THRESHOLD:
             if obstacle_detected:
                 # Priorité à l'évitement si un obstacle est détecté par YOLO
-                send_adjustment_command(client, 1, [control_signal, control_signal, control_signal, control_signal])  # Éviter
+                send_adjustment_command(client, 1, [control_signal, control_signal, control_signal, control_signal], topic="esp32bis/ajustments")  # Éviter
             else:
                 # Arrêt uniquement si aucun obstacle n'est détecté par YOLO
-                send_adjustment_command(client, 1, [0, 0, 0, 0])  # Arrêt immédiat
+                send_adjustment_command(client, 1, [0, 0, 0, 0], topic="esp32bis/ajustments")  # Arrêt immédiat
         elif obstacle_detected:
-            send_adjustment_command(client, 1, [control_signal, control_signal, control_signal, control_signal])  # Éviter
+            send_adjustment_command(client, 1, [control_signal, control_signal, control_signal, control_signal], topic="esp32bis/ajustments")  # Éviter
         else:
-            send_adjustment_command(client, 1, [2000, 2000, 2000, 2000])  # Continuer
+            send_adjustment_command(client, 1, [2000, 2000, 2000, 2000], topic="esp32bis/ajustments")  # Continuer
 
 def main():
     """
@@ -152,21 +143,43 @@ def main():
     client.subscribe("esp32/mode") 
     client.subscribe("ia/led")
     client.subscribe("ia/bip")
-    client.subscribe("esp32/camera")
-
+    
     client.loop_start()
 
+    # Connexion au flux vidéo
+    cap = None
+    stream_url = 'http://192.168.1.150:7000/'
+    
     while True:
-        if automatic_mode and frame is not None:
+        if automatic_mode:
+            if cap is None or not cap.isOpened():
+                print("Attempting to connect to video stream...")
+                cap = cv2.VideoCapture(stream_url)
+                if not cap.isOpened():
+                    print(f"Failed to open video stream from URL: {stream_url}")
+                    time.sleep(2)
+                    continue 
+                else:
+                    print("Connected to video stream successfully.")
+
+            ret, frame = cap.read()
+            if not ret:
+                print("Failed to read frame from stream.")
+                cap.release()
+                cap = None
+                continue
+
             process_frame(frame, model, pid, client)
             cv2.imshow('Frame', frame)
-        
+            
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
         else:
-            print("Waiting for automatic mode to be enabled or for frame data...")
+            print("Waiting for automatic mode to be enabled...")
             time.sleep(1)
 
+    if cap is not None:
+        cap.release()
     cv2.destroyAllWindows()
     client.loop_stop()
 

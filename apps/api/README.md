@@ -26,10 +26,12 @@ The API is built on the following stack:
 
 Base URL (prod): [api.clementpnn.com](api.clementpnn.com)
 
-**HTTP Routes:**
+**Routes:**
 
-`/` <br>
+`/race/?id` Displays a race and it's datas<br>
+`/race/` Displays all races with their data<br>
+`/race/` Add a race<br>
+`/race/:id` Delete a race by it's corresponding id<br>
 
-**MQTT Routes:**
-
-`/` <br>
+`/stats_race/` Displays stats of a race<br>
+`/stats_race/?id` Add stats to a race
